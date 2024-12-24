@@ -1,10 +1,9 @@
 #pragma once
-#include <pch.h>
-#include <framework.h>
 #include <STDVariable.h>
 #include <ValueTypes.h>
 #include <macros.h>
 #include <templates.h>
+#include <vector>
 
 namespace glsl {
 	class STDOffsets {

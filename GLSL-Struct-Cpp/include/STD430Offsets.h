@@ -1,6 +1,4 @@
 #pragma once
-#include <pch.h>
-#include <framework.h>
 #include <STDOffsets.h>
 
 namespace glsl {
@@ -53,7 +51,7 @@ namespace glsl {
 		DeclareCloneFunc(STD430Offsets)
 
 #pragma region ADD_SCALAR
-			template<class T>
+		template<class T>
 		typename extra::scalar_enable_if_t<T, size_t>
 		Add(const std::string& name) {
 			if constexpr (std::is_same_v<T, bool>) {
@@ -80,7 +78,7 @@ namespace glsl {
 
 #pragma region ADD_VEC
 		template<class V, class T = V::value_type, size_t L = V::length()>
-		typename extra::vec_enable_if_t<V, T, L, size_t>
+		typename extra::vec_enable_if_t<T, L, size_t>
 		Add(const std::string& name) {
 			if constexpr (std::is_same_v<T, bool>) {
 				// sizeof(unsigned int) = 4
@@ -92,7 +90,7 @@ namespace glsl {
 		}
 
 		template<class V, class T = V::value_type, size_t L = V::length()>
-		typename extra::vec_enable_if_t<V, T, L, std::vector<size_t>>
+		typename extra::vec_enable_if_t<T, L, std::vector<size_t>>
 		Add(const std::string& name, size_t size) {
 			if constexpr (std::is_same_v<T, bool>) {
 				// sizeof(unsigned int) = 4
@@ -106,7 +104,7 @@ namespace glsl {
 
 #pragma region ADD_MAT
 		template<class M, bool column_major = true, class T = M::value_type, size_t C = M::row_type::length(), size_t R = M::col_type::length()>
-		typename extra::mat_enable_if_t<M, T, C, R, size_t>
+		typename extra::mat_enable_if_t<T, C, R, size_t>
 		Add(const std::string& name) {
 			if constexpr (std::is_same_v<T, bool>) {
 				// sizeof(unsigned int) = 4
@@ -118,7 +116,7 @@ namespace glsl {
 		}
 
 		template<class M, bool column_major = true, class T = M::value_type, size_t C = M::row_type::length(), size_t R = M::col_type::length()>
-		typename extra::mat_enable_if_t<M, T, C, R, std::vector<size_t>>
+		typename extra::mat_enable_if_t<T, C, R, std::vector<size_t>>
 		Add(const std::string& name, size_t size) {
 			if constexpr (std::is_same_v<T, bool>) {
 				return _AddMatrixArray(name, C, R, column_major, 4, 4, GetValueType<T>(), size);

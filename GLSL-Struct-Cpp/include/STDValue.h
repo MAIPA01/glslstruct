@@ -1,6 +1,4 @@
 #pragma once
-#include <pch.h>
-#include <framework.h>
 #include <STDVariable.h>
 #include <STDStruct.h>
 

@@ -1,6 +1,4 @@
 #pragma once
-#include <pch.h>
-#include <framework.h>
 #include <templates.h>
 
 namespace glsl {
@@ -39,10 +37,10 @@ namespace glsl {
 		template<class T = var_type, typename = extra::scalar_enable_if_t<T>>
 		STDVariable(const std::string& name) : var_name(name), struct_offsets(nullptr) {}
 
-		template<class T = var_type, class VT = T::value_type, size_t L = T::length(), typename = extra::vec_enable_if_t<T, VT, L>>
+		template<class T = var_type, class VT = T::value_type, size_t L = T::length(), typename = extra::vec_enable_if_t<VT, L>>
 		STDVariable(const std::string& name) : var_name(name), struct_offsets(nullptr) {}
 
-		template<class T = var_type, class MT = T::value_type, size_t C = T::row_type::length(), size_t R = T::col_type::length(), typename = extra::mat_enable_if_t<T, MT, C, R>>
+		template<class T = var_type, class MT = T::value_type, size_t C = T::row_type::length(), size_t R = T::col_type::length(), typename = extra::mat_enable_if_t<MT, C, R>>
 		STDVariable(const std::string& name) : var_name(name), struct_offsets(nullptr) {}
 #pragma endregion
 

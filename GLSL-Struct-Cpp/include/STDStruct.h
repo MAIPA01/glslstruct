@@ -1,7 +1,5 @@
 #pragma once
 
-#include <pch.h>
-#include <framework.h>
 #include <EventHandler.h>
 #include <STD140Offsets.h>
 #include <STD430Offsets.h>
@@ -277,7 +275,7 @@ namespace glsl {
 			std::vector<unsigned char> valueData = std::move(_GetValueData(value));
 
 			// SET VALUE DATA
-			memcpy(_data.data() + valueOffset, valueData.data(), glm::min(valueData.size(), _data.size() - valueOffset));
+			memcpy(_data.data() + valueOffset, valueData.data(), std::min(valueData.size(), _data.size() - valueOffset));
 
 			// CLEAR TEMP VALUE DATA
 			valueData.clear();
@@ -317,7 +315,7 @@ namespace glsl {
 				valueData = std::move(_GetValueData(values[i]));
 
 				// SET VALUE DATA
-				memcpy(_data.data(), valueData.data(), glm::min(glm::min(valueData.size(), arrayElemDataSize), _data.size() - valuesOffsets[i]));
+				memcpy(_data.data(), valueData.data(), std::min(std::min(valueData.size(), arrayElemDataSize), _data.size() - valuesOffsets[i]));
 
 				// CLEAR TEMP VALUE DATA
 				valueData.clear();
@@ -405,7 +403,7 @@ namespace glsl {
 			valueData.reserve(sizeof(T));
 
 			// GET VALUE DATA
-			valueData.insert(valueData.begin(), _data.begin() + valueOffset, _data.begin() + valueOffset + glm::min(valueData.capacity(), _data.size() - valueOffset));
+			valueData.insert(valueData.begin(), _data.begin() + valueOffset, _data.begin() + valueOffset + std::min(valueData.capacity(), _data.size() - valueOffset));
 
 			// CHECK VALUE DATA SIZE
 			if (valueData.size() < valueData.capacity()) {
@@ -440,7 +438,7 @@ namespace glsl {
 			}
 
 			// GET ARRAY ELEM DATA MAX SIZE
-			size_t arrayElemDataSize = glm::min(_GetArrayElemSize(valuesOffsets), sizeof(T));
+			size_t arrayElemDataSize = std::min(_GetArrayElemSize(valuesOffsets), sizeof(T));
 
 			// GET VALUES DATA
 			std::vector<T> values;
@@ -449,7 +447,7 @@ namespace glsl {
 			size_t maxSize;
 			for (size_t i = 0; i < valuesOffsets.size(); ++i) {
 				// GET MAX VALUE SIZE
-				maxSize = glm::min(arrayElemDataSize, _data.size() - valuesOffsets[i]);
+				maxSize = std::min(arrayElemDataSize, _data.size() - valuesOffsets[i]);
 
 				// GET VALUE DATA
 				memcpy(valueData.data(), _data.data() + valuesOffsets[i], maxSize);
@@ -645,7 +643,7 @@ namespace glsl {
 
 #pragma region ADD_VEC
 		template<class V, class T = V::value_type, size_t L = V::length()>
-		typename extra::vec_enable_if_t<V, T, L, size_t>
+		typename extra::vec_enable_if_t<T, L, size_t>
 		Add(const std::string& name, const V& value) {
 			if constexpr (std::is_same_v<T, bool>) {
 				return _Add(name, (glm::vec<L, unsigned int>)value);
@@ -657,7 +655,7 @@ namespace glsl {
 
 #pragma region ADD_VEC_ARRAYS
 		template<class V, class T = V::value_type, size_t L = V::length()>
-		typename extra::vec_enable_if_t<V, T, L, std::vector<size_t>>
+		typename extra::vec_enable_if_t<T, L, std::vector<size_t>>
 		Add(const std::string& name, const V*& values, size_t size) {
 			using type = glm::vec<L, extra::type_test_t<std::is_same_v<T, bool>, unsigned int, T>>;
 			return _ConvertArray<V, type>(name, values, size, 
@@ -665,7 +663,7 @@ namespace glsl {
 		}
 
 		template<class V, class T = V::value_type, size_t L = V::length(), size_t N>
-		typename extra::vec_enable_if_t<V, T, L, std::vector<size_t>>
+		typename extra::vec_enable_if_t<T, L, std::vector<size_t>>
 		Add(const std::string& name, const V(&values)[N]) {
 			using type = glm::vec<L, extra::type_test_t<std::is_same_v<T, bool>, unsigned int, T>>;
 			return _ConvertArray<V, type>(name, values, N, 
@@ -673,7 +671,7 @@ namespace glsl {
 		}
 
 		template<class V, class T = V::value_type, size_t L = V::length()>
-		typename extra::vec_enable_if_t<V, T, L, std::vector<size_t>>
+		typename extra::vec_enable_if_t<T, L, std::vector<size_t>>
 		Add(const std::string& name, const std::vector<V>& values) {
 			using type = glm::vec<L, extra::type_test_t<std::is_same_v<T, bool>, unsigned int, T>>;
 			return _ConvertArray<V, type>(name, values, values.size(),
@@ -685,7 +683,7 @@ namespace glsl {
 
 #pragma region ADD_MAT
 		template<class M, bool column_major = true, class T = M::value_type, size_t C = M::row_type::length(), size_t R = M::col_type::length()>
-		typename extra::mat_enable_if_t<M, T, C, R, size_t>
+		typename extra::mat_enable_if_t<T, C, R, size_t>
 		Add(const std::string& name, const M& value) {
 			if constexpr (column_major) {
 				if constexpr (std::is_same_v<T, bool>) {
@@ -707,7 +705,7 @@ namespace glsl {
 
 #pragma region ADD_MAT_ARRAYS
 		template<class M, bool column_major = true, class T = M::value_type, size_t C = M::row_type::length(), size_t R = M::col_type::length()>
-		typename extra::mat_enable_if_t<M, T, C, R, std::vector<size_t>>
+		typename extra::mat_enable_if_t<T, C, R, std::vector<size_t>>
 		Add(const std::string& name, const M*& values, size_t size) {
 			if constexpr (column_major) {
 				using type = glm::mat<C, R, extra::type_test_t<std::is_same_v<T, bool>, unsigned int, T>>;
@@ -727,7 +725,7 @@ namespace glsl {
 		}
 
 		template<class M, bool column_major = true, class T = M::value_type, size_t C = M::row_type::length(), size_t R = M::col_type::length(), size_t N>
-		typename extra::mat_enable_if_t<M, T, C, R, std::vector<size_t>>
+		typename extra::mat_enable_if_t<T, C, R, std::vector<size_t>>
 		Add(const std::string& name, const M(&values)[N]) {
 			if constexpr (column_major) {
 				using type = glm::mat<C, R, extra::type_test_t<std::is_same_v<T, bool>, unsigned int, T>>;
@@ -747,7 +745,7 @@ namespace glsl {
 		}
 
 		template<class M, bool column_major = true, class T = M::value_type, size_t C = M::row_type::length(), size_t R = M::col_type::length()>
-		typename extra::mat_enable_if_t<M, T, C, R, std::vector<size_t>>
+		typename extra::mat_enable_if_t<T, C, R, std::vector<size_t>>
 		Add(const std::string& name, const std::vector<M>& values) {
 			if constexpr (column_major) {
 				using type = glm::mat<C, R, extra::type_test_t<std::is_same_v<T, bool>, unsigned int, T>>;
@@ -844,7 +842,7 @@ namespace glsl {
 
 #pragma region SET_VEC
 		template<class V, class T = V::value_type, size_t L = V::length()>
-		typename extra::vec_enable_if_t<V, T, L, bool>
+		typename extra::vec_enable_if_t<T, L, bool>
 		Set(const std::string& name, const V& value) {
 			if constexpr (std::is_same_v<T, bool>) {
 				return _Set(name, (glm::vec<L, unsigned int>)value);
@@ -856,7 +854,7 @@ namespace glsl {
 
 #pragma region SET_VEC_ARRAYS
 		template<class V, class T = V::value_type, size_t L = V::length()>
-		typename extra::vec_enable_if_t<V, T, L, bool>
+		typename extra::vec_enable_if_t<T, L, bool>
 		Set(const std::string& name, const V*& values, size_t size) {
 			using type = glm::vec<L, extra::type_test_t<std::is_same_v<T, bool>, unsigned int, T>>;
 			return _ConvertArray<V, type>(name, values, size, 
@@ -864,7 +862,7 @@ namespace glsl {
 		}
 
 		template<class V, class T = V::value_type, size_t L = V::length(), size_t N>
-		typename extra::vec_enable_if_t<V, T, L, bool>
+		typename extra::vec_enable_if_t<T, L, bool>
 		Set(const std::string& name, const V(&values)[N]) {
 			using type = glm::vec<L, extra::type_test_t<std::is_same_v<T, bool>, unsigned int, T>>;
 			return _ConvertArray<V, type>(name, values, N, 
@@ -872,7 +870,7 @@ namespace glsl {
 		}
 
 		template<class V, class T = V::value_type, size_t L = V::length()>
-		typename extra::vec_enable_if_t<V, T, L, bool>
+		typename extra::vec_enable_if_t<T, L, bool>
 		Set(const std::string& name, const std::vector<V>& values) {
 			using type = glm::vec<L, extra::type_test_t<std::is_same_v<T, bool>, unsigned int, T>>;
 			return _ConvertArray<V, type>(name, values, values.size(),
@@ -884,7 +882,7 @@ namespace glsl {
 
 #pragma region SET_MAT
 		template<class M, bool column_major = true, class T = M::value_type, size_t C = M::row_type::length(), size_t R = M::col_type::length()>
-		typename extra::mat_enable_if_t<M, T, C, R, bool>
+		typename extra::mat_enable_if_t<T, C, R, bool>
 		Set(const std::string& name, const M& value) {
 			if constexpr (column_major) {
 				if constexpr (std::is_same_v<T, bool>) {
@@ -906,7 +904,7 @@ namespace glsl {
 
 #pragma region SET_MAT_ARRAYS
 		template<class M, bool column_major = true, class T = M::value_type, size_t C = M::row_type::length(), size_t R = M::col_type::length()>
-		typename extra::mat_enable_if_t<M, T, C, R, bool>
+		typename extra::mat_enable_if_t<T, C, R, bool>
 		Set(const std::string& name, const M*& values, size_t size) {
 			if constexpr (column_major) {
 				using type = glm::mat<C, R, extra::type_test_t<std::is_same_v<T, bool>, unsigned int, T>>;
@@ -926,7 +924,7 @@ namespace glsl {
 		}
 
 		template<class M, bool column_major = true, class T = M::value_type, size_t C = M::row_type::length(), size_t R = M::col_type::length(), size_t N>
-		typename extra::mat_enable_if_t<M, T, C, R, bool>
+		typename extra::mat_enable_if_t<T, C, R, bool>
 		Set(const std::string& name, const M(&values)[N]) {
 			if constexpr (column_major) {
 				using type = glm::mat<C, R, extra::type_test_t<std::is_same<T, bool>, unsigned int, T>>;
@@ -946,7 +944,7 @@ namespace glsl {
 		}
 
 		template<class M, bool column_major = true, class T = M::value_type, size_t C = M::row_type::length(), size_t R = M::col_type::length()>
-		typename extra::mat_enable_if_t<M, T, C, R, bool>
+		typename extra::mat_enable_if_t<T, C, R, bool>
 		Set(const std::string& name, const std::vector<M>& values) {
 			if constexpr (column_major) {
 				using type = glm::mat<C, R, extra::type_test_t<std::is_same<T, bool>, unsigned int, T>>;
@@ -1038,7 +1036,7 @@ namespace glsl {
 
 #pragma region GET_VEC
 		template<class V, class T = V::value_type, size_t L = V::length()>
-		typename extra::vec_enable_if_t<V, T, L, V>
+		typename extra::vec_enable_if_t<T, L, V>
 		Get(const std::string& name) const {
 			if (std::is_same_v<T, bool>) {
 				return (V)_Get<glm::vec<L, unsigned int>>(name);
@@ -1050,7 +1048,7 @@ namespace glsl {
 
 #pragma region GET_VEC_ARRAYS
 		template<class V, class T = V::value_type, size_t L = V::length()>
-		typename extra::vec_enable_if_t<V, T, L>
+		typename extra::vec_enable_if_t<T, L>
 		Get(const std::string& name, V*& valuesDest, size_t size) const {
 			std::vector<V> values;
 			if constexpr (std::is_same_v<T, bool>) {
@@ -1085,7 +1083,7 @@ namespace glsl {
 
 #pragma region GET_MAT
 		template<class M, bool column_major = true, class T = M::value_type, size_t C = M::row_type::length(), size_t R = M::col_type::length()>
-		typename extra::mat_enable_if_t<M, T, C, R, M>
+		typename extra::mat_enable_if_t<T, C, R, M>
 		Get(const std::string& name) const {
 			if constexpr (column_major) {
 				if constexpr (std::is_same_v<T, bool>) {
@@ -1107,7 +1105,7 @@ namespace glsl {
 
 #pragma region GET_MAT_ARRAYS
 		template<class M, bool column_major = true, class T = M::value_type, size_t C = M::row_type::length(), size_t R = M::col_type::length()>
-		typename extra::mat_enable_if_t<M, T, C, R>
+		typename extra::mat_enable_if_t<T, C, R>
 		Get(const std::string& name, M*& valuesDest, size_t size) const {
 			std::vector<M> values;
 			if constexpr (column_major) {

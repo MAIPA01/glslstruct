@@ -64,31 +64,7 @@ namespace glsl::extra {
 	template<class T, size_t C, size_t R> static constexpr bool mat_check_v = vec_check_v<T, C>&& is_num_in_range_v<R, 2, 4>;
 
 	template<class T, class Ret = void> using scalar_enable_if_t = std::enable_if_t<scalar_check_v<T>, Ret>;
-	template<class V, class T, size_t L, class Ret = void> using vec_enable_if_t = std::enable_if_t<std::is_same_v<V, glm::vec<L, T>> && vec_check_v<T, L>, Ret>;
-	template<class M, class T, size_t C, size_t R, class Ret = void> using mat_enable_if_t = std::enable_if_t<std::is_same_v<M, glm::mat<C, R, T>> && mat_check_v<T, C, R>, Ret>;
+	template<class T, size_t L, class Ret = void> using vec_enable_if_t = std::enable_if_t<vec_check_v<T, L>, Ret>;
+	template<class T, size_t C, size_t R, class Ret = void> using mat_enable_if_t = std::enable_if_t<mat_check_v<T, C, R>, Ret>;
 #pragma endregion
-}
-
-namespace glm {
-	using bmat2x2 = mat<2, 2, bool, packed_highp>;
-	using bmat2x3 = mat<2, 3, bool, packed_highp>;
-	using bmat2x4 = mat<2, 4, bool, packed_highp>;
-	using bmat3x2 = mat<3, 2, bool, packed_highp>;
-	using bmat3x3 = mat<3, 3, bool, packed_highp>;
-	using bmat3x4 = mat<3, 4, bool, packed_highp>;
-	using bmat4x2 = mat<4, 2, bool, packed_highp>;
-	using bmat4x3 = mat<4, 3, bool, packed_highp>;
-	using bmat4x4 = mat<4, 4, bool, packed_highp>;
-
-	using bmat2 = bmat2x2;
-	using bmat3 = bmat3x3;
-	using bmat4 = bmat4x4;
-
-	using umat2 = umat2x2;
-	using umat3 = umat3x3;
-	using umat4 = umat4x4;
-
-	using imat2 = imat2x2;
-	using imat3 = imat3x3;
-	using imat4 = imat4x4;
 }

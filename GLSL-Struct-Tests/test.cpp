@@ -3,6 +3,30 @@
 using namespace glsl;
 using namespace glm;
 
+namespace glm {
+	using bmat2x2 = mat<2, 2, bool, packed_highp>;
+	using bmat2x3 = mat<2, 3, bool, packed_highp>;
+	using bmat2x4 = mat<2, 4, bool, packed_highp>;
+	using bmat3x2 = mat<3, 2, bool, packed_highp>;
+	using bmat3x3 = mat<3, 3, bool, packed_highp>;
+	using bmat3x4 = mat<3, 4, bool, packed_highp>;
+	using bmat4x2 = mat<4, 2, bool, packed_highp>;
+	using bmat4x3 = mat<4, 3, bool, packed_highp>;
+	using bmat4x4 = mat<4, 4, bool, packed_highp>;
+
+	using bmat2 = bmat2x2;
+	using bmat3 = bmat3x3;
+	using bmat4 = bmat4x4;
+
+	using umat2 = umat2x2;
+	using umat3 = umat3x3;
+	using umat4 = umat4x4;
+
+	using imat2 = imat2x2;
+	using imat3 = imat3x3;
+	using imat4 = imat4x4;
+}
+
 TEST(STD140Offsets, AddScalars) {
 	STD140Offsets structOffsets;
 	size_t ret;

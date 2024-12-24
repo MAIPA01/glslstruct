@@ -9,6 +9,13 @@
 
 // w tym miejscu dodaj nagłówki, które mają być wstępnie kompilowane
 #include <framework.h>
-#include <libraries.h>
+#include <string>
+#include <unordered_map>
+#include <vector>
+#include <format>
+#include <functional>
+#include <queue>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #endif //PCH_H

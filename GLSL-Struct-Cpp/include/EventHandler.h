@@ -1,7 +1,6 @@
 #pragma once
-
-#include <pch.h>
-#include <framework.h>
+#include <queue>
+#include <functional>
 
 namespace glsl::extra {
 	template<typename Ret, typename... Args> using Func = std::function<Ret(Args...)>;

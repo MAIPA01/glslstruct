@@ -1,6 +1,8 @@
 #pragma once
-#include <pch.h>
-#include <framework.h>
+#include <string>
+#include <stringExtension.h>
+#include <format>
+#include <unordered_map>
 #include <macros.h>
 
 namespace glsl {

@@ -54,9 +54,6 @@
     <ClInclude Include="include\STDOffsets.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="include\libraries.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GLSL-Struct-Cpp.cpp">
