@@ -1,5 +1,5 @@
-#include <pch.h>
-#include <STDOffsets.h>
+#include "pch.hpp"
+#include <STDOffsets.hpp>
 
 using namespace glsl;
 using namespace std;
@@ -87,7 +87,7 @@ vector<size_t> STDOffsets::_AddArray(const string& name, size_t arraySize, size_
 	size_t valueAligementOffset;
 	for (size_t i = 0; i < arraySize; ++i) {
 		// ELEMENT VALUE NAME
-		valueName = move(vformat(_arrayElemFormat, make_format_args(name, i)));
+		valueName = move(fmt::vformat(_arrayElemFormat, fmt::make_format_args(name, i)));
 
 		// CALCULATE VALUE OFFSET
 		valueAligementOffset = aligementOffset + i * baseAligement;
@@ -173,7 +173,7 @@ vector<size_t> STDOffsets::_AddMatrixArray(const string& name, size_t columns, s
 	// ADD ARRAY ELEMENTS
 	vector<size_t> values(arraySize);
 	for (size_t i = 0; i < arraySize; ++i) {
-		string valueName = vformat(_arrayElemFormat, make_format_args(name, i));
+		string valueName = fmt::vformat(_arrayElemFormat, fmt::make_format_args(name, i));
 		values[i] = move(_AddMatrix(valueName, columns, rows, column_major, baseAligement, baseOffset, type));
 	}
 
@@ -195,7 +195,7 @@ size_t STDOffsets::_AddStruct(const string& name, size_t baseAligement, size_t b
 
 	string valueName;
 	for (const auto& off : offsets) {
-		valueName = move(vformat(_subElemFormat, make_format_args(name, (*names.find(off.first)).second)));
+		valueName = move(fmt::vformat(_subElemFormat, fmt::make_format_args(name, (*names.find(off.first)).second)));
 
 		_SetVariable(valueName, aligementOffset + off.second, (*types.find(off.first)).second->Clone());
 	}
@@ -221,7 +221,7 @@ vector<size_t> STDOffsets::_AddStructArray(const string& name, size_t baseAligem
 	string arrayElemName;
 
 	for (size_t i = 0; i < arraySize; ++i) {
-		arrayElemName = move(vformat(_arrayElemFormat, make_format_args(name, i)));
+		arrayElemName = move(fmt::vformat(_arrayElemFormat, fmt::make_format_args(name, i)));
 		values[i] = move(_AddStruct(arrayElemName, baseAligement, baseOffset, offsets, names, types));
 	}
 
@@ -270,16 +270,16 @@ STDOffsets& STDOffsets::operator=(STDOffsets&& stdOff)
 	return *this;
 }
 
-DefineCloneFunc(STDOffsets,
-	StandardClone(_currentOffset),
-	StandardClone(_maxAligement),
-	StandardClone(_offsets),
-	StandardClone(_names); for (const auto& type : _types) { cloned->_types[type.first] = type.second->Clone(); }
+CLONE_FUNC_DEFINITION_ADVANCED(STDOffsets,
+	STANDARD_CLONE(_currentOffset),
+	STANDARD_CLONE(_maxAligement),
+	STANDARD_CLONE(_offsets),
+	STANDARD_CLONE(_names); for (const auto& type : _types) { cloned->_types[type.first] = type.second->Clone(); }
 )
 
 bool STDOffsets::Contains(const string& name) const
 {
-	return _offsets.contains(move(_hasher(name)));
+	return _offsets.find(move(_hasher(name))) != _offsets.end();
 }
 
 size_t STDOffsets::Get(const string& name) const
@@ -297,13 +297,13 @@ vector<size_t> STDOffsets::GetArray(const string& name) const
 	vector<size_t> values;
 
 	size_t i = 0;
-	offsets_map::const_iterator map_iterator = _offsets.find(move(_hasher(move(vformat(_arrayElemFormat, make_format_args(name, i))))));
+	offsets_map::const_iterator map_iterator = _offsets.find(move(_hasher(move(fmt::vformat(_arrayElemFormat, fmt::make_format_args(name, i))))));
 	++i;
 
 	while (map_iterator != _offsets.end()) {
 		values.push_back((*map_iterator).second);
 
-		map_iterator = _offsets.find(move(_hasher(move(vformat(_arrayElemFormat, make_format_args(name, i))))));
+		map_iterator = _offsets.find(move(_hasher(move(fmt::vformat(_arrayElemFormat, fmt::make_format_args(name, i))))));
 		++i;
 	}
 

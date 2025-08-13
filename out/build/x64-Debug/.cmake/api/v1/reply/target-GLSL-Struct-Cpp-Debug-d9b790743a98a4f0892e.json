@@ -1,0 +1,448 @@
+{
+	"archive" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "/machine:x64",
+				"role" : "flags"
+			}
+		]
+	},
+	"artifacts" : 
+	[
+		{
+			"path" : "GLSL-Struct-Cpp/GLSL-Struct-Cpp.lib"
+		}
+	],
+	"backtrace" : 2,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"_add_library",
+			"add_library",
+			"target_link_libraries",
+			"target_compile_options",
+			"target_compile_definitions",
+			"target_include_directories",
+			"target_precompile_headers"
+		],
+		"files" : 
+		[
+			"C:/Program Files/Microsoft Visual Studio/2022/Community/VC/vcpkg/scripts/buildsystems/vcpkg.cmake",
+			"GLSL-Struct-Cpp/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 10,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 639,
+				"parent" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 20,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 31,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 1,
+				"line" : 43,
+				"parent" : 0
+			},
+			{
+				"command" : 5,
+				"file" : 1,
+				"line" : 18,
+				"parent" : 0
+			},
+			{
+				"command" : 6,
+				"file" : 1,
+				"line" : 25,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "/Zc:preprocessor"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "/utf-8"
+				},
+				{
+					"fragment" : "/YcC:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/GLSL-Struct-Cpp/CMakeFiles/GLSL-Struct-Cpp.dir/cmake_pch.hxx /FpC:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/GLSL-Struct-Cpp/CMakeFiles/GLSL-Struct-Cpp.dir/./cmake_pch.cxx.pch /FIC:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/GLSL-Struct-Cpp/CMakeFiles/GLSL-Struct-Cpp.dir/cmake_pch.hxx"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 5,
+					"define" : "_GLSL_STRUCT_ENABLE_CXX20=1"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 6,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/GLSL-Struct-Cpp/include"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/third_party/glm/df6a"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/third_party/mstd/1464/include/arithmetic"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/third_party/mstd/1464/include/containers"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/third_party/mstd/1464/include/events"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/third_party/mstd/1464/include/functions"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/third_party/mstd/1464/include/main"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/third_party/mstd/1464/include/string"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/third_party/mstd/1464/include/terminal"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/third_party/mstd/1464/include/utils"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/third_party/fmt/dbab/include"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					3
+				],
+				"standard" : "20"
+			},
+			"precompileHeaders" : 
+			[
+				{
+					"backtrace" : 7,
+					"header" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/GLSL-Struct-Cpp/src/pch.hpp"
+				}
+			],
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "/Zc:preprocessor"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "/utf-8"
+				},
+				{
+					"fragment" : "/YuC:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/GLSL-Struct-Cpp/CMakeFiles/GLSL-Struct-Cpp.dir/cmake_pch.hxx /FpC:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/GLSL-Struct-Cpp/CMakeFiles/GLSL-Struct-Cpp.dir/./cmake_pch.cxx.pch /FIC:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/GLSL-Struct-Cpp/CMakeFiles/GLSL-Struct-Cpp.dir/cmake_pch.hxx"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 5,
+					"define" : "_GLSL_STRUCT_ENABLE_CXX20=1"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 6,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/GLSL-Struct-Cpp/include"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/third_party/glm/df6a"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/third_party/mstd/1464/include/arithmetic"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/third_party/mstd/1464/include/containers"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/third_party/mstd/1464/include/events"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/third_party/mstd/1464/include/functions"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/third_party/mstd/1464/include/main"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/third_party/mstd/1464/include/string"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/third_party/mstd/1464/include/terminal"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/third_party/mstd/1464/include/utils"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/third_party/fmt/dbab/include"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					3
+				],
+				"standard" : "20"
+			},
+			"precompileHeaders" : 
+			[
+				{
+					"backtrace" : 7,
+					"header" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/GLSL-Struct-Cpp/src/pch.hpp"
+				}
+			],
+			"sourceIndexes" : 
+			[
+				10,
+				11,
+				12,
+				13,
+				14
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 3,
+			"id" : "glm::@ce54d98d7b326a3e12a8"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "mstd::@d9f29d4cd5632fbaba24"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "fmt::@976f4f0bee90b99ecdb6"
+		}
+	],
+	"id" : "GLSL-Struct-Cpp::@11abec7b00622399e894",
+	"name" : "GLSL-Struct-Cpp",
+	"nameOnDisk" : "GLSL-Struct-Cpp.lib",
+	"paths" : 
+	{
+		"build" : "GLSL-Struct-Cpp",
+		"source" : "GLSL-Struct-Cpp"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				10,
+				11,
+				12,
+				13,
+				14
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9
+			]
+		},
+		{
+			"name" : "Precompile Header File",
+			"sourceIndexes" : 
+			[
+				15
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 0,
+			"compileGroupIndex" : 0,
+			"path" : "out/build/x64-Debug/GLSL-Struct-Cpp/CMakeFiles/GLSL-Struct-Cpp.dir/cmake_pch.cxx",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "GLSL-Struct-Cpp/include/STD140Offsets.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"path" : "GLSL-Struct-Cpp/include/STD430Offsets.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"path" : "GLSL-Struct-Cpp/include/STDOffsets.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"path" : "GLSL-Struct-Cpp/include/STDStruct.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"path" : "GLSL-Struct-Cpp/include/STDValue.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"path" : "GLSL-Struct-Cpp/include/STDVariable.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"path" : "GLSL-Struct-Cpp/include/ValueTypes.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"path" : "GLSL-Struct-Cpp/include/libraries.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"path" : "GLSL-Struct-Cpp/include/templates.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "GLSL-Struct-Cpp/src/GLSL-Struct-Cpp.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "GLSL-Struct-Cpp/src/STD140Offsets.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "GLSL-Struct-Cpp/src/STD430Offsets.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "GLSL-Struct-Cpp/src/STDOffsets.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 1,
+			"path" : "GLSL-Struct-Cpp/src/ValueTypes.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"path" : "out/build/x64-Debug/GLSL-Struct-Cpp/CMakeFiles/GLSL-Struct-Cpp.dir/cmake_pch.hxx",
+			"sourceGroupIndex" : 2
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

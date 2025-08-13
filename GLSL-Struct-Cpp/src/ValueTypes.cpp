@@ -1,35 +1,33 @@
-#include <pch.h>
-#include <ValueTypes.h>
-#include <STD140Offsets.h>
+#include "pch.hpp"
+#include <ValueTypes.hpp>
+#include <STD140Offsets.hpp>
 
 using namespace glsl;
 using namespace std;
-using namespace extra;
+using namespace glsl::utils;
 
 static string glsl::GetVecType(const VALUE_TYPE& type)
 {
-	using enum VALUE_TYPE;
 	switch (type) {
-		case OTHER: return "other";
-		case BOOL: return "bvec";
-		case INT: return "ivec";
-		case UINT: return "uvec";
-		case FLOAT: return "vec";
-		case DOUBLE: return "dvec";
+		case VALUE_TYPE::OTHER: return "other";
+		case VALUE_TYPE::BOOL: return "bvec";
+		case VALUE_TYPE::INT: return "ivec";
+		case VALUE_TYPE::UINT: return "uvec";
+		case VALUE_TYPE::FLOAT: return "vec";
+		case VALUE_TYPE::DOUBLE: return "dvec";
 		default: return "UNKNOWN";
 	}
 }
 
 static string glsl::GetMatType(const VALUE_TYPE& type)
 {
-	using enum VALUE_TYPE;
 	switch (type) {
-		case OTHER: return "other";
-		case BOOL: return "bmat";
-		case INT: return "imat";
-		case UINT: return "umat";
-		case FLOAT: return "mat";
-		case DOUBLE: return "dmat";
+		case VALUE_TYPE::OTHER: return "other";
+		case VALUE_TYPE::BOOL: return "bmat";
+		case VALUE_TYPE::INT: return "imat";
+		case VALUE_TYPE::UINT: return "umat";
+		case VALUE_TYPE::FLOAT: return "mat";
+		case VALUE_TYPE::DOUBLE: return "dmat";
 		default: return "UNKNOWN";
 	}
 }
@@ -40,6 +38,8 @@ static string glsl::to_string(const ValueType*& value)
 }
 
 ScalarType::ScalarType(const VALUE_TYPE& type) : ValueType(), _type(type) {}
+
+CLONE_FUNC_DEFINITION(ScalarType, _type)
 
 VALUE_TYPE ScalarType::GetType() const {
 	return _type;
@@ -57,6 +57,8 @@ static string glsl::to_string(const ScalarType& value)
 
 VecType::VecType(const VALUE_TYPE& type, const size_t& length) : ValueType(), _type(type), _length(length) {}
 
+CLONE_FUNC_DEFINITION(VecType, _type, _length)
+
 VALUE_TYPE VecType::GetType() const
 {
 	return _type;
@@ -69,7 +71,7 @@ size_t VecType::GetLength() const
 
 string VecType::to_string() const
 {
-	return concat(GetVecType(_type), std::to_string(_length));
+	return mstd::concat(GetVecType(_type), std::to_string(_length));
 }
 
 static string glsl::to_string(const VecType& value)
@@ -78,6 +80,8 @@ static string glsl::to_string(const VecType& value)
 }
 
 MatType::MatType(const VALUE_TYPE& type, const size_t& cols, const size_t& rows) : ValueType(), _type(type), _cols(cols), _rows(rows) {}
+
+CLONE_FUNC_DEFINITION(MatType, _type, _cols, _rows)
 
 VALUE_TYPE MatType::GetType() const
 {
@@ -97,8 +101,8 @@ size_t MatType::GetCols() const
 string MatType::to_string() const
 {
 	string out = GetMatType(_type);
-	if (_cols == _rows) concat_ref(out, std::to_string(_cols));
-	else concat_ref(out, std::to_string(_cols), "x"s, std::to_string(_rows));
+	if (_cols == _rows) mstd::concat_to(out, std::to_string(_cols));
+	else mstd::concat_to(out, std::to_string(_cols), "x"s, std::to_string(_rows));
 	return out;
 }
 
@@ -123,7 +127,7 @@ StructType::~StructType() {
 	_types.clear();
 }
 
-DefineCloneFunc(StructType, StandardClone(_offsets), StandardClone(_names);
+CLONE_FUNC_DEFINITION_ADVANCED(StructType, STANDARD_CLONE(_offsets), STANDARD_CLONE(_names);
 	for (const auto& type : _types) cloned->_types[type.first] = type.second->Clone()
 )
 
@@ -160,6 +164,8 @@ ArrayType::~ArrayType() {
 	delete _type;
 }
 
+CLONE_FUNC_DEFINITION_ADVANCED(ArrayType, _type, _type->Clone(), STANDARD_CLONE(_length))
+
 const ValueType* ArrayType::GetType() const
 {
 	return _type;
@@ -172,7 +178,7 @@ size_t ArrayType::GetLength() const
 
 string ArrayType::to_string() const
 {
-	return concat(_type->to_string(), "["s, std::to_string(_length), "]"s);
+	return mstd::concat(_type->to_string(), "["s, std::to_string(_length), "]"s);
 }
 
 static string glsl::to_string(const ArrayType& value)

@@ -1,0 +1,21 @@
+# ninja log v6
+4	52	7763591723206990	mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-mkdir	a4c898039aa4c8fa
+4	52	7763591723206990	C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-mkdir	a4c898039aa4c8fa
+53	1676	7763591739442679	mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-download	c71138bf322fbb69
+53	1676	7763591739442679	C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-download	c71138bf322fbb69
+1676	3215	7763591739482546	mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-update	a90cf7cd873eb651
+1676	3215	7763591739482546	C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-update	a90cf7cd873eb651
+3215	3264	7763591755329541	mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-patch	b1695220ab469bb
+3215	3264	7763591755329541	C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-patch	b1695220ab469bb
+3264	3311	7763591755797971	mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-configure	cb2c12db83285906
+3264	3311	7763591755797971	C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-configure	cb2c12db83285906
+3311	3362	7763591756306273	mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-build	be8907555d839c60
+3311	3362	7763591756306273	C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-build	be8907555d839c60
+3362	3409	7763591756774706	mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-install	20534f56b6e2ffba
+3362	3409	7763591756774706	C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-install	20534f56b6e2ffba
+3409	3457	7763591757253146	mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-test	c950e1f7278964ed
+3409	3457	7763591757253146	C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-test	c950e1f7278964ed
+3457	3522	7763591757910938	CMakeFiles/mstd-populate-complete	1c9d6747be6264a7
+3457	3522	7763591757910938	mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-done	1c9d6747be6264a7
+3457	3522	7763591757910938	C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/CMakeFiles/mstd-populate-complete	1c9d6747be6264a7
+3457	3522	7763591757910938	C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-done	1c9d6747be6264a7

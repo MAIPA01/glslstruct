@@ -1,5 +1,5 @@
-#include <pch.h>
-#include <STD430Offsets.h>
+#include "pch.hpp"
+#include <STD430Offsets.hpp>
 
 using namespace glsl;
 using namespace std;
@@ -34,7 +34,7 @@ vector<size_t> STD430Offsets::_AddArray(const string& name, size_t arraySize, si
 	size_t valueAligementOffset;
 	for (size_t i = 0; i < arraySize; ++i) {
 		// ELEMENT VALUE NAME
-		valueName = move(vformat(_arrayElemFormat, make_format_args(name, i)));
+		valueName = move(fmt::vformat(_arrayElemFormat, fmt::make_format_args(name, i)));
 
 		// CALCULATE VALUE OFFSET
 		valueAligementOffset = aligementOffset + i * baseAligement;
@@ -88,7 +88,7 @@ STD430Offsets& STD430Offsets::operator=(STD430Offsets&& std430off)
 	return *this;
 }
 
-DefineCloneBaseFunc(STD430Offsets, STDOffsets)
+CLONE_BASE_FUNC_DEFINITION(STD430Offsets, STDOffsets)
 
 size_t STD430Offsets::Add(const string& name, const STD430Offsets& structTemplate)
 {

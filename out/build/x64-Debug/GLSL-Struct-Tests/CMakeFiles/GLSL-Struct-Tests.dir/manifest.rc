@@ -1,0 +1,2 @@
+#pragma code_page(65001)
+1 /* CREATEPROCESS_MANIFEST_RESOURCE_ID */ 24 /* RT_MANIFEST */ "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/GLSL-Struct-Tests/CMakeFiles/GLSL-Struct-Tests.dir/embed.manifest"

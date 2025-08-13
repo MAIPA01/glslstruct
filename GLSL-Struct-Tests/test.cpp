@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "pch.hpp"
 
 using namespace glsl;
 using namespace glm;
@@ -65,7 +65,7 @@ TEST(STD140Offsets, AddVectors) {
 
 #pragma region VEC2
 	structOffsets.Clear();
-	
+
 	// BOOL
 	ret = structOffsets.Add<bvec2>("Bool");
 	EXPECT_EQ(ret, 0);
@@ -1143,6 +1143,39 @@ TEST(STD430Offsets, ConstructorAndGet) {
 #pragma endregion
 }
 
+TEST(STDStruct, AddArray) {
+	STD430Struct test{
+		STDValue<int, 3>("test", { 2, 3, 4 })
+	};
+	int value = test.Get<int>("test[1]");
+	EXPECT_EQ(value, 3);
+	size_t ret = test.GetOffset("test");
+	EXPECT_EQ(ret, 0);
+}
+
+TEST(STDStruct, CopyTest) {
+	STD430Struct test{
+		STDValue<int, 3>("test", { 2, 3, 4 })
+	};
+	int value = test.Get<int>("test[1]");
+	EXPECT_EQ(value, 3);
+	size_t ret = test.GetOffset("test");
+	EXPECT_EQ(ret, 0);
+
+	STD430Struct test1 = test;
+	value = test1.Get<int>("test[1]");
+	EXPECT_EQ(value, 3);
+	ret = test1.GetOffset("test");
+	EXPECT_EQ(ret, 0);
+
+	STD430Struct* test2 = test.Clone();
+	value = test2->Get<int>("test[1]");
+	EXPECT_EQ(value, 3);
+	ret = test2->GetOffset("test");
+	EXPECT_EQ(ret, 0);
+	delete test2;
+}
+
 TEST(STDStruct, ConstructorAndGet) {
 	size_t ret;
 	std::vector<size_t> retVec;
@@ -1164,9 +1197,9 @@ TEST(STDStruct, ConstructorAndGet) {
 
 #pragma region SPRITE
 	STD430Struct sprite{
-		STDVariable<uvec2>("offset"),
-		STDVariable<uvec2>("size"),
-		STDVariable<bool>("isActive")
+		STDValue<uvec2>("offset"),
+		STDValue<uvec2>("size"),
+		STDValue<bool>("isActive")
 	};
 	ret = sprite.GetOffset("offset");
 	EXPECT_EQ(ret, 0);
@@ -1206,7 +1239,7 @@ TEST(STDStruct, ConstructorAndGet) {
 #pragma region UIElement
 	STD430Struct uiElement{
 		STDValue<STD430Struct>("rect", rect),
-		STDValue<STD430Offsets>("sprite", sprite.GetOffsets()),
+		STDValue<STD430Struct>("sprite", sprite),
 		STDValue<STD430Struct>("fill", fill),
 		STDValue<vec4>("color"),
 		STDValue<bool>("isText")

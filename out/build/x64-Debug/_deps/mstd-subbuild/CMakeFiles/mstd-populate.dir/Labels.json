@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/CMakeFiles/mstd-populate"
+		},
+		{
+			"file" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/CMakeFiles/mstd-populate.rule"
+		},
+		{
+			"file" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/CMakeFiles/mstd-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-build.rule"
+		},
+		{
+			"file" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-download.rule"
+		},
+		{
+			"file" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-install.rule"
+		},
+		{
+			"file" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-test.rule"
+		},
+		{
+			"file" : "C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/mstd-populate-prefix/src/mstd-populate-stamp/mstd-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"mstd-populate"
+		],
+		"name" : "mstd-populate"
+	}
+}

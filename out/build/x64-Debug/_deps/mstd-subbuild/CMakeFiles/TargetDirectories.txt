@@ -1,0 +1,3 @@
+C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/CMakeFiles/mstd-populate.dir
+C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/CMakeFiles/edit_cache.dir
+C:/Users/Patryk/Documents/C++/GLSL-Struct-Cpp/out/build/x64-Debug/_deps/mstd-subbuild/CMakeFiles/rebuild_cache.dir
