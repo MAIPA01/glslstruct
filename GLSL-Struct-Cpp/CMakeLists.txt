@@ -39,6 +39,45 @@ else()
     endif()
 endif()
 
+# Optimizations
+target_compile_options(${PROJECT_NAME} PUBLIC
+    # MSVC/clang with MSVC frontend
+    $<$<OR:$<CXX_COMPILER_ID:MSVC>,$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:MSVC>>>:
+        $<$<CONFIG:Release>:/O2>
+        $<$<CONFIG:Release>:/GL>
+        $<$<CONFIG:Debug>:/RTC1>
+        /Zc:preprocessor
+    >
+    # GCC/clang with GNU frontend
+    $<$<OR:$<CXX_COMPILER_ID:GNU>,$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:GNU>>>:
+        $<$<CONFIG:Release>:-O3>
+        $<$<CONFIG:Release>:-flto>
+    >
+    # disable noexcept type warning on GCC
+    $<$<CXX_COMPILER_ID:GNU>:
+        $<$<CONFIG:Release>:-O3>
+        $<$<CONFIG:Release>:-flto>
+    >
+)
+
+target_link_options(${PROJECT_NAME} PUBLIC
+    # MSVC/clang with MSVC frontend
+    $<$<OR:$<CXX_COMPILER_ID:MSVC>,$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:MSVC>>>:
+        $<$<CONFIG:Release>:/LTCG>
+    >
+    # GCC/clang with GNU frontend
+    $<$<OR:$<CXX_COMPILER_ID:GNU>,$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:GNU>>>:
+        $<$<CONFIG:Release>:-flto>
+        -static
+        $<$<CONFIG:Release>:-fuse-ld=lld>
+    >
+    # disable noexcept type warning on GCC
+    $<$<CXX_COMPILER_ID:GNU>:
+        $<$<CONFIG:Release>:-flto>
+        -static
+    >
+)
+
 if (GLSL_STRUCT_ENABLE_CXX20)
     target_compile_definitions(${PROJECT_NAME} PRIVATE _GLSL_STRUCT_ENABLE_CXX20=1)
 else()
