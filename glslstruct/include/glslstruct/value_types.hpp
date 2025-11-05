@@ -40,26 +40,51 @@ namespace glslstruct {
 	protected:
 		base_type() = default;
 	public:
+		base_type(const base_type& other) = default;
 		virtual ~base_type() = default;
 
-		DECLARE_ABSTRACT_CLONE_FUNC(base_type)
+		virtual bool visit_equal(const base_type*& other) const noexcept = 0;
+		virtual bool visit_equal(const scalar_type*& other) const noexcept = 0;
+		virtual bool visit_equal(const vec_type*& other) const noexcept = 0;
+		virtual bool visit_equal(const mat_type*& other) const noexcept = 0;
+		virtual bool visit_equal(const struct_type*& other) const noexcept = 0;
+		virtual bool visit_equal(const array_type*& other) const noexcept = 0;
 
 		[[nodiscard]] virtual std::string toString() const noexcept = 0;
+
+		virtual bool operator==(const base_type*& other) const noexcept;
 	};
 
 	[[nodiscard]] static std::string to_string(const base_type*& value) noexcept;
+
+	template<class _Derived>
+	class value_type : base_type {
+	public:
+		bool visit_equal(const base_type*& other) const noexcept override {
+			_Derived* this_derived = static_cast<_Derived*>(this);
+			
+		}
+
+		template<class _other>
+		bool visit_equal(const _other*& other) {
+			if constexpr (!std::is_same_v<_other, _Derived>) {
+				return false;
+			}
+			else {
+				_Derived* this_derived = static_cast<_Derived*>(this);
+				return *this_derived == *other;
+			}
+		}
+	};
 
 	class scalar_type : public base_type {
 	private:
 		ValueType _type = ValueType::Other;
 
-	protected:
-		scalar_type() = default;
 	public:
 		scalar_type(const ValueType& type);
+		scalar_type(const scalar_type& other) = default;
 		virtual ~scalar_type() = default;
-
-		DECLARE_OVERRIDED_CLONE_FUNC(scalar_type)
 
 		[[nodiscard]] ValueType getType() const noexcept;
 
@@ -73,14 +98,10 @@ namespace glslstruct {
 		ValueType _type = ValueType::Other;
 		size_t _length = 0;
 
-	protected:
-		vec_type() = default;
-
 	public:
 		vec_type(const ValueType& type, const size_t& length);
+		vec_type(const vec_type& other) = default;
 		virtual ~vec_type() = default;
-
-		DECLARE_OVERRIDED_CLONE_FUNC(vec_type)
 
 		[[nodiscard]] ValueType getType() const noexcept;
 		[[nodiscard]] size_t getLength() const noexcept;
@@ -96,13 +117,10 @@ namespace glslstruct {
 		size_t _cols = 0;
 		size_t _rows = 0;
 
-	protected:
-		mat_type() = default;
 	public:
 		mat_type(const ValueType& type, const size_t& cols, const size_t& rows);
+		mat_type(const mat_type& other) = default;
 		virtual ~mat_type() = default;
-
-		DECLARE_OVERRIDED_CLONE_FUNC(mat_type)
 
 		[[nodiscard]] ValueType getType() const noexcept;
 		[[nodiscard]] size_t getRows() const noexcept;
@@ -119,13 +137,10 @@ namespace glslstruct {
 
 		values_map _values;
 
-	protected:
-		struct_type() = default;
 	public:
 		struct_type(const values_map& values);
+		struct_type(const struct_type& other);
 		virtual ~struct_type();
-
-		DECLARE_OVERRIDED_CLONE_FUNC(struct_type)
 
 		[[nodiscard]] values_map getValues() const noexcept;
 
@@ -139,13 +154,10 @@ namespace glslstruct {
 		const base_type* _type = nullptr;
 		size_t _length = 0;
 
-	protected:
-		array_type() = default;
 	public:
 		array_type(const base_type* type, const size_t& length);
+		array_type(const array_type& other);
 		virtual ~array_type();
-
-		DECLARE_OVERRIDED_CLONE_FUNC(array_type)
 
 		[[nodiscard]] const base_type* getType() const noexcept;
 		[[nodiscard]] size_t getLength() const noexcept;
