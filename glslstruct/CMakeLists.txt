@@ -15,7 +15,8 @@ set(PROJECT_ALIAS ${PROJECT_NAMESPACE}${PROJECT_NAME})
 add_library(${PROJECT_ALIAS} ALIAS ${PROJECT_NAME})
 
 # set headers folder
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include 
+                                           PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC glm mstd fmt)
 

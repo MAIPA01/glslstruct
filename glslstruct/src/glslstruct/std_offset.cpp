@@ -1,4 +1,4 @@
-#include "pch.hpp"
+#include <pch.hpp>
 #include <glslstruct/std_offset.hpp>
 
 using namespace glslstruct;
@@ -7,7 +7,7 @@ void std_offset::_setVariable(const std::string& name, size_t offset, const base
 	_values[name] = { offset, type };
 }
 
-[[nodiscard]] size_t std_offset::_add(const std::string& name, size_t baseAligement, size_t baseOffset, const base_type* type) noexcept {
+[[nodiscard]] size_t std_offset::_add(const std::string& name, size_t baseAligement, size_t baseOffset, const base_type* type) {
 	// CHECK VARIABLE
 	if (contains(name)) {
 		return 0;
@@ -27,7 +27,7 @@ void std_offset::_setVariable(const std::string& name, size_t offset, const base
 
 	// CHECK MAX ALIGEMENT
 	if (baseAligement > _maxAligement) {
-		_maxAligement = move(baseAligement);
+		_maxAligement = std::move(baseAligement);
 	}
 	return aligementOffset;
 }
@@ -131,8 +131,8 @@ void std_offset::_setVariable(const std::string& name, size_t offset, const base
 	const size_t vecSize = column_major ? rows : columns;
 
 	size_t offset = _addVectorArray(name, vecSize, baseAligement, baseOffset, type, arraySize)[0];
-	delete _types[name];
-	_types[name] = new mat_type(type, columns, rows);
+	delete _values[name].type;
+	_values[name].type = new mat_type(type, columns, rows);
 	return offset;
 }
 
@@ -194,19 +194,19 @@ void std_offset::_setVariable(const std::string& name, size_t offset, const base
 		return std::vector<size_t>();
 	}
 
-	std::vector<size_t> values(arraySize);
+	std::vector<size_t> values_offsets(arraySize, 0);
 	std::string arrayElemName;
 
 	for (size_t i = 0; i < arraySize; ++i) {
 		arrayElemName = std::move(fmt::vformat(_arrayElemFormat, fmt::make_format_args(name, i)));
-		values[i] = std::move(_addStruct(arrayElemName, baseAligement, baseOffset, values));
+		values_offsets[i] = std::move(_addStruct(arrayElemName, baseAligement, baseOffset, values));
 	}
 
 	// SET ARRAY BEGIN POINTER
-	_setVariable(name, values[0], new array_type(new struct_type(values), arraySize));
+	_setVariable(name, values_offsets[0], new array_type(new struct_type(values), arraySize));
 
 	// RETURN
-	return values;
+	return values_offsets;
 }
 
 std_offset::std_offset(std_offset& stdOff) {
@@ -240,11 +240,18 @@ std_offset& std_offset::operator=(std_offset&& stdOff) {
 	return *this;
 }
 
-CLONE_FUNC_DEFINITION_ADVANCED(std_offset,
-	STANDARD_CLONE(_currentOffset),
-	STANDARD_CLONE(_maxAligement),
-	for (const auto& value : _values) { cloned->_values[value.first] = { value.second.offset, value.second.type->Clone() }; }
-)
+std_offset* std_offset::Clone() const {
+	std_offset* cloned = new std_offset();
+	CloneTo(cloned);
+	return cloned;
+}
+void std_offset::CloneTo(std_offset* cloned) const {
+	cloned->_currentOffset = _currentOffset;
+	cloned->_maxAligement = _maxAligement;
+	for (const auto& value : _values) { 
+		cloned->_values[value.first] = { value.second.offset, value.second.type->Clone() }; 
+	}
+}
 
 [[nodiscard]] bool std_offset::contains(const std::string& name) const {
 	return _values.find(std::move(name)) != _values.end();
@@ -267,7 +274,7 @@ CLONE_FUNC_DEFINITION_ADVANCED(std_offset,
 	++i;
 
 	while (map_iterator != _values.end()) {
-		values.push_back(map_iterator->second);
+		values.push_back(map_iterator->second.offset);
 
 		map_iterator = _values.find(std::move(fmt::vformat(_arrayElemFormat, fmt::make_format_args(name, i))));
 		++i;
@@ -296,7 +303,7 @@ CLONE_FUNC_DEFINITION_ADVANCED(std_offset,
 	return names;
 }
 
-[[nodiscard]] size_t std_offset::getBaseAligement() const
+[[nodiscard]] size_t std_offset::baseAligement() const
 {
 	size_t baseAligement = _maxAligement;
 	if (_maxAligement % 16 != 0) {
@@ -305,7 +312,7 @@ CLONE_FUNC_DEFINITION_ADVANCED(std_offset,
 	return baseAligement;
 }
 
-[[nodiscard]] size_t std_offset::getSize() const
+[[nodiscard]] size_t std_offset::size() const
 {
 	size_t size = _currentOffset;
 	if (size % 16 != 0) {

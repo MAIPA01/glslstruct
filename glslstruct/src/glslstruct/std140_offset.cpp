@@ -33,10 +33,9 @@ std140_offset& std140_offset::operator=(std140_offset&& std140off) {
 CLONE_BASE_FUNC_DEFINITION(std140_offset, std_offset)
 
 [[nodiscard]] size_t std140_offset::add(const std::string& name, const std140_offset& structTemplate) {
-	return _addStruct(name, structTemplate.getBaseAligement(), structTemplate._currentOffset, structTemplate._offsets, structTemplate._names, structTemplate._types);
+	return _addStruct(name, structTemplate.baseAligement(), structTemplate._currentOffset, structTemplate._values);
 }
 
 [[nodiscard]] std::vector<size_t> std140_offset::add(const std::string& name, const std140_offset& structTemplate, size_t size) {
-	return _addStructArray(name, structTemplate.getBaseAligement(), structTemplate._currentOffset, structTemplate._offsets, 
-		structTemplate._names, structTemplate._types, size);
+	return _addStructArray(name, structTemplate.baseAligement(), structTemplate._currentOffset, structTemplate._values, size);
 }

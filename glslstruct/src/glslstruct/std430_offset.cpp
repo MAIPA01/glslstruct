@@ -84,13 +84,13 @@ std430_offset& std430_offset::operator=(std430_offset&& std430off) {
 CLONE_BASE_FUNC_DEFINITION(std430_offset, std_offset)
 
 [[nodiscard]] size_t std430_offset::add(const std::string& name, const std430_offset& structTemplate) {
-	return _addStruct(name, structTemplate.getBaseAligement(), structTemplate._currentOffset, structTemplate._offsets, structTemplate._names, structTemplate._types);
+	return _addStruct(name, structTemplate.baseAligement(), structTemplate._currentOffset, structTemplate._values);
 }
 
 [[nodiscard]] std::vector<size_t> std430_offset::add(const std::string& name, const std430_offset& structTemplate, size_t size) {
-	return _addStructArray(name, structTemplate.getBaseAligement(), structTemplate._currentOffset, structTemplate._offsets, structTemplate._names, structTemplate._types, size);
+	return _addStructArray(name, structTemplate.baseAligement(), structTemplate._currentOffset, structTemplate._values, size);
 }
 
-[[nodiscard]] size_t std430_offset::getBaseAligement() const {
+[[nodiscard]] size_t std430_offset::baseAligement() const {
 	return _maxAligement;
 }

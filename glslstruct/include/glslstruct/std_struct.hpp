@@ -5,7 +5,7 @@
 #include <glslstruct/std430_offset.hpp>
 #include <glslstruct/std_value.hpp>
 
-namespace glsl {
+namespace glslstruct {
 #if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
 	template<utils::any_offset _Offset>
 #else
@@ -77,7 +77,7 @@ namespace glsl {
 		template<class T>
 		size_t _add(const std::string& name, const T& value) {
 			// ADD TO OFFSETS
-			size_t valueOffset = std::move(_dataOffsets.Add<T>(name));
+			size_t valueOffset = std::move(_dataOffsets.add<T>(name));
 
 			// CHECK ERROR
 			if (valueOffset == 0 && _data.size() != 0) {
@@ -86,7 +86,7 @@ namespace glsl {
 			}
 
 			// RESERVE SIZE
-			_data.reserve(_dataOffsets.GetSize());
+			_data.reserve(_dataOffsets.size());
 
 			// CHECK VALUE PADDING
 			if (_data.size() < valueOffset) {
@@ -94,7 +94,7 @@ namespace glsl {
 			}
 
 			// GET VALUE DATA
-			std::vector<unsigned char> valueData = std::move(_GetValueData(value));
+			std::vector<std::byte> valueData = std::move(_getValueData(value));
 
 			// SET VALUE DATA
 			if (valueOffset < _data.size()) {
@@ -123,7 +123,7 @@ namespace glsl {
 			}
 
 			// GET OFFSETS
-			std::vector<size_t> valuesOffsets = std::move(_dataOffsets.Add<T>(name, values.size()));
+			std::vector<size_t> valuesOffsets = std::move(_dataOffsets.add<T>(name, values.size()));
 
 			// CHECK ERROR
 			if (valuesOffsets.size() == 0) {
@@ -132,10 +132,10 @@ namespace glsl {
 			}
 
 			// RESERVE SIZE
-			_data.reserve(_dataOffsets.GetSize());
+			_data.reserve(_dataOffsets.size());
 
 			// SET VALUES DATA
-			std::vector<unsigned char> valueData;
+			std::vector<std::byte> valueData;
 			for (size_t i = 0; i < valuesOffsets.size() && i < values.size(); ++i) {
 				// CHECK VALUE PADDING
 				if (_data.size() < valuesOffsets[i]) {
@@ -143,7 +143,7 @@ namespace glsl {
 				}
 
 				// GET VALUE DATA
-				valueData = std::move(_GetValueData(values[i]));
+				valueData = std::move(_getValueData(values[i]));
 
 				// SET VALUE DATA
 				if (valuesOffsets[i] < _data.size()) {
@@ -167,7 +167,7 @@ namespace glsl {
 
 		size_t _addStruct(const std::string& name, const std_struct<_Offset>& value) {
 			// ADD TO OFFSETS
-			size_t valueOffset = _dataOffsets.Add(name, value._dataOffsets);
+			size_t valueOffset = _dataOffsets.add(name, value._dataOffsets);
 
 			// CHECK ERROR
 			if (valueOffset == 0 && _data.size() != 0) {
@@ -176,7 +176,7 @@ namespace glsl {
 			}
 
 			// RESERVE SIZE
-			_data.reserve(_dataOffsets.GetSize());
+			_data.reserve(_dataOffsets.size());
 
 			// CHECK PADDING
 			if (_data.size() < valueOffset) {
@@ -205,7 +205,7 @@ namespace glsl {
 			if (values.size() == 0) return std::vector<size_t>();
 
 			// ADD TO OFFSETS
-			std::vector<size_t> valuesOffsets = _dataOffsets.Add(name, structOffsets, values.size());
+			std::vector<size_t> valuesOffsets = _dataOffsets.add(name, structOffsets, values.size());
 
 			// CHECK ERROR
 			if (valuesOffsets.size() == 0) {
@@ -214,7 +214,7 @@ namespace glsl {
 			}
 
 			// UPDATE SIZE
-			_data.reserve(_dataOffsets.GetSize());
+			_data.reserve(_dataOffsets.size());
 
 			// SET VALUES DATA
 			for (size_t i = 0; i < valuesOffsets.size() && i < values.size(); ++i) {
@@ -372,16 +372,16 @@ namespace glsl {
 		template<class T> 
 		T _get(const std::string& name) const {
 			// CHECK VARIABLE
-			if (!_dataOffsets.Contains(name)) {
+			if (!_dataOffsets.contains(name)) {
 				//SPDLOG_ERROR("No value called '{0}' was added to this structure", name);
 				return T();
 			}
 
 			// GET VALUE OFFSET
-			size_t valueOffset = _dataOffsets.Get(name);
+			size_t valueOffset = _dataOffsets.get(name);
 
 			// MAKE EMPTY VALUE DATA
-			std::vector<unsigned char> valueData;
+			std::vector<std::byte> valueData;
 
 			// RESERVE SPACE
 			valueData.reserve(sizeof(T));
@@ -407,13 +407,13 @@ namespace glsl {
 		template<class T> 
 		std::vector<T> _getArray(const std::string& name) const {
 			// CHECK VARIABLE
-			if (!_dataOffsets.Contains(name)) {
+			if (!_dataOffsets.contains(name)) {
 				//SPDLOG_ERROR("No value called '{0}' was added to this structure", name);
 				return std::vector<T>();
 			}
 
 			// GET VALUES OFFSETS
-			std::vector<size_t> valuesOffsets = std::move(_dataOffsets.GetArray(name));
+			std::vector<size_t> valuesOffsets = std::move(_dataOffsets.getArray(name));
 
 			// CHECK ARRAY ELEMENTS OFFSETS
 			if (valuesOffsets.size() == 0) {
@@ -422,11 +422,11 @@ namespace glsl {
 			}
 
 			// GET ARRAY ELEM DATA MAX SIZE
-			size_t arrayElemDataSize = std::min(_GetArrayElemSize(valuesOffsets), sizeof(T));
+			size_t arrayElemDataSize = std::min(_getArrayElemSize(valuesOffsets), sizeof(T));
 
 			// GET VALUES DATA
 			std::vector<T> values;
-			std::vector<unsigned char> valueData;
+			std::vector<std::byte> valueData;
 			valueData.resize(sizeof(T));
 			size_t maxSize;
 			for (size_t i = 0; i < valuesOffsets.size(); ++i) {
@@ -457,19 +457,19 @@ namespace glsl {
 
 		std_struct<_Offset> _getStruct(const std::string& name, const _Offset& structOffsets) const {
 			// CHECK VARIABLE
-			if (!_dataOffsets.Contains(name)) {
+			if (!_dataOffsets.contains(name)) {
 				//SPDLOG_ERROR("No value called '{0}' was added to this structure", name);
-				return STDStruct<_Offsets>(structOffsets);
+				return std_struct<_Offset>(structOffsets);
 			}
 
 			// GET VALUE OFFSET
-			size_t valueOffset = _dataOffsets.Get(name);
+			size_t valueOffset = _dataOffsets.get(name);
 
 			// MAKE EMPTY STRUCT
-			STDStruct<_Offsets> value(structOffsets);
+			std_struct<_Offset> value(structOffsets);
 
 			// GET MAX VALUE DATA
-			size_t valueDataSize = std::min(structOffsets.GetSize(), _data.size() - valueOffset);
+			size_t valueDataSize = std::min(structOffsets.size(), _data.size() - valueOffset);
 
 			// SET VALUE DATA
 			memcpy(value._data.data(), _data.data() + valueOffset, valueDataSize);
@@ -478,33 +478,33 @@ namespace glsl {
 			return value;
 		}
 
-		std::vector<std_struct<_Offset>> _GetStructArray(const std::string& name, const _Offset& structOffsets) const {
+		std::vector<std_struct<_Offset>> _getStructArray(const std::string& name, const _Offset& structOffsets) const {
 			// CHECK VARIABLE
-			if (!_dataOffsets.Contains(name)) {
+			if (!_dataOffsets.contains(name)) {
 				//SPDLOG_ERROR("No value called '{0}' was added to this structure", name);
-				return std::vector<STDStruct<_Offsets>>();
+				return std::vector<std_struct<_Offset>>();
 			}
 
 			// GET VALUES OFFSETS
-			std::vector<size_t> valuesOffsets = _dataOffsets.GetArray(name);
+			std::vector<size_t> valuesOffsets = _dataOffsets.getArray(name);
 
 			// CHECK ARRAY ELEMENTS OFFSETS
 			if (valuesOffsets.size() == 0) {
 				//SPDLOG_ERROR("Value '{0}' was not declared as any array", name);
-				return std::vector<STDStruct<_Offsets>>();
+				return std::vector<std_struct<_Offset>>();
 			}
 
 			// GET ARRAY ELEM DATA MAX SIZE
-			size_t arrayElemDataSize = _GetArrayElemSize(valuesOffsets);
+			size_t arrayElemDataSize = _getArrayElemSize(valuesOffsets);
 
 			// GET VALUES DATA
-			std::vector<STDStruct<_Offsets>> values;
+			std::vector<std_struct<_Offset>> values;
 			for (size_t i = 0; i < valuesOffsets.size(); ++i) {
 				// MAKE EMPTY STRUCT
-				STDStruct<_Offsets> value(structOffsets);
+				std_struct<_Offset> value(structOffsets);
 
 				// GET MAX VALUE DATA
-				size_t valueDataSize = std::min(std::min(structOffsets.GetSize(), arrayElemDataSize), _data.size() - valuesOffsets[i]);
+				size_t valueDataSize = std::min(std::min(structOffsets.size(), arrayElemDataSize), _data.size() - valuesOffsets[i]);
 
 				// SET VALUE DATA
 				memcpy(value._data.data(), _data.data() + valuesOffsets[i], valueDataSize);
@@ -535,7 +535,7 @@ namespace glsl {
 #pragma endregion
 
 	public:
-		using offset_type = _Offsets;
+		using offset_type = _Offset;
 
 		std_struct() = default;
 		std_struct(std_struct<_Offset>& stdStruct) {
@@ -549,7 +549,7 @@ namespace glsl {
 		}
 		std_struct(const _Offset& structOffsets, const std::vector<std::byte>& data = std::vector<std::byte>()) {
 			_dataOffsets = structOffsets;
-			_data.reserve(_dataOffsets.GetSize());
+			_data.reserve(_dataOffsets.size());
 			_data.insert(_data.begin(), data.begin(), data.begin() + std::min(data.size(), _data.capacity()));
 			if (_data.size() < _data.capacity()) {
 				_data.resize(_data.capacity());
@@ -586,10 +586,10 @@ namespace glsl {
 #endif
 		size_t add(const std::string& name, const T& value) {
 			if constexpr (std::is_same_v<T, bool>) {
-				return _Add(name, (unsigned int)value);
+				return _add(name, (unsigned int)value);
 			}
 			else {
-				return _Add(name, value);
+				return _add(name, value);
 			}
 		}
 
@@ -601,8 +601,8 @@ namespace glsl {
 #endif
 		std::vector<size_t> add(const std::string& name, const T*& values, size_t size) {
 			using type = std::conditional_t<std::is_same_v<T, bool>, unsigned int, T>;
-			return _ConvertArray<T, type>(name, values, size, 
-				[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _AddArray(name, values); });
+			return _convertArray<T, type>(name, values, size, 
+				[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _addArray(name, values); });
 		}
 
 #if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
@@ -612,8 +612,8 @@ namespace glsl {
 #endif
 		std::vector<size_t> add(const std::string& name, const T(&values)[N]) {
 			using type = std::conditional_t<std::is_same_v<T, bool>, unsigned int, T>;
-			return _ConvertArray<T, type>(name, values, N, 
-				[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _AddArray(name, values); });
+			return _convertArray<T, type>(name, values, N, 
+				[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _addArray(name, values); });
 		}
 
 #if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
@@ -623,8 +623,8 @@ namespace glsl {
 #endif
 		std::vector<size_t> add(const std::string& name, const std::vector<T>& values) {
 			using type = std::conditional_t<std::is_same_v<T, bool>, unsigned int, T>;
-			return _ConvertArray<T, type>(name, values, values.size(),
-				[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _AddArray(name, values); });
+			return _convertArray<T, type>(name, values, values.size(),
+				[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _addArray(name, values); });
 		}
 
 #pragma endregion
@@ -640,10 +640,10 @@ namespace glsl {
 			using T = typename V::value_type;
 			static constexpr size_t L = V::length();
 			if constexpr (std::is_same_v<T, bool>) {
-				return _Add(name, (glm::vec<L, unsigned int>)value);
+				return _add(name, (glm::vec<L, unsigned int>)value);
 			}
 			else {
-				return _Add(name, value);
+				return _add(name, value);
 			}
 		}
 
@@ -657,8 +657,8 @@ namespace glsl {
 			using T = typename V::value_type;
 			static constexpr size_t L = V::length();
 			using type = glm::vec<L, std::conditional_t<std::is_same_v<T, bool>, unsigned int, T>>;
-			return _ConvertArray<V, type>(name, values, size, 
-				[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _AddArray(name, values); });
+			return _convertArray<V, type>(name, values, size, 
+				[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _addArray(name, values); });
 		}
 
 #if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
@@ -670,8 +670,8 @@ namespace glsl {
 			using T = typename V::value_type;
 			static constexpr size_t L = V::length();
 			using type = glm::vec<L, std::conditional_t<std::is_same_v<T, bool>, unsigned int, T>>;
-			return _ConvertArray<V, type>(name, values, N, 
-				[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _AddArray(name, values); });
+			return _convertArray<V, type>(name, values, N, 
+				[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _addArray(name, values); });
 		}
 
 #if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
@@ -683,8 +683,8 @@ namespace glsl {
 			using T = typename V::value_type;
 			static constexpr size_t L = V::length();
 			using type = glm::vec<L, std::conditional_t<std::is_same_v<T, bool>, unsigned int, T>>;
-			return _ConvertArray<V, type>(name, values, values.size(),
-				[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _AddArray(name, values); });
+			return _convertArray<V, type>(name, values, values.size(),
+				[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _addArray(name, values); });
 		}
 
 #pragma endregion
@@ -702,18 +702,18 @@ namespace glsl {
 			static constexpr size_t R = M::col_type::length();
 			if constexpr (column_major) {
 				if constexpr (std::is_same_v<T, bool>) {
-					return _Add(name, (glm::mat<C, R, unsigned int>)value);
+					return _add(name, (glm::mat<C, R, unsigned int>)value);
 				}
 				else {
-					return _Add(name, value);
+					return _add(name, value);
 				}
 			}
 			else {
 				if constexpr (std::is_same_v<T, bool>) {
-					return _Add(name, glm::transpose((glm::mat<C, R, unsigned int>)value));
+					return _add(name, glm::transpose((glm::mat<C, R, unsigned int>)value));
 				}
 				else {
-					return _Add(name, glm::transpose(value));
+					return _add(name, glm::transpose(value));
 				}
 			}
 		}
@@ -730,8 +730,8 @@ namespace glsl {
 			static constexpr size_t R = M::col_type::length();
 			if constexpr (column_major) {
 				using type = glm::mat<C, R, std::conditional_t<std::is_same_v<T, bool>, unsigned int, T>>;
-				return _ConvertArray<M, type>(name, values, size,
-					[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _AddArray(name, values); });
+				return _convertArray<M, type>(name, values, size,
+					[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _addArray(name, values); });
 			}
 			else {
 				std::vector<glm::mat<R, C, T>> transposedValues;
@@ -740,8 +740,8 @@ namespace glsl {
 				}
 
 				using type = glm::mat<R, C, std::conditional_t<std::is_same_v<T, bool>, unsigned int, T>>;
-				return _ConvertArray<M, type>(name, transposedValues, size,
-					[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _AddArray(name, values); });
+				return _convertArray<M, type>(name, transposedValues, size,
+					[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _addArray(name, values); });
 			}
 		}
 
@@ -756,8 +756,8 @@ namespace glsl {
 			static constexpr size_t R = M::col_type::length();
 			if constexpr (column_major) {
 				using type = glm::mat<C, R, std::conditional_t<std::is_same_v<T, bool>, unsigned int, T>>;
-				return _ConvertArray<M, type>(name, values, N,
-					[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _AddArray(name, values); });
+				return _convertArray<M, type>(name, values, N,
+					[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _addArray(name, values); });
 			}
 			else {
 				std::vector<glm::mat<R, C, T>> transposedValues;
@@ -766,8 +766,8 @@ namespace glsl {
 				}
 
 				using type = glm::mat<R, C, std::conditional_t<std::is_same_v<T, bool>, unsigned int, T>>;
-				return _ConvertArray<M, type>(name, transposedValues, N,
-					[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _AddArray(name, values); });
+				return _convertArray<M, type>(name, transposedValues, N,
+					[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _addArray(name, values); });
 			}
 		}
 
@@ -782,8 +782,8 @@ namespace glsl {
 			static constexpr size_t R = M::col_type::length();
 			if constexpr (column_major) {
 				using type = glm::mat<C, R, std::conditional_t<std::is_same_v<T, bool>, unsigned int, T>>;
-				return _ConvertArray<M, type>(name, values, values.size(),
-					[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _AddArray(name, values); });
+				return _convertArray<M, type>(name, values, values.size(),
+					[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _addArray(name, values); });
 			}
 			else {
 				std::vector<glm::mat<R, C, T>> transposedValues;
@@ -792,8 +792,8 @@ namespace glsl {
 				}
 
 				using type = glm::mat<R, C, std::conditional_t<std::is_same_v<T, bool>, unsigned int, T>>;
-				return _ConvertArray<M, type>(name, transposedValues, values.size(),
-					[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _AddArray(name, values); });
+				return _convertArray<M, type>(name, transposedValues, values.size(),
+					[&](const std::string& name, const std::vector<type>& values) -> std::vector<size_t> { return _addArray(name, values); });
 			}
 		}
 
@@ -801,33 +801,33 @@ namespace glsl {
 #pragma endregion
 
 #pragma region ADD_STRUCT
-		size_t add(const std::string& name, const STDStruct<_Offsets>& value) {
-			return _AddStruct(name, value);
+		size_t add(const std::string& name, const std_struct<_Offset>& value) {
+			return _addStruct(name, value);
 		}
 
-		size_t add(const std::string& name, const _Offsets& value, const std::vector<unsigned char>& data = std::vector<unsigned char>()) {
-			return _AddStruct(name, STDStruct<_Offsets>(value, data));
+		size_t add(const std::string& name, const _Offset& value, const std::vector<std::byte>& data = std::vector<std::byte>()) {
+			return _addStruct(name, std_struct<_Offset>(value, data));
 		}
 
 #pragma region ADD_STRUCT_ARRAYS
-		std::vector<size_t> add(const std::string& name, const _Offsets& structOffsets, const std::vector<unsigned char>*& values, size_t size) {
-			return _ConvertArray<std::vector<unsigned char>, std::vector<unsigned char>>(name, values, size,
-				[&](const std::string& name, const std::vector<std::vector<unsigned char>>& convs) -> std::vector<size_t> {
-					return _AddStructArray(name, structOffsets, convs);
+		std::vector<size_t> add(const std::string& name, const _Offset& structOffsets, const std::vector<std::byte>*& values, size_t size) {
+			return _convertArray<std::vector<std::byte>, std::vector<std::byte>>(name, values, size,
+				[&](const std::string& name, const std::vector<std::vector<std::byte>>& convs) -> std::vector<size_t> {
+					return _addStructArray(name, structOffsets, convs);
 				});
 		}
 
 		template<size_t N> 
-		std::vector<size_t> add(const std::string& name, const _Offsets& structOffsets, const std::vector<unsigned char>(&values)[N]) {
-			return _ConvertArray<std::vector<unsigned char>, std::vector<unsigned char>>(name, values, N,
-				[&](const std::string& name, const std::vector<std::vector<unsigned char>>& convs) -> std::vector<size_t> {
-					return _AddStructArray(name, structOffsets, convs);
+		std::vector<size_t> add(const std::string& name, const _Offset& structOffsets, const std::vector<std::byte>(&values)[N]) {
+			return _convertArray<std::vector<std::byte>, std::vector<std::byte>>(name, values, N,
+				[&](const std::string& name, const std::vector<std::vector<std::byte>>& convs) -> std::vector<size_t> {
+					return _addStructArray(name, structOffsets, convs);
 				}
 			);
 		}
 
-		std::vector<size_t> add(const std::string& name, const _Offsets& structOffsets, const std::vector<std::vector<unsigned char>>& values) {
-			return _AddStructArray(name, structOffsets, values);
+		std::vector<size_t> add(const std::string& name, const _Offset& structOffsets, const std::vector<std::vector<std::byte>>& values) {
+			return _addStructArray(name, structOffsets, values);
 		}
 
 #pragma endregion
@@ -1057,32 +1057,32 @@ namespace glsl {
 #pragma endregion
 
 #pragma region SET_STRUCT
-		bool set(const std::string& name, const STDStruct<_Offset>& value) {
-			return _SetStruct(name, value._data);
+		bool set(const std::string& name, const std_struct<_Offset>& value) {
+			return _setStruct(name, value._data);
 		}
 		
 		bool set(const std::string& name, const std::vector<std::byte>& value) {
-			return _SetStruct(name, value);
+			return _setStruct(name, value);
 		}
 
 #pragma region SET_STRUCT_ARRAYS
 		bool set(const std::string& name, const std::vector<std::byte>*& values, size_t size) {
-			return _ConvertArray<std::vector<unsigned char>, std::vector<unsigned char>>(name, values, size,
-				[&](const std::string& name, const std::vector<std::vector<unsigned char>>& values) -> bool {
-					return _SetStructArray(name, values);
+			return _ConvertArray<std::vector<std::byte>, std::vector<std::byte>>(name, values, size,
+				[&](const std::string& name, const std::vector<std::vector<std::byte>>& values) -> bool {
+					return _setStructArray(name, values);
 				});
 		}
 
 		template<size_t N> 
 		bool set(const std::string& name, const std::vector<std::byte>(&values)[N]) {
-			return _ConvertArray<std::vector<unsigned char>, std::vector<unsigned char>>(name, values, N, 
-				[&](const std::string& name, const std::vector<std::vector<unsigned char>>& values) -> bool { 
-					return _SetStructArray(name, values);
+			return _ConvertArray<std::vector<std::byte>, std::vector<std::byte>>(name, values, N,
+				[&](const std::string& name, const std::vector<std::vector<std::byte>>& values) -> bool {
+					return _setStructArray(name, values);
 				});
 		}
 
 		bool set(const std::string& name, const std::vector<std::vector<std::byte>>& values) {
-			return _SetStructArray(name, values);
+			return _setStructArray(name, values);
 		}
 #pragma endregion
 #pragma endregion
@@ -1096,10 +1096,10 @@ namespace glsl {
 #endif
 		T get(const std::string& name) const {
 			if constexpr (std::is_same_v<T, bool>) {
-				return (T)_Get<unsigned int>(name);
+				return (T)_get<unsigned int>(name);
 			}
 			else {
-				return _Get<T>(name);
+				return _get<T>(name);
 			}
 		}
 
@@ -1112,10 +1112,10 @@ namespace glsl {
 		void get(const std::string& name, T*& valuesDest, size_t size) const {
 			std::vector<T> values;
 			if constexpr (std::is_same_v<T, bool>) {
-				values = _GetArray<unsigned int, T>(name, [&](const std::string& name) -> std::vector<T> { return _GetArray<unsigned int>(name); });
+				values = _getArray<unsigned int, T>(name, [&](const std::string& name) -> std::vector<T> { return _getArray<unsigned int>(name); });
 			}
 			else {
-				values = _GetArray<T>(name);
+				values = _getArray<T>(name);
 			}
 			memcpy(valuesDest, values.data(), std::min(values.size(), size));
 			values.clear();
@@ -1129,10 +1129,10 @@ namespace glsl {
 		SV get(const std::string& name) const {
 			using T = typename SV::value_type;
 			if constexpr (std::is_same_v<T, bool>) {
-				return _GetArray<unsigned int, T>(name, [&](const std::string& name) -> std::vector<T> { return _GetArray<unsigned int>(name); });
+				return _getArray<unsigned int, T>(name, [&](const std::string& name) -> std::vector<T> { return _getArray<unsigned int>(name); });
 			}
 			else {
-				return _GetArray<T>(name);
+				return _getArray<T>(name);
 			}
 		}
 
@@ -1149,10 +1149,10 @@ namespace glsl {
 			using T = typename V::value_type;
 			static constexpr size_t L = V::length();
 			if (std::is_same_v<T, bool>) {
-				return (V)_Get<glm::vec<L, unsigned int>>(name);
+				return (V)_get<glm::vec<L, unsigned int>>(name);
 			}
 			else {
-				return _Get<V>(name);
+				return _get<V>(name);
 			}
 		}
 
@@ -1168,12 +1168,12 @@ namespace glsl {
 			std::vector<V> values;
 			if constexpr (std::is_same_v<T, bool>) {
 				using type = glm::vec<L, unsigned int>;
-				values = _GetArray<type, V>(name, [&](const std::string& name) -> std::vector<type> {
-						return _GetArray<type>(name); 
+				values = _getArray<type, V>(name, [&](const std::string& name) -> std::vector<type> {
+						return _getArray<type>(name); 
 					});
 			}
 			else {
-				values = _GetArray<V>(name);
+				values = _getArray<V>(name);
 			}
 			memcpy(valuesDest, values.data(), std::min(values.size(), size));
 			values.clear();
@@ -1190,12 +1190,12 @@ namespace glsl {
 			static constexpr size_t L = V::length();
 			if constexpr (std::is_same_v<T, bool>) {
 				using type = glm::vec<L, unsigned int>;
-				return _GetArray<type, V>(name, [&](const std::string& name) -> std::vector<type> {
-						return _GetArray<type>(name); 
+				return _getArray<type, V>(name, [&](const std::string& name) -> std::vector<type> {
+						return _getArray<type>(name); 
 					});
 			}
 			else {
-				return GetArray<V>(name);
+				return getArray<V>(name);
 			}
 		}
 
@@ -1214,18 +1214,18 @@ namespace glsl {
 			static constexpr size_t R = M::col_type::length();
 			if constexpr (column_major) {
 				if constexpr (std::is_same_v<T, bool>) {
-					return (M)_Get<glm::mat<C, R, unsigned int>>(name);
+					return (M)_get<glm::mat<C, R, unsigned int>>(name);
 				}
 				else {
-					return _Get<M>(name);
+					return _get<M>(name);
 				}
 			}
 			else {
 				if constexpr (std::is_same_v<T, bool>) {
-					return (M)glm::transpose(_Get<glm::mat<R, C, unsigned int>>(name));
+					return (M)glm::transpose(_get<glm::mat<R, C, unsigned int>>(name));
 				}
 				else {
-					return glm::transpose(_Get<glm::mat<R, C, T>>(name));
+					return glm::transpose(_get<glm::mat<R, C, T>>(name));
 				}
 			}
 		}
@@ -1244,12 +1244,12 @@ namespace glsl {
 			if constexpr (column_major) {
 				if constexpr (std::is_same_v<T, bool>) {
 					using type = glm::mat<C, R, unsigned int>;
-					values = _GetArray<type, M>(name, [&](const std::string& name) -> std::vector<type> {
-						return _GetArray<type>(name);
+					values = _getArray<type, M>(name, [&](const std::string& name) -> std::vector<type> {
+						return _getArray<type>(name);
 					});
 				}
 				else {
-					values = _GetArray<M>(name);
+					values = _getArray<M>(name);
 				}
 			}
 			else {
@@ -1257,12 +1257,12 @@ namespace glsl {
 				std::vector<transposedType> transposedValues;
 				if constexpr (std::is_same_v<T, bool>) {
 					using type = glm::mat<R, C, unsigned int>;
-					transposedValues = _GetArray<type, transposedType>(name, [&](const std::string& name) -> std::vector<type> {
-						return _GetArray<type>(name);
+					transposedValues = _getArray<type, transposedType>(name, [&](const std::string& name) -> std::vector<type> {
+						return _getArray<type>(name);
 					});
 				}
 				else {
-					transposedValues = _GetArray<transposedType>(name);
+					transposedValues = _getArray<transposedType>(name);
 				}
 
 				for (auto& value : transposedValues) {
@@ -1287,12 +1287,12 @@ namespace glsl {
 			if constexpr (column_major) {
 				if constexpr (std::is_same_v<T, bool>) {
 					using type = glm::mat<C, R, unsigned int>;
-					return _GetArray<type, M>(name, [&](const std::string& name) -> std::vector<type> {
-						return _GetArray<type>(name);
+					return _getArray<type, M>(name, [&](const std::string& name) -> std::vector<type> {
+						return _getArray<type>(name);
 						});
 				}
 				else {
-					return _GetArray<M>(name);
+					return _getArray<M>(name);
 				}
 			}
 			else {
@@ -1302,11 +1302,11 @@ namespace glsl {
 				if constexpr (std::is_same_v<T, bool>) {
 					using type = glm::mat<R, C, unsigned int>;
 					transposedValues = _GetArray<type, transposedType>(name, [&](const std::string& name) -> std::vector<type> {
-						return _GetArray<type>(name);
+						return _getArray<type>(name);
 						});
 				}
 				else {
-					transposedValues = _GetArray<transposedType>(name);
+					transposedValues = _getArray<transposedType>(name);
 				}
 
 				for (auto& value : transposedValues) {
@@ -1322,31 +1322,31 @@ namespace glsl {
 #if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
 		template<utils::std_struct<_Offset> S>
 #else
-		template<class S, utils::std_struct_enable_if_t<S, _Offsets, bool> = true>
+		template<class S, utils::std_struct_enable_if_t<S, _Offset, bool> = true>
 #endif
-		S get(const std::string& name, const _Offsets& structOffsets) const {
-			return _GetStruct(name, structOffsets);
+		S get(const std::string& name, const _Offset& structOffsets) const {
+			return _getStruct(name, structOffsets);
 		}
 
 #pragma region GET_STRUCT_ARRAYS
 #if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
-		template<utils::std_struct<_Offsets> S>
+		template<utils::std_struct<_Offset> S>
 #else
-		template<class S, utils::std_struct_enable_if_t<S, _Offsets, bool> = true>
+		template<class S, utils::std_struct_enable_if_t<S, _Offset, bool> = true>
 #endif
-		void get(const std::string& name, const _Offsets& structOffsets, S*& valueDest, size_t size) const {
-			std::vector<STDStruct<_Offsets>> values = _GetStructArray(name, structOffsets);
+		void get(const std::string& name, const _Offset& structOffsets, S*& valueDest, size_t size) const {
+			std::vector<std_struct<_Offset>> values = _getStructArray(name, structOffsets);
 			memcpy(valueDest, values.data(), std::min(values.size(), size));
 			values.clear();
 		}
 
 #if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
-		template<utils::std_structs_vector<_Offsets> VS>
+		template<utils::std_structs_vector<_Offset> VS>
 #else
-		template<class VS, utils::std_structs_vector_enable_if_t<VS, _Offsets, bool> = true>
+		template<class VS, utils::std_structs_vector_enable_if_t<VS, _Offset, bool> = true>
 #endif
-		VS get(const std::string& name, const _Offsets& structTemplate) const {
-			return _GetStructArray(name, structTemplate);
+		VS get(const std::string& name, const _Offset& structTemplate) const {
+			return _getStructArray(name, structTemplate);
 		}
 
 #pragma endregion
@@ -1356,28 +1356,28 @@ namespace glsl {
 			return _dataOffsets;
 		}
 		size_t getOffset(const std::string& name) const {
-			return _dataOffsets.Get(name);
+			return _dataOffsets.get(name);
 		}
 		std::vector<size_t> getArrayOffsets(const std::string& name) const {
-			return _dataOffsets.GetArray(name);
+			return _dataOffsets.getArray(name);
 		}
 
 		const base_type* getType(const std::string& name) const {
-			return _dataOffsets.GetType(name);
+			return _dataOffsets.getType(name);
 		}
 
 		std::vector<std::string> getNames() const {
-			return _dataOffsets.GetNames();
+			return _dataOffsets.getNames();
 		}
 
 		std::vector<std::byte> getData() const {
 			return _data;
 		}
 
-		size_t getBaseAligement() const {
-			return _dataOffsets.GetBaseAligement();
+		size_t baseAligement() const {
+			return _dataOffsets.baseAligement();
 		}
-		size_t getSize() const {
+		size_t size() const {
 			return _data.size();
 		}
 
@@ -1385,7 +1385,7 @@ namespace glsl {
 			memset(_data.data(), 0, _data.size());
 		}
 		void clear() {
-			_dataOffsets.Clear();
+			_dataOffsets.clear();
 			_data.clear();
 		}
 	};

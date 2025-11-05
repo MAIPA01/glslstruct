@@ -37,7 +37,7 @@ scalar_type::scalar_type(const ValueType& type) : base_type(), _type(type) {}
 
 CLONE_FUNC_DEFINITION(scalar_type, _type)
 
-[[nodiscard]] ValutType scalar_type::getType() const noexcept {
+[[nodiscard]] ValueType scalar_type::getType() const noexcept {
 	return _type;
 }
 
@@ -45,8 +45,8 @@ CLONE_FUNC_DEFINITION(scalar_type, _type)
 	return to_string(_type);
 }
 
-[[nodiscard]] static std::string glslstruct::to_string(const scalar_type*& value) {
-	return value->to_string();
+[[nodiscard]] static std::string glslstruct::to_string(const scalar_type*& value) noexcept {
+	return value->toString();
 }
 
 vec_type::vec_type(const ValueType& type, const size_t& length) : base_type(), _type(type), _length(length) {}
@@ -66,7 +66,7 @@ CLONE_FUNC_DEFINITION(vec_type, _type, _length)
 }
 
 [[nodiscard]] static std::string glslstruct::to_string(const vec_type*& value) noexcept {
-	return value->to_string();
+	return value->toString();
 }
 
 mat_type::mat_type(const ValueType& type, const size_t& cols, const size_t& rows) : base_type(), _type(type), _cols(cols), _rows(rows) {}
@@ -93,39 +93,36 @@ CLONE_FUNC_DEFINITION(mat_type, _type, _cols, _rows)
 }
 
 [[nodiscard]] static std::string glslstruct::to_string(const mat_type*& value) noexcept {
-	return value->to_string();
+	return value->toString();
 }
 
-struct_type::struct_type(const offsets_map& offsets, const names_map& names, const types_map& types) : base_type(), _offsets(offsets), _names(names) {
-	for (auto& type : types) {
-		_types[type.first] = type.second->Clone();
+struct_type::struct_type(const values_map& values) : base_type() {
+	for (auto& value : values) {
+		_values[value.first] = { value.second.offset, value.second.type->Clone() };
 	}
 }
 
 struct_type::~struct_type() {
-	_offsets.clear();
-	_names.clear();
-	for (auto& type : _types) {
-		if (type.second == nullptr) continue;
-		delete type.second;
+	for (const auto& value : _values) {
+		if (value.second.type != nullptr)
+			delete value.second.type;
 	}
-	_types.clear();
+	_values.clear();
 }
 
-CLONE_FUNC_DEFINITION_ADVANCED(struct_type, STANDARD_CLONE(_offsets), STANDARD_CLONE(_names);
-	for (const auto& type : _types) cloned->_types[type.first] = type.second->Clone()
-)
-
-[[nodiscard]] struct_type::offsets_map struct_type::getOffsets() const noexcept {
-	return _offsets;
+struct_type* struct_type::Clone() const {
+	struct_type* cloned = new struct_type();
+	CloneTo(cloned);
+	return cloned;
+}
+void struct_type::CloneTo(struct_type* cloned) const {
+	for (auto& value : _values) {
+		cloned->_values[value.first] = { value.second.offset, value.second.type->Clone() };
+	}
 }
 
-[[nodiscard]] struct_type::names_map struct_type::getNames() const noexcept {
-	return _names;
-}
-
-[[nodiscard]] struct_type::types_map struct_type::getTypes() const noexcept {
-	return _types;
+[[nodiscard]] struct_type::values_map struct_type::getValues() const noexcept {
+	return _values;
 }
 
 [[nodiscard]] std::string struct_type::toString() const noexcept {
@@ -133,10 +130,10 @@ CLONE_FUNC_DEFINITION_ADVANCED(struct_type, STANDARD_CLONE(_offsets), STANDARD_C
 }
 
 [[nodiscard]] static std::string glslstruct::to_string(const struct_type*& value) noexcept {
-	return value->to_string();
+	return value->toString();
 }
 
-array_type::array_type(const base_type* type, const size_t& length) : base_type(type), _length(length) {}
+array_type::array_type(const base_type* type, const size_t& length) : base_type(), _type(type), _length(length) {}
 
 array_type::~array_type() {
 	delete _type;
@@ -153,9 +150,9 @@ CLONE_FUNC_DEFINITION_ADVANCED(array_type, _type, _type->Clone(), STANDARD_CLONE
 }
 
 [[nodiscard]] std::string array_type::toString() const noexcept {
-	return mstd::concat(_type->to_string(), "[", std::to_string(_length), "]");
+	return mstd::concat(_type->toString(), "[", std::to_string(_length), "]");
 }
 
-[[nodiscard]] static std::string glslstruct::to_string(const array_type& value) noexcept {
-	return value.to_string();
+[[nodiscard]] static std::string glslstruct::to_string(const array_type*& value) noexcept {
+	return value->toString();
 }

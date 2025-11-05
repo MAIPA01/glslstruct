@@ -1,17 +1,13 @@
 #pragma once
 #include <glslstruct/templates.hpp>
 #include <glslstruct/value_types.hpp>
+#include <glslstruct/value_data.hpp>
 #include <mstd/macros.hpp>
 #include <unordered_map>
 
 namespace glslstruct {
 	class std_offset {
 	protected:
-		struct value_data {
-			size_t offset;
-			const base_type* type;
-		};
-
 		using values_map = std::unordered_map<std::string, value_data>;
 
 		size_t _currentOffset = 0;
@@ -67,8 +63,8 @@ namespace glslstruct {
 		[[nodiscard]] const base_type* getType(const std::string& name) const;
 		[[nodiscard]] std::vector<std::string> getNames() const;
 
-		[[nodiscard]] virtual size_t getBaseAligement() const;
-		[[nodiscard]] virtual size_t getSize() const;
+		[[nodiscard]] virtual size_t baseAligement() const;
+		[[nodiscard]] virtual size_t size() const;
 
 		virtual void clear();
 	};

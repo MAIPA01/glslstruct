@@ -43,7 +43,7 @@ namespace glslstruct {
 		std430_offset(const std430_offset& std430off);
 		std430_offset(std430_offset&& std430off);
 		template<class... Args, size_t... nums>
-		std430_offsets(const std_variable<Args, nums>&... vars) {
+		std430_offset(const std_variable<Args, nums>&... vars) {
 			_addMultiple(vars...);
 		}
 		virtual ~std430_offset() = default;
@@ -165,6 +165,6 @@ namespace glslstruct {
 		[[nodiscard]] std::vector<size_t> add(const std::string& name, const std430_offset& structTemplate, size_t size);
 #pragma endregion
 
-		[[nodiscard]] virtual size_t getBaseAligement() const override;
+		[[nodiscard]] virtual size_t baseAligement() const override;
 	};
 }

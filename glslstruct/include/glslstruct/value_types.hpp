@@ -5,6 +5,7 @@
 #include <string>
 #include <unordered_map>
 #include <cstdint>
+#include <glslstruct/value_data.hpp>
 
 namespace glslstruct {
 	ENUM_CLASS_BASE_STRING(ValueType, uint8_t, Other, "other", Bool, "bool", Int, "int", Uint, "uint", Float, "float", Double, "double");
@@ -84,7 +85,7 @@ namespace glslstruct {
 		[[nodiscard]] ValueType getType() const noexcept;
 		[[nodiscard]] size_t getLength() const noexcept;
 
-		virtual std::string toString() const override;
+		[[nodiscard]] virtual std::string toString() const noexcept override;
 	};
 
 	[[nodiscard]] static std::string to_string(const vec_type*& value) noexcept;
@@ -107,34 +108,28 @@ namespace glslstruct {
 		[[nodiscard]] size_t getRows() const noexcept;
 		[[nodiscard]] size_t getCols() const noexcept;
 
-		virtual std::string toString() const override;
+		[[nodiscard]] virtual std::string toString() const noexcept override;
 	};
 
 	[[nodiscard]] static std::string to_string(const mat_type*& value) noexcept;
 
 	class struct_type : public base_type {
 	private:
-		using offsets_map = std::unordered_map<size_t, size_t>;
-		using names_map = std::unordered_map<size_t, std::string>;
-		using types_map = std::unordered_map<size_t, const base_type*>;
+		using values_map = std::unordered_map<std::string, value_data>;
 
-		offsets_map _offsets;
-		names_map _names;
-		types_map _types;
+		values_map _values;
 
 	protected:
 		struct_type() = default;
 	public:
-		struct_type(const offsets_map& offsets, const names_map& names, const types_map& types);
+		struct_type(const values_map& values);
 		virtual ~struct_type();
 
 		DECLARE_OVERRIDED_CLONE_FUNC(struct_type)
 
-		[[nodiscard]] offsets_map getOffsets() const noexcept;
-		[[nodiscard]] names_map getNames() const noexcept;
-		[[nodiscard]] types_map getTypes() const noexcept;
+		[[nodiscard]] values_map getValues() const noexcept;
 
-		virtual std::string toString() const override;
+		[[nodiscard]] virtual std::string toString() const noexcept override;
 	};
 
 	[[nodiscard]] static std::string to_string(const struct_type*& value) noexcept;
@@ -155,7 +150,7 @@ namespace glslstruct {
 		[[nodiscard]] const base_type* getType() const noexcept;
 		[[nodiscard]] size_t getLength() const noexcept;
 
-		virtual std::string toString() const override;
+		[[nodiscard]] virtual std::string toString() const noexcept override;
 	};
 
 	[[nodiscard]] static std::string to_string(const array_type*& value) noexcept;
