@@ -1,4 +1,4 @@
-project(GLSL-Struct-Tests VERSION 1.0 LANGUAGES CXX)
+project(glslstruct-tests VERSION 1.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(GLSL_STRUCT_ENABLE_CXX20 ON CACHE INTERNAL "" FORCE)
@@ -10,7 +10,7 @@ file(GLOB_RECURSE ${PROJECT_TEST_SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 # make exec
 add_executable(${PROJECT_NAME} ${${PROJECT_TEST_SOURCES}})
 
-target_link_libraries(${PROJECT_NAME} PRIVATE GLSL-Struct-Cpp gtest_main)
+target_link_libraries(${PROJECT_NAME} PRIVATE glslstruct gtest_main)
 
 # Konfiguracja PCH
 set(PCH_HEADER "${CMAKE_SOURCE_DIR}/pch.hpp")

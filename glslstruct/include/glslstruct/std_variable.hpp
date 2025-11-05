@@ -1,13 +1,13 @@
 #pragma once
-#include <templates.hpp>
+#include <glslstruct/templates.hpp>
 
-namespace glsl {
-	struct StandardVariable {};
+namespace glslstruct {
+	struct standard_variable {};
 
 	template<class T>
-	struct OffsetVariable {
+	struct offset_variable {
 		const T struct_offsets;
-		OffsetVariable(const T& offsets) : struct_offsets(offsets) {}
+		offset_variable(const T& offsets) : struct_offsets(offsets) {}
 	};
 
 #if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
@@ -16,14 +16,14 @@ namespace glsl {
 	template<class T, size_t num,
 		std::enable_if_t<(utils::is_any_offset_v<T> || utils::is_any_standard_value_v<T>), bool>>
 #endif
-	struct STDVariable : public std::conditional_t< 
+	struct std_variable : public std::conditional_t< 
 		utils::is_any_offset_v<T>,
-		OffsetVariable<T>,
-		StandardVariable> {
+		offset_variable<T>,
+		standard_variable> {
 	public:
 		using var_type = T;
-		static constexpr size_t array_size = num;
-		static constexpr bool is_offsets = utils::is_any_offset_v<T>;
+		static constexpr const size_t array_size = num;
+		static constexpr const bool is_offsets = utils::is_any_offset_v<T>;
 
 #pragma region VARIABLES
 		const std::string var_name;
@@ -37,7 +37,7 @@ namespace glsl {
 		template<class T = var_type, 
 			std::enable_if_t<(std::is_same_v<T, var_type> && utils::is_any_standard_value_v<T>), bool> = true>
 #endif
-		STDVariable(const std::string& name) : var_name(name) {}
+		std_variable(const std::string& name) : var_name(name) {}
 #pragma endregion
 
 #pragma region OFFSETS_CONSTRUCTOR
@@ -48,6 +48,6 @@ namespace glsl {
 		template<class T = var_type, 
 			std::enable_if_t<(std::is_same_v<T, var_type> && utils::is_any_offset_v<T>), bool> = true>
 #endif
-		STDVariable(const std::string& name, const T& offsets) : OffsetVariable<T>(offsets), var_name(name) {}
+		std_variable(const std::string& name, const T& offsets) : offset_variable<T>(offsets), var_name(name) {}
 	};
 }

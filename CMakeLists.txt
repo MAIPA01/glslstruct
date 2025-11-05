@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.16)
-project(GLSL-Struct-Cpp VERSION 1.0 LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.24)
+project(glslstruct VERSION 1.0 LANGUAGES CXX)
 
 option(GLSL_STRUCT_ENABLE_CXX20 OFF)
 
@@ -17,8 +17,8 @@ option(BUILD_GLSL_STRUCT_TESTS "Build glsl struct tests" OFF)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/third_party.cmake)
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/GLSL-Struct-Cpp)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/glslstruct)
 
 if (BUILD_GLSL_STRUCT_TESTS)
-	add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/GLSL-Struct-Tests)
+	add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/glslstruct-tests)
 endif()

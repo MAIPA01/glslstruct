@@ -1,35 +1,35 @@
 #include "pch.hpp"
 
-using namespace glsl;
+using namespace glslstruct;
 using namespace glm;
 
-TEST(STD140Offsets, AddScalars) {
-	STD140Offsets structOffsets;
+TEST(std140_offset, add_scalars) {
+	std140_offset structOffsets;
 	size_t ret;
 
 	// BOOL
-	ret = structOffsets.Add<bool>("Bool");
+	ret = structOffsets.add<bool>("Bool");
 	EXPECT_EQ(ret, 0);
 
 	// INT
-	ret = structOffsets.Add<int>("Int");
+	ret = structOffsets.add<int>("Int");
 	EXPECT_EQ(ret, 4);
 
 	// UINT
-	ret = structOffsets.Add<unsigned int>("Uint");
+	ret = structOffsets.add<unsigned int>("Uint");
 	EXPECT_EQ(ret, 8);
 
 	// FLOAT
-	ret = structOffsets.Add<float>("Float");
+	ret = structOffsets.add<float>("Float");
 	EXPECT_EQ(ret, 12);
 
 	// DOUBLE
-	ret = structOffsets.Add<double>("Double");
+	ret = structOffsets.add<double>("Double");
 	EXPECT_EQ(ret, 16);
 }
 
-TEST(STD140Offsets, AddScalarsArray) {
-	STD140Offsets structOffsets;
+TEST(std140_offset, AddScalarsArray) {
+	std140_offset structOffsets;
 	std::vector<size_t> results;
 	std::vector<size_t> ret;
 
@@ -59,8 +59,8 @@ TEST(STD140Offsets, AddScalarsArray) {
 	EXPECT_EQ(ret, results);
 }
 
-TEST(STD140Offsets, AddVectors) {
-	STD140Offsets structOffsets;
+TEST(std140_offset, AddVectors) {
+	std140_offset structOffsets;
 	size_t ret;
 
 #pragma region VEC2
@@ -136,8 +136,8 @@ TEST(STD140Offsets, AddVectors) {
 #pragma endregion
 }
 
-TEST(STD140Offsets, AddVectorsArray) {
-	STD140Offsets structOffsets;
+TEST(std140_offset, AddVectorsArray) {
+	std140_offset structOffsets;
 	std::vector<size_t> results;
 	std::vector<size_t> ret;
 
@@ -229,8 +229,8 @@ TEST(STD140Offsets, AddVectorsArray) {
 #pragma endregion
 }
 
-TEST(STD140Offsets, AddMatrixes) {
-	STD140Offsets structOffsets;
+TEST(std140_offset, AddMatrixes) {
+	std140_offset structOffsets;
 	size_t ret;
 
 #pragma region COLUMN_MAJOR
@@ -386,8 +386,8 @@ TEST(STD140Offsets, AddMatrixes) {
 #pragma endregion
 }
 
-TEST(STD140Offsets, AddMarixesArray) {
-	STD140Offsets structOffsets;
+TEST(std140_offset, AddMarixesArray) {
+	std140_offset structOffsets;
 	std::vector<size_t> results;
 	std::vector<size_t> ret;
 
@@ -574,17 +574,17 @@ TEST(STD140Offsets, AddMarixesArray) {
 #pragma endregion
 }
 
-TEST(STD140Offsets, AddStruct) {
-	STD140Offsets structOffsets;
+TEST(std140_offset, AddStruct) {
+	std140_offset structOffsets;
 }
 
-TEST(STD140Offsets, AddStructArray) {
-	STD140Offsets structOffsets;
+TEST(std140_offset, AddStructArray) {
+	std140_offset structOffsets;
 }
 
-TEST(STD140Offsets, OffsetCalculation1) {
-	STD140Offsets structOffsets;
-	STD140Offsets subStructOffsets;
+TEST(std140_offset, OffsetCalculation1) {
+	std140_offset structOffsets;
+	std140_offset subStructOffsets;
 	size_t ret;
 	std::vector<size_t> retVec;
 	std::vector<size_t> resultVec;
@@ -636,9 +636,9 @@ TEST(STD140Offsets, OffsetCalculation1) {
 	EXPECT_EQ(ret, 480);
 }
 
-TEST(STD140Offsets, OffsetCalculation2) {
-	STD140Offsets structOffsets;
-	STD140Offsets subStructOffsets;
+TEST(std140_offset, OffsetCalculation2) {
+	std140_offset structOffsets;
+	std140_offset subStructOffsets;
 	size_t ret;
 
 	ret = subStructOffsets.Add<bool>("has_diffuse_texture");
@@ -675,8 +675,8 @@ TEST(STD140Offsets, OffsetCalculation2) {
 	EXPECT_EQ(ret, 640);
 }
 
-TEST(STD140Offsets, OffsetCalculation3) {
-	STD140Offsets structOffsets;
+TEST(std140_offset, OffsetCalculation3) {
+	std140_offset structOffsets;
 	size_t ret;
 
 	ret = structOffsets.Add<vec2>("windowSize");
@@ -691,12 +691,12 @@ TEST(STD140Offsets, OffsetCalculation3) {
 	EXPECT_EQ(ret, 32);
 }
 
-TEST(STD140Offsets, ConstructorAndGet) {
+TEST(std140_offset, ConstructorAndGet) {
 	size_t ret;
 	std::vector<size_t> retVec;
 	std::vector<size_t> resultVec;
 
-	STD140Offsets subStruct1{
+	std140_offset subStruct1{
 		STDVariable<int>("d"),
 		STDVariable<bvec2>("e")
 	};
@@ -707,7 +707,7 @@ TEST(STD140Offsets, ConstructorAndGet) {
 	ret = subStruct1.GetSize();
 	EXPECT_EQ(ret, 16);
 
-	STD140Offsets subStruct2{
+	std140_offset subStruct2{
 		STDVariable<uvec3>("j"),
 		STDVariable<vec2>("k"),
 		STDVariable<float, 2>("l"),
@@ -729,7 +729,7 @@ TEST(STD140Offsets, ConstructorAndGet) {
 	ret = subStruct2.GetSize();
 	EXPECT_EQ(ret, 176);
 
-	STD140Offsets structOffsets{
+	std140_offset structOffsets{
 		STDVariable<float>("a"),
 		STDVariable<vec2>("b"),
 		STDVariable<vec3>("c"),
@@ -797,11 +797,11 @@ TEST(STD140Offsets, ConstructorAndGet) {
 	EXPECT_EQ(ret, 480);
 }
 
-TEST(STD430Offsets, OffsetCalculation1) {
+TEST(std430_offset, OffsetCalculation1) {
 	size_t ret;
 	std::vector<size_t> retVec;
 
-	STD430Offsets rect;
+	std430_offset rect;
 	ret = rect.Add<mat4>("transform");
 	EXPECT_EQ(ret, 0);
 	ret = rect.Add<vec2>("size");
@@ -809,7 +809,7 @@ TEST(STD430Offsets, OffsetCalculation1) {
 	ret = rect.GetSize();
 	EXPECT_EQ(ret, 80);
 
-	STD430Offsets sprite;
+	std430_offset sprite;
 	ret = sprite.Add<uvec2>("offset");
 	EXPECT_EQ(ret, 0);
 	ret = sprite.Add<uvec2>("size");
@@ -819,7 +819,7 @@ TEST(STD430Offsets, OffsetCalculation1) {
 	ret = sprite.GetSize();
 	EXPECT_EQ(ret, 32);
 
-	STD430Offsets fill;
+	std430_offset fill;
 	ret = fill.Add<unsigned int>("type");
 	EXPECT_EQ(ret, 0);
 	ret = fill.Add<unsigned int>("subType");
@@ -835,7 +835,7 @@ TEST(STD430Offsets, OffsetCalculation1) {
 	ret = fill.GetSize();
 	EXPECT_EQ(ret, 32);
 
-	STD430Offsets uiElement;
+	std430_offset uiElement;
 	ret = uiElement.Add("rect", rect);
 	EXPECT_EQ(ret, 0);
 	ret = uiElement.Add("sprite", sprite);
@@ -849,7 +849,7 @@ TEST(STD430Offsets, OffsetCalculation1) {
 	ret = uiElement.GetSize();
 	EXPECT_EQ(ret, 176);
 
-	STD430Offsets texture;
+	std430_offset texture;
 	ret = texture.Add<uvec2>("size");
 	EXPECT_EQ(ret, 0);
 	ret = texture.Add<bool>("isActive");
@@ -857,7 +857,7 @@ TEST(STD430Offsets, OffsetCalculation1) {
 	ret = texture.GetSize();
 	EXPECT_EQ(ret, 16);
 
-	STD430Offsets ssbo;
+	std430_offset ssbo;
 	std::vector<size_t> resultVec{0, 176, 352, 528, 704, 880, 1056, 1232};
 	retVec = ssbo.Add("uiElements", uiElement, 8);
 	EXPECT_EQ(retVec, resultVec);
@@ -869,11 +869,11 @@ TEST(STD430Offsets, OffsetCalculation1) {
 	EXPECT_EQ(ret, 1440);
 }
 
-TEST(STD430Offsets, OffsetCalculation2) {
+TEST(std430_offset, OffsetCalculation2) {
 	size_t ret;
 	std::vector<size_t> retVec;
 
-	STD430Offsets pointLight;
+	std430_offset pointLight;
 	ret = pointLight.Add<vec3>("position");
 	EXPECT_EQ(ret, 0);
 	ret = pointLight.Add<vec3>("color");
@@ -889,7 +889,7 @@ TEST(STD430Offsets, OffsetCalculation2) {
 	ret = pointLight.GetSize();
 	EXPECT_EQ(ret, 48);
 
-	STD430Offsets spotLight;
+	std430_offset spotLight;
 	ret = spotLight.Add<vec3>("position");
 	EXPECT_EQ(ret, 0);
 	ret = spotLight.Add<vec3>("direction");
@@ -911,7 +911,7 @@ TEST(STD430Offsets, OffsetCalculation2) {
 	ret = spotLight.GetSize();
 	EXPECT_EQ(ret, 64);
 
-	STD430Offsets dirLight;
+	std430_offset dirLight;
 	ret = dirLight.Add<vec3>("direction");
 	EXPECT_EQ(ret, 0);
 	ret = dirLight.Add<vec3>("color");
@@ -929,7 +929,7 @@ TEST(STD430Offsets, OffsetCalculation2) {
 	ret = dirLight.GetSize();
 	EXPECT_EQ(ret, 112);
 
-	STD430Offsets ssbo;
+	std430_offset ssbo;
 	std::vector<size_t> resultVec;
 	ret = ssbo.Add<unsigned int>("numberOfPointLights");
 	EXPECT_EQ(ret, 0);
@@ -950,12 +950,12 @@ TEST(STD430Offsets, OffsetCalculation2) {
 	EXPECT_EQ(ret, 1360);
 }
 
-TEST(STD430Offsets, ConstructorAndGet) {
+TEST(std430_offset, ConstructorAndGet) {
 	size_t ret;
 	std::vector<size_t> retVec;
 
 #pragma region RECT
-	STD430Offsets rect{
+	std430_offset rect{
 		STDVariable<mat4>("transform"),
 		STDVariable<vec2>("size")
 	};
@@ -968,7 +968,7 @@ TEST(STD430Offsets, ConstructorAndGet) {
 #pragma endregion
 
 #pragma region SPRITE
-	STD430Offsets sprite{
+	std430_offset sprite{
 		STDVariable<uvec2>("offset"),
 		STDVariable<uvec2>("size"),
 		STDVariable<bool>("isActive")
@@ -984,7 +984,7 @@ TEST(STD430Offsets, ConstructorAndGet) {
 #pragma endregion
 
 #pragma region FILL
-	STD430Offsets fill{
+	std430_offset fill{
 		STDVariable<unsigned int>("type"),
 		STDVariable<unsigned int>("subType"),
 		STDVariable<float>("offset"),
@@ -1009,10 +1009,10 @@ TEST(STD430Offsets, ConstructorAndGet) {
 #pragma endregion
 
 #pragma region UIElement
-	STD430Offsets uiElement{
-		STDVariable<STD430Offsets>("rect", rect),
-		STDVariable<STD430Offsets>("sprite", sprite),
-		STDVariable<STD430Offsets>("fill", fill),
+	std430_offset uiElement{
+		STDVariable<std430_offset>("rect", rect),
+		STDVariable<std430_offset>("sprite", sprite),
+		STDVariable<std430_offset>("fill", fill),
 		STDVariable<vec4>("color"),
 		STDVariable<bool>("isText")
 	};
@@ -1062,7 +1062,7 @@ TEST(STD430Offsets, ConstructorAndGet) {
 #pragma endregion
 
 #pragma region TEXTURE
-	STD430Offsets texture{
+	std430_offset texture{
 		STDVariable<uvec2>("size"),
 		STDVariable<bool>("isActive")
 	};
@@ -1075,9 +1075,9 @@ TEST(STD430Offsets, ConstructorAndGet) {
 #pragma endregion
 
 #pragma region SSBO
-	STD430Offsets ssbo{
-		STDVariable<STD430Offsets, 8>("uiElements", uiElement),
-		STDVariable<STD430Offsets>("elementTexture", texture),
+	std430_offset ssbo{
+		STDVariable<std430_offset, 8>("uiElements", uiElement),
+		STDVariable<std430_offset>("elementTexture", texture),
 		STDVariable<int>("elementLayer")
 	};
 	std::vector<size_t> resultVec{ 0, 176, 352, 528, 704, 880, 1056, 1232 };
@@ -1143,8 +1143,8 @@ TEST(STD430Offsets, ConstructorAndGet) {
 #pragma endregion
 }
 
-TEST(STDStruct, AddArray) {
-	STD430Struct test{
+TEST(std_struct, AddArray) {
+	std430_struct test{
 		STDValue<int, 3>("test", { 2, 3, 4 })
 	};
 	int value = test.Get<int>("test[1]");
@@ -1153,8 +1153,8 @@ TEST(STDStruct, AddArray) {
 	EXPECT_EQ(ret, 0);
 }
 
-TEST(STDStruct, CopyTest) {
-	STD430Struct test{
+TEST(std_struct, CopyTest) {
+	std430_struct test{
 		STDValue<int, 3>("test", { 2, 3, 4 })
 	};
 	int value = test.Get<int>("test[1]");
@@ -1162,13 +1162,13 @@ TEST(STDStruct, CopyTest) {
 	size_t ret = test.GetOffset("test");
 	EXPECT_EQ(ret, 0);
 
-	STD430Struct test1 = test;
+	std430_struct test1 = test;
 	value = test1.Get<int>("test[1]");
 	EXPECT_EQ(value, 3);
 	ret = test1.GetOffset("test");
 	EXPECT_EQ(ret, 0);
 
-	STD430Struct* test2 = test.Clone();
+	std430_struct* test2 = test.Clone();
 	value = test2->Get<int>("test[1]");
 	EXPECT_EQ(value, 3);
 	ret = test2->GetOffset("test");
@@ -1176,12 +1176,12 @@ TEST(STDStruct, CopyTest) {
 	delete test2;
 }
 
-TEST(STDStruct, ConstructorAndGet) {
+TEST(std_struct, ConstructorAndGet) {
 	size_t ret;
 	std::vector<size_t> retVec;
 
 #pragma region RECT
-	STD430Struct rect{
+	std430_struct rect{
 		STDValue<mat4>("transform", mat4(1.f)),
 		STDValue<vec2>("size")
 	};
@@ -1196,7 +1196,7 @@ TEST(STDStruct, ConstructorAndGet) {
 #pragma endregion
 
 #pragma region SPRITE
-	STD430Struct sprite{
+	std430_struct sprite{
 		STDValue<uvec2>("offset"),
 		STDValue<uvec2>("size"),
 		STDValue<bool>("isActive")
@@ -1212,7 +1212,7 @@ TEST(STDStruct, ConstructorAndGet) {
 #pragma endregion
 
 #pragma region FILL
-	STD430Struct fill{
+	std430_struct fill{
 		STDValue<unsigned int>("type"),
 		STDValue<unsigned int>("subType"),
 		STDValue<float>("offset"),
@@ -1237,10 +1237,10 @@ TEST(STDStruct, ConstructorAndGet) {
 #pragma endregion
 
 #pragma region UIElement
-	STD430Struct uiElement{
-		STDValue<STD430Struct>("rect", rect),
-		STDValue<STD430Struct>("sprite", sprite),
-		STDValue<STD430Struct>("fill", fill),
+	std430_struct uiElement{
+		STDValue<std430_struct>("rect", rect),
+		STDValue<std430_struct>("sprite", sprite),
+		STDValue<std430_struct>("fill", fill),
 		STDValue<vec4>("color"),
 		STDValue<bool>("isText")
 	};
@@ -1290,7 +1290,7 @@ TEST(STDStruct, ConstructorAndGet) {
 #pragma endregion
 
 #pragma region TEXTURE
-	STD430Struct texture{
+	std430_struct texture{
 		STDValue<uvec2>("size"),
 		STDValue<bool>("isActive")
 	};
@@ -1303,9 +1303,9 @@ TEST(STDStruct, ConstructorAndGet) {
 #pragma endregion
 
 #pragma region SSBO
-	STD430Struct ssbo{
-		STDValue<STD430Struct, 8>("uiElements", uiElement.GetOffsets()),
-		STDValue<STD430Struct>("elementTexture", texture),
+	std430_struct ssbo{
+		STDValue<std430_struct, 8>("uiElements", uiElement.GetOffsets()),
+		STDValue<std430_struct>("elementTexture", texture),
 		STDValue<int>("elementLayer")
 	};
 	std::vector<size_t> resultVec{ 0, 176, 352, 528, 704, 880, 1056, 1232 };

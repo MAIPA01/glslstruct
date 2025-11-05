@@ -1,4 +1,4 @@
 #pragma once
 
 #include "gtest/gtest.h"
-#include <STDStruct.hpp>
+#include <glslstruct/std_struct.hpp>

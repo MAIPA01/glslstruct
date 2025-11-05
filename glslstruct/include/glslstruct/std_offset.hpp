@@ -1,0 +1,75 @@
+#pragma once
+#include <glslstruct/templates.hpp>
+#include <glslstruct/value_types.hpp>
+#include <mstd/macros.hpp>
+#include <unordered_map>
+
+namespace glslstruct {
+	class std_offset {
+	protected:
+		struct value_data {
+			size_t offset;
+			const base_type* type;
+		};
+
+		using values_map = std::unordered_map<std::string, value_data>;
+
+		size_t _currentOffset = 0;
+		size_t _maxAligement = 0;
+
+		values_map _values;
+
+		static inline const char* const _arrayElemFormat = "{}[{}]";
+		static inline const char* const _subElemFormat = "{}.{}";
+
+		void _setVariable(const std::string& name, size_t offset, const base_type* type);
+
+		[[nodiscard]] virtual size_t _add(const std::string& name, size_t baseAligement, size_t baseOffset, const base_type* type);
+		[[nodiscard]] virtual std::vector<size_t> _addArray(const std::string& name, size_t arraySize, size_t baseAligement,
+			size_t baseOffset, const base_type* type);
+
+		[[nodiscard]] virtual size_t _addScalar(const std::string& name, size_t baseAligement, size_t baseOffset, const ValueType& type);
+		[[nodiscard]] virtual std::vector<size_t> _addScalarArray(const std::string& name, size_t baseAligement, size_t baseOffset,
+			const ValueType& type, size_t arraySize);
+
+		[[nodiscard]] virtual size_t _addVector(const std::string& name, size_t length, size_t baseAligement, size_t baseOffset, const ValueType& type);
+		[[nodiscard]] virtual std::vector<size_t> _addVectorArray(const std::string& name, size_t length, size_t baseAligement, size_t baseOffset,
+			const ValueType& type, size_t arraySize);
+
+		[[nodiscard]] virtual size_t _addMatrix(const std::string& name, size_t columns, size_t rows, bool column_major, size_t baseAligement,
+			size_t baseOffset, const ValueType& type);
+		[[nodiscard]] virtual std::vector<size_t> _addMatrixArray(const std::string& name, size_t columns, size_t rows, bool column_major,
+			size_t baseAligement, size_t baseOffset, const ValueType& type, size_t arraySize);
+
+		[[nodiscard]] virtual size_t _addStruct(const std::string& name, size_t baseAligement, size_t baseOffset, const values_map& values);
+		[[nodiscard]] virtual std::vector<size_t> _addStructArray(const std::string& name, size_t baseAligement, size_t baseOffset, 
+			const values_map& values, size_t arraySize);
+
+		std_offset() = default;
+		std_offset(std_offset& stdOff);
+		std_offset(const std_offset& stdOff);
+		std_offset(std_offset&& stdOff);
+		virtual ~std_offset();
+
+		std_offset& operator=(std_offset& stdOff);
+		std_offset& operator=(const std_offset& stdOff);
+		std_offset& operator=(std_offset&& stdOff);
+
+	public:
+
+		DECLARE_CLONE_FUNC(std_offset)
+
+		[[nodiscard]] bool contains(const std::string& name) const;
+
+		[[nodiscard]] virtual size_t get(const std::string& name) const;
+		[[nodiscard]] virtual std::vector<size_t> getArray(const std::string& name) const;
+
+		[[nodiscard]] const base_type* getType(const std::string& name) const;
+		[[nodiscard]] std::vector<std::string> getNames() const;
+
+		[[nodiscard]] virtual size_t getBaseAligement() const;
+		[[nodiscard]] virtual size_t getSize() const;
+
+		virtual void clear();
+	};
+}

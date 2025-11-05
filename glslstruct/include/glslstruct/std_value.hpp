@@ -1,17 +1,19 @@
 #pragma once
-#include <STDVariable.hpp>
-#include <STDStruct.hpp>
+#include <glslstruct/std_variable.hpp>
+#include <glslstruct/std_struct.hpp>
+#include <cstdint>
+#include <cstddef>
 
-namespace glsl {
+namespace glslstruct {
 	template<class T>
-	struct SingleValue {
+	struct single_value {
 		const T value;
 
-		SingleValue(const T& value = T()) : value(value) {}
+		single_value(const T& value = T()) : value(value) {}
 	};
 
 	template<class T, size_t num>
-	struct ArrayValue {
+	struct array_value {
 		const std::vector<T> value;
 
 		static std::vector<T> init_value(const std::vector<T> values) {
@@ -37,25 +39,25 @@ namespace glsl {
 			return temp;
 		}
 
-		ArrayValue(const std::vector<T>& values = std::vector<T>(num)) : value(init_value(values)) {}
-		ArrayValue(const T*& values, size_t size) : value(init_value(values, size)) {}
-		ArrayValue(const T(&values)[num]) : value(init_value(values)) {}
+		array_value(const std::vector<T>& values = std::vector<T>(num)) : value(init_value(values)) {}
+		array_value(const T*& values, size_t size) : value(init_value(values, size)) {}
+		array_value(const T(&values)[num]) : value(init_value(values)) {}
 	};
 
 	template<class T, size_t num>
-	struct StructArrayValue : ArrayValue<std::vector<unsigned char>, num> {
+	struct struct_array_value : array_value<std::vector<std::byte>, num> {
 	private:
-		using array_type = ArrayValue<std::vector<unsigned char>, num>;
+		using array_type = array_value<std::vector<std::byte>, num>;
 		using offset_type = typename T::offset_type;
 
 	public:
 		const offset_type struct_offsets;
 
-		StructArrayValue(const offset_type& offsets, const std::vector<std::vector<unsigned char>>& values) 
+		struct_array_value(const offset_type& offsets, const std::vector<std::vector<std::byte>>& values)
 			: array_type(values), struct_offsets(offsets) {}
-		StructArrayValue(const offset_type& offsets, const std::vector<unsigned char>*& values, size_t size) 
+		struct_array_value(const offset_type& offsets, const std::vector<std::byte>*& values, size_t size)
 			: array_type(values, size), struct_offsets(offsets) {}
-		StructArrayValue(const offset_type& offsets, const std::vector<unsigned char>(&values)[num]) 
+		struct_array_value(const offset_type& offsets, const std::vector<std::byte>(&values)[num])
 			: array_type(values), struct_offsets(offsets) {}
 	};
 
@@ -65,19 +67,19 @@ namespace glsl {
 	template<class T, size_t num,
 		std::enable_if_t<(utils::is_any_standard_value_v<T> || utils::is_any_std_struct_v<T>), bool>>
 #endif
-	struct STDValue : public std::conditional_t<
+	struct std_value : public std::conditional_t<
 		mstd::is_eq_v<num, 0>,
-		SingleValue<T>,
+		single_value<T>,
 		std::conditional_t<
 			utils::is_any_standard_value_v<T>,
-			ArrayValue<T, num>,
-			StructArrayValue<T, num>
+			array_value<T, num>,
+			struct_array_value<T, num>
 		>
 	> {
 	public:
 		using value_type = T;
-		static constexpr size_t array_size = num;
-		static constexpr bool is_struct = utils::is_any_std_struct_v<T>;
+		static constexpr const size_t array_size = num;
+		static constexpr const bool is_struct = utils::is_any_std_struct_v<T>;
 
 #pragma region VARIABLES
 		const std::string var_name;
@@ -93,11 +95,11 @@ namespace glsl {
 				utils::is_any_standard_value_v<T>
 				), bool> = true>
 #endif
-		STDValue(const std::string& name) : 
+		std_value(const std::string& name) :
 			std::conditional_t<
 				mstd::is_gt_v<array_size, 0>,
-				ArrayValue<T, array_size>,
-				SingleValue<T>
+				array_value<T, array_size>,
+				single_value<T>
 			>(),
 			var_name(name) {}
 #pragma endregion
@@ -114,7 +116,7 @@ namespace glsl {
 					utils::is_any_std_struct_v<T>)
 				), bool> = true>
 #endif
-		STDValue(const std::string& name, const T& value) : SingleValue<T>(value), var_name(name) {}
+		std_value(const std::string& name, const T& value) : single_value<T>(value), var_name(name) {}
 #pragma endregion
 
 #pragma region ARRAY_CONSTRUCTORS
@@ -128,8 +130,8 @@ namespace glsl {
 				utils::is_any_standard_value_v<T>
 				), bool> = true>
 #endif
-		STDValue(const std::string& name, const std::vector<T>& values) : 
-			ArrayValue<T, array_size>(values),
+		std_value(const std::string& name, const std::vector<T>& values) :
+			array_value<T, array_size>(values),
 			var_name(name) {}
 
 #if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
@@ -142,8 +144,8 @@ namespace glsl {
 				utils::is_any_standard_value_v<T>
 				), bool> = true>
 #endif
-		STDValue(const std::string& name, const T*& values, size_t size) :
-			ArrayValue<T, array_size>(values, size),
+		std_value(const std::string& name, const T*& values, size_t size) :
+			array_value<T, array_size>(values, size),
 			var_name(name) {}
 
 #if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
@@ -156,8 +158,8 @@ namespace glsl {
 				utils::is_any_standard_value_v<T>
 				), bool> = true>
 #endif
-		STDValue(const std::string& name, const T(&values)[array_size]) :
-			ArrayValue<T, array_size>(values),
+		std_value(const std::string& name, const T(&values)[array_size]) :
+			array_value<T, array_size>(values),
 			var_name(name) {}
 #pragma endregion
 
@@ -172,9 +174,9 @@ namespace glsl {
 			utils::is_any_std_struct_v<T>
 			)>>
 #endif
-		STDValue(const std::string& name, const typename T::offset_type& offsets,
-			const std::vector<std::vector<unsigned char>>& values = std::vector<std::vector<unsigned char>>(array_size)) :
-			StructArrayValue<T, array_size>(offsets, values),
+		std_value(const std::string& name, const typename T::offset_type& offsets,
+			const std::vector<std::vector<std::byte>>& values = std::vector<std::vector<std::byte>>(array_size)) :
+			struct_array_value<T, array_size>(offsets, values),
 			var_name(name) {}
 
 #if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
@@ -187,8 +189,8 @@ namespace glsl {
 			utils::is_any_std_struct_v<T>
 			), bool> = true>
 #endif
-		STDValue(const std::string& name, const typename T::offset_type& offsets, const std::vector<unsigned char>*& values, size_t size) :
-			StructArrayValue<T, array_size>(offsets, values, size),
+		std_value(const std::string& name, const typename T::offset_type& offsets, const std::vector<std::byte>*& values, size_t size) :
+			struct_array_value<T, array_size>(offsets, values, size),
 			var_name(name) {}
 
 #if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
@@ -201,8 +203,8 @@ namespace glsl {
 			utils::is_any_std_struct_v<T>
 			), bool> = true>
 #endif
-		STDValue(const std::string& name, const typename T::offset_type& offsets, const std::vector<unsigned char>(&values)[num]) :
-			StructArrayValue<T, array_size>(offsets, values),
+		std_value(const std::string& name, const typename T::offset_type& offsets, const std::vector<std::byte>(&values)[num]) :
+			struct_array_value<T, array_size>(offsets, values),
 			var_name(name) {}
 #pragma endregion
 	};

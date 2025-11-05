@@ -1,8 +1,9 @@
 #pragma once
 #include <mstd/types.hpp>
 #include <glm/glm.hpp>
+#include <type_traits>
 
-namespace glsl::utils {
+namespace glslstruct::utils {
 	template<typename T> const T& unmove(T&& x) {
 		return x;
 	};
@@ -85,16 +86,16 @@ namespace glsl::utils {
 #endif
 }
 
-namespace glsl {
-	class STDOffsets;
-	class STD140Offsets;
-	class STD430Offsets;
+namespace glslstruct {
+	class std_offset;
+	class std140_offset;
+	class std430_offset;
 }
 
-namespace glsl::utils {
+namespace glslstruct::utils {
 #pragma region OFFSETS_CHECK
-	template<class T> static constexpr bool is_offset140_v = std::is_same_v<T, ::glsl::STD140Offsets>;
-	template<class T> static constexpr bool is_offset430_v = std::is_same_v<T, ::glsl::STD430Offsets>;
+	template<class T> static constexpr bool is_offset140_v = std::is_same_v<T, ::glslstruct::std140_offset>;
+	template<class T> static constexpr bool is_offset430_v = std::is_same_v<T, ::glslstruct::std430_offset>;
 	template<class T> static constexpr bool is_any_offset_v = is_offset140_v<T> || is_offset430_v<T>;
 
 	template<class T, class Ret = void> using any_offset_enable_if_t = std::enable_if_t<is_any_offset_v<T>, Ret>;
@@ -111,22 +112,22 @@ namespace glsl::utils {
 #endif
 }
 
-namespace glsl {
+namespace glslstruct {
 #if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
-	template<utils::any_offset _Offsets>
-	class STDStruct;
+	template<utils::any_offset _Offset>
+	class std_struct;
 #else
-	template<class _Offsets, utils::any_offset_enable_if_t<_Offsets, bool> = true>
-	class STDStruct;
+	template<class _Offset, utils::any_offset_enable_if_t<_Offset, bool> = true>
+	class std_struct;
 #endif
 }
 
-namespace glsl::utils {
+namespace glslstruct::utils {
 #pragma region STRUCT_CHECK
 	template<class S, class O>
 	struct is_std_struct : std::false_type {};
 	template<class O, class Offset>
-	struct is_std_struct<STDStruct<Offset>, O> : std::bool_constant<std::is_same_v<Offset, O>> {};
+	struct is_std_struct<std_struct<Offset>, O> : std::bool_constant<std::is_same_v<Offset, O>> {};
 
 	template<class S, class _Offset> static constexpr bool is_std_struct_v = is_std_struct<S, _Offset>::value;
 	template<class S, class _Offset, class Ret = void> using std_struct_enable_if_t = std::enable_if_t<is_std_struct_v<S, _Offset>, Ret>;
@@ -134,14 +135,14 @@ namespace glsl::utils {
 	template<class VS, class _Offset>
 	struct is_std_struct_vector : std::false_type {};
 	template<class O, class _Offset>
-	struct is_std_struct_vector<std::vector<STDStruct<O>>, _Offset> : std::bool_constant<is_std_struct_v<STDStruct<O>, _Offset>> {};
+	struct is_std_struct_vector<std::vector<std_struct<O>>, _Offset> : std::bool_constant<is_std_struct_v<std_struct<O>, _Offset>> {};
 	template<class VS, class _Offset> static constexpr bool is_std_structs_vector_v = is_std_struct_vector<VS, _Offset>::value;
 	template<class VS, class _Offset, class Ret = void> using std_structs_vector_enable_if_t = std::enable_if_t<is_std_structs_vector_v<VS, _Offset>, Ret>;
 
 	template<class S>
 	struct is_any_std_struct : std::false_type {};
 	template<class O>
-	struct is_any_std_struct<STDStruct<O>> : std::true_type {};
+	struct is_any_std_struct<std_struct<O>> : std::true_type {};
 	template<class S> static constexpr bool is_any_std_struct_v = is_any_std_struct<S>::value;
 
 #if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
@@ -158,19 +159,19 @@ namespace glsl::utils {
 #endif
 }
 
-namespace glsl {
+namespace glslstruct {
 #if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
 	template<utils::any_standard_or_offset_value T, size_t num = 0>
-	struct STDVariable;
+	struct std_variable;
 	template<utils::any_standard_or_std_struct_value T, size_t num = 0>
-	struct STDValue;
+	struct std_value;
 #else
 	template<class T, size_t num = 0,
 		std::enable_if_t<(utils::is_any_offset_v<T> || utils::is_any_standard_value_v<T>), bool> = true>
-	struct STDVariable;
+	struct std_variable;
 	template<class T, size_t num = 0,
 		std::enable_if_t<(utils::is_any_standard_value_v<T> || utils::is_any_std_struct_v<T>), bool> = true>
-	struct STDValue;
+	struct std_value;
 #endif
 }
 

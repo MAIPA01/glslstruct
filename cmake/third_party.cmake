@@ -22,7 +22,7 @@ endif()
 message(STATUS "Include CPM.cmake from ${CPM_DOWNLOAD_LOCATION}")
 include(${CPM_DOWNLOAD_LOCATION})
 
-CPMAddPackage("gh:maipa01/mstd#v1.2.0")
+CPMAddPackage("gh:maipa01/mstd#v1.2.4")
 
 CPMAddPackage("gh:g-truc/glm#1.0.1")
 
