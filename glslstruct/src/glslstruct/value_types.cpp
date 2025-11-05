@@ -33,9 +33,7 @@ using namespace glslstruct::utils;
 	return value->toString();
 }
 
-scalar_type::scalar_type(const ValueType& type) : base_type(), _type(type) {}
-
-CLONE_FUNC_DEFINITION(scalar_type, _type)
+scalar_type::scalar_type(const ValueType& type) : _type(type) {}
 
 [[nodiscard]] ValueType scalar_type::getType() const noexcept {
 	return _type;
@@ -49,9 +47,7 @@ CLONE_FUNC_DEFINITION(scalar_type, _type)
 	return value->toString();
 }
 
-vec_type::vec_type(const ValueType& type, const size_t& length) : base_type(), _type(type), _length(length) {}
-
-CLONE_FUNC_DEFINITION(vec_type, _type, _length)
+vec_type::vec_type(const ValueType& type, const size_t& length) : _type(type), _length(length) {}
 
 [[nodiscard]] ValueType vec_type::getType() const noexcept {
 	return _type;
@@ -69,9 +65,7 @@ CLONE_FUNC_DEFINITION(vec_type, _type, _length)
 	return value->toString();
 }
 
-mat_type::mat_type(const ValueType& type, const size_t& cols, const size_t& rows) : base_type(), _type(type), _cols(cols), _rows(rows) {}
-
-CLONE_FUNC_DEFINITION(mat_type, _type, _cols, _rows)
+mat_type::mat_type(const ValueType& type, const size_t& cols, const size_t& rows) : _type(type), _cols(cols), _rows(rows) {}
 
 [[nodiscard]] ValueType mat_type::getType() const noexcept {
 	return _type;
@@ -96,9 +90,9 @@ CLONE_FUNC_DEFINITION(mat_type, _type, _cols, _rows)
 	return value->toString();
 }
 
-struct_type::struct_type(const values_map& values) : base_type() {
+struct_type::struct_type(const values_map& values) {
 	for (auto& value : values) {
-		_values[value.first] = { value.second.offset, value.second.type->Clone() };
+		_values[value.first] = { value.second.offset, value.second.type };
 	}
 }
 
@@ -108,17 +102,6 @@ struct_type::~struct_type() {
 			delete value.second.type;
 	}
 	_values.clear();
-}
-
-struct_type* struct_type::Clone() const {
-	struct_type* cloned = new struct_type();
-	CloneTo(cloned);
-	return cloned;
-}
-void struct_type::CloneTo(struct_type* cloned) const {
-	for (auto& value : _values) {
-		cloned->_values[value.first] = { value.second.offset, value.second.type->Clone() };
-	}
 }
 
 [[nodiscard]] struct_type::values_map struct_type::getValues() const noexcept {
@@ -133,13 +116,11 @@ void struct_type::CloneTo(struct_type* cloned) const {
 	return value->toString();
 }
 
-array_type::array_type(const base_type* type, const size_t& length) : base_type(), _type(type), _length(length) {}
+array_type::array_type(const base_type* type, const size_t& length) : _type(type), _length(length) {}
 
 array_type::~array_type() {
 	delete _type;
 }
-
-CLONE_FUNC_DEFINITION_ADVANCED(array_type, _type, _type->Clone(), STANDARD_CLONE(_length))
 
 [[nodiscard]] const base_type* array_type::getType() const noexcept {
 	return _type;
