@@ -156,14 +156,14 @@ public:
     }
     void visit(const vec_type& type) {
         if (type.type() == ValueType::Float && 
-        type.length() == 3) {
+            type.length() == 3) {
             SceneSettings.set(_valueName, glm::vec3{ 0.f, 0.f, 0.f });
         }
     }
     void visit(const mat_type& type) {
         if (type.type() == ValueType::Float && 
-        type.cols() == 4 && 
-        type.rows() == 4) {
+            type.cols() == 4 && 
+            type.rows() == 4) {
             SceneSettings.set(_valueName, glm::mat4(0.f));
         }
     }
