@@ -62,10 +62,12 @@ std140_struct SceneSettings {
 
 int main() {    
     // Total aligned size of the structure
-    std::cout << "Total UBO size (std140): " << SceneSettings.size() << " bytes." << std::endl; // Should be a multiple of 16 bytes
+    std::cout << "Total UBO size (std140): " << SceneSettings.size() 
+    << " bytes." << std::endl; // Should be a multiple of 16 bytes
     
     // Offset for a specific field using a literal string
-    std::cout << "Offset for 'cameraPosition': " << SceneSettings.getOffset("cameraPosition") << " bytes." << std::endl;
+    std::cout << "Offset for 'cameraPosition': " << SceneSettings.getOffset("cameraPosition") 
+    << " bytes." << std::endl;
     
     // Get data for uploading to UBO
     std::vector<std::byte> data_to_upload = SceneSettings.data();
@@ -153,12 +155,15 @@ public:
         }
     }
     void visit(const vec_type& type) {
-        if (type.type() == ValueType::Float && type.length() == 3) {
+        if (type.type() == ValueType::Float && 
+        type.length() == 3) {
             SceneSettings.set(_valueName, glm::vec3{ 0.f, 0.f, 0.f });
         }
     }
     void visit(const mat_type& type) {
-        if (type.type() == ValueType::Float && type.cols() == 4 && type.rows() == 4) {
+        if (type.type() == ValueType::Float && 
+        type.cols() == 4 && 
+        type.rows() == 4) {
             SceneSettings.set(_valueName, glm::mat4(0.f));
         }
     }
