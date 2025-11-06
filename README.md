@@ -82,7 +82,8 @@ int main() {
     const base_type* value_type = SceneSettings.getType("cameraPosition");
     const vec_type* vec_value_type = static_type_cast<vec_type>(value_type);
 
-    std::cout << "Vector type: " << to_string(vec_value_type->type()) << " length: " << vec_value_type->length() << std::endl;
+    std::cout << "Vector type: " << to_string(vec_value_type->type()) 
+    << " length: " << vec_value_type->length() << std::endl;
 
     return 0;
 }
