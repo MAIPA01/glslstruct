@@ -9,3 +9,4 @@
 #include <mstd/event_handler.hpp>
 #include <mstd/types.hpp>
 #include <mstd/string.hpp>
+#include <mstd/hash.hpp>

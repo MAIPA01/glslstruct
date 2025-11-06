@@ -1,0 +1,11 @@
+#pragma once
+#include <glslstruct/libraries.hpp>
+#include <glslstruct/templates.hpp>
+#include <glslstruct/value_data.hpp>
+#include <glslstruct/value_types.hpp>
+#include <glslstruct/std_variable.hpp>
+#include <glslstruct/std_value.hpp>
+#include <glslstruct/std_offset.hpp>
+#include <glslstruct/std140_offset.hpp>
+#include <glslstruct/std430_offset.hpp>
+#include <glslstruct/std_struct.hpp>
