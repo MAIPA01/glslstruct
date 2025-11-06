@@ -5,6 +5,8 @@
 namespace glslstruct {
 	class mat_type : public value_type<mat_type> {
 	private:
+		friend struct std::hash<mat_type>;
+
 		ValueType _type = ValueType::Other;
 		size_t _cols = 0;
 		size_t _rows = 0;

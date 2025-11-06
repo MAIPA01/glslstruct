@@ -5,9 +5,18 @@
 #include <mstd/macros.hpp>
 #include <unordered_map>
 
+namespace std {
+	template<>
+	struct hash<glslstruct::std_offset> {
+		size_t operator()(const glslstruct::std_offset& stdOff);
+	};
+}
+
 namespace glslstruct {
 	class std_offset {
 	protected:
+		friend struct std::hash<std_offset>;
+
 		using values_map = std::unordered_map<std::string, value_data>;
 
 		size_t _currentOffset = 0;
@@ -69,5 +78,8 @@ namespace glslstruct {
 		[[nodiscard]] virtual size_t size() const;
 
 		virtual void clear();
+
+		bool operator==(const std_offset& stdOff) const;
+		bool operator!=(const std_offset& stdOff) const;
 	};
 }

@@ -12,11 +12,11 @@ vec_type::vec_type(const ValueType& type, const size_t& length) : _type(type), _
 	visitor->visit(*this);
 }
 
-[[nodiscard]] ValueType vec_type::getType() const noexcept {
+[[nodiscard]] ValueType vec_type::type() const noexcept {
 	return _type;
 }
 
-[[nodiscard]] size_t vec_type::getLength() const noexcept {
+[[nodiscard]] size_t vec_type::length() const noexcept {
 	return _length;
 }
 

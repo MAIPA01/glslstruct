@@ -13,15 +13,15 @@ mat_type::mat_type(const ValueType& type, const size_t& cols, const size_t& rows
 	visitor->visit(*this);
 }
 
-[[nodiscard]] ValueType mat_type::getType() const noexcept {
+[[nodiscard]] ValueType mat_type::type() const noexcept {
 	return _type;
 }
 
-[[nodiscard]] size_t mat_type::getRows() const noexcept {
+[[nodiscard]] size_t mat_type::rows() const noexcept {
 	return _rows;
 }
 
-[[nodiscard]] size_t mat_type::getCols() const noexcept {
+[[nodiscard]] size_t mat_type::cols() const noexcept {
 	return _cols;
 }
 

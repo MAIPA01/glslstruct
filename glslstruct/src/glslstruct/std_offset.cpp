@@ -3,6 +3,14 @@
 
 using namespace glslstruct;
 
+size_t std::hash<std_offset>::operator()(const std_offset& stdOff) {
+	size_t seed = mstd::hash_combine(stdOff._currentOffset, stdOff._maxAligement);
+	for (const auto& [name, data] : stdOff._values) {
+		mstd::hash_append(seed, name, data);
+	}
+	return seed;
+}
+
 void std_offset::_setVariable(const std::string& name, size_t offset, const base_type* type) {
 	_values[name] = { offset, type };
 }
@@ -234,16 +242,19 @@ std_offset::~std_offset() {
 }
 
 std_offset& std_offset::operator=(std_offset& stdOff) {
+	clear();
 	_cloneFrom(stdOff);
 	return *this;
 }
 
 std_offset& std_offset::operator=(const std_offset& stdOff) {
+	clear();
 	_cloneFrom(stdOff);
 	return *this;
 }
 
 std_offset& std_offset::operator=(std_offset&& stdOff) noexcept {
+	clear();
 	_cloneFrom(stdOff);
 	return *this;
 }
@@ -330,4 +341,13 @@ void std_offset::clear()
 			delete value.second.type;
 	}
 	_values.clear();
+}
+
+bool std_offset::operator==(const std_offset& stdOff) const {
+	return _currentOffset == stdOff._currentOffset &&
+		_maxAligement == stdOff._maxAligement &&
+		_values == stdOff._values;
+}
+bool std_offset::operator!=(const std_offset& stdOff) const {
+	return !(*this == stdOff);
 }

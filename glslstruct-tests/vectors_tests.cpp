@@ -334,7 +334,7 @@ TEST(std140_offset, add_vectors_array) {
 	EXPECT_NE(casted_type, nullptr);
 
 	casted_type = static_type_cast<array_type>(base);
-	EXPECT_EQ(casted_type->type(), temp_type->type());
+	EXPECT_EQ(*casted_type->type(), *temp_type->type());
 	EXPECT_EQ(casted_type->length(), temp_type->length());
 	delete temp_type;
 #pragma endregion
@@ -344,17 +344,17 @@ TEST(std140_offset, add_vectors_array) {
 	ret = structOffsets.add<ivec2>("Ints", 2);
 	EXPECT_EQ(ret, results);
 
-	base = structOffsets.getType("Bools");
+	base = structOffsets.getType("Ints");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = new array_type(new vec_type(ValueType::Bool, 2), 2);
+	temp_type = new array_type(new vec_type(ValueType::Int, 2), 2);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
 	EXPECT_NE(casted_type, nullptr);
 
 	casted_type = static_type_cast<array_type>(base);
-	EXPECT_EQ(casted_type->type(), temp_type->type());
+	EXPECT_EQ(*casted_type->type(), *temp_type->type());
 	EXPECT_EQ(casted_type->length(), temp_type->length());
 	delete temp_type;
 #pragma endregion
@@ -364,87 +364,267 @@ TEST(std140_offset, add_vectors_array) {
 	ret = structOffsets.add<uvec2>("Uints", 2);
 	EXPECT_EQ(ret, results);
 
-	base = structOffsets.getType("Bools");
+	base = structOffsets.getType("Uints");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = new array_type(new vec_type(ValueType::Bool, 2), 2);
+	temp_type = new array_type(new vec_type(ValueType::Uint, 2), 2);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
 	EXPECT_NE(casted_type, nullptr);
 
 	casted_type = static_type_cast<array_type>(base);
-	EXPECT_EQ(casted_type->type(), temp_type->type());
+	EXPECT_EQ(*casted_type->type(), *temp_type->type());
 	EXPECT_EQ(casted_type->length(), temp_type->length());
 	delete temp_type;
 #pragma endregion
 
-	// FLOAT
+#pragma region VEC2_ARRAY
 	results = { 96, 112 };
 	ret = structOffsets.add<vec2>("Floats", 2);
 	EXPECT_EQ(ret, results);
 
-	// DOUBLE
+	base = structOffsets.getType("Floats");
+	EXPECT_EQ(*base, *base);
+
+	temp_type = new array_type(new vec_type(ValueType::Float, 2), 2);
+	EXPECT_EQ(*base, *temp_type);
+
+	casted_type = dynamic_type_cast<array_type>(base);
+	EXPECT_NE(casted_type, nullptr);
+
+	casted_type = static_type_cast<array_type>(base);
+	EXPECT_EQ(*casted_type->type(), *temp_type->type());
+	EXPECT_EQ(casted_type->length(), temp_type->length());
+	delete temp_type;
+#pragma endregion
+
+#pragma region DVEC2_ARRAY
 	results = { 128, 144 };
 	ret = structOffsets.add<dvec2>("Doubles", 2);
 	EXPECT_EQ(ret, results);
+
+	base = structOffsets.getType("Doubles");
+	EXPECT_EQ(*base, *base);
+
+	temp_type = new array_type(new vec_type(ValueType::Double, 2), 2);
+	EXPECT_EQ(*base, *temp_type);
+
+	casted_type = dynamic_type_cast<array_type>(base);
+	EXPECT_NE(casted_type, nullptr);
+
+	casted_type = static_type_cast<array_type>(base);
+	EXPECT_EQ(*casted_type->type(), *temp_type->type());
+	EXPECT_EQ(casted_type->length(), temp_type->length());
+	delete temp_type;
+#pragma endregion
 #pragma endregion
 
-#pragma region VEC3
+#pragma region VEC3_ARRAY
 	structOffsets.clear();
 
-	// BOOL
+#pragma region BVEC3_ARRAY
 	results = { 0, 16 };
 	ret = structOffsets.add<bvec3>("Bools", 2);
 	EXPECT_EQ(ret, results);
 
-	// INT
+	base = structOffsets.getType("Bools");
+	EXPECT_EQ(*base, *base);
+
+	temp_type = new array_type(new vec_type(ValueType::Bool, 3), 2);
+	EXPECT_EQ(*base, *temp_type);
+
+	casted_type = dynamic_type_cast<array_type>(base);
+	EXPECT_NE(casted_type, nullptr);
+
+	casted_type = static_type_cast<array_type>(base);
+	EXPECT_EQ(*casted_type->type(), *temp_type->type());
+	EXPECT_EQ(casted_type->length(), temp_type->length());
+	delete temp_type;
+#pragma endregion
+
+#pragma region IVEC3_ARRAY
 	results = { 32, 48 };
 	ret = structOffsets.add<ivec3>("Ints", 2);
 	EXPECT_EQ(ret, results);
 
-	// UINT
+	base = structOffsets.getType("Ints");
+	EXPECT_EQ(*base, *base);
+
+	temp_type = new array_type(new vec_type(ValueType::Int, 3), 2);
+	EXPECT_EQ(*base, *temp_type);
+
+	casted_type = dynamic_type_cast<array_type>(base);
+	EXPECT_NE(casted_type, nullptr);
+
+	casted_type = static_type_cast<array_type>(base);
+	EXPECT_EQ(*casted_type->type(), *temp_type->type());
+	EXPECT_EQ(casted_type->length(), temp_type->length());
+	delete temp_type;
+#pragma endregion
+
+#pragma region UVEC3_ARRAY
 	results = { 64, 80 };
 	ret = structOffsets.add<uvec3>("Uints", 2);
 	EXPECT_EQ(ret, results);
 
-	// FLOAT
+	base = structOffsets.getType("Uints");
+	EXPECT_EQ(*base, *base);
+
+	temp_type = new array_type(new vec_type(ValueType::Uint, 3), 2);
+	EXPECT_EQ(*base, *temp_type);
+
+	casted_type = dynamic_type_cast<array_type>(base);
+	EXPECT_NE(casted_type, nullptr);
+
+	casted_type = static_type_cast<array_type>(base);
+	EXPECT_EQ(*casted_type->type(), *temp_type->type());
+	EXPECT_EQ(casted_type->length(), temp_type->length());
+	delete temp_type;
+#pragma endregion
+
+#pragma region VEC3_ARRAY
 	results = { 96, 112 };
 	ret = structOffsets.add<vec3>("Floats", 2);
 	EXPECT_EQ(ret, results);
 
-	// DOUBLE
+	base = structOffsets.getType("Floats");
+	EXPECT_EQ(*base, *base);
+
+	temp_type = new array_type(new vec_type(ValueType::Float, 3), 2);
+	EXPECT_EQ(*base, *temp_type);
+
+	casted_type = dynamic_type_cast<array_type>(base);
+	EXPECT_NE(casted_type, nullptr);
+
+	casted_type = static_type_cast<array_type>(base);
+	EXPECT_EQ(*casted_type->type(), *temp_type->type());
+	EXPECT_EQ(casted_type->length(), temp_type->length());
+	delete temp_type;
+#pragma endregion
+
+#pragma region DVEC3_ARRAY
 	results = { 128, 160 };
 	ret = structOffsets.add<dvec3>("Doubles", 2);
 	EXPECT_EQ(ret, results);
+
+	base = structOffsets.getType("Doubles");
+	EXPECT_EQ(*base, *base);
+
+	temp_type = new array_type(new vec_type(ValueType::Double, 3), 2);
+	EXPECT_EQ(*base, *temp_type);
+
+	casted_type = dynamic_type_cast<array_type>(base);
+	EXPECT_NE(casted_type, nullptr);
+
+	casted_type = static_type_cast<array_type>(base);
+	EXPECT_EQ(*casted_type->type(), *temp_type->type());
+	EXPECT_EQ(casted_type->length(), temp_type->length());
+	delete temp_type;
+#pragma endregion
 #pragma endregion
 
-#pragma region VEC4
+#pragma region VEC4_ARRAY
 	structOffsets.clear();
 
-	// BOOL
+#pragma region BVEC4_ARRAY
 	results = { 0, 16 };
 	ret = structOffsets.add<bvec4>("Bools", 2);
 	EXPECT_EQ(ret, results);
 
-	// INT
+	base = structOffsets.getType("Bools");
+	EXPECT_EQ(*base, *base);
+
+	temp_type = new array_type(new vec_type(ValueType::Bool, 4), 2);
+	EXPECT_EQ(*base, *temp_type);
+
+	casted_type = dynamic_type_cast<array_type>(base);
+	EXPECT_NE(casted_type, nullptr);
+
+	casted_type = static_type_cast<array_type>(base);
+	EXPECT_EQ(*casted_type->type(), *temp_type->type());
+	EXPECT_EQ(casted_type->length(), temp_type->length());
+	delete temp_type;
+#pragma endregion
+
+#pragma region IVEC4_ARRAY
 	results = { 32, 48 };
 	ret = structOffsets.add<ivec4>("Ints", 2);
 	EXPECT_EQ(ret, results);
 
-	// UINT
+	base = structOffsets.getType("Ints");
+	EXPECT_EQ(*base, *base);
+
+	temp_type = new array_type(new vec_type(ValueType::Int, 4), 2);
+	EXPECT_EQ(*base, *temp_type);
+
+	casted_type = dynamic_type_cast<array_type>(base);
+	EXPECT_NE(casted_type, nullptr);
+
+	casted_type = static_type_cast<array_type>(base);
+	EXPECT_EQ(*casted_type->type(), *temp_type->type());
+	EXPECT_EQ(casted_type->length(), temp_type->length());
+	delete temp_type;
+#pragma endregion
+
+#pragma region UVEC4_ARRAY
 	results = { 64, 80 };
 	ret = structOffsets.add<uvec4>("Uints", 2);
 	EXPECT_EQ(ret, results);
 
-	// FLOAT
+	base = structOffsets.getType("Uints");
+	EXPECT_EQ(*base, *base);
+
+	temp_type = new array_type(new vec_type(ValueType::Uint, 4), 2);
+	EXPECT_EQ(*base, *temp_type);
+
+	casted_type = dynamic_type_cast<array_type>(base);
+	EXPECT_NE(casted_type, nullptr);
+
+	casted_type = static_type_cast<array_type>(base);
+	EXPECT_EQ(*casted_type->type(), *temp_type->type());
+	EXPECT_EQ(casted_type->length(), temp_type->length());
+	delete temp_type;
+#pragma endregion
+
+#pragma region VEC4_ARRAY
 	results = { 96, 112 };
 	ret = structOffsets.add<vec4>("Floats", 2);
 	EXPECT_EQ(ret, results);
 
-	// DOUBLE
+	base = structOffsets.getType("Floats");
+	EXPECT_EQ(*base, *base);
+
+	temp_type = new array_type(new vec_type(ValueType::Float, 4), 2);
+	EXPECT_EQ(*base, *temp_type);
+
+	casted_type = dynamic_type_cast<array_type>(base);
+	EXPECT_NE(casted_type, nullptr);
+
+	casted_type = static_type_cast<array_type>(base);
+	EXPECT_EQ(*casted_type->type(), *temp_type->type());
+	EXPECT_EQ(casted_type->length(), temp_type->length());
+	delete temp_type;
+#pragma endregion
+
+#pragma region DVEC4_ARRAY
 	results = { 128, 160 };
 	ret = structOffsets.add<dvec4>("Doubles", 2);
 	EXPECT_EQ(ret, results);
+
+	base = structOffsets.getType("Doubles");
+	EXPECT_EQ(*base, *base);
+
+	temp_type = new array_type(new vec_type(ValueType::Double, 4), 2);
+	EXPECT_EQ(*base, *temp_type);
+
+	casted_type = dynamic_type_cast<array_type>(base);
+	EXPECT_NE(casted_type, nullptr);
+
+	casted_type = static_type_cast<array_type>(base);
+	EXPECT_EQ(*casted_type->type(), *temp_type->type());
+	EXPECT_EQ(casted_type->length(), temp_type->length());
+	delete temp_type;
+#pragma endregion
 #pragma endregion
 }

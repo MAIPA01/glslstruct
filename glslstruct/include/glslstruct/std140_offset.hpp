@@ -6,9 +6,17 @@
 #include <mstd/string.hpp>
 #include <glslstruct/std_offset.hpp>
 
+namespace std {
+	template<>
+	struct hash<glslstruct::std140_offset> {
+		size_t operator()(const glslstruct::std140_offset& std140Off);
+	};
+}
+
 namespace glslstruct {
 	class std140_offset : public std_offset {
 	protected:
+		friend struct std::hash<std140_offset>;
 
 #if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
 		template<class T, class... Ts, size_t num, size_t... nums>
@@ -168,5 +176,8 @@ namespace glslstruct {
 
 		std::vector<size_t> add(const std::string& name, const std140_offset& structTemplate, size_t size);
 #pragma endregion
+
+		bool operator==(const std140_offset& std140off) const;
+		bool operator!=(const std140_offset& std140off) const;
 	};
 }

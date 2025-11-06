@@ -13,7 +13,7 @@ namespace glslstruct {
 		type_cast_visitor() = default;
 		virtual ~type_cast_visitor() = default;
 
-		void visit(const scalar_type& value) {
+		void visit(const scalar_type& value) override {
 			if constexpr (!std::is_same_v<T, scalar_type>) {
 				_result = nullptr;
 			}
@@ -21,7 +21,7 @@ namespace glslstruct {
 				_result = &value;
 			}
 		}
-		void visit(const vec_type& value) {
+		void visit(const vec_type& value) override {
 			if constexpr (!std::is_same_v<T, vec_type>) {
 				_result = nullptr;
 			}
@@ -29,7 +29,7 @@ namespace glslstruct {
 				_result = &value;
 			}
 		}
-		void visit(const mat_type& value) {
+		void visit(const mat_type& value) override {
 			if constexpr (!std::is_same_v<T, mat_type>) {
 				_result = nullptr;
 			}
@@ -37,7 +37,7 @@ namespace glslstruct {
 				_result = &value;
 			}
 		}
-		void visit(const struct_type& value) {
+		void visit(const struct_type& value) override {
 			if constexpr (!std::is_same_v<T, struct_type>) {
 				_result = nullptr;
 			}
@@ -45,7 +45,7 @@ namespace glslstruct {
 				_result = &value;
 			}
 		}
-		void visit(const array_type& value) {
+		void visit(const array_type& value) override {
 			if constexpr (!std::is_same_v<T, array_type>) {
 				_result = nullptr;
 			}

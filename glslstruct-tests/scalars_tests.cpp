@@ -17,6 +17,7 @@ TEST(std140_offset, add_scalars) {
 
 	base = structOffsets.getType("Bool");
 	EXPECT_EQ(*base, *base);
+	EXPECT_EQ(std::hash<base_type>()(*base), std::hash<base_type>()(*base));
 
 	temp_type = new scalar_type(ValueType::Bool);
 	EXPECT_EQ(*base, *temp_type);
@@ -125,7 +126,7 @@ TEST(std140_offset, add_scalars_array) {
 	EXPECT_NE(casted_type, nullptr);
 
 	casted_type = static_type_cast<array_type>(base);
-	EXPECT_EQ(casted_type->type(), temp_type->type());
+	EXPECT_EQ(*casted_type->type(), *temp_type->type());
 	EXPECT_EQ(casted_type->length(), temp_type->length());
 	delete temp_type;
 #pragma endregion
@@ -145,7 +146,7 @@ TEST(std140_offset, add_scalars_array) {
 	EXPECT_NE(casted_type, nullptr);
 
 	casted_type = static_type_cast<array_type>(base);
-	EXPECT_EQ(casted_type->type(), temp_type->type());
+	EXPECT_EQ(*casted_type->type(), *temp_type->type());
 	EXPECT_EQ(casted_type->length(), temp_type->length());
 	delete temp_type;
 #pragma endregion
@@ -165,7 +166,7 @@ TEST(std140_offset, add_scalars_array) {
 	EXPECT_NE(casted_type, nullptr);
 
 	casted_type = static_type_cast<array_type>(base);
-	EXPECT_EQ(casted_type->type(), temp_type->type());
+	EXPECT_EQ(*casted_type->type(), *temp_type->type());
 	EXPECT_EQ(casted_type->length(), temp_type->length());
 	delete temp_type;
 #pragma endregion
@@ -185,7 +186,7 @@ TEST(std140_offset, add_scalars_array) {
 	EXPECT_NE(casted_type, nullptr);
 
 	casted_type = static_type_cast<array_type>(base);
-	EXPECT_EQ(casted_type->type(), temp_type->type());
+	EXPECT_EQ(*casted_type->type(), *temp_type->type());
 	EXPECT_EQ(casted_type->length(), temp_type->length());
 	delete temp_type;
 #pragma endregion
@@ -198,14 +199,14 @@ TEST(std140_offset, add_scalars_array) {
 	base = structOffsets.getType("Doubles");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = new array_type(new scalar_type(ValueType::Bool), 2);
+	temp_type = new array_type(new scalar_type(ValueType::Double), 2);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
 	EXPECT_NE(casted_type, nullptr);
 
 	casted_type = static_type_cast<array_type>(base);
-	EXPECT_EQ(casted_type->type(), temp_type->type());
+	EXPECT_EQ(*casted_type->type(), *temp_type->type());
 	EXPECT_EQ(casted_type->length(), temp_type->length());
 	delete temp_type;
 #pragma endregion

@@ -5,6 +5,8 @@
 namespace glslstruct {
 	class vec_type : public value_type<vec_type> {
 	private:
+		friend struct std::hash<vec_type>;
+
 		ValueType _type = ValueType::Other;
 		size_t _length = 0;
 

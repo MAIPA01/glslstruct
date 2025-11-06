@@ -12,7 +12,7 @@ scalar_type::scalar_type(const ValueType& type) : _type(type) {}
 	visitor->visit(*this);
 }
 
-[[nodiscard]] ValueType scalar_type::getType() const noexcept {
+[[nodiscard]] ValueType scalar_type::type() const noexcept {
 	return _type;
 }
 

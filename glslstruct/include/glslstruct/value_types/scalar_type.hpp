@@ -5,6 +5,8 @@
 namespace glslstruct {
 	class scalar_type : public value_type<scalar_type> {
 	private:
+		friend struct std::hash<scalar_type>;
+
 		ValueType _type = ValueType::Other;
 
 	public:

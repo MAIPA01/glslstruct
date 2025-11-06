@@ -3,6 +3,10 @@
 
 using namespace glslstruct;
 
+size_t std::hash<std430_offset>::operator()(const std430_offset& std430Off) {
+	return std::hash<std_offset>()(*static_cast<const std_offset*>(&std430Off));
+}
+
 std::vector<size_t> std430_offset::_addArray(const std::string& name, size_t arraySize, size_t baseAligement, 
 	size_t baseOffset, const base_type* type) {
 	// CHECK SIZE
@@ -71,16 +75,19 @@ std430_offset::std430_offset(std430_offset&& std430off) noexcept {
 }
 
 std430_offset& std430_offset::operator=(std430_offset& std430off) {
+	clear();
 	_cloneFrom(std430off);
 	return *this;
 }
 
 std430_offset& std430_offset::operator=(const std430_offset& std430off) {
+	clear();
 	_cloneFrom(std430off);
 	return *this;
 }
 
 std430_offset& std430_offset::operator=(std430_offset&& std430off) noexcept {
+	clear();
 	_cloneFrom(std430off);
 	return *this;
 }
@@ -99,4 +106,11 @@ std::vector<size_t> std430_offset::add(const std::string& name, const std430_off
 
 [[nodiscard]] size_t std430_offset::baseAligement() const {
 	return _maxAligement;
+}
+
+bool std430_offset::operator==(const std430_offset& std430off) const {
+	return std_offset::operator==(*static_cast<const std_offset*>(&std430off));
+}
+bool std430_offset::operator!=(const std430_offset& std430off) const {
+	return !(*this == std430off);
 }

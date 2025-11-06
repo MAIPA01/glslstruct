@@ -5,6 +5,13 @@
 #include <glslstruct/std430_offset.hpp>
 #include <glslstruct/std_value.hpp>
 
+namespace std {
+	template<class _Offset>
+	struct hash<glslstruct::std_struct<_Offset>> {
+		size_t operator()(const glslstruct::std_struct<_Offset>& stdStruct);
+	};
+}
+
 namespace glslstruct {
 #if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
 	template<utils::any_offset _Offset>
@@ -13,6 +20,8 @@ namespace glslstruct {
 #endif
 	class std_struct {
 	private:
+		friend struct std::hash<glslstruct::std_struct<_Offset>>;
+
 		_Offset _dataOffsets;
 		std::vector<std::byte> _data;
 
@@ -534,18 +543,23 @@ namespace glslstruct {
 
 #pragma endregion
 
+		void _cloneFrom(const std_struct<_Offset>& stdStruct) noexcept {
+			_dataOffsets = stdStruct._dataOffsets;
+			_data = stdStruct._data;
+		}
+
 	public:
 		using offset_type = _Offset;
 
 		std_struct() = default;
 		std_struct(std_struct<_Offset>& stdStruct) {
-			stdStruct.CloneTo(this);
+			_cloneFrom(stdStruct);
 		}
 		std_struct(const std_struct<_Offset>& stdStruct) {
-			stdStruct.CloneTo(this);
+			_cloneFrom(stdStruct);
 		}
 		std_struct(std_struct<_Offset>&& stdStruct) {
-			stdStruct.CloneTo(this);
+			_cloneFrom(stdStruct);
 		}
 		std_struct(const _Offset& structOffsets, const std::vector<std::byte>& data = std::vector<std::byte>()) {
 			_dataOffsets = structOffsets;
@@ -564,19 +578,24 @@ namespace glslstruct {
 		}
 
 		std_struct<_Offset>& operator=(std_struct<_Offset>& stdStruct) {
-			stdStruct.CloneTo(this);
+			clear();
+			_cloneFrom(stdStruct);
 			return *this;
 		}
 		std_struct<_Offset>& operator=(const std_struct<_Offset>& stdStruct) {
-			stdStruct.CloneTo(this);
+			clear();
+			_cloneFrom(stdStruct);
 			return *this;
 		}
 		std_struct<_Offset>& operator=(std_struct<_Offset>&& stdStruct) {
-			stdStruct.CloneTo(this);
+			clear();
+			_cloneFrom(stdStruct);
 			return *this;
 		}
 
-		DECLARE_CLONE_FUNC_WITH_DEFINITION(std_struct<_Offset>, _dataOffsets, _data)
+		[[nodiscard]] std_struct<_Offset>* clone() const noexcept {
+			return new std_struct<_Offset>(*this);
+		}
 
 #pragma region ADD_SCALARS
 #if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
@@ -1388,8 +1407,24 @@ namespace glslstruct {
 			_dataOffsets.clear();
 			_data.clear();
 		}
+
+		bool operator==(const std_struct<_Offset>& stdStruct) const {
+			return _dataOffsets == stdStruct._dataOffsets &&
+				_data == stdStruct._data;
+		}
+		bool operator!=(const std_struct<_Offset>& stdStruct) const {
+			return !(*this == stdStruct);
+		}
 	};
 
 	using std140_struct = std_struct<std140_offset>;
 	using std430_struct = std_struct<std430_offset>;
+}
+
+template<class _Offset>
+size_t std::hash<glslstruct::std_struct<_Offset>>::operator()(const glslstruct::std_struct<_Offset>& stdStruct) {
+	size_t seed = 0;
+	mstd::hash_append(seed, stdStruct._dataOffsets);
+	mstd::hash_range(seed, stdStruct._data.begin(), stdStruct._data.end());
+	return seed;
 }

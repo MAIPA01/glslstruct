@@ -5,6 +5,8 @@
 namespace glslstruct {
 	class array_type : public value_type<array_type> {
 	private:
+		friend struct std::hash<array_type>;
+
 		const base_type* _type = nullptr;
 		size_t _length = 0;
 

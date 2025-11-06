@@ -1,9 +1,17 @@
 #pragma once
 #include <glslstruct/std_offset.hpp>
 
+namespace std {
+	template<>
+	struct hash<glslstruct::std430_offset> {
+		size_t operator()(const glslstruct::std430_offset& stdOff);
+	};
+}
+
 namespace glslstruct {
 	class std430_offset : public std_offset {
 	protected:
+		friend struct std::hash<std430_offset>;
 
 		virtual std::vector<size_t> _addArray(const std::string& name, size_t arraySize, 
 			size_t baseAligement, size_t baseOffset, const base_type* type) override;
@@ -168,5 +176,8 @@ namespace glslstruct {
 #pragma endregion
 
 		[[nodiscard]] virtual size_t baseAligement() const override;
+
+		bool operator==(const std430_offset& std430off) const;
+		bool operator!=(const std430_offset& std430off) const;
 	};
 }

@@ -19,11 +19,11 @@ array_type::~array_type() {
 	visitor->visit(*this);
 }
 
-[[nodiscard]] const base_type* array_type::getType() const noexcept {
+[[nodiscard]] const base_type* array_type::type() const noexcept {
 	return _type;
 }
 
-[[nodiscard]] size_t array_type::getLength() const noexcept {
+[[nodiscard]] size_t array_type::length() const noexcept {
 	return _length;
 }
 

@@ -7,6 +7,8 @@
 namespace glslstruct {
 	class struct_type : public value_type<struct_type> {
 	private:
+		friend struct std::hash<struct_type>;
+
 		using values_map = std::unordered_map<std::string, value_data>;
 
 		values_map _values;
