@@ -17,18 +17,32 @@ namespace glslstruct {
 
 		[[nodiscard]] virtual base_type* clone() const noexcept = 0;
 
-		[[nodiscard]] virtual bool visit_equal(const base_type*& other) const noexcept = 0;
-		[[nodiscard]] virtual bool visit_equal(const scalar_type*& other) const noexcept = 0;
-		[[nodiscard]] virtual bool visit_equal(const vec_type*& other) const noexcept = 0;
-		[[nodiscard]] virtual bool visit_equal(const mat_type*& other) const noexcept = 0;
-		[[nodiscard]] virtual bool visit_equal(const struct_type*& other) const noexcept = 0;
-		[[nodiscard]] virtual bool visit_equal(const array_type*& other) const noexcept = 0;
+		[[nodiscard]] virtual bool visit_equal(const base_type* other) const noexcept = 0;
+		[[nodiscard]] virtual bool operator==(const base_type& other) const noexcept = 0;
+		[[nodiscard]] virtual bool operator!=(const base_type& other) const noexcept = 0;
+
+		[[nodiscard]] virtual bool visit_equal(const scalar_type* other) const noexcept = 0;
+		[[nodiscard]] virtual bool operator==(const scalar_type& other) const noexcept = 0;
+		[[nodiscard]] virtual bool operator!=(const scalar_type& other) const noexcept = 0;
+
+		[[nodiscard]] virtual bool visit_equal(const vec_type* other) const noexcept = 0;
+		[[nodiscard]] virtual bool operator==(const vec_type& other) const noexcept = 0;
+		[[nodiscard]] virtual bool operator!=(const vec_type& other) const noexcept = 0;
+
+		[[nodiscard]] virtual bool visit_equal(const mat_type* other) const noexcept = 0;
+		[[nodiscard]] virtual bool operator==(const mat_type& other) const noexcept = 0;
+		[[nodiscard]] virtual bool operator!=(const mat_type& other) const noexcept = 0;
+
+		[[nodiscard]] virtual bool visit_equal(const struct_type* other) const noexcept = 0;
+		[[nodiscard]] virtual bool operator==(const struct_type& other) const noexcept = 0;
+		[[nodiscard]] virtual bool operator!=(const struct_type& other) const noexcept = 0;
+
+		[[nodiscard]] virtual bool visit_equal(const array_type* other) const noexcept = 0;
+		[[nodiscard]] virtual bool operator==(const array_type& other) const noexcept = 0;
+		[[nodiscard]] virtual bool operator!=(const array_type& other) const noexcept = 0;
 
 		[[nodiscard]] virtual std::string toString() const noexcept = 0;
-
-		[[nodiscard]] virtual bool operator==(const base_type* other) const noexcept = 0;
-		[[nodiscard]] virtual bool operator!=(const base_type* other) const noexcept = 0;
 	};
 
-	[[nodiscard]] static std::string to_string(const base_type*& value) noexcept;
+	[[nodiscard]] static std::string to_string(const base_type* value) noexcept;
 }

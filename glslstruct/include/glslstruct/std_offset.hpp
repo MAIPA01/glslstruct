@@ -41,6 +41,8 @@ namespace glslstruct {
 		[[nodiscard]] virtual std::vector<size_t> _addStructArray(const std::string& name, size_t baseAligement, size_t baseOffset, 
 			const values_map& values, size_t arraySize);
 
+		void _cloneFrom(const std_offset& stdOff) noexcept;
+
 		std_offset() = default;
 		std_offset(std_offset& stdOff);
 		std_offset(const std_offset& stdOff);
@@ -53,7 +55,7 @@ namespace glslstruct {
 
 	public:
 
-		DECLARE_CLONE_FUNC(std_offset)
+		[[nodiscard]] std_offset* clone() const noexcept;
 
 		[[nodiscard]] bool contains(const std::string& name) const;
 

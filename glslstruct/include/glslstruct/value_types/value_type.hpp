@@ -4,7 +4,7 @@
 
 namespace glslstruct {
 	template<class _Derived>
-	class value_type : base_type {
+	class value_type : public base_type {
 	protected:
 		value_type() = default;
 
@@ -14,60 +14,94 @@ namespace glslstruct {
 
 		[[nodiscard]] virtual base_type* clone() const noexcept = 0;
 
-		[[nodiscard]] constexpr bool visit_equal(const base_type*& other) const noexcept override {
-			_Derived* this_derived = static_cast<_Derived*>(this);
+		[[nodiscard]] constexpr bool visit_equal(const base_type* other) const noexcept override {
+			const _Derived* this_derived = static_cast<const _Derived*>(this);
 			return other->visit_equal(this_derived);
 		}
-		[[nodiscard]] constexpr bool visit_equal(const scalar_type*& other) const noexcept override {
+		[[nodiscard]] bool operator==(const base_type& other) const noexcept override {
+			return visit_equal(&other);
+		}
+		[[nodiscard]] bool operator!=(const base_type& other) const noexcept override {
+			return *this != other;
+		}
+
+		[[nodiscard]] constexpr bool visit_equal(const scalar_type* other) const noexcept override {
 			if constexpr (!std::is_same_v<_Derived, scalar_type>) {
 				return false;
 			}
 			else {
-				_Derived* this_derived = static_cast<_Derived*>(this);
+				const _Derived* this_derived = static_cast<const _Derived*>(this);
 				return *this_derived == *other;
 			}
 		}
-		[[nodiscard]] constexpr bool visit_equal(const vec_type*& other) const noexcept override {
+		[[nodiscard]] bool operator==(const scalar_type& other) const noexcept override {
+			return visit_equal(&other);
+		}
+		[[nodiscard]] bool operator!=(const scalar_type& other) const noexcept override {
+			return *this != other;
+		}
+
+		[[nodiscard]] constexpr bool visit_equal(const vec_type* other) const noexcept override {
 			if constexpr (!std::is_same_v<_Derived, vec_type>) {
 				return false;
 			}
 			else {
-				_Derived* this_derived = static_cast<_Derived*>(this);
+				const _Derived* this_derived = static_cast<const _Derived*>(this);
 				return *this_derived == *other;
 			}
 		}
-		[[nodiscard]] constexpr bool visit_equal(const mat_type*& other) const noexcept override {
+		[[nodiscard]] bool operator==(const vec_type& other) const noexcept override {
+			return visit_equal(&other);
+		}
+		[[nodiscard]] bool operator!=(const vec_type& other) const noexcept override {
+			return *this != other;
+		}
+
+		[[nodiscard]] constexpr bool visit_equal(const mat_type* other) const noexcept override {
 			if constexpr (!std::is_same_v<_Derived, mat_type>) {
 				return false;
 			}
 			else {
-				_Derived* this_derived = static_cast<_Derived*>(this);
+				const _Derived* this_derived = static_cast<const _Derived*>(this);
 				return *this_derived == *other;
 			}
 		}
-		[[nodiscard]] constexpr bool visit_equal(const struct_type*& other) const noexcept override {
+		[[nodiscard]] bool operator==(const mat_type& other) const noexcept override {
+			return visit_equal(&other);
+		}
+		[[nodiscard]] bool operator!=(const mat_type& other) const noexcept override {
+			return *this != other;
+		}
+
+		[[nodiscard]] constexpr bool visit_equal(const struct_type* other) const noexcept override {
 			if constexpr (!std::is_same_v<_Derived, struct_type>) {
 				return false;
 			}
 			else {
-				_Derived* this_derived = static_cast<_Derived*>(this);
+				const _Derived* this_derived = static_cast<const _Derived*>(this);
 				return *this_derived == *other;
 			}
 		}
-		[[nodiscard]] constexpr bool visit_equal(const array_type*& other) const noexcept override {
+		[[nodiscard]] bool operator==(const struct_type& other) const noexcept override {
+			return visit_equal(&other);
+		}
+		[[nodiscard]] bool operator!=(const struct_type& other) const noexcept override {
+			return *this != other;
+		}
+
+		[[nodiscard]] constexpr bool visit_equal(const array_type* other) const noexcept override {
 			if constexpr (!std::is_same_v<_Derived, array_type>) {
 				return false;
 			}
 			else {
-				_Derived* this_derived = static_cast<_Derived*>(this);
+				const _Derived* this_derived = static_cast<const _Derived*>(this);
 				return *this_derived == *other;
 			}
 		}
-
-		[[nodiscard]] bool operator==(const base_type* other) const noexcept {
-			return visit_equal(other);
+		[[nodiscard]] bool operator==(const array_type& other) const noexcept override {
+			return visit_equal(&other);
 		}
-		[[nodiscard]] bool operator!=(const base_type* other) const noexcept {
+		[[nodiscard]] bool operator!=(const array_type& other) const noexcept override {
 			return *this != other;
 		}
 	};

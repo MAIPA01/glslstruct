@@ -39,6 +39,8 @@ namespace glslstruct {
 			}
 		}
 
+		void _cloneFrom(const std140_offset& std140off) noexcept;
+
 	public:
 		std140_offset() = default;
 		std140_offset(std140_offset& std140off);
@@ -54,7 +56,7 @@ namespace glslstruct {
 		std140_offset& operator=(const std140_offset& std140off);
 		std140_offset& operator=(std140_offset&& std140off);
 
-		DECLARE_OVERRIDED_CLONE_FUNC(std140_offset)
+		[[nodiscard]] std140_offset* clone() const noexcept;
 
 #pragma region ADD_SCALAR
 #if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20

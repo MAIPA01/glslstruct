@@ -20,13 +20,9 @@ namespace glslstruct {
 
 		[[nodiscard]] std::string toString() const noexcept override;
 
-		[[nodiscard]] bool operator==(const array_type& other) const noexcept {
-			return *_type == other._type && _length == other._length;
-		}
-		[[nodiscard]] bool operator!=(const array_type& other) const noexcept {
-			return !(*this == other);
-		}
+		[[nodiscard]] bool operator==(const array_type& other) const noexcept;
+		[[nodiscard]] bool operator!=(const array_type& other) const noexcept;
 	};
 
-	[[nodiscard]] static std::string to_string(const array_type*& value) noexcept;
+	[[nodiscard]] static std::string to_string(const array_type& value) noexcept;
 }

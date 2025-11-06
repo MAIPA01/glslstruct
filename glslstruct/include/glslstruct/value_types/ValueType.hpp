@@ -29,7 +29,7 @@ namespace glslstruct {
 		}
 	}
 
-	[[nodiscard]] static std::string vecTypeToString(const ValueType& type) noexcept;
+	[[nodiscard]] extern inline std::string vecTypeToString(const ValueType& type) noexcept;
 
-	[[nodiscard]] static std::string matTypeToString(const ValueType& type) noexcept;
+	[[nodiscard]] extern inline std::string matTypeToString(const ValueType& type) noexcept;
 }

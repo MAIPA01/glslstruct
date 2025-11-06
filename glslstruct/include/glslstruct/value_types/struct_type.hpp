@@ -1,5 +1,6 @@
 #pragma once
 #include <unordered_map>
+#include <glslstruct/value_data.hpp>
 #include <glslstruct/value_types/value_type.hpp>
 #include <glslstruct/value_types/ValueType.hpp>
 
@@ -15,20 +16,16 @@ namespace glslstruct {
 		struct_type(const struct_type& other);
 		virtual ~struct_type();
 
-		[[nodiscard]] base_type* clone() const noexcept;
+		[[nodiscard]] base_type* clone() const noexcept override;
 
 		[[nodiscard]] values_map getValues() const noexcept;
 
 		[[nodiscard]] std::string toString() const noexcept override;
 
-		[[nodiscard]] bool operator==(const struct_type& other) const noexcept {
-			return _values == other._values;
-		}
-		[[nodiscard]] bool operator!=(const struct_type& other) const noexcept {
-			return !(*this == other);
-		}
+		[[nodiscard]] bool operator==(const struct_type& other) const noexcept;
+		[[nodiscard]] bool operator!=(const struct_type& other) const noexcept;
 	};
 
-	[[nodiscard]] static std::string to_string(const struct_type*& value) noexcept;
+	[[nodiscard]] static std::string to_string(const struct_type& value) noexcept;
 
 }

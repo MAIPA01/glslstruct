@@ -37,11 +37,13 @@ namespace glslstruct {
 			}
 		}
 
+		void _cloneFrom(const std430_offset& std430off) noexcept;
+
 	public:
 		std430_offset() = default;
 		std430_offset(std430_offset& std430off);
 		std430_offset(const std430_offset& std430off);
-		std430_offset(std430_offset&& std430off);
+		std430_offset(std430_offset&& std430off) noexcept;
 		template<class... Args, size_t... nums>
 		std430_offset(const std_variable<Args, nums>&... vars) {
 			_addMultiple(vars...);
@@ -50,9 +52,9 @@ namespace glslstruct {
 
 		std430_offset& operator=(std430_offset& std430off);
 		std430_offset& operator=(const std430_offset& std430off);
-		std430_offset& operator=(std430_offset&& std430off);
+		std430_offset& operator=(std430_offset&& std430off) noexcept;
 
-		DECLARE_OVERRIDED_CLONE_FUNC(std430_offset)
+		[[nodiscard]] std430_offset* clone() const noexcept;
 
 #pragma region ADD_SCALAR
 #if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20

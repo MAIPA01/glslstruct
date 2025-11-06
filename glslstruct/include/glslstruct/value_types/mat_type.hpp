@@ -14,7 +14,7 @@ namespace glslstruct {
 		mat_type(const mat_type& other) = default;
 		virtual ~mat_type() = default;
 
-		[[nodiscard]] base_type* clone() const noexcept;
+		[[nodiscard]] base_type* clone() const noexcept override;
 
 		[[nodiscard]] ValueType getType() const noexcept;
 		[[nodiscard]] size_t getRows() const noexcept;
@@ -22,14 +22,10 @@ namespace glslstruct {
 
 		[[nodiscard]] std::string toString() const noexcept override;
 
-		[[nodiscard]] bool operator==(const mat_type& other) const noexcept {
-			return _type == other._type && _cols == other._cols && _rows == other._rows;
-		}
-		[[nodiscard]] bool operator!=(const mat_type& other) const noexcept {
-			return !(*this == other);
-		}
+		[[nodiscard]] bool operator==(const mat_type& other) const noexcept;
+		[[nodiscard]] bool operator!=(const mat_type& other) const noexcept;
 	};
 
-	[[nodiscard]] static std::string to_string(const mat_type*& value) noexcept;
+	[[nodiscard]] static std::string to_string(const mat_type& value) noexcept;
 
 }

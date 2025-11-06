@@ -42,7 +42,7 @@ using namespace glslstruct;
 		arrayElemOffsets[i] = valueAligementOffset;
 
 		// SET ELEMENT VARIABLE
-		_setVariable(valueName, valueAligementOffset, type->Clone());
+		_setVariable(valueName, valueAligementOffset, type->clone());
 	}
 
 	// UPDATE SIZE
@@ -54,34 +54,40 @@ using namespace glslstruct;
 	return arrayElemOffsets;
 }
 
+void std430_offset::_cloneFrom(const std430_offset& std430off) noexcept {
+	std_offset::_cloneFrom(*static_cast<const std_offset*>(&std430off));
+}
+
 std430_offset::std430_offset(std430_offset& std430off) {
-	std430off.CloneTo(this);
+	_cloneFrom(std430off);
 }
 
 std430_offset::std430_offset(const std430_offset& std430off) {
-	std430off.CloneTo(this);
+	_cloneFrom(std430off);
 }
 
-std430_offset::std430_offset(std430_offset&& std430off) {
-	std430off.CloneTo(this);
+std430_offset::std430_offset(std430_offset&& std430off) noexcept {
+	_cloneFrom(std430off);
 }
 
 std430_offset& std430_offset::operator=(std430_offset& std430off) {
-	std430off.CloneTo(this);
+	_cloneFrom(std430off);
 	return *this;
 }
 
 std430_offset& std430_offset::operator=(const std430_offset& std430off) {
-	std430off.CloneTo(this);
+	_cloneFrom(std430off);
 	return *this;
 }
 
-std430_offset& std430_offset::operator=(std430_offset&& std430off) {
-	std430off.CloneTo(this);
+std430_offset& std430_offset::operator=(std430_offset&& std430off) noexcept {
+	_cloneFrom(std430off);
 	return *this;
 }
 
-CLONE_BASE_FUNC_DEFINITION(std430_offset, std_offset)
+[[nodiscard]] std430_offset* std430_offset::clone() const noexcept {
+	return new std430_offset(*this);
+}
 
 [[nodiscard]] size_t std430_offset::add(const std::string& name, const std430_offset& structTemplate) {
 	return _addStruct(name, structTemplate.baseAligement(), structTemplate._currentOffset, structTemplate._values);

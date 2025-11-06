@@ -76,7 +76,7 @@ void std_offset::_setVariable(const std::string& name, size_t offset, const base
 		arrayElemOffsets[i] = valueAligementOffset;
 
 		// SET ELEMENT VARIABLE
-		_setVariable(valueName, valueAligementOffset, type->Clone());
+		_setVariable(valueName, valueAligementOffset, type->clone());
 	}
 
 	// UPDATE SIZE
@@ -171,10 +171,10 @@ void std_offset::_setVariable(const std::string& name, size_t offset, const base
 	}
 
 	std::string valueName;
-	for (const auto& value : values) {
-		valueName = std::move(fmt::vformat(_subElemFormat, fmt::make_format_args(name, value.first)));
+	for (const auto& [value_name, data] : values) {
+		valueName = std::move(fmt::vformat(_subElemFormat, fmt::make_format_args(name, value_name)));
 
-		_setVariable(valueName, aligementOffset + value.second.offset, value.second.type->Clone());
+		_setVariable(valueName, aligementOffset + data.offset, data.type->clone());
 	}
 
 	// ADD PADDING
@@ -209,16 +209,24 @@ void std_offset::_setVariable(const std::string& name, size_t offset, const base
 	return values_offsets;
 }
 
+void std_offset::_cloneFrom(const std_offset& stdOff) noexcept {
+	_currentOffset = stdOff._currentOffset;
+	_maxAligement = stdOff._maxAligement;
+	for (const auto& [name, data] : stdOff._values) {
+		_values[name] = { data.offset, data.type->clone() };
+	}
+}
+
 std_offset::std_offset(std_offset& stdOff) {
-	stdOff.CloneTo(this);
+	_cloneFrom(stdOff);
 }
 
 std_offset::std_offset(const std_offset& stdOff) {
-	stdOff.CloneTo(this);
+	_cloneFrom(stdOff);
 }
 
 std_offset::std_offset(std_offset&& stdOff) {
-	stdOff.CloneTo(this);
+	_cloneFrom(stdOff);
 }
 
 std_offset::~std_offset() {
@@ -226,31 +234,22 @@ std_offset::~std_offset() {
 }
 
 std_offset& std_offset::operator=(std_offset& stdOff) {
-	stdOff.CloneTo(this);
+	_cloneFrom(stdOff);
 	return *this;
 }
 
 std_offset& std_offset::operator=(const std_offset& stdOff) {
-	stdOff.CloneTo(this);
+	_cloneFrom(stdOff);
 	return *this;
 }
 
 std_offset& std_offset::operator=(std_offset&& stdOff) {
-	stdOff.CloneTo(this);
+	_cloneFrom(stdOff);
 	return *this;
 }
 
-std_offset* std_offset::Clone() const {
-	std_offset* cloned = new std_offset();
-	CloneTo(cloned);
-	return cloned;
-}
-void std_offset::CloneTo(std_offset* cloned) const {
-	cloned->_currentOffset = _currentOffset;
-	cloned->_maxAligement = _maxAligement;
-	for (const auto& value : _values) { 
-		cloned->_values[value.first] = { value.second.offset, value.second.type->Clone() }; 
-	}
+[[nodiscard]] std_offset* std_offset::clone() const noexcept {
+	return new std_offset(*this);
 }
 
 [[nodiscard]] bool std_offset::contains(const std::string& name) const {
@@ -296,8 +295,8 @@ void std_offset::CloneTo(std_offset* cloned) const {
 	std::vector<std::string> names;
 	names.reserve(_values.size());
 
-	for (const auto& value : _values) {
-		names.push_back(value.first);
+	for (const auto& [name, data] : _values) {
+		names.push_back(name);
 	}
 
 	return names;

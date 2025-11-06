@@ -6,10 +6,16 @@ using namespace glm;
 TEST(std140_offset, add_scalars) {
 	std140_offset structOffsets;
 	size_t ret;
+	scalar_type* type;
 
 	// BOOL
 	ret = structOffsets.add<bool>("Bool");
 	EXPECT_EQ(ret, 0);
+	EXPECT_EQ(structOffsets.get("Bool"), 0);
+
+	type = new scalar_type(ValueType::Bool);
+	EXPECT_EQ(*structOffsets.getType("Bool"), *type);
+	delete type;
 
 	// INT
 	ret = structOffsets.add<int>("Int");
