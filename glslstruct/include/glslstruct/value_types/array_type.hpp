@@ -14,9 +14,10 @@ namespace glslstruct {
 		virtual ~array_type();
 
 		[[nodiscard]] base_type* clone() const noexcept;
+		[[nodiscard]] void accept(base_type_visitor* const visitor) const override;
 
-		[[nodiscard]] const base_type* getType() const noexcept;
-		[[nodiscard]] size_t getLength() const noexcept;
+		[[nodiscard]] const base_type* type() const noexcept;
+		[[nodiscard]] size_t length() const noexcept;
 
 		[[nodiscard]] std::string toString() const noexcept override;
 

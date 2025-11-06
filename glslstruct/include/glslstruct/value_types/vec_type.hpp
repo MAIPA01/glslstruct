@@ -14,9 +14,10 @@ namespace glslstruct {
 		virtual ~vec_type() = default;
 
 		[[nodiscard]] base_type* clone() const noexcept override;
+		[[nodiscard]] void accept(base_type_visitor* const visitor) const override;
 
-		[[nodiscard]] ValueType getType() const noexcept;
-		[[nodiscard]] size_t getLength() const noexcept;
+		[[nodiscard]] ValueType type() const noexcept;
+		[[nodiscard]] size_t length() const noexcept;
 
 		[[nodiscard]] std::string toString() const noexcept override;
 

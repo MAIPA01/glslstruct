@@ -7,3 +7,7 @@
 #include <glslstruct/value_types/mat_type.hpp>
 #include <glslstruct/value_types/struct_type.hpp>
 #include <glslstruct/value_types/array_type.hpp>
+#include <glslstruct/value_types/base_type_visitor.hpp>
+#include <glslstruct/value_types/type_eq_visitor.hpp>
+#include <glslstruct/value_types/type_cast_visitor.hpp>
+#include <glslstruct/value_types/type_hash_visitor.hpp>

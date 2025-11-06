@@ -3,7 +3,7 @@
 
 using namespace glslstruct;
 
-[[nodiscard]] std::vector<size_t> std430_offset::_addArray(const std::string& name, size_t arraySize, size_t baseAligement, 
+std::vector<size_t> std430_offset::_addArray(const std::string& name, size_t arraySize, size_t baseAligement, 
 	size_t baseOffset, const base_type* type) {
 	// CHECK SIZE
 	if (arraySize == 0) {
@@ -89,11 +89,11 @@ std430_offset& std430_offset::operator=(std430_offset&& std430off) noexcept {
 	return new std430_offset(*this);
 }
 
-[[nodiscard]] size_t std430_offset::add(const std::string& name, const std430_offset& structTemplate) {
+size_t std430_offset::add(const std::string& name, const std430_offset& structTemplate) {
 	return _addStruct(name, structTemplate.baseAligement(), structTemplate._currentOffset, structTemplate._values);
 }
 
-[[nodiscard]] std::vector<size_t> std430_offset::add(const std::string& name, const std430_offset& structTemplate, size_t size) {
+std::vector<size_t> std430_offset::add(const std::string& name, const std430_offset& structTemplate, size_t size) {
 	return _addStructArray(name, structTemplate.baseAligement(), structTemplate._currentOffset, structTemplate._values, size);
 }
 

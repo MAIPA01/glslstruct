@@ -20,25 +20,25 @@ namespace glslstruct {
 
 		void _setVariable(const std::string& name, size_t offset, const base_type* type);
 
-		[[nodiscard]] virtual size_t _add(const std::string& name, size_t baseAligement, size_t baseOffset, const base_type* type);
-		[[nodiscard]] virtual std::vector<size_t> _addArray(const std::string& name, size_t arraySize, size_t baseAligement,
+		virtual size_t _add(const std::string& name, size_t baseAligement, size_t baseOffset, const base_type* type);
+		virtual std::vector<size_t> _addArray(const std::string& name, size_t arraySize, size_t baseAligement,
 			size_t baseOffset, const base_type* type);
 
-		[[nodiscard]] virtual size_t _addScalar(const std::string& name, size_t baseAligement, size_t baseOffset, const ValueType& type);
-		[[nodiscard]] virtual std::vector<size_t> _addScalarArray(const std::string& name, size_t baseAligement, size_t baseOffset,
+		virtual size_t _addScalar(const std::string& name, size_t baseAligement, size_t baseOffset, const ValueType& type);
+		virtual std::vector<size_t> _addScalarArray(const std::string& name, size_t baseAligement, size_t baseOffset,
 			const ValueType& type, size_t arraySize);
 
-		[[nodiscard]] virtual size_t _addVector(const std::string& name, size_t length, size_t baseAligement, size_t baseOffset, const ValueType& type);
-		[[nodiscard]] virtual std::vector<size_t> _addVectorArray(const std::string& name, size_t length, size_t baseAligement, size_t baseOffset,
+		virtual size_t _addVector(const std::string& name, size_t length, size_t baseAligement, size_t baseOffset, const ValueType& type);
+		virtual std::vector<size_t> _addVectorArray(const std::string& name, size_t length, size_t baseAligement, size_t baseOffset,
 			const ValueType& type, size_t arraySize);
 
-		[[nodiscard]] virtual size_t _addMatrix(const std::string& name, size_t columns, size_t rows, bool column_major, size_t baseAligement,
+		virtual size_t _addMatrix(const std::string& name, size_t columns, size_t rows, bool column_major, size_t baseAligement,
 			size_t baseOffset, const ValueType& type);
-		[[nodiscard]] virtual std::vector<size_t> _addMatrixArray(const std::string& name, size_t columns, size_t rows, bool column_major,
+		virtual std::vector<size_t> _addMatrixArray(const std::string& name, size_t columns, size_t rows, bool column_major,
 			size_t baseAligement, size_t baseOffset, const ValueType& type, size_t arraySize);
 
-		[[nodiscard]] virtual size_t _addStruct(const std::string& name, size_t baseAligement, size_t baseOffset, const values_map& values);
-		[[nodiscard]] virtual std::vector<size_t> _addStructArray(const std::string& name, size_t baseAligement, size_t baseOffset, 
+		virtual size_t _addStruct(const std::string& name, size_t baseAligement, size_t baseOffset, const values_map& values);
+		virtual std::vector<size_t> _addStructArray(const std::string& name, size_t baseAligement, size_t baseOffset, 
 			const values_map& values, size_t arraySize);
 
 		void _cloneFrom(const std_offset& stdOff) noexcept;
@@ -46,12 +46,12 @@ namespace glslstruct {
 		std_offset() = default;
 		std_offset(std_offset& stdOff);
 		std_offset(const std_offset& stdOff);
-		std_offset(std_offset&& stdOff);
+		std_offset(std_offset&& stdOff) noexcept;
 		virtual ~std_offset();
 
 		std_offset& operator=(std_offset& stdOff);
 		std_offset& operator=(const std_offset& stdOff);
-		std_offset& operator=(std_offset&& stdOff);
+		std_offset& operator=(std_offset&& stdOff) noexcept;
 
 	public:
 

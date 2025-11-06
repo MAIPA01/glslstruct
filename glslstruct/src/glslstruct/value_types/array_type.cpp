@@ -15,6 +15,9 @@ array_type::~array_type() {
 [[nodiscard]] base_type* array_type::clone() const noexcept {
 	return new array_type(*this);
 }
+[[nodiscard]] void array_type::accept(base_type_visitor* const visitor) const {
+	visitor->visit(*this);
+}
 
 [[nodiscard]] const base_type* array_type::getType() const noexcept {
 	return _type;

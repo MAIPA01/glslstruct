@@ -15,10 +15,11 @@ namespace glslstruct {
 		virtual ~mat_type() = default;
 
 		[[nodiscard]] base_type* clone() const noexcept override;
+		[[nodiscard]] void accept(base_type_visitor* const visitor) const override;
 
-		[[nodiscard]] ValueType getType() const noexcept;
-		[[nodiscard]] size_t getRows() const noexcept;
-		[[nodiscard]] size_t getCols() const noexcept;
+		[[nodiscard]] ValueType type() const noexcept;
+		[[nodiscard]] size_t rows() const noexcept;
+		[[nodiscard]] size_t cols() const noexcept;
 
 		[[nodiscard]] std::string toString() const noexcept override;
 

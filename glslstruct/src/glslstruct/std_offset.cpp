@@ -7,7 +7,7 @@ void std_offset::_setVariable(const std::string& name, size_t offset, const base
 	_values[name] = { offset, type };
 }
 
-[[nodiscard]] size_t std_offset::_add(const std::string& name, size_t baseAligement, size_t baseOffset, const base_type* type) {
+size_t std_offset::_add(const std::string& name, size_t baseAligement, size_t baseOffset, const base_type* type) {
 	// CHECK VARIABLE
 	if (contains(name)) {
 		return 0;
@@ -32,7 +32,7 @@ void std_offset::_setVariable(const std::string& name, size_t offset, const base
 	return aligementOffset;
 }
 
-[[nodiscard]] std::vector<size_t> std_offset::_addArray(const std::string& name, size_t arraySize, size_t baseAligement, 
+std::vector<size_t> std_offset::_addArray(const std::string& name, size_t arraySize, size_t baseAligement, 
 	size_t baseOffset, const base_type* type) {
 	// CHECK SIZE
 	if (arraySize == 0) {
@@ -88,16 +88,16 @@ void std_offset::_setVariable(const std::string& name, size_t offset, const base
 	return arrayElemOffsets;
 }
 
-[[nodiscard]] size_t std_offset::_addScalar(const std::string& name, size_t baseAligement, size_t baseOffset, const ValueType& type) {
+size_t std_offset::_addScalar(const std::string& name, size_t baseAligement, size_t baseOffset, const ValueType& type) {
 	return _add(name, baseAligement, baseOffset, new scalar_type(type));
 }
 
-[[nodiscard]] std::vector<size_t> std_offset::_addScalarArray(const std::string& name, size_t baseAligement, size_t baseOffset, 
+std::vector<size_t> std_offset::_addScalarArray(const std::string& name, size_t baseAligement, size_t baseOffset, 
 	const ValueType& type, size_t arraySize) {
 	return _addArray(name, arraySize, baseAligement, baseOffset, new scalar_type(type));
 }
 
-[[nodiscard]] size_t std_offset::_addVector(const std::string& name, size_t length, size_t baseAligement, size_t baseOffset, 
+size_t std_offset::_addVector(const std::string& name, size_t length, size_t baseAligement, size_t baseOffset, 
 	const ValueType& type) {
 	if (length < 2 || length > 4) {
 		return 0;
@@ -111,7 +111,7 @@ void std_offset::_setVariable(const std::string& name, size_t offset, const base
 	}
 }
 
-[[nodiscard]] std::vector<size_t> std_offset::_addVectorArray(const std::string& name, size_t length, size_t baseAligement, 
+std::vector<size_t> std_offset::_addVectorArray(const std::string& name, size_t length, size_t baseAligement, 
 	size_t baseOffset, const ValueType& type, size_t arraySize) {
 	if (length < 2 || length > 4) {
 		return std::vector<size_t>();
@@ -125,7 +125,7 @@ void std_offset::_setVariable(const std::string& name, size_t offset, const base
 	}
 }
 
-[[nodiscard]] size_t std_offset::_addMatrix(const std::string& name, size_t columns, size_t rows, bool column_major, 
+size_t std_offset::_addMatrix(const std::string& name, size_t columns, size_t rows, bool column_major, 
 	size_t baseAligement, size_t baseOffset, const ValueType& type) {
 	const size_t arraySize = column_major ? columns : rows;
 	const size_t vecSize = column_major ? rows : columns;
@@ -136,7 +136,7 @@ void std_offset::_setVariable(const std::string& name, size_t offset, const base
 	return offset;
 }
 
-[[nodiscard]] std::vector<size_t> std_offset::_addMatrixArray(const std::string& name, size_t columns, size_t rows, bool column_major, 
+std::vector<size_t> std_offset::_addMatrixArray(const std::string& name, size_t columns, size_t rows, bool column_major, 
 	size_t baseAligement, size_t baseOffset, const ValueType& type, size_t arraySize) {
 	// CHECK ARRAY SIZE
 	if (arraySize == 0) {
@@ -162,7 +162,7 @@ void std_offset::_setVariable(const std::string& name, size_t offset, const base
 	return values;
 }
 
-[[nodiscard]] size_t std_offset::_addStruct(const std::string& name, size_t baseAligement, size_t baseOffset, const values_map& values) {
+size_t std_offset::_addStruct(const std::string& name, size_t baseAligement, size_t baseOffset, const values_map& values) {
 	size_t lastOffset = _currentOffset;
 	size_t aligementOffset = std::move(_add(name, baseAligement, baseOffset, new struct_type(values)));
 
@@ -184,7 +184,7 @@ void std_offset::_setVariable(const std::string& name, size_t offset, const base
 	return aligementOffset;
 }
 
-[[nodiscard]] std::vector<size_t> std_offset::_addStructArray(const std::string& name, size_t baseAligement, size_t baseOffset, 
+std::vector<size_t> std_offset::_addStructArray(const std::string& name, size_t baseAligement, size_t baseOffset, 
 	const values_map& values, size_t arraySize) {
 	if (arraySize == 0) {
 		return std::vector<size_t>();
@@ -225,7 +225,7 @@ std_offset::std_offset(const std_offset& stdOff) {
 	_cloneFrom(stdOff);
 }
 
-std_offset::std_offset(std_offset&& stdOff) {
+std_offset::std_offset(std_offset&& stdOff) noexcept {
 	_cloneFrom(stdOff);
 }
 
@@ -243,7 +243,7 @@ std_offset& std_offset::operator=(const std_offset& stdOff) {
 	return *this;
 }
 
-std_offset& std_offset::operator=(std_offset&& stdOff) {
+std_offset& std_offset::operator=(std_offset&& stdOff) noexcept {
 	_cloneFrom(stdOff);
 	return *this;
 }
@@ -253,12 +253,12 @@ std_offset& std_offset::operator=(std_offset&& stdOff) {
 }
 
 [[nodiscard]] bool std_offset::contains(const std::string& name) const {
-	return _values.find(std::move(name)) != _values.end();
+	return _values.find(name) != _values.end();
 }
 
 [[nodiscard]] size_t std_offset::get(const std::string& name) const {
 	size_t value = 0;
-	auto map_iterator = _values.find(std::move(name));
+	auto map_iterator = _values.find(name);
 	if (map_iterator != _values.end()) {
 		value = map_iterator->second.offset;
 	}
@@ -284,7 +284,7 @@ std_offset& std_offset::operator=(std_offset&& stdOff) {
 
 [[nodiscard]] const base_type* std_offset::getType(const std::string& name) const {
 	const base_type* value = nullptr;
-	auto map_iterator = _values.find(std::move(name));
+	auto map_iterator = _values.find(name);
 	if (map_iterator != _values.end()) {
 		value = map_iterator->second.type;
 	}

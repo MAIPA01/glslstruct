@@ -8,6 +8,9 @@ vec_type::vec_type(const ValueType& type, const size_t& length) : _type(type), _
 [[nodiscard]] base_type* vec_type::clone() const noexcept {
 	return new vec_type(*this);
 }
+[[nodiscard]] void vec_type::accept(base_type_visitor* const visitor) const {
+	visitor->visit(*this);
+}
 
 [[nodiscard]] ValueType vec_type::getType() const noexcept {
 	return _type;

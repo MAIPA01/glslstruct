@@ -9,6 +9,9 @@ mat_type::mat_type(const ValueType& type, const size_t& cols, const size_t& rows
 [[nodiscard]] base_type* mat_type::clone() const noexcept {
 	return new mat_type(*this);
 }
+[[nodiscard]] void mat_type::accept(base_type_visitor* const visitor) const {
+	visitor->visit(*this);
+}
 
 [[nodiscard]] ValueType mat_type::getType() const noexcept {
 	return _type;

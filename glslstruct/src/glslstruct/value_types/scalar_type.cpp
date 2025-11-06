@@ -8,6 +8,9 @@ scalar_type::scalar_type(const ValueType& type) : _type(type) {}
 [[nodiscard]] base_type* scalar_type::clone() const noexcept {
 	return new scalar_type(*this);
 }
+[[nodiscard]] void scalar_type::accept(base_type_visitor* const visitor) const {
+	visitor->visit(*this);
+}
 
 [[nodiscard]] ValueType scalar_type::getType() const noexcept {
 	return _type;
