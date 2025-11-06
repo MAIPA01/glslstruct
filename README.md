@@ -63,11 +63,11 @@ std140_struct SceneSettings {
 int main() {    
     // Total aligned size of the structure
     std::cout << "Total UBO size (std140): " << SceneSettings.size() 
-    << " bytes." << std::endl; // Should be a multiple of 16 bytes
+        << " bytes." << std::endl; // Should be a multiple of 16 bytes
     
     // Offset for a specific field using a literal string
     std::cout << "Offset for 'cameraPosition': " << SceneSettings.getOffset("cameraPosition") 
-    << " bytes." << std::endl;
+        << " bytes." << std::endl;
     
     // Get data for uploading to UBO
     std::vector<std::byte> data_to_upload = SceneSettings.data();
@@ -83,7 +83,7 @@ int main() {
     const vec_type* vec_value_type = static_type_cast<vec_type>(value_type);
 
     std::cout << "Vector type: " << to_string(vec_value_type->type()) 
-    << " length: " << vec_value_type->length() << std::endl;
+        << " length: " << vec_value_type->length() << std::endl;
 
     return 0;
 }
