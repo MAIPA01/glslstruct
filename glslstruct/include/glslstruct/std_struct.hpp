@@ -256,7 +256,7 @@ namespace glslstruct {
 		template<class T> 
 		bool _set(const std::string& name, const T& value) {
 			// CHECK VARIABLE
-			if (!_dataOffsets.Contains(name)) {
+			if (!_dataOffsets.contains(name)) {
 				//SPDLOG_ERROR("No value called '{0}' was added to this structure", name);
 				return false;
 			}
@@ -265,7 +265,7 @@ namespace glslstruct {
 			size_t valueOffset = std::move(_dataOffsets.get(name));
 
 			// GET VALUE DATA
-			std::vector<unsigned char> valueData = std::move(_getValueData(value));
+			std::vector<std::byte> valueData = std::move(_getValueData(value));
 
 			// SET VALUE DATA
 			memcpy(_data.data() + valueOffset, valueData.data(), std::min(valueData.size(), _data.size() - valueOffset));
@@ -302,7 +302,7 @@ namespace glslstruct {
 			size_t arrayElemDataSize = _getArrayElemSize(valuesOffsets);
 
 			// SET VALUES DATA
-			std::vector<unsigned char> valueData;
+			std::vector<std::byte> valueData;
 			for (size_t i = 0; i < valuesOffsets.size() && i < values.size(); ++i) {
 				// GET VALUE DATA
 				valueData = std::move(_getValueData(values[i]));
