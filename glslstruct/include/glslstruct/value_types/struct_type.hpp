@@ -1,33 +1,53 @@
+/*
+ * glslstruct - a C++ library designed to easily represent GLSL's Uniform Buffer Objects (UBOs) and Shader Storage Buffer Objects (SSBOs) in C++.
+ *
+ * Licensed under the BSD 3-Clause License with Attribution Requirement.
+ * See the LICENSE file for details: https://github.com/MAIPA01/glslstruct/blob/main/LICENSE
+ *
+ * Copyright (c) 2025, Patryk Antosik (MAIPA01)
+ */
+
 #pragma once
-#include <unordered_map>
 #include <glslstruct/value_data.hpp>
 #include <glslstruct/value_types/value_type.hpp>
-#include <glslstruct/value_types/ValueType.hpp>
 
 namespace glslstruct {
+	class struct_type;
+
+	using struct_type_handle = std::shared_ptr<struct_type>;
+
 	class struct_type : public value_type<struct_type> {
 	private:
 		friend struct std::hash<struct_type>;
 
-		using values_map = std::unordered_map<std::string, value_data>;
+		using _base_class = value_type<struct_type>;
 
-		values_map _values;
+		std::unordered_map<std::string, value_data> _values;
 
 	public:
-		struct_type(const values_map& values);
-		struct_type(const struct_type& other);
-		virtual ~struct_type();
+		struct_type(const std::unordered_map<std::string, value_data>& values, size_t size) noexcept;
+		struct_type(const struct_type& other) noexcept = default;
+		struct_type(struct_type&& other) noexcept;
+		virtual ~struct_type() noexcept = default;
 
-		[[nodiscard]] base_type* clone() const noexcept override;
+		struct_type& operator=(const struct_type& other) noexcept = default;
+		struct_type& operator=(struct_type&& other) noexcept;
 
-		[[nodiscard]] values_map getValues() const noexcept;
+		void accept(base_type_visitor* const visitor) const override;
 
-		[[nodiscard]] std::string toString() const noexcept override;
+		[[nodiscard]] const std::unordered_map<std::string, value_data>& get_values() const noexcept;
 
-		[[nodiscard]] bool operator==(const struct_type& other) const noexcept;
-		[[nodiscard]] bool operator!=(const struct_type& other) const noexcept;
+		[[nodiscard]] std::string to_string() const noexcept override;
+
+		friend bool operator==(const struct_type& lhs, const struct_type& rhs) noexcept;
+		friend bool operator!=(const struct_type& lhs, const struct_type& rhs) noexcept;
 	};
 
-	[[nodiscard]] static std::string to_string(const struct_type& value) noexcept;
-
+	[[nodiscard]] bool operator==(const struct_type& lhs, const struct_type& rhs) noexcept;
+	[[nodiscard]] bool operator!=(const struct_type& lhs, const struct_type& rhs) noexcept;
 }
+
+template<>
+struct std::hash<glslstruct::struct_type> {
+	[[nodiscard]] size_t operator()(const glslstruct::struct_type& value) noexcept;
+};

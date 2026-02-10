@@ -3,45 +3,40 @@
 
 using namespace glslstruct;
 
-struct_type::struct_type(const values_map& values) {
-	for (const auto& [name, data] : values) {
-		_values[name] = { data.offset, data.type->clone() };
-	}
+struct_type::struct_type(const std::unordered_map<std::string, value_data>& values, size_t size) noexcept 
+	: _base_class(size), _values(values) {}
+struct_type::struct_type(struct_type&& other) noexcept 
+	: _base_class(other), _values(std::exchange(other._values, {})) {}
+
+struct_type& struct_type::operator=(struct_type&& other) noexcept {
+	_base_class::operator=(other);
+	_values = std::exchange(other._values, {});
+	return *this;
 }
 
-struct_type::struct_type(const struct_type& other) {
-	for (const auto& [name, data] : other._values) {
-		_values[name] = { data.offset, data.type->clone() };
-	}
+void struct_type::accept(base_type_visitor* const visitor) const {
+	visitor->visit(*this);
 }
 
-struct_type::~struct_type() {
-	for (const auto& value : _values) {
-		if (value.second.type != nullptr)
-			delete value.second.type;
-	}
-	_values.clear();
-}
-
-[[nodiscard]] base_type* struct_type::clone() const noexcept {
-	return new struct_type(*this);
-}
-
-[[nodiscard]] struct_type::values_map struct_type::getValues() const noexcept {
+const std::unordered_map<std::string, value_data>& struct_type::get_values() const noexcept {
 	return _values;
 }
 
-[[nodiscard]] std::string struct_type::toString() const noexcept {
+std::string struct_type::to_string() const noexcept {
 	return "struct";
 }
 
-[[nodiscard]] bool struct_type::operator==(const struct_type& other) const noexcept {
-	return _values == other._values;
+bool glslstruct::operator==(const struct_type& lhs, const struct_type& rhs) noexcept {
+	return lhs._values == rhs._values;
 }
-[[nodiscard]] bool struct_type::operator!=(const struct_type& other) const noexcept {
-	return !(*this == other);
+bool glslstruct::operator!=(const struct_type& lhs, const struct_type& rhs) noexcept {
+	return !(lhs == rhs);
 }
 
-[[nodiscard]] static std::string glslstruct::to_string(const struct_type& value) noexcept {
-	return value.toString();
+size_t std::hash<struct_type>::operator()(const struct_type& value) noexcept {
+	size_t seed = 0;
+	for (const auto& [name, data] : value._values) {
+		mstd::hash_append(seed, name, data);
+	}
+	return seed;
 }

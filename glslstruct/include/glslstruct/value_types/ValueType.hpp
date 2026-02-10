@@ -1,27 +1,40 @@
+/*
+ * glslstruct - a C++ library designed to easily represent GLSL's Uniform Buffer Objects (UBOs) and Shader Storage Buffer Objects (SSBOs) in C++.
+ *
+ * Licensed under the BSD 3-Clause License with Attribution Requirement.
+ * See the LICENSE file for details: https://github.com/MAIPA01/glslstruct/blob/main/LICENSE
+ *
+ * Copyright (c) 2025, Patryk Antosik (MAIPA01)
+ */
+
 #pragma once
-#define USE_ENUMS_MACROS
-#include <mstd/macros.hpp>
-#include <string>
-#include <cstdint>
+#include <glslstruct/templates.hpp>
 
 namespace glslstruct {
-	ENUM_CLASS_BASE_STRING(ValueType, uint8_t, Other, "other", Bool, "bool", Int, "int", Uint, "uint", Float, "float", Double, "double");
+	ENUM_CLASS_BASE(ValueType, uint8_t,
+		(Other),
+		(Bool),
+		(Int),
+		(Uint),
+		(Float),
+		(Double)
+	)
 
-	template<class T>
-	[[nodicard]] static constexpr ValueType getValueType() noexcept {
-		if constexpr (std::is_same_v<T, bool>) {
+	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_scalar, utils::is_glsl_scalar_v<T>, = true)
+	[[nodiscard]] static inline _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept {
+		if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, bool>) {
 			return ValueType::Bool;
 		}
-		else if constexpr (std::is_same_v<T, int>) {
+		else if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, int>) {
 			return ValueType::Int;
 		}
-		else if constexpr (std::is_same_v<T, unsigned int>) {
+		else if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, unsigned int>) {
 			return ValueType::Uint;
 		}
-		else if constexpr (std::is_same_v<T, float>) {
+		else if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, float>) {
 			return ValueType::Float;
 		}
-		else if constexpr (std::is_same_v<T, double>) {
+		else if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, double>) {
 			return ValueType::Double;
 		}
 		else {
@@ -29,7 +42,44 @@ namespace glslstruct {
 		}
 	}
 
-	[[nodiscard]] extern inline std::string vecTypeToString(const ValueType& type) noexcept;
+	[[nodiscard]] static inline _GLSL_STRUCT_CONSTEXPR20 std::string vec_type_to_string(ValueType type) noexcept {
+		switch (type) {
+		case ValueType::Other: return "other";
+		case ValueType::Bool: return "bvec";
+		case ValueType::Int: return "ivec";
+		case ValueType::Uint: return "uvec";
+		case ValueType::Float: return "vec";
+		case ValueType::Double: return "dvec";
+		default: return "UNKNOWN";
+		}
+	}
 
-	[[nodiscard]] extern inline std::string matTypeToString(const ValueType& type) noexcept;
+	[[nodiscard]] static inline _GLSL_STRUCT_CONSTEXPR20 std::string mat_type_to_string(ValueType type) noexcept {
+		switch (type) {
+		case ValueType::Other: return "other";
+		case ValueType::Bool: return "bmat";
+		case ValueType::Int: return "imat";
+		case ValueType::Uint: return "umat";
+		case ValueType::Float: return "mat";
+		case ValueType::Double: return "dmat";
+		default: return "UNKNOWN";
+		}
+	}
+
+	[[nodiscard]] static inline _GLSL_STRUCT_CONSTEXPR17 size_t get_value_type_size(ValueType type) {
+		switch (type) {
+		default:
+		case ValueType::Other:
+			return 0;
+		case ValueType::Bool:
+		case ValueType::Int:
+			return sizeof(int);
+		case ValueType::Uint:
+			return sizeof(unsigned int);
+		case ValueType::Float:
+			return sizeof(float);
+		case ValueType::Double:
+			return sizeof(double);
+		}
+	}
 }

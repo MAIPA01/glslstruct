@@ -3,114 +3,32 @@
 
 using namespace glslstruct;
 
-size_t std::hash<std430_offset>::operator()(const std430_offset& std430Off) {
-	return std::hash<std_offset>()(*static_cast<const std_offset*>(&std430Off));
-}
-
-std::vector<size_t> std430_offset::_addArray(const std::string& name, size_t arraySize, size_t baseAligement, 
-	size_t baseOffset, const base_type* type) {
-	// CHECK SIZE
-	if (arraySize == 0) {
-		return std::vector<size_t>();
-	}
-
-	// CHECK VARIABLE
-	if (contains(name)) {
-		return std::vector<size_t>();
-	}
-
-	std::vector<size_t> arrayElemOffsets(arraySize);
-
-	// CHECK MAX ALIGEMENT
-	if (baseAligement > _maxAligement) {
-		_maxAligement = baseAligement;
-	}
-
-	// CALCULATE ALIGEMENT OFFSET
-	size_t aligementOffset = _currentOffset;
-	if (aligementOffset % baseAligement != 0) {
-		aligementOffset += baseAligement - (aligementOffset % baseAligement);
-	}
-
-	// ADD ARRAY VALUES
-	std::string valueName;
-	size_t valueAligementOffset;
-	for (size_t i = 0; i < arraySize; ++i) {
-		// ELEMENT VALUE NAME
-		valueName = std::move(fmt::vformat(_arrayElemFormat, fmt::make_format_args(name, i)));
-
-		// CALCULATE VALUE OFFSET
-		valueAligementOffset = aligementOffset + i * baseAligement;
-
-		// SET ELEMENT VALUE OFFSET
-		arrayElemOffsets[i] = valueAligementOffset;
-
-		// SET ELEMENT VARIABLE
-		_setVariable(valueName, valueAligementOffset, type->clone());
-	}
-
-	// UPDATE SIZE
-	_currentOffset = aligementOffset + arraySize * baseAligement;
-
-	// SET ARRAY BEGIN POINTER
-	_setVariable(name, arrayElemOffsets[0], new array_type(type, arraySize));
-
-	return arrayElemOffsets;
-}
-
-void std430_offset::_cloneFrom(const std430_offset& std430off) noexcept {
-	std_offset::_cloneFrom(*static_cast<const std_offset*>(&std430off));
-}
-
-std430_offset::std430_offset(std430_offset& std430off) {
-	_cloneFrom(std430off);
-}
-
-std430_offset::std430_offset(const std430_offset& std430off) {
-	_cloneFrom(std430off);
-}
-
-std430_offset::std430_offset(std430_offset&& std430off) noexcept {
-	_cloneFrom(std430off);
-}
-
-std430_offset& std430_offset::operator=(std430_offset& std430off) {
-	clear();
-	_cloneFrom(std430off);
-	return *this;
-}
-
-std430_offset& std430_offset::operator=(const std430_offset& std430off) {
-	clear();
-	_cloneFrom(std430off);
-	return *this;
-}
-
-std430_offset& std430_offset::operator=(std430_offset&& std430off) noexcept {
-	clear();
-	_cloneFrom(std430off);
-	return *this;
-}
-
-[[nodiscard]] std430_offset* std430_offset::clone() const noexcept {
-	return new std430_offset(*this);
+size_t std430_offset::_get_array_elem_base_aligement(size_t baseAligement) const noexcept {
+	return baseAligement;
 }
 
 size_t std430_offset::add(const std::string& name, const std430_offset& structTemplate) {
-	return _addStruct(name, structTemplate.baseAligement(), structTemplate._currentOffset, structTemplate._values);
+	return _add_struct(name, structTemplate.base_aligement(), structTemplate._currentOffset, structTemplate._values);
 }
 
-std::vector<size_t> std430_offset::add(const std::string& name, const std430_offset& structTemplate, size_t size) {
-	return _addStructArray(name, structTemplate.baseAligement(), structTemplate._currentOffset, structTemplate._values, size);
+std::vector<size_t> std430_offset::add(const std::string& name, const std430_offset& structTemplate, size_t count) {
+	return _add_struct_array(name, structTemplate.base_aligement(), 
+		structTemplate._currentOffset, structTemplate._values, count);
 }
 
-[[nodiscard]] size_t std430_offset::baseAligement() const {
+size_t std430_offset::base_aligement() const noexcept {
 	return _maxAligement;
 }
 
-bool std430_offset::operator==(const std430_offset& std430off) const {
-	return std_offset::operator==(*static_cast<const std_offset*>(&std430off));
+#if !_GLSL_STRUCT_HAS_CXX20
+bool std430_offset::operator==(const std430_offset& other) const noexcept {
+	return std_offset::operator==(other);
 }
-bool std430_offset::operator!=(const std430_offset& std430off) const {
-	return !(*this == std430off);
+bool std430_offset::operator!=(const std430_offset& other) const noexcept {
+	return std_offset::operator!=(other);
+}
+#endif
+
+size_t std::hash<std430_offset>::operator()(const std430_offset& std430Off) noexcept {
+	return std::hash<std_offset>()(*static_cast<const std_offset*>(&std430Off));
 }

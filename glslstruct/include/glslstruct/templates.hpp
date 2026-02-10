@@ -1,88 +1,83 @@
+/*
+ * glslstruct - a C++ library designed to easily represent GLSL's Uniform Buffer Objects (UBOs) and Shader Storage Buffer Objects (SSBOs) in C++.
+ *
+ * Licensed under the BSD 3-Clause License with Attribution Requirement.
+ * See the LICENSE file for details: https://github.com/MAIPA01/glslstruct/blob/main/LICENSE
+ *
+ * Copyright (c) 2025, Patryk Antosik (MAIPA01)
+ */
+
 #pragma once
-#include <mstd/types.hpp>
-#include <glm/glm.hpp>
-#include <type_traits>
+#include <glslstruct/config.hpp>
+#include <glslstruct/libraries.hpp>
 
 namespace glslstruct::utils {
-	template<typename T> const T& unmove(T&& x) {
-		return x;
-	};
-
 #pragma region SCALAR_CHECK
-	template<class T>
-	struct is_scalar : std::bool_constant<mstd::is_same_type_in_v<T, bool, int, unsigned int, float, double>> {};
-	template<class T> static constexpr bool is_scalar_v = is_scalar<T>::value;
-	template<class T, class Ret = void> using scalar_enable_if_t = std::enable_if_t<is_scalar_v<T>, Ret>;
+	template<class T> 
+	static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_scalar_v = mstd::is_same_type_in_v<T, bool, int, unsigned int, float, double>;
 
 	template<class SV>
-	struct is_scalars_vector : std::false_type {};
+	struct is_glsl_scalars_vector : std::false_type {};
 	template<class S>
-	struct is_scalars_vector<std::vector<S>> : std::bool_constant<is_scalar_v<S>> {};
-	template<class SV> static constexpr bool is_scalars_vector_v = is_scalars_vector<SV>::value;
-	template<class SV, class Ret = void> using scalars_vector_enable_if_t = std::enable_if_t<is_scalars_vector_v<SV>, Ret>;
+	struct is_glsl_scalars_vector<std::vector<S>> : std::bool_constant<is_glsl_scalar_v<S>> {};
+	template<class SV> 
+	static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_scalars_vector_v = is_glsl_scalars_vector<SV>::value;
 
-#if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
-	template<class T> concept scalar = is_scalar_v<T>;
-	template<class SV> concept scalars_vector = is_scalars_vector_v<SV>;
+#if _GLSL_STRUCT_HAS_CXX20
+	template<class T> concept glsl_scalar = is_glsl_scalar_v<T>;
+	template<class SV> concept glsl_scalars_vector = is_glsl_scalars_vector_v<SV>;
 #endif
 #pragma endregion
 
 #pragma region VEC_CHECK
 	template<class V>
-	struct is_vec : std::false_type {};
-	template<class T, size_t L, auto... Os>
-	struct is_vec<glm::vec<L, T, Os...>> : std::conditional_t<
-		is_scalar_v<T>&& mstd::is_in_range_v<L, 2, 4>,
-		std::true_type,
-		std::false_type
-	> {
-	};
-	template<class V> static constexpr bool is_vec_v = is_vec<V>::value;
-	template<class V, class Ret = void> using vec_enable_if_t = std::enable_if_t<is_vec_v<V>, Ret>;
+	struct is_glsl_vec : std::false_type {};
+	template<class T, size_t L, glm::qualifier Q>
+	struct is_glsl_vec<glm::vec<L, T, Q>> : 
+		std::bool_constant<(is_glsl_scalar_v<T> && mstd::is_in_range_v<L, 1, 4>)> {};
+	template<class V> 
+	static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_vec_v = is_glsl_vec<V>::value;
 
 	template<class VV>
-	struct is_vecs_vector : std::false_type {};
+	struct is_glsl_vecs_vector : std::false_type {};
 	template<class V>
-	struct is_vecs_vector<std::vector<V>> : std::bool_constant<is_vec_v<V>> {};
-	template<class VV> static constexpr bool is_vecs_vector_v = is_vecs_vector<VV>::value;
-	template<class VV, class Ret = void> using vecs_vector_enable_if_t = std::enable_if_t<is_vecs_vector_v<VV>, Ret>;
+	struct is_glsl_vecs_vector<std::vector<V>> : std::bool_constant<is_glsl_vec_v<V>> {};
+	template<class VV> 
+	static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_vecs_vector_v = is_glsl_vecs_vector<VV>::value;
 
-#if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
-	template<class V> concept vec = is_vec_v<V>;
-	template<class VV> concept vecs_vector = is_vecs_vector_v<VV>;
+#if _GLSL_STRUCT_HAS_CXX20
+	template<class V> concept glsl_vec = is_glsl_vec_v<V>;
+	template<class VV> concept glsl_vecs_vector = is_glsl_vecs_vector_v<VV>;
 #endif
 #pragma endregion
 
 #pragma region MAT_CHECK
 	template<class M>
-	struct is_mat : std::false_type {};
-	template<class T, size_t C, size_t R, auto... Os>
-	struct is_mat<glm::mat<C, R, T, Os...>> : std::conditional_t<
-		(is_scalar_v<T>&& mstd::is_in_range_v<C, 2, 4>&& mstd::is_in_range_v<R, 2, 4>),
-		std::true_type,
-		std::false_type
-	> {
-	};
-	template<class M> static constexpr bool is_mat_v = is_mat<M>::value;
-	template<class M, class Ret = void> using mat_enable_if_t = std::enable_if_t<is_mat_v<M>, Ret>;
+	struct is_glsl_mat : std::false_type {};
+	template<class T, size_t C, size_t R, glm::qualifier Q>
+	struct is_glsl_mat<glm::mat<C, R, T, Q>> 
+		: std::bool_constant<(is_glsl_scalar_v<T> && mstd::is_in_range_v<C, 2, 4> && mstd::is_in_range_v<R, 2, 4>)> {};
+	template<class M> 
+	static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_mat_v = is_glsl_mat<M>::value;
 
 	template<class MV>
-	struct is_mats_vector : std::false_type {};
+	struct is_glsl_mats_vector : std::false_type {};
 	template<class M>
-	struct is_mats_vector<std::vector<M>> : std::bool_constant<is_mat_v<M>> {};
-	template<class MV> static constexpr bool is_mats_vector_v = is_mats_vector<MV>::value;
-	template<class MV, class Ret = void> using mats_vector_enable_if_t = std::enable_if_t<is_mats_vector_v<MV>, Ret>;
+	struct is_glsl_mats_vector<std::vector<M>> : std::bool_constant<is_glsl_mat_v<M>> {};
+	template<class MV> 
+	static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_mats_vector_v = is_glsl_mats_vector<MV>::value;
 
-#if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
-	template<class M> concept mat = is_mat_v<M>;
-	template<class MV> concept mats_vector = is_mats_vector_v<MV>;
+#if _GLSL_STRUCT_HAS_CXX20
+	template<class M> concept glsl_mat = is_glsl_mat_v<M>;
+	template<class MV> concept glsl_mats_vector = is_glsl_mats_vector_v<MV>;
 #endif
 #pragma endregion
 
-	template<class T> static constexpr bool is_any_standard_value_v = is_scalar_v<T> || is_vec_v<T> || is_mat_v<T>;
+	template<class T> 
+	static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_simple_value_v = is_glsl_scalar_v<T> || is_glsl_vec_v<T> || is_glsl_mat_v<T>;
 
-#if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
-	template<class T> concept any_standard_value = is_any_standard_value_v<T>;
+#if _GLSL_STRUCT_HAS_CXX20
+	template<class T> concept glsl_simple_value = is_glsl_simple_value_v<T>;
 #endif
 }
 
@@ -94,85 +89,81 @@ namespace glslstruct {
 
 namespace glslstruct::utils {
 #pragma region OFFSETS_CHECK
-	template<class T> static constexpr bool is_offset140_v = std::is_same_v<T, ::glslstruct::std140_offset>;
-	template<class T> static constexpr bool is_offset430_v = std::is_same_v<T, ::glslstruct::std430_offset>;
-	template<class T> static constexpr bool is_any_offset_v = is_offset140_v<T> || is_offset430_v<T>;
+	template<class T>
+	static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_offset_v = std::is_base_of_v<std_offset, T> && !std::is_same_v<std_offset, T>;
+	template<class T>
+	static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_offset140_v = std::is_same_v<T, std140_offset>;
+	template<class T> 
+	static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_offset430_v = std::is_same_v<T, std430_offset>;
 
-	template<class T, class Ret = void> using any_offset_enable_if_t = std::enable_if_t<is_any_offset_v<T>, Ret>;
-
-#if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
-	template<class T> concept any_offset = is_any_offset_v<T>;
+#if _GLSL_STRUCT_HAS_CXX20
+	template<class T> concept glsl_offset = is_glsl_offset_v<T>;
 #endif
 #pragma endregion
 
-	template<class T> static constexpr bool is_any_standard_or_offset_value_v = is_any_standard_value_v<T> || is_any_offset_v<T>;
+	template<class T> 
+	static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_simple_or_offset_value_v = is_glsl_simple_value_v<T> || is_glsl_offset_v<T>;
 
-#if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
-	template<class T> concept any_standard_or_offset_value = is_any_standard_or_offset_value_v<T>;
+#if _GLSL_STRUCT_HAS_CXX20
+	template<class T> concept glsl_simple_or_offset_value = is_glsl_simple_or_offset_value_v<T>;
 #endif
 }
 
 namespace glslstruct {
-#if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
-	template<utils::any_offset _Offset>
+	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(_Offset, utils::glsl_offset, utils::is_glsl_offset_v<_Offset>, = true)
 	class std_struct;
-#else
-	template<class _Offset, utils::any_offset_enable_if_t<_Offset, bool> = true>
-	class std_struct;
-#endif
 }
 
 namespace glslstruct::utils {
 #pragma region STRUCT_CHECK
 	template<class S, class O>
-	struct is_std_struct : std::false_type {};
+	struct is_glsl_struct_with_offset : std::false_type {};
 	template<class O, class Offset>
-	struct is_std_struct<std_struct<Offset>, O> : std::bool_constant<std::is_same_v<Offset, O>> {};
+	struct is_glsl_struct_with_offset<glslstruct::std_struct<Offset>, O> : std::bool_constant<std::is_same_v<Offset, O>> {};
 
-	template<class S, class _Offset> static constexpr bool is_std_struct_v = is_std_struct<S, _Offset>::value;
-	template<class S, class _Offset, class Ret = void> using std_struct_enable_if_t = std::enable_if_t<is_std_struct_v<S, _Offset>, Ret>;
+	template<class S, class _Offset> 
+	static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_struct_with_offset_v = is_glsl_struct_with_offset<S, _Offset>::value;
 
 	template<class VS, class _Offset>
-	struct is_std_struct_vector : std::false_type {};
+	struct is_glsl_structs_vector_with_offset : std::false_type {};
 	template<class O, class _Offset>
-	struct is_std_struct_vector<std::vector<std_struct<O>>, _Offset> : std::bool_constant<is_std_struct_v<std_struct<O>, _Offset>> {};
-	template<class VS, class _Offset> static constexpr bool is_std_structs_vector_v = is_std_struct_vector<VS, _Offset>::value;
-	template<class VS, class _Offset, class Ret = void> using std_structs_vector_enable_if_t = std::enable_if_t<is_std_structs_vector_v<VS, _Offset>, Ret>;
+	struct is_glsl_structs_vector_with_offset<std::vector<glslstruct::std_struct<O>>, _Offset> 
+		: std::bool_constant<is_glsl_struct_with_offset_v<std_struct<O>, _Offset>> {};
+	template<class VS, class _Offset> 
+	static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_structs_vector_with_offset_v = is_glsl_structs_vector_with_offset<VS, _Offset>::value;
 
 	template<class S>
-	struct is_any_std_struct : std::false_type {};
+	struct is_glsl_struct : std::false_type {};
 	template<class O>
-	struct is_any_std_struct<std_struct<O>> : std::true_type {};
-	template<class S> static constexpr bool is_any_std_struct_v = is_any_std_struct<S>::value;
+	struct is_glsl_struct<glslstruct::std_struct<O>> : std::true_type {};
+	template<class S> 
+	static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_struct_v = is_glsl_struct<S>::value;
 
-#if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
-	template<class S, class _Offset> concept std_struct = is_std_struct_v<S, _Offset>;
-	template<class VS, class _Offset> concept std_structs_vector = is_std_structs_vector_v<VS, _Offset>;
-	template<class S> concept any_std_struct = is_any_std_struct_v<S>;
+#if _GLSL_STRUCT_HAS_CXX20
+	template<class S, class _Offset> concept glsl_struct_with_offset = is_glsl_struct_with_offset_v<S, _Offset>;
+	template<class VS, class _Offset> concept glsl_structs_vector_with_offset = is_glsl_structs_vector_with_offset_v<VS, _Offset>;
+	template<class S> concept glsl_struct = is_glsl_struct_v<S>;
 #endif
 #pragma endregion
 
-	template<class T> static constexpr bool is_any_standard_or_std_struct_value_v = is_any_standard_value_v<T> || is_any_std_struct_v<T>;
+	template<class T> 
+	static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_simple_or_struct_value_v = is_glsl_simple_value_v<T> || is_glsl_struct_v<T>;
 
-#if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
-	template<class T> concept any_standard_or_std_struct_value = is_any_standard_or_std_struct_value_v<T>;
+	template<class T, class _Offset>
+	static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_simple_or_struct_with_offset_value_v = is_glsl_simple_value_v<T> || 
+		is_glsl_struct_with_offset_v<T, _Offset>;
+
+#if _GLSL_STRUCT_HAS_CXX20
+	template<class T> concept glsl_simple_or_struct_value = is_glsl_simple_or_struct_value_v<T>;
+	template<class T, class _Offset> concept glsl_simple_or_struct_with_offset_value = is_glsl_simple_or_struct_with_offset_value_v<T, _Offset>;
 #endif
 }
 
 namespace glslstruct {
-#if _HAS_CXX20 && _GLSL_STRUCT_ENABLE_CXX20
-	template<utils::any_standard_or_offset_value T, size_t num = 0>
+	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_simple_or_offset_value, utils::is_glsl_simple_or_offset_value_v<T>, = true, size_t num = 0)
 	struct std_variable;
-	template<utils::any_standard_or_std_struct_value T, size_t num = 0>
+	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_simple_or_struct_value, utils::is_glsl_simple_or_struct_value_v<T>, = true, size_t num = 0)
 	struct std_value;
-#else
-	template<class T, size_t num = 0,
-		std::enable_if_t<(utils::is_any_offset_v<T> || utils::is_any_standard_value_v<T>), bool> = true>
-	struct std_variable;
-	template<class T, size_t num = 0,
-		std::enable_if_t<(utils::is_any_standard_value_v<T> || utils::is_any_std_struct_v<T>), bool> = true>
-	struct std_value;
-#endif
 }
 
 #pragma region SOME_ADDITIONAL_GLM_TYPES

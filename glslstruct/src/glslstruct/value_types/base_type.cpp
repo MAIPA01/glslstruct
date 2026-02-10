@@ -3,30 +3,32 @@
 
 using namespace glslstruct;
 
-[[nodiscard]] bool base_type::operator!=(const base_type& other) const noexcept {
+base_type::base_type(size_t size) noexcept 
+	: _size(size) {}
+
+bool base_type::operator==(const base_type& other) const noexcept {
+	return _size == other._size;
+}
+bool base_type::operator!=(const base_type& other) const noexcept {
 	return !(*this == other);
 }
 
-[[nodiscard]] bool base_type::operator!=(const scalar_type& other) const noexcept {
-	return !(*this == other);
+size_t base_type::get_size() const noexcept {
+	return _size;
 }
 
-[[nodiscard]] bool base_type::operator!=(const vec_type& other) const noexcept {
-	return !(*this == other);
+size_t glslstruct::sizeof_type(const base_type_handle& type) noexcept {
+	return type->get_size();
 }
 
-[[nodiscard]] bool base_type::operator!=(const mat_type& other) const noexcept {
-	return !(*this == other);
+std::string glslstruct::to_string(const base_type_handle& type) noexcept {
+	return type->to_string();
 }
 
-[[nodiscard]] bool base_type::operator!=(const struct_type& other) const noexcept {
-	return !(*this == other);
-}
-
-[[nodiscard]] bool base_type::operator!=(const array_type& other) const noexcept {
-	return !(*this == other);
-}
-
-[[nodiscard]] static std::string glslstruct::to_string(const base_type* value) noexcept {
-	return value->toString();
+size_t std::hash<base_type>::operator()(const base_type& type) noexcept {
+	type_hash_visitor visitor;
+	type.accept(&visitor);
+	size_t result = visitor.result();
+	mstd::hash_append(result, type._size);
+	return result;
 }

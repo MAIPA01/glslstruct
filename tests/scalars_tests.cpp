@@ -6,100 +6,107 @@ using namespace glm;
 TEST(std140_offset, add_scalars) {
 	std140_offset structOffsets;
 	size_t ret;
-	const base_type* base = nullptr;
-	const scalar_type* temp_type = nullptr;
-	const scalar_type* casted_type = nullptr;
+	base_type_handle base = nullptr;
+	scalar_type_handle temp_type = nullptr;
+	base_type_handle wrong_type = nullptr;
+	scalar_type_handle casted_type = nullptr;
 
 #pragma region BOOL
 	ret = structOffsets.add<bool>("Bool");
 	EXPECT_EQ(ret, 0);
-	EXPECT_EQ(structOffsets.get("Bool"), 0);
+	EXPECT_EQ(structOffsets.get_offset("Bool"), 0);
 
-	base = structOffsets.getType("Bool");
+	base = structOffsets.get_type("Bool");
 	EXPECT_EQ(*base, *base);
 	EXPECT_EQ(std::hash<base_type>()(*base), std::hash<base_type>()(*base));
 
-	temp_type = new scalar_type(ValueType::Bool);
+	temp_type = std::make_shared<scalar_type>(ValueType::Bool);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<scalar_type>(base);
 	EXPECT_NE(casted_type, nullptr);
 
 	casted_type = static_type_cast<scalar_type>(base);
-	EXPECT_EQ(casted_type->type(), temp_type->type());
-	delete temp_type;
+	EXPECT_EQ(casted_type->get_type(), temp_type->get_type());
+	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+
+	wrong_type = std::make_shared<scalar_type>(ValueType::Int);
+	EXPECT_NE(*base, *wrong_type);
+
+	wrong_type = std::make_shared<vec_type>(ValueType::Bool, 2);
+	EXPECT_NE(*base, *wrong_type);
 #pragma endregion
 
 #pragma region INT
 	ret = structOffsets.add<int>("Int");
 	EXPECT_EQ(ret, 4);
 
-	base = structOffsets.getType("Int");
+	base = structOffsets.get_type("Int");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = new scalar_type(ValueType::Int);
+	temp_type = std::make_shared<scalar_type>(ValueType::Int);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<scalar_type>(base);
 	EXPECT_NE(casted_type, nullptr);
 
 	casted_type = static_type_cast<scalar_type>(base);
-	EXPECT_EQ(casted_type->type(), temp_type->type());
-	delete temp_type;
+	EXPECT_EQ(casted_type->get_type(), temp_type->get_type());
+	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
 #pragma endregion
 
 #pragma region UINT
 	ret = structOffsets.add<unsigned int>("Uint");
 	EXPECT_EQ(ret, 8);
 
-	base = structOffsets.getType("Uint");
+	base = structOffsets.get_type("Uint");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = new scalar_type(ValueType::Uint);
+	temp_type = std::make_shared<scalar_type>(ValueType::Uint);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<scalar_type>(base);
 	EXPECT_NE(casted_type, nullptr);
 
 	casted_type = static_type_cast<scalar_type>(base);
-	EXPECT_EQ(casted_type->type(), temp_type->type());
-	delete temp_type;
+	EXPECT_EQ(casted_type->get_type(), temp_type->get_type());
+	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
 #pragma endregion
 
 #pragma region FLOAT
 	ret = structOffsets.add<float>("Float");
 	EXPECT_EQ(ret, 12);
 
-	base = structOffsets.getType("Float");
+	base = structOffsets.get_type("Float");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = new scalar_type(ValueType::Float);
+	temp_type = std::make_shared<scalar_type>(ValueType::Float);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<scalar_type>(base);
 	EXPECT_NE(casted_type, nullptr);
 
 	casted_type = static_type_cast<scalar_type>(base);
-	EXPECT_EQ(casted_type->type(), temp_type->type());
-	delete temp_type;
+	EXPECT_EQ(casted_type->get_type(), temp_type->get_type());
+	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
 #pragma endregion
 
 #pragma region DOUBLE
 	ret = structOffsets.add<double>("Double");
 	EXPECT_EQ(ret, 16);
 
-	base = structOffsets.getType("Double");
+	base = structOffsets.get_type("Double");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = new scalar_type(ValueType::Double);
+	temp_type = std::make_shared<scalar_type>(ValueType::Double);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<scalar_type>(base);
 	EXPECT_NE(casted_type, nullptr);
 
 	casted_type = static_type_cast<scalar_type>(base);
-	EXPECT_EQ(casted_type->type(), temp_type->type());
-	delete temp_type;
+	EXPECT_EQ(casted_type->get_type(), temp_type->get_type());
+	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
 #pragma endregion
 }
 
@@ -107,28 +114,28 @@ TEST(std140_offset, add_scalars_array) {
 	std140_offset structOffsets;
 	std::vector<size_t> results;
 	std::vector<size_t> ret;
-	const base_type* base = nullptr;
-	const array_type* temp_type = nullptr;
-	const array_type* casted_type = nullptr;
+	base_type_handle base = nullptr;
+	array_type_handle temp_type = nullptr;
+	array_type_handle casted_type = nullptr;
 
 #pragma region BOOL_ARRAY
 	results = { 0, 16 };
 	ret = structOffsets.add<bool>("Bools", 2);
 	EXPECT_EQ(ret, results);
 
-	base = structOffsets.getType("Bools");
+	base = structOffsets.get_type("Bools");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = new array_type(new scalar_type(ValueType::Bool), 2);
+	temp_type = std::make_shared<array_type>(ValueType::Bool, 2);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
 	EXPECT_NE(casted_type, nullptr);
 
 	casted_type = static_type_cast<array_type>(base);
-	EXPECT_EQ(*casted_type->type(), *temp_type->type());
-	EXPECT_EQ(casted_type->length(), temp_type->length());
-	delete temp_type;
+	EXPECT_EQ(*casted_type->get_type(), *temp_type->get_type());
+	EXPECT_EQ(casted_type->get_count(), temp_type->get_count());
+	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
 #pragma endregion
 
 #pragma region INT_ARRAY
@@ -136,19 +143,19 @@ TEST(std140_offset, add_scalars_array) {
 	ret = structOffsets.add<int>("Ints", 2);
 	EXPECT_EQ(ret, results);
 
-	base = structOffsets.getType("Ints");
+	base = structOffsets.get_type("Ints");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = new array_type(new scalar_type(ValueType::Int), 2);
+	temp_type = std::make_shared<array_type>(ValueType::Int, 2);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
 	EXPECT_NE(casted_type, nullptr);
 
 	casted_type = static_type_cast<array_type>(base);
-	EXPECT_EQ(*casted_type->type(), *temp_type->type());
-	EXPECT_EQ(casted_type->length(), temp_type->length());
-	delete temp_type;
+	EXPECT_EQ(*casted_type->get_type(), *temp_type->get_type());
+	EXPECT_EQ(casted_type->get_count(), temp_type->get_count());
+	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
 #pragma endregion
 
 #pragma region UINT_ARRAY
@@ -156,19 +163,19 @@ TEST(std140_offset, add_scalars_array) {
 	ret = structOffsets.add<unsigned int>("Uints", 2);
 	EXPECT_EQ(ret, results);
 
-	base = structOffsets.getType("Uints");
+	base = structOffsets.get_type("Uints");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = new array_type(new scalar_type(ValueType::Uint), 2);
+	temp_type = std::make_shared<array_type>(ValueType::Uint, 2);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
 	EXPECT_NE(casted_type, nullptr);
 
 	casted_type = static_type_cast<array_type>(base);
-	EXPECT_EQ(*casted_type->type(), *temp_type->type());
-	EXPECT_EQ(casted_type->length(), temp_type->length());
-	delete temp_type;
+	EXPECT_EQ(*casted_type->get_type(), *temp_type->get_type());
+	EXPECT_EQ(casted_type->get_count(), temp_type->get_count());
+	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
 #pragma endregion
 
 #pragma region FLOAT_ARRAY
@@ -176,19 +183,19 @@ TEST(std140_offset, add_scalars_array) {
 	ret = structOffsets.add<float>("Floats", 2);
 	EXPECT_EQ(ret, results);
 
-	base = structOffsets.getType("Floats");
+	base = structOffsets.get_type("Floats");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = new array_type(new scalar_type(ValueType::Float), 2);
+	temp_type = std::make_shared<array_type>(ValueType::Float, 2);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
 	EXPECT_NE(casted_type, nullptr);
 
 	casted_type = static_type_cast<array_type>(base);
-	EXPECT_EQ(*casted_type->type(), *temp_type->type());
-	EXPECT_EQ(casted_type->length(), temp_type->length());
-	delete temp_type;
+	EXPECT_EQ(*casted_type->get_type(), *temp_type->get_type());
+	EXPECT_EQ(casted_type->get_count(), temp_type->get_count());
+	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
 #pragma endregion
 
 #pragma region DOUBLE_ARRAY
@@ -196,18 +203,18 @@ TEST(std140_offset, add_scalars_array) {
 	ret = structOffsets.add<double>("Doubles", 2);
 	EXPECT_EQ(ret, results);
 
-	base = structOffsets.getType("Doubles");
+	base = structOffsets.get_type("Doubles");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = new array_type(new scalar_type(ValueType::Double), 2);
+	temp_type = std::make_shared<array_type>(ValueType::Double, 2);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
 	EXPECT_NE(casted_type, nullptr);
 
 	casted_type = static_type_cast<array_type>(base);
-	EXPECT_EQ(*casted_type->type(), *temp_type->type());
-	EXPECT_EQ(casted_type->length(), temp_type->length());
-	delete temp_type;
+	EXPECT_EQ(*casted_type->get_type(), *temp_type->get_type());
+	EXPECT_EQ(casted_type->get_count(), temp_type->get_count());
+	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
 #pragma endregion
 }

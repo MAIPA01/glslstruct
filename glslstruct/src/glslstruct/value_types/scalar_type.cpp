@@ -3,30 +3,28 @@
 
 using namespace glslstruct;
 
-scalar_type::scalar_type(const ValueType& type) : _type(type) {}
+scalar_type::scalar_type(ValueType type) noexcept 
+	: _base_class(get_value_type_size(type)), _type(type) {}
 
-[[nodiscard]] base_type* scalar_type::clone() const noexcept {
-	return new scalar_type(*this);
-}
-[[nodiscard]] void scalar_type::accept(base_type_visitor* const visitor) const {
+void scalar_type::accept(base_type_visitor* const visitor) const {
 	visitor->visit(*this);
 }
 
-[[nodiscard]] ValueType scalar_type::type() const noexcept {
+[[nodiscard]] ValueType scalar_type::get_type() const noexcept {
 	return _type;
 }
 
-[[nodiscard]] std::string scalar_type::toString() const noexcept {
-	return to_string(_type);
+[[nodiscard]] std::string scalar_type::to_string() const noexcept {
+	return glslstruct::to_string(_type);
 }
 
-[[nodiscard]] bool scalar_type::operator==(const scalar_type& other) const noexcept {
-	return _type == other._type;
+[[nodiscard]] bool glslstruct::operator==(const scalar_type& lhs, const scalar_type& rhs) noexcept {
+	return lhs._type == rhs._type;
 }
-[[nodiscard]] bool scalar_type::operator!=(const scalar_type& other) const noexcept {
-	return !(*this == other);
+[[nodiscard]] bool glslstruct::operator!=(const scalar_type& lhs, const scalar_type& rhs) noexcept {
+	return !(lhs == rhs);
 }
 
-[[nodiscard]] static std::string glslstruct::to_string(const scalar_type& value) noexcept {
-	return value.toString();
+size_t std::hash<scalar_type>::operator()(const scalar_type& value) noexcept {
+	return static_cast<size_t>(value._type);
 }

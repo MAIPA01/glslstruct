@@ -1,31 +1,65 @@
+/*
+ * glslstruct - a C++ library designed to easily represent GLSL's Uniform Buffer Objects (UBOs) and Shader Storage Buffer Objects (SSBOs) in C++.
+ *
+ * Licensed under the BSD 3-Clause License with Attribution Requirement.
+ * See the LICENSE file for details: https://github.com/MAIPA01/glslstruct/blob/main/LICENSE
+ *
+ * Copyright (c) 2025, Patryk Antosik (MAIPA01)
+ */
+
 #pragma once
 #include <glslstruct/value_types/value_type.hpp>
-#include <glslstruct/value_types/ValueType.hpp>
+#include <glslstruct/value_data.hpp>
 
 namespace glslstruct {
+	class array_type;
+
+	using array_type_handle = std::shared_ptr<array_type>;
+
 	class array_type : public value_type<array_type> {
 	private:
 		friend struct std::hash<array_type>;
 
-		const base_type* _type = nullptr;
-		size_t _length = 0;
+		using _base_class = value_type<array_type>;
+
+		base_type_handle _type = nullptr;
+		size_t _count = 0;
+
+		[[nodiscard]] static size_t _calculate_array_size(const base_type_handle& type, size_t count) noexcept;
 
 	public:
-		array_type(const base_type* type, const size_t& length);
-		array_type(const array_type& other);
-		virtual ~array_type();
+		array_type(ValueType type, size_t count) noexcept;
+		array_type(ValueType type, size_t length, size_t count) noexcept;
+		array_type(ValueType type, size_t cols, size_t rows, bool columnMajor, size_t count) noexcept;
+		array_type(ValueType type, size_t cols, size_t rows, size_t count) noexcept;
+		array_type(const std::unordered_map<std::string, value_data>& values, size_t size, size_t count) noexcept;
+		array_type(const base_type_handle& type, size_t count) noexcept;
+		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_type, utils::is_glsl_type_v<T>, = true)
+		_GLSL_STRUCT_CONSTEXPR20 array_type(const std::shared_ptr<T>& type, size_t count) noexcept 
+			: array_type(std::dynamic_pointer_cast<base_type>(type), count) {}
+		array_type(const array_type& other) noexcept = default;
+		array_type(array_type&& other) noexcept;
+		virtual ~array_type() noexcept = default;
 
-		[[nodiscard]] base_type* clone() const noexcept;
-		[[nodiscard]] void accept(base_type_visitor* const visitor) const override;
+		array_type& operator=(const array_type& other) noexcept = default;
+		array_type& operator=(array_type&& other) noexcept;
 
-		[[nodiscard]] const base_type* type() const noexcept;
-		[[nodiscard]] size_t length() const noexcept;
+		void accept(base_type_visitor* const visitor) const override;
 
-		[[nodiscard]] std::string toString() const noexcept override;
+		[[nodiscard]] const base_type_handle& get_type() const noexcept;
+		[[nodiscard]] size_t get_count() const noexcept;
 
-		[[nodiscard]] bool operator==(const array_type& other) const noexcept;
-		[[nodiscard]] bool operator!=(const array_type& other) const noexcept;
+		[[nodiscard]] std::string to_string() const noexcept override;
+
+		friend bool operator==(const array_type& lhs, const array_type& rhs) noexcept;
+		friend bool operator!=(const array_type& lhs, const array_type& rhs) noexcept;
 	};
 
-	[[nodiscard]] static std::string to_string(const array_type& value) noexcept;
+	[[nodiscard]] bool operator==(const array_type& lhs, const array_type& rhs) noexcept;
+	[[nodiscard]] bool operator!=(const array_type& lhs, const array_type& rhs) noexcept;
 }
+
+template<>
+struct std::hash<glslstruct::array_type> {
+	[[nodiscard]] size_t operator()(const glslstruct::array_type& value) noexcept;
+};

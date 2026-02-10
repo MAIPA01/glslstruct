@@ -9,7 +9,7 @@ TEST(std_struct, add_array) {
 	};
 	int value = test.get<int>("test[1]");
 	EXPECT_EQ(value, 3);
-	size_t ret = test.getOffset("test");
+	size_t ret = test.get_offset("test");
 	EXPECT_EQ(ret, 0);
 }
 
@@ -19,21 +19,14 @@ TEST(std_struct, copy_test) {
 	};
 	int value = test.get<int>("test[1]");
 	EXPECT_EQ(value, 3);
-	size_t ret = test.getOffset("test");
+	size_t ret = test.get_offset("test");
 	EXPECT_EQ(ret, 0);
 
 	std430_struct test1 = test;
 	value = test1.get<int>("test[1]");
 	EXPECT_EQ(value, 3);
-	ret = test1.getOffset("test");
+	ret = test1.get_offset("test");
 	EXPECT_EQ(ret, 0);
-
-	std430_struct* test2 = test.clone();
-	value = test2->get<int>("test[1]");
-	EXPECT_EQ(value, 3);
-	ret = test2->getOffset("test");
-	EXPECT_EQ(ret, 0);
-	delete test2;
 }
 
 TEST(std_struct, constructor_and_get) {
@@ -47,9 +40,9 @@ TEST(std_struct, constructor_and_get) {
 	};
 	mat4 transform = rect.get<mat4>("transform");
 	EXPECT_EQ(transform, mat4(1.f));
-	ret = rect.getOffset("transform");
+	ret = rect.get_offset("transform");
 	EXPECT_EQ(ret, 0);
-	ret = rect.getOffset("size");
+	ret = rect.get_offset("size");
 	EXPECT_EQ(ret, 64);
 	ret = rect.size();
 	EXPECT_EQ(ret, 80);
@@ -61,11 +54,11 @@ TEST(std_struct, constructor_and_get) {
 		std_value<uvec2>("size"),
 		std_value<bool>("isActive")
 	};
-	ret = sprite.getOffset("offset");
+	ret = sprite.get_offset("offset");
 	EXPECT_EQ(ret, 0);
-	ret = sprite.getOffset("size");
+	ret = sprite.get_offset("size");
 	EXPECT_EQ(ret, 8);
-	ret = sprite.getOffset("isActive");
+	ret = sprite.get_offset("isActive");
 	EXPECT_EQ(ret, 16);
 	ret = sprite.size();
 	EXPECT_EQ(ret, 32);
@@ -80,17 +73,17 @@ TEST(std_struct, constructor_and_get) {
 		std_value<float>("rotation"),
 		std_value<bool>("isActive")
 	};
-	ret = fill.getOffset("type");
+	ret = fill.get_offset("type");
 	EXPECT_EQ(ret, 0);
-	ret = fill.getOffset("subType");
+	ret = fill.get_offset("subType");
 	EXPECT_EQ(ret, 4);
-	ret = fill.getOffset("offset");
+	ret = fill.get_offset("offset");
 	EXPECT_EQ(ret, 8);
-	ret = fill.getOffset("progress");
+	ret = fill.get_offset("progress");
 	EXPECT_EQ(ret, 12);
-	ret = fill.getOffset("rotation");
+	ret = fill.get_offset("rotation");
 	EXPECT_EQ(ret, 16);
-	ret = fill.getOffset("isActive");
+	ret = fill.get_offset("isActive");
 	EXPECT_EQ(ret, 20);
 	ret = fill.size();
 	EXPECT_EQ(ret, 32);
@@ -104,46 +97,46 @@ TEST(std_struct, constructor_and_get) {
 		std_value<vec4>("color"),
 		std_value<bool>("isText")
 	};
-	ret = uiElement.getOffset("rect");
+	ret = uiElement.get_offset("rect");
 	EXPECT_EQ(ret, 0);
 
 	// RECT sub Values
-	ret = uiElement.getOffset("rect.transform");
+	ret = uiElement.get_offset("rect.transform");
 	EXPECT_EQ(ret, 0);
-	ret = uiElement.getOffset("rect.size");
+	ret = uiElement.get_offset("rect.size");
 	EXPECT_EQ(ret, 64);
 
-	ret = uiElement.getOffset("sprite");
+	ret = uiElement.get_offset("sprite");
 	EXPECT_EQ(ret, 80);
 
 	// SPRITE sub Values
-	ret = uiElement.getOffset("sprite.offset");
+	ret = uiElement.get_offset("sprite.offset");
 	EXPECT_EQ(ret, 80);
-	ret = uiElement.getOffset("sprite.size");
+	ret = uiElement.get_offset("sprite.size");
 	EXPECT_EQ(ret, 88);
-	ret = uiElement.getOffset("sprite.isActive");
+	ret = uiElement.get_offset("sprite.isActive");
 	EXPECT_EQ(ret, 96);
 
-	ret = uiElement.getOffset("fill");
+	ret = uiElement.get_offset("fill");
 	EXPECT_EQ(ret, 112);
 
 	// FILL sub Values
-	ret = uiElement.getOffset("fill.type");
+	ret = uiElement.get_offset("fill.type");
 	EXPECT_EQ(ret, 112);
-	ret = uiElement.getOffset("fill.subType");
+	ret = uiElement.get_offset("fill.subType");
 	EXPECT_EQ(ret, 116);
-	ret = uiElement.getOffset("fill.offset");
+	ret = uiElement.get_offset("fill.offset");
 	EXPECT_EQ(ret, 120);
-	ret = uiElement.getOffset("fill.progress");
+	ret = uiElement.get_offset("fill.progress");
 	EXPECT_EQ(ret, 124);
-	ret = uiElement.getOffset("fill.rotation");
+	ret = uiElement.get_offset("fill.rotation");
 	EXPECT_EQ(ret, 128);
-	ret = uiElement.getOffset("fill.isActive");
+	ret = uiElement.get_offset("fill.isActive");
 	EXPECT_EQ(ret, 132);
 
-	ret = uiElement.getOffset("color");
+	ret = uiElement.get_offset("color");
 	EXPECT_EQ(ret, 144);
-	ret = uiElement.getOffset("isText");
+	ret = uiElement.get_offset("isText");
 	EXPECT_EQ(ret, 160);
 	ret = uiElement.size();
 	EXPECT_EQ(ret, 176);
@@ -154,9 +147,9 @@ TEST(std_struct, constructor_and_get) {
 		std_value<uvec2>("size"),
 		std_value<bool>("isActive")
 	};
-	ret = texture.getOffset("size");
+	ret = texture.get_offset("size");
 	EXPECT_EQ(ret, 0);
-	ret = texture.getOffset("isActive");
+	ret = texture.get_offset("isActive");
 	EXPECT_EQ(ret, 8);
 	ret = texture.size();
 	EXPECT_EQ(ret, 16);
@@ -164,67 +157,67 @@ TEST(std_struct, constructor_and_get) {
 
 #pragma region SSBO
 	std430_struct ssbo{
-		std_value<std430_struct, 8>("uiElements", uiElement.getOffsets()),
+		std_value<std430_struct, 8>("uiElements", uiElement.get_offsets()),
 		std_value<std430_struct>("elementTexture", texture),
 		std_value<int>("elementLayer")
 	};
 	std::vector<size_t> resultVec{ 0, 176, 352, 528, 704, 880, 1056, 1232 };
-	retVec = ssbo.getArrayOffsets("uiElements");
+	retVec = ssbo.get_array_offsets("uiElements");
 	EXPECT_EQ(retVec, resultVec);
 
 	// UI FIRST ELEMENT SUB VALUES TEST
-	ret = ssbo.getOffset("uiElements[0].rect");
+	ret = ssbo.get_offset("uiElements[0].rect");
 	EXPECT_EQ(ret, 0);
 
 	// RECT sub Values
-	ret = ssbo.getOffset("uiElements[0].rect.transform");
+	ret = ssbo.get_offset("uiElements[0].rect.transform");
 	EXPECT_EQ(ret, 0);
-	ret = ssbo.getOffset("uiElements[0].rect.size");
+	ret = ssbo.get_offset("uiElements[0].rect.size");
 	EXPECT_EQ(ret, 64);
 
-	ret = ssbo.getOffset("uiElements[0].sprite");
+	ret = ssbo.get_offset("uiElements[0].sprite");
 	EXPECT_EQ(ret, 80);
 
 	// SPRITE sub Values
-	ret = ssbo.getOffset("uiElements[0].sprite.offset");
+	ret = ssbo.get_offset("uiElements[0].sprite.offset");
 	EXPECT_EQ(ret, 80);
-	ret = ssbo.getOffset("uiElements[0].sprite.size");
+	ret = ssbo.get_offset("uiElements[0].sprite.size");
 	EXPECT_EQ(ret, 88);
-	ret = ssbo.getOffset("uiElements[0].sprite.isActive");
+	ret = ssbo.get_offset("uiElements[0].sprite.isActive");
 	EXPECT_EQ(ret, 96);
 
-	ret = ssbo.getOffset("uiElements[0].fill");
+	ret = ssbo.get_offset("uiElements[0].fill");
 	EXPECT_EQ(ret, 112);
 
 	// FILL sub Values
-	ret = ssbo.getOffset("uiElements[0].fill.type");
+	ret = ssbo.get_offset("uiElements[0].fill.type");
 	EXPECT_EQ(ret, 112);
-	ret = ssbo.getOffset("uiElements[0].fill.subType");
+	ret = ssbo.get_offset("uiElements[0].fill.subType");
 	EXPECT_EQ(ret, 116);
-	ret = ssbo.getOffset("uiElements[0].fill.offset");
+	ret = ssbo.get_offset("uiElements[0].fill.offset");
 	EXPECT_EQ(ret, 120);
-	ret = ssbo.getOffset("uiElements[0].fill.progress");
+	ret = ssbo.get_offset("uiElements[0].fill.progress");
 	EXPECT_EQ(ret, 124);
-	ret = ssbo.getOffset("uiElements[0].fill.rotation");
+	ret = ssbo.get_offset("uiElements[0].fill.rotation");
 	EXPECT_EQ(ret, 128);
-	ret = ssbo.getOffset("uiElements[0].fill.isActive");
+	ret = ssbo.get_offset("uiElements[0].fill.isActive");
 	EXPECT_EQ(ret, 132);
 
-	ret = ssbo.getOffset("uiElements[0].color");
+	ret = ssbo.get_offset("uiElements[0].color");
 	EXPECT_EQ(ret, 144);
-	ret = ssbo.getOffset("uiElements[0].isText");
+	ret = ssbo.get_offset("uiElements[0].isText");
 	EXPECT_EQ(ret, 160);
 
-	ret = ssbo.getOffset("elementTexture");
+	ret = ssbo.get_offset("elementTexture");
 	EXPECT_EQ(ret, 1408);
 
 	// TEXTURE SUB VALUES
-	ret = ssbo.getOffset("elementTexture.size");
+	ret = ssbo.get_offset("elementTexture.size");
 	EXPECT_EQ(ret, 1408);
-	ret = ssbo.getOffset("elementTexture.isActive");
+	ret = ssbo.get_offset("elementTexture.isActive");
 	EXPECT_EQ(ret, 1416);
 
-	ret = ssbo.getOffset("elementLayer");
+	ret = ssbo.get_offset("elementLayer");
 	EXPECT_EQ(ret, 1424);
 	ret = ssbo.size();
 	EXPECT_EQ(ret, 1440);

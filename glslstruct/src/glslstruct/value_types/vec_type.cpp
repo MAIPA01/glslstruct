@@ -3,34 +3,33 @@
 
 using namespace glslstruct;
 
-vec_type::vec_type(const ValueType& type, const size_t& length) : _type(type), _length(length) {}
+vec_type::vec_type(ValueType type, size_t length) noexcept
+	: _base_class(get_value_type_size(type) * length), _length(length), _type(type) {}
 
-[[nodiscard]] base_type* vec_type::clone() const noexcept {
-	return new vec_type(*this);
-}
-[[nodiscard]] void vec_type::accept(base_type_visitor* const visitor) const {
+void vec_type::accept(base_type_visitor* const visitor) const {
 	visitor->visit(*this);
 }
 
-[[nodiscard]] ValueType vec_type::type() const noexcept {
+[[nodiscard]] ValueType vec_type::get_type() const noexcept {
 	return _type;
 }
-
-[[nodiscard]] size_t vec_type::length() const noexcept {
+[[nodiscard]] size_t vec_type::get_length() const noexcept {
 	return _length;
 }
 
-[[nodiscard]] std::string vec_type::toString() const noexcept {
-	return mstd::concat(vecTypeToString(_type), std::to_string(_length));
+[[nodiscard]] std::string vec_type::to_string() const noexcept {
+	return mstd::concat(vec_type_to_string(_type), std::to_string(_length));
 }
 
-[[nodiscard]] bool vec_type::operator==(const vec_type& other) const noexcept {
-	return _type == other._type && _length == other._length;
+[[nodiscard]] bool glslstruct::operator==(const vec_type& lhs, const vec_type& rhs) noexcept {
+	return lhs._type == rhs._type && lhs._length == rhs._length;
 }
-[[nodiscard]] bool vec_type::operator!=(const vec_type& other) const noexcept {
-	return !(*this == other);
+[[nodiscard]] bool glslstruct::operator!=(const vec_type& lhs, const vec_type& rhs) noexcept {
+	return !(lhs == rhs);
 }
 
-[[nodiscard]] static std::string glslstruct::to_string(const vec_type& value) noexcept {
-	return value.toString();
+size_t std::hash<vec_type>::operator()(const vec_type& value) noexcept {
+	size_t seed = static_cast<size_t>(value._type);
+	mstd::hash_append(seed, value._length);
+	return seed;
 }

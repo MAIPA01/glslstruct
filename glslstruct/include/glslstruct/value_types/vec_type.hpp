@@ -1,32 +1,54 @@
+/*
+ * glslstruct - a C++ library designed to easily represent GLSL's Uniform Buffer Objects (UBOs) and Shader Storage Buffer Objects (SSBOs) in C++.
+ *
+ * Licensed under the BSD 3-Clause License with Attribution Requirement.
+ * See the LICENSE file for details: https://github.com/MAIPA01/glslstruct/blob/main/LICENSE
+ *
+ * Copyright (c) 2025, Patryk Antosik (MAIPA01)
+ */
+
 #pragma once
 #include <glslstruct/value_types/value_type.hpp>
-#include <glslstruct/value_types/ValueType.hpp>
 
 namespace glslstruct {
+	class vec_type;
+
+	using vec_type_handle = std::shared_ptr<vec_type>;
+
 	class vec_type : public value_type<vec_type> {
 	private:
 		friend struct std::hash<vec_type>;
 
-		ValueType _type = ValueType::Other;
+		using _base_class = value_type<vec_type>;
+
 		size_t _length = 0;
+		ValueType _type = ValueType::Other;
 
 	public:
-		vec_type(const ValueType& type, const size_t& length);
-		vec_type(const vec_type& other) = default;
-		virtual ~vec_type() = default;
+		vec_type(ValueType type, size_t length) noexcept;
+		_GLSL_STRUCT_CONSTEXPR20 vec_type(const vec_type& other) noexcept = default;
+		_GLSL_STRUCT_CONSTEXPR20 vec_type(vec_type&& other) noexcept = default;
+		virtual _GLSL_STRUCT_CONSTEXPR20 ~vec_type() noexcept = default;
 
-		[[nodiscard]] base_type* clone() const noexcept override;
-		[[nodiscard]] void accept(base_type_visitor* const visitor) const override;
+		vec_type& operator=(const vec_type& other) noexcept = default;
+		vec_type& operator=(vec_type&& other) noexcept = default;
 
-		[[nodiscard]] ValueType type() const noexcept;
-		[[nodiscard]] size_t length() const noexcept;
+		void accept(base_type_visitor* const visitor) const override;
 
-		[[nodiscard]] std::string toString() const noexcept override;
+		[[nodiscard]] ValueType get_type() const noexcept;
+		[[nodiscard]] size_t get_length() const noexcept;
 
-		[[nodiscard]] bool operator==(const vec_type& other) const noexcept;
-		[[nodiscard]] bool operator!=(const vec_type& other) const noexcept;
+		[[nodiscard]] std::string to_string() const noexcept override;
+
+		friend bool operator==(const vec_type& lhs, const vec_type& rhs) noexcept;
+		friend bool operator!=(const vec_type& lhs, const vec_type& rhs) noexcept;
 	};
 
-	[[nodiscard]] static std::string to_string(const vec_type& value) noexcept;
-
+	[[nodiscard]] bool operator==(const vec_type& lhs, const vec_type& rhs) noexcept;
+	[[nodiscard]] bool operator!=(const vec_type& lhs, const vec_type& rhs) noexcept;
 }
+
+template<>
+struct std::hash<glslstruct::vec_type> {
+	[[nodiscard]] size_t operator()(const glslstruct::vec_type& value) noexcept;
+};
