@@ -58,6 +58,11 @@ target_compile_options(${PROJECT_NAME} PRIVATE
         -Wextra
         -Werror
         -fno-strict-aliasing
+        #$<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:--coverage>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-arcs>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-ftest-coverage>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-instr-generate>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fcoverage-mapping>
     >
     # disable noexcept type warning on GCC
     $<$<CXX_COMPILER_ID:GNU>:
@@ -67,6 +72,11 @@ target_compile_options(${PROJECT_NAME} PRIVATE
         -Wextra
         -Werror
         -fno-strict-aliasing
+        #$<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:--coverage>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-arcs>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-ftest-coverage>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-instr-generate>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fcoverage-mapping>
     >
 )
 
@@ -81,11 +91,15 @@ target_link_options(${PROJECT_NAME} PRIVATE
         $<$<CONFIG:Release>:-flto>
         $<$<AND:$<CONFIG:Release>,$<CXX_COMPILER_ID:Clang>>:-fuse-ld=lld>
         -static
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-instr-generate>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:--coverage>
     >
     # disable noexcept type warning on GCC
     $<$<CXX_COMPILER_ID:GNU>:
         $<$<CONFIG:Release>:-flto>
         -static
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-instr-generate>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:--coverage>
     >
 )
 

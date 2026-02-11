@@ -40,9 +40,11 @@ target_compile_options(${PROJECT_NAME} PRIVATE
         -Wextra
         -Werror
         -fno-strict-aliasing
-        --coverage 
-        -fprofile-arcs 
-        -ftest-coverage
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:--coverage>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-arcs>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-ftest-coverage>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-instr-generate>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fcoverage-mapping>
     >
     # disable noexcept type warning on GCC
     $<$<CXX_COMPILER_ID:GNU>:
@@ -52,9 +54,11 @@ target_compile_options(${PROJECT_NAME} PRIVATE
         -Wextra
         -Werror
         -fno-strict-aliasing
-        --coverage 
-        -fprofile-arcs 
-        -ftest-coverage
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:--coverage>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-arcs>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-ftest-coverage>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-instr-generate>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fcoverage-mapping>
     >
 )
 
@@ -69,66 +73,14 @@ target_link_options(${PROJECT_NAME} PRIVATE
         $<$<CONFIG:Release>:-flto>
         $<$<AND:$<CONFIG:Release>,$<CXX_COMPILER_ID:Clang>>:-fuse-ld=lld>
         -static
-        --coverage
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-instr-generate>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:--coverage>
     >
     # disable noexcept type warning on GCC
     $<$<CXX_COMPILER_ID:GNU>:
         $<$<CONFIG:Release>:-flto>
         -static
-        --coverage
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-instr-generate>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:--coverage>
     >
 )
-
-# 2. Definicja targetu "coverage"
-add_custom_target(coverage
-    COMMENT "Generowanie raportu pokrycia kodu..."
-    DEPENDS ${PROJECT_NAME}
-)
-
-file(TO_NATIVE_PATH "${glslstruct_SOURCE_DIR}\\glslstruct" coverages_sources_path)
-file(TO_NATIVE_PATH "${glslstruct_BINARY_DIR}" coverages_modules_path)
-
-if(MSVC)
-    # --- Œcie¿ka dla Windows (OpenCppCoverage) ---
-    find_program(OPENCPP_EXE OpenCppCoverage)
-    
-    if(OPENCPP_EXE)
-        add_custom_command(TARGET coverage POST_BUILD
-            COMMAND ${OPENCPP_EXE} 
-                    --sources "${coverages_sources_path}\\*"
-                    --modules "${coverages_modules_path}\\*"
-                    --export_type=html:coverage_report 
-                    -- "${CMAKE_CTEST_COMMAND}" -C $<CONFIG>
-                    --verbose
-            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-            COMMENT "Running OpenCppCoverage for MSVC..."
-            VERBATIM
-        )
-        message(STATUS "Founded OpenCppCovergae ${OPENCPP_EXE}")
-    else()
-        message(WARNING "OpenCppCoverage was not founded! Install it to generate report on Windows!")
-    endif()
-
-else()
-    # --- Œcie¿ka dla Linux/macOS (Gcovr) ---
-    find_program(GCOVR_EXE gcovr)
-    
-    if(GCOVR_EXE)
-        add_custom_command(TARGET coverage POST_BUILD
-            # Najpierw uruchamiamy testy
-            COMMAND ${CMAKE_CTEST_COMMAND}
-            # Potem generujemy raport HTML (szczegó³owy)
-            COMMAND ${GCOVR_EXE} -r ${coverages_sources_path} 
-                    --html-details 
-                    -o coverage_report.html
-                    --filter ${coverages_sources_path}
-                    --exclude-unreachable-branches
-            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-            COMMENT "Generating report with Gcovr for GCC/Clang..."
-            VERBATIM
-        )
-        message(STATUS "Founded gcovr ${GCOVR_EXE}")
-    else()
-        message(WARNING "Gcovr was not founded! Install it using: pip install gcovr")
-    endif()
-endif()

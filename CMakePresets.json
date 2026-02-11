@@ -30,7 +30,8 @@
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "BUILD_GLSL_STRUCT_TESTS": "ON",
-        "GLSL_STRUCT_ENABLE_CXX20": "ON"
+        "GLSL_STRUCT_ENABLE_CXX20": "ON",
+        "BUILD_GLSL_STRUCT_COVERAGE": "ON"
       }
     },
     {
@@ -41,7 +42,8 @@
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "BUILD_GLSL_STRUCT_TESTS": "ON",
-        "GLSL_STRUCT_ENABLE_CXX20": "ON"
+        "GLSL_STRUCT_ENABLE_CXX20": "ON",
+        "BUILD_GLSL_STRUCT_COVERAGE": "ON"
       }
     },
     {
@@ -56,7 +58,8 @@
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "BUILD_GLSL_STRUCT_TESTS": "ON",
-        "GLSL_STRUCT_ENABLE_CXX20": "ON"
+        "GLSL_STRUCT_ENABLE_CXX20": "ON",
+        "BUILD_GLSL_STRUCT_COVERAGE": "ON"
       }
     },
     {
@@ -67,7 +70,8 @@
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "BUILD_GLSL_STRUCT_TESTS": "ON",
-        "GLSL_STRUCT_ENABLE_CXX20": "ON"
+        "GLSL_STRUCT_ENABLE_CXX20": "ON",
+        "BUILD_GLSL_STRUCT_COVERAGE": "ON"
       }
     }
   ]
