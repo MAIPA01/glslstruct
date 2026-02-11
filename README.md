@@ -66,7 +66,7 @@ int main() {
         << " bytes." << std::endl; // Should be a multiple of 16 bytes
     
     // Offset for a specific field using a literal string
-    std::cout << "Offset for 'cameraPosition': " << SceneSettings.getOffset("cameraPosition") 
+    std::cout << "Offset for 'cameraPosition': " << SceneSettings.get_offset("cameraPosition") 
         << " bytes." << std::endl;
     
     // Get data for uploading to UBO
@@ -79,11 +79,11 @@ int main() {
     glm::vec3 cameraPosition = SceneSettings.get("cameraPosition");
 
     // Get type
-    const base_type* value_type = SceneSettings.getType("cameraPosition");
-    const vec_type* vec_value_type = static_type_cast<vec_type>(value_type);
+    base_type_handle value_type = SceneSettings.get_type("cameraPosition");
+    vec_type_handle vec_value_type = static_type_cast<vec_type>(value_type);
 
-    std::cout << "Vector type: " << to_string(vec_value_type->type()) 
-        << " length: " << vec_value_type->length() << std::endl;
+    std::cout << "Vector type: " << to_string(vec_value_type->get_type()) 
+        << " length: " << vec_value_type->get_length() << std::endl;
 
     return 0;
 }
@@ -149,7 +149,7 @@ public:
     }
 
     void visit(const scalar_type& type) {
-        switch(type.type()) {
+        switch(type.get_type()) {
         case ValueType::Int:
             SceneSettings.set(_valueName, 0);
             break;
@@ -159,15 +159,15 @@ public:
         }
     }
     void visit(const vec_type& type) {
-        if (type.type() == ValueType::Float && 
-            type.length() == 3) {
+        if (type.get_type() == ValueType::Float && 
+            type.get_length() == 3) {
             SceneSettings.set(_valueName, glm::vec3{ 0.f, 0.f, 0.f });
         }
     }
     void visit(const mat_type& type) {
-        if (type.type() == ValueType::Float && 
-            type.cols() == 4 && 
-            type.rows() == 4) {
+        if (type.get_type() == ValueType::Float && 
+            type.get_cols() == 4 && 
+            type.get_rows() == 4) {
             SceneSettings.set(_valueName, glm::mat4(0.f));
         }
     }
@@ -182,9 +182,9 @@ public:
 int main() {
 
     zero_values_visitor visitor{};
-    for (const auto& name : SceneSettings.getNames()) {
+    for (const auto& name : SceneSettings.get_names()) {
         visitor.setValueName(name);
-        SceneSettings.getType(name)->accept(&visitor);
+        SceneSettings.get_type(name)->accept(&visitor);
     }
 
     return 0;
