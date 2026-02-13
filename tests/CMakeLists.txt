@@ -22,11 +22,15 @@ target_precompile_headers(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/p
 target_compile_options(${PROJECT_NAME} PRIVATE
     # MSVC/clang with MSVC frontend
     $<$<OR:$<CXX_COMPILER_ID:MSVC>,$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:MSVC>>>:
-        $<$<CONFIG:Release>:/O2>
-        $<$<CONFIG:Release>:/GL>
-        $<$<CONFIG:Release>:/fp:fast>
-        $<$<CONFIG:Debug>:/RTC1>
-        $<$<CONFIG:Debug>:/Zi>
+        $<$<CONFIG:Release>:
+            /O2
+            /GL
+            /fp:fast
+        >
+        $<$<CONFIG:Debug>:
+            /RTC1
+            /Zi
+        >
         /Zc:preprocessor
         /Zc:__cplusplus
         /W4
@@ -34,31 +38,37 @@ target_compile_options(${PROJECT_NAME} PRIVATE
     >
     # GCC/clang with GNU frontend
     $<$<OR:$<CXX_COMPILER_ID:GNU>,$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:GNU>>>:
-        $<$<CONFIG:Release>:-O3>
-        $<$<CONFIG:Release>:-flto>
+        $<$<CONFIG:Release>:
+            -O3
+            -flto
+        >
         -Wall
         -Wextra
         -Werror
         -fno-strict-aliasing
-        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:--coverage>
-        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-arcs>
-        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-ftest-coverage>
-        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-instr-generate>
-        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fcoverage-mapping>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:
+            --coverage
+            -fcoverage-mcdc
+            -fprofile-instr-generate
+            -fcoverage-mapping
+        >
     >
     # disable noexcept type warning on GCC
     $<$<CXX_COMPILER_ID:GNU>:
-        $<$<CONFIG:Release>:-O3>
-        $<$<CONFIG:Release>:-flto>
+        $<$<CONFIG:Release>:
+            -O3
+            -flto
+        >
         -Wall
         -Wextra
         -Werror
         -fno-strict-aliasing
-        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:--coverage>
-        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-arcs>
-        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-ftest-coverage>
-        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-instr-generate>
-        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fcoverage-mapping>
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:
+            --coverage
+            -fcoverage-mcdc
+            -fprofile-instr-generate
+            -fcoverage-mapping
+        >
     >
 )
 
@@ -74,13 +84,11 @@ target_link_options(${PROJECT_NAME} PRIVATE
         $<$<AND:$<CONFIG:Release>,$<CXX_COMPILER_ID:Clang>>:-fuse-ld=lld>
         -static
         $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-instr-generate>
-        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:--coverage>
     >
     # disable noexcept type warning on GCC
     $<$<CXX_COMPILER_ID:GNU>:
         $<$<CONFIG:Release>:-flto>
         -static
         $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-instr-generate>
-        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:--coverage>
     >
 )
