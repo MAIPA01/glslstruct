@@ -1,4 +1,4 @@
-project(glslstruct VERSION 1.1.0 LANGUAGES CXX)
+project(glslstruct VERSION 1.1.1 LANGUAGES CXX)
 
 option(GLSL_STRUCT_ENABLE_CXX20 OFF)
 
