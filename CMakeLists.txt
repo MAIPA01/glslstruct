@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.3)
 
 # variable for building shared library
 option(BUILD_SHARED_LIBS "Build shared library" OFF)

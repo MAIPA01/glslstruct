@@ -489,7 +489,7 @@ namespace glslstruct {
 		_GLSL_STRUCT_CONSTEXPR20 std_struct() noexcept = default;
 		explicit _GLSL_STRUCT_CONSTEXPR20 std_struct(const _Offset& structOffsets,
 			const std::vector<std::byte>& data = std::vector<std::byte>()) noexcept 
-			: _dataOffsets(structOffsets), _data(_dataOffsets.size(), 0) {
+			: _dataOffsets(structOffsets), _data(_dataOffsets.size(), static_cast<std::byte>(0)) {
 			std::copy(data.begin(), data.begin() + std::min(data.size(), _data.size()), _data.begin());
 		}
 #if _GLSL_STRUCT_HAS_CXX20
