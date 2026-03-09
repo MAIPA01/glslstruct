@@ -8,6 +8,9 @@
  */
 
 #pragma once
+#include <glslstruct/config.hpp>
+
+#if _GLSL_STRUCT_HAS_CXX17 && !_GLSL_STRUCT_DISABLE_TYPES
 #include <glslstruct/value_types/visitors/base_type_visitor.hpp>
 
 namespace glslstruct {
@@ -28,3 +31,4 @@ namespace glslstruct {
 		[[nodiscard]] size_t result() const noexcept;
 	};
 }
+#endif

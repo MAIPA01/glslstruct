@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.30)
 
 # variable for building shared library
 option(BUILD_SHARED_LIBS "Build shared library" OFF)
-option(BUILD_GLSL_STRUCT_TESTS "Build glsl struct tests" OFF)
-option(BUILD_GLSL_STRUCT_COVERAGE "Enable coverage reporting" OFF)
+option(GLSL_STRUCT_BUILD_TESTS "Build glsl struct tests" OFF)
+option(GLSL_STRUCT_BUILD_COVERAGE "Enable coverage reporting" OFF)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/third_party.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/coverage_report.cmake)

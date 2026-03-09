@@ -1,6 +1,7 @@
-project(glslstruct VERSION 1.1.1 LANGUAGES CXX)
+project(glslstruct VERSION 1.2.0 LANGUAGES CXX)
 
 option(GLSL_STRUCT_ENABLE_CXX20 OFF)
+option(GLSL_STRUCT_DISABLE_TYPES OFF)
 
 if (GLSL_STRUCT_ENABLE_CXX20)
 	set(CMAKE_CXX_STANDARD 20)
@@ -123,8 +124,6 @@ target_link_options(${PROJECT_NAME} PRIVATE
     >
 )
 
-if (GLSL_STRUCT_ENABLE_CXX20)
-    target_compile_definitions(${PROJECT_NAME} PRIVATE _GLSL_STRUCT_ENABLE_CXX20=1)
-else()
-    target_compile_definitions(${PROJECT_NAME} PRIVATE _GLSL_STRUCT_ENABLE_CXX20=0)
-endif()
+target_compile_definitions(${PROJECT_NAME} PRIVATE _GLSL_STRUCT_ENABLE_CXX20=$<BOOL:${GLSL_STRUCT_ENABLE_CXX20}>
+                                                   _GLSL_STRUCT_DISABLE_TYPES=$<BOOL:${GLSL_STRUCT_DISABLE_TYPES}>
+)

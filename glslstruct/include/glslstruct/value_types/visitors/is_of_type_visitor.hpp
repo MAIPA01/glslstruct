@@ -131,7 +131,7 @@ namespace glslstruct {
 	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_type, utils::is_glsl_type_v<T>, = true)
 	[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 std::shared_ptr<T> static_type_cast(const base_type_handle& type) {
 		std::shared_ptr<T> result = dynamic_type_cast<T>(type);
-		assert(result != nullptr && "cannot convert type to desired type");
+		assert(("cannot convert type to desired type", result != nullptr));
 		return result;
 	}
 

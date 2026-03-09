@@ -27,10 +27,10 @@ CPMAddPackage(
     OPTIONS "MSTD_ENABLE_CXX20 ${GLSL_STRUCT_ENABLE_CXX20}"
 )
 
-CPMAddPackage("gh:g-truc/glm#1.0.1")
+CPMAddPackage("gh:g-truc/glm#1.0.3")
 
-CPMAddPackage("gh:fmtlib/fmt#11.2.0")
+CPMAddPackage("gh:fmtlib/fmt#12.1.0")
 
-if (BUILD_GLSL_STRUCT_TESTS)
-    CPMAddPackage("gh:google/googletest#release-1.11.0")
+if (GLSL_STRUCT_BUILD_TESTS)
+    CPMAddPackage("gh:google/googletest#v1.17.0")
 endif()
