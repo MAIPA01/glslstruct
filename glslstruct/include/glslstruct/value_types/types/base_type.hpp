@@ -8,29 +8,16 @@
  */
 
 #pragma once
+#include <glslstruct/config.hpp>
+
+#if !_GLSL_STRUCT_HAS_TYPES
+_GLSL_STRUCT_ERROR("This is only available for c++17 and greater and when types are not disabled with GLSL_STRUCT_DISABLE_TYPES set to 1!");
+#else
+
 #include <glslstruct/value_types/visitors/type_hash_visitor.hpp>
+#include <glslstruct/value_types/checks/type_checks.hpp>
 
 namespace glslstruct {
-	class base_type;
-
-	using base_type_handle = std::shared_ptr<base_type>;
-
-	namespace utils {
-		template<class T>
-		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_type_v = std::is_base_of_v<base_type, T> && !std::is_same_v<base_type, T>;
-
-		template<class T>
-		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_base_type_v = std::is_same_v<base_type, T>;
-
-#if _GLSL_STRUCT_HAS_CXX20
-		template<class T>
-		concept glsl_type = is_glsl_type_v<T>;
-
-		template<class T>
-		concept glsl_base_type = is_glsl_base_type_v<T>;
-#endif
-	}
-
 	class base_type {
 	private:
 		friend struct std::hash<base_type>;
@@ -39,14 +26,14 @@ namespace glslstruct {
 
 	public:
 		base_type(size_t size) noexcept;
-		_GLSL_STRUCT_CONSTEXPR20 base_type(const base_type& other) noexcept = default;
-		_GLSL_STRUCT_CONSTEXPR20 base_type(base_type&& other) noexcept = default;
-		virtual _GLSL_STRUCT_CONSTEXPR20 ~base_type() noexcept = default;
+		_GLSL_STRUCT_CONSTEXPR20 base_type(const base_type& other) noexcept;
+		_GLSL_STRUCT_CONSTEXPR20 base_type(base_type&& other) noexcept;
+		virtual _GLSL_STRUCT_CONSTEXPR20 ~base_type() noexcept;
 
-		base_type& operator=(const base_type& other) noexcept = default;
-		base_type& operator=(base_type&& other) noexcept = default;
+		base_type& operator=(const base_type& other) noexcept;
+		base_type& operator=(base_type&& other) noexcept;
 
-		virtual void accept(base_type_visitor* const visitor) const = 0;
+		virtual void accept(base_type_visitor* visitor) const = 0;
 
 		[[nodiscard]] virtual bool operator==(const base_type& other) const noexcept;
 		[[nodiscard]] bool operator!=(const base_type& other) const noexcept;
@@ -85,5 +72,6 @@ namespace glslstruct {
 
 template<>
 struct std::hash<glslstruct::base_type> {
-	[[nodiscard]] size_t operator()(const glslstruct::base_type& value) noexcept;
+	[[nodiscard]] size_t operator()(const glslstruct::base_type& value) const noexcept;
 };
+#endif

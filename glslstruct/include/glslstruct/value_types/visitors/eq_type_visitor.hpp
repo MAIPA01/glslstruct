@@ -8,7 +8,13 @@
  */
 
 #pragma once
-#include <glslstruct/value_types/base_type.hpp>
+#include <glslstruct/config.hpp>
+
+#if !_GLSL_STRUCT_HAS_TYPES
+_GLSL_STRUCT_ERROR("This is only available for c++17 and greater and when types are not disabled with GLSL_STRUCT_DISABLE_TYPES set to 1!");
+#else
+
+#include <glslstruct/value_types/types/base_type.hpp>
 
 namespace glslstruct {
 	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_type, utils::is_glsl_type_v<T>, = true)
@@ -19,7 +25,7 @@ namespace glslstruct {
 
 	public:
 		_GLSL_STRUCT_CONSTEXPR20 eq_type_visitor(const T* value) noexcept : _value(value) {}
-		virtual _GLSL_STRUCT_CONSTEXPR20 ~eq_type_visitor() noexcept = default;
+		_GLSL_STRUCT_CONSTEXPR20 ~eq_type_visitor() noexcept override = default;
 
 		void visit(const scalar_type& value) override {
 			if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, scalar_type>) {
@@ -67,3 +73,4 @@ namespace glslstruct {
 		}
 	};
 }
+#endif

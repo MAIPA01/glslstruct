@@ -1,15 +1,7 @@
-project(glslstruct VERSION 1.2.0 LANGUAGES CXX)
-
-option(GLSL_STRUCT_ENABLE_CXX20 OFF)
-option(GLSL_STRUCT_DISABLE_TYPES OFF)
-
-if (GLSL_STRUCT_ENABLE_CXX20)
-	set(CMAKE_CXX_STANDARD 20)
-else()
-	set(CMAKE_CXX_STANDARD 17)
-endif()
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+option(GLSL_STRUCT_ENABLE_CXX20 "Enables C++20 features" OFF)
+option(GLSL_STRUCT_DISABLE_TYPES "Disables type classes" OFF)
+option(GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE "Disables assert on release builds" OFF)
+option(GLSL_STRUCT_ENABLE_TYPE_CHECKS "Enables type checking (GLSL_STRUCT_DISABLE_TYPES should by ON)" OFF)
 
 # source files
 set(PROJECT_SOURCES ${PROJECT_NAME}_SOURCES)
@@ -26,6 +18,8 @@ add_library(${PROJECT_NAME} ${${PROJECT_LIBRARY_TYPE}} ${${PROJECT_HEADERS}} ${$
 set(PROJECT_NAMESPACE ${PROJECT_NAME}::)
 set(PROJECT_ALIAS ${PROJECT_NAMESPACE}${PROJECT_NAME})
 add_library(${PROJECT_ALIAS} ALIAS ${PROJECT_NAME})
+
+target_compile_features(${PROJECT_NAME} PUBLIC $<IF:$<BOOL:${GLSL_STRUCT_ENABLE_CXX20}>,cxx_std_20,cxx_std_17>)
 
 # set headers folder
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include 
@@ -112,7 +106,6 @@ target_link_options(${PROJECT_NAME} PRIVATE
     # GCC/clang with GNU frontend
     $<$<OR:$<CXX_COMPILER_ID:GNU>,$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:GNU>>>:
         $<$<CONFIG:Release>:-flto>
-        $<$<AND:$<CONFIG:Release>,$<CXX_COMPILER_ID:Clang>>:-fuse-ld=lld>
         -static
         $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-instr-generate>
     >
@@ -124,6 +117,8 @@ target_link_options(${PROJECT_NAME} PRIVATE
     >
 )
 
-target_compile_definitions(${PROJECT_NAME} PRIVATE _GLSL_STRUCT_ENABLE_CXX20=$<BOOL:${GLSL_STRUCT_ENABLE_CXX20}>
-                                                   _GLSL_STRUCT_DISABLE_TYPES=$<BOOL:${GLSL_STRUCT_DISABLE_TYPES}>
+target_compile_definitions(${PROJECT_NAME} PRIVATE  GLSL_STRUCT_ENABLE_CXX20=$<BOOL:${GLSL_STRUCT_ENABLE_CXX20}>
+                                                    GLSL_STRUCT_DISABLE_TYPES=$<BOOL:${GLSL_STRUCT_DISABLE_TYPES}>
+                                                    GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE=$<BOOL:${GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE}>
+                                                    GLSL_STRUCT_ENABLE_TYPE_CHECKS=$<BOOL:${GLSL_STRUCT_ENABLE_TYPE_CHECKS}>
 )

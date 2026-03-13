@@ -10,7 +10,10 @@
 #pragma once
 #include <glslstruct/config.hpp>
 
-#if _GLSL_STRUCT_HAS_CXX17 && !_GLSL_STRUCT_DISABLE_TYPES
+#if !_GLSL_STRUCT_HAS_TYPES
+_GLSL_STRUCT_ERROR("This is only available for c++17 and greater and when types are not disabled with GLSL_STRUCT_DISABLE_TYPES set to 1!");
+#else
+
 #include <glslstruct/value_types/visitors/base_type_visitor.hpp>
 
 namespace glslstruct {
@@ -19,8 +22,8 @@ namespace glslstruct {
 		size_t _result = 0;
 
 	public:
-		_GLSL_STRUCT_CONSTEXPR20 type_hash_visitor() noexcept = default;
-		virtual _GLSL_STRUCT_CONSTEXPR20 ~type_hash_visitor() noexcept = default;
+		_GLSL_STRUCT_CONSTEXPR20 type_hash_visitor() noexcept;
+		_GLSL_STRUCT_CONSTEXPR20 ~type_hash_visitor() noexcept override;
 
 		void visit(const scalar_type& value) override;
 		void visit(const vec_type& value) override;

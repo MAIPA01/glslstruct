@@ -8,6 +8,12 @@
  */
 
 #pragma once
+#include <glslstruct/config.hpp>
+
+#if !_GLSL_STRUCT_HAS_TYPES
+_GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
+#else
+
 #include <glslstruct/templates.hpp>
 
 namespace glslstruct {
@@ -21,7 +27,7 @@ namespace glslstruct {
 	)
 
 	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_scalar, utils::is_glsl_scalar_v<T>, = true)
-	[[nodiscard]] static inline _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept {
+	[[nodiscard]] inline _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept {
 		if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, bool>) {
 			return ValueType::Bool;
 		}
@@ -83,3 +89,4 @@ namespace glslstruct {
 		}
 	}
 }
+#endif

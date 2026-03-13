@@ -8,6 +8,12 @@
  */
 
 #pragma once
+#include <glslstruct/config.hpp>
+
+#if !_GLSL_STRUCT_HAS_TYPES
+_GLSL_STRUCT_ERROR("This is only available for c++17 and greater and when types are not disabled with GLSL_STRUCT_DISABLE_TYPES set to 1!");
+#else
+
 #include <glslstruct/value_types/value_type.hpp>
 
 namespace glslstruct {
@@ -61,3 +67,4 @@ template<>
 struct std::hash<glslstruct::mat_type> {
 	[[nodiscard]] size_t operator()(const glslstruct::mat_type& value) noexcept;
 };
+#endif

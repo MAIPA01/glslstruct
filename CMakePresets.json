@@ -2,16 +2,28 @@
   "version": 3,
   "configurePresets": [
     {
-      "name": "windows-base",
-      "description": "System Windows ze środowiskiem programistycznym programu Visual Studio jako element docelowy.",
+      "name": "cpp-base",
       "hidden": true,
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/out/build/${presetName}",
-      "installDir": "${sourceDir}/out/install/${presetName}",
       "cacheVariables": {
         "CMAKE_C_COMPILER": "clang.exe",
-        "CMAKE_CXX_COMPILER": "clang++.exe"
-      },
+        "CMAKE_CXX_COMPILER": "clang++.exe",
+        "CMAKE_CXX_STANDARD_REQUIRED": "ON",
+        "CMAKE_CXX_EXTENSIONS": "OFF",
+        "BUILD_SHARED_LIBS": "OFF",
+        "GLSL_STRUCT_BUILD_TESTS": "ON",
+        "GLSL_STRUCT_BUILD_COVERAGE": "ON",
+        "GLSL_STRUCT_DISABLE_TYPES": "OFF",
+        "GLSL_STRUCT_ENABLE_TYPE_CHECKS": "ON"
+      }
+    },
+    {
+      "name": "windows-base",
+      "description": "System Windows ze środowiskiem programistycznym programu Visual Studio jako element docelowy.",
+      "inherits": "cpp-base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "installDir": "${sourceDir}/install/${presetName}",
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
@@ -19,60 +31,98 @@
       }
     },
     {
-      "name": "x64-debug",
-      "displayName": "x64 Debug",
-      "description": "Docelowy system Windows (64-bitowy) ze środowiskiem programistycznym programu Visual Studio. (Debug)",
-      "inherits": "windows-base",
+      "name": "cpp17",
+      "hidden": true,
+      "cacheVariables": {
+        "GLSL_STRUCT_ENABLE_CXX20": "OFF",
+        "CMAKE_CXX_STANDARD": "17"
+      }
+    },
+    {
+      "name": "cpp20",
+      "hidden": true,
+      "cacheVariables": {
+        "GLSL_STRUCT_ENABLE_CXX20": "ON",
+        "CMAKE_CXX_STANDARD": "20"
+      }
+    },
+    {
+      "name": "debug",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "release",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "x64",
+      "hidden": true,
       "architecture": {
         "value": "x64",
         "strategy": "external"
-      },
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "GLSL_STRUCT_BUILD_TESTS": "ON",
-        "GLSL_STRUCT_ENABLE_CXX20": "ON",
-        "GLSL_STRUCT_BUILD_COVERAGE": "ON"
       }
     },
     {
-      "name": "x64-release",
-      "displayName": "x64 Release",
-      "description": "Docelowy system Windows (64-bitowy) ze środowiskiem programistycznym programu Visual Studio. (RelWithDebInfo)",
-      "inherits": "x64-debug",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "GLSL_STRUCT_BUILD_TESTS": "ON",
-        "GLSL_STRUCT_ENABLE_CXX20": "ON",
-        "GLSL_STRUCT_BUILD_COVERAGE": "ON"
-      }
-    },
-    {
-      "name": "x86-debug",
-      "displayName": "x86 Debug",
-      "description": "Docelowy system Windows (32-bitowy) ze środowiskiem programistycznym programu Visual Studio. (Debug)",
-      "inherits": "windows-base",
+      "name": "x86",
+      "hidden": true,
       "architecture": {
         "value": "x86",
         "strategy": "external"
-      },
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "GLSL_STRUCT_BUILD_TESTS": "ON",
-        "GLSL_STRUCT_ENABLE_CXX20": "ON",
-        "GLSL_STRUCT_BUILD_COVERAGE": "ON"
       }
     },
     {
-      "name": "x86-release",
-      "displayName": "x86 Release",
+      "name": "x64-debug-cpp20",
+      "displayName": "x64 Debug C++20",
+      "description": "Docelowy system Windows (64-bitowy) ze środowiskiem programistycznym programu Visual Studio. (Debug)",
+      "inherits": ["windows-base", "cpp20", "x64", "debug"]
+    },
+    {
+      "name": "x64-debug-cpp17",
+      "displayName": "x64 Debug C++17",
+      "description": "Docelowy system Windows (64-bitowy) ze środowiskiem programistycznym programu Visual Studio. (Debug)",
+      "inherits": ["windows-base", "cpp17", "x64", "debug"]
+    },
+    {
+      "name": "x64-release-cpp20",
+      "displayName": "x64 Release C++20",
+      "description": "Docelowy system Windows (64-bitowy) ze środowiskiem programistycznym programu Visual Studio. (RelWithDebInfo)",
+      "inherits": ["x64-debug-cpp20", "release"]
+    },
+    {
+      "name": "x64-release-cpp17",
+      "displayName": "x64 Release C++17",
+      "description": "Docelowy system Windows (64-bitowy) ze środowiskiem programistycznym programu Visual Studio. (RelWithDebInfo)",
+      "inherits": ["x64-debug-cpp17", "release"]
+    },
+    {
+      "name": "x86-debug-cpp20",
+      "displayName": "x86 Debug C++20",
+      "description": "Docelowy system Windows (32-bitowy) ze środowiskiem programistycznym programu Visual Studio. (Debug)",
+      "inherits": ["windows-base", "x86", "cpp20", "debug"]
+    },
+    {
+      "name": "x86-debug-cpp17",
+      "displayName": "x86 Debug C++17",
+      "description": "Docelowy system Windows (32-bitowy) ze środowiskiem programistycznym programu Visual Studio. (Debug)",
+      "inherits": ["windows-base", "x86", "cpp17", "debug"]
+    },
+    {
+      "name": "x86-release-cpp20",
+      "displayName": "x86 Release C++20",
       "description": "Docelowy systemu Windows (32-bitowy) ze środowiskiem programistycznym programu Visual Studio. (RelWithDebInfo)",
-      "inherits": "x86-debug",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "GLSL_STRUCT_BUILD_TESTS": "ON",
-        "GLSL_STRUCT_ENABLE_CXX20": "ON",
-        "GLSL_STRUCT_BUILD_COVERAGE": "ON"
-      }
+      "inherits": ["x86-debug-cpp20", "release"]
+    },
+    {
+      "name": "x86-release-cpp17",
+      "displayName": "x86 Release C++17",
+      "description": "Docelowy systemu Windows (32-bitowy) ze środowiskiem programistycznym programu Visual Studio. (RelWithDebInfo)",
+      "inherits": ["x86-debug-cpp17", "release"]
     }
   ]
 }

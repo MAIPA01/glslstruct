@@ -16,17 +16,20 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater and when types 
 
 #include <glslstruct/types.hpp>
 
-namespace glslstruct {
-	class base_type_visitor {
-	public:
-		_GLSL_STRUCT_CONSTEXPR20 base_type_visitor() noexcept;
-		virtual _GLSL_STRUCT_CONSTEXPR20 ~base_type_visitor() noexcept;
+namespace glslstruct::utils {
+	template<class T>
+	static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_type_v = std::is_base_of_v<base_type, T> && !std::is_same_v<base_type, T>;
 
-		virtual void visit(const scalar_type& value) = 0;
-		virtual void visit(const vec_type& value) = 0;
-		virtual void visit(const mat_type& value) = 0;
-		virtual void visit(const struct_type& value) = 0;
-		virtual void visit(const array_type& value) = 0;
-	};
+	template<class T>
+	static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_base_type_v = std::is_same_v<base_type, T>;
+
+#if _GLSL_STRUCT_HAS_CXX20
+	template<class T>
+	concept glsl_type = is_glsl_type_v<T>;
+
+	template<class T>
+	concept glsl_base_type = is_glsl_base_type_v<T>;
+#endif
 }
+
 #endif

@@ -8,12 +8,19 @@
  */
 
 #pragma once
-#include <glslstruct/value_types/base_type.hpp>
-#include <glslstruct/value_types/scalar_type.hpp>
-#include <glslstruct/value_types/vec_type.hpp>
-#include <glslstruct/value_types/mat_type.hpp>
-#include <glslstruct/value_types/struct_type.hpp>
-#include <glslstruct/value_types/array_type.hpp>
+#include <glslstruct/config.hpp>
+
+#if !_GLSL_STRUCT_HAS_TYPES
+_GLSL_STRUCT_ERROR("This is only available for c++17 and greater and when types are not disabled with GLSL_STRUCT_DISABLE_TYPES set to 1!");
+#else
+
+#include <glslstruct/utils/assert.hpp>
+#include <glslstruct/value_types/types/base_type.hpp>
+#include <glslstruct/value_types/types/scalar_type.hpp>
+#include <glslstruct/value_types/types/vec_type.hpp>
+#include <glslstruct/value_types/types/mat_type.hpp>
+#include <glslstruct/value_types/types/struct_type.hpp>
+#include <glslstruct/value_types/types/array_type.hpp>
 
 namespace glslstruct {
 	ENUM_CLASS_BASE(BaseType, uint8_t,
@@ -31,7 +38,7 @@ namespace glslstruct {
 
 	public:
 		_GLSL_STRUCT_CONSTEXPR20 is_of_type_visitor() noexcept = default;
-		virtual _GLSL_STRUCT_CONSTEXPR20 ~is_of_type_visitor() noexcept = default;
+		_GLSL_STRUCT_CONSTEXPR20 ~is_of_type_visitor() noexcept override = default;
 
 		void visit(const scalar_type&) override {
 			_result = std::is_same_v<T, scalar_type>;
@@ -57,18 +64,18 @@ namespace glslstruct {
 #pragma region IS_OF_TYPE
 
 	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_type, utils::is_glsl_type_v<T>, = true)
-	[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const base_type_handle& type) {
+	[[nodiscard]] inline _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const base_type_handle& type) {
 		is_of_type_visitor<T> visitor;
 		type->accept(&visitor);
 		return visitor.result();
 	}
 
 	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_type, utils::is_glsl_type_v<T>, = true)
-	[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const std::shared_ptr<T>&) {
+	[[nodiscard]] inline _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const std::shared_ptr<T>&) {
 		return true;
 	}
 
-	[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const base_type_handle& type, BaseType baseType) {
+	[[nodiscard]] inline _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const base_type_handle& type, BaseType baseType) {
 		switch (baseType)
 		{
 		case BaseType::Scalar:
@@ -87,7 +94,7 @@ namespace glslstruct {
 	}
 
 	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_type, utils::is_glsl_type_v<T>, = true)
-	[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const std::shared_ptr<T>&, BaseType baseType) {
+	[[nodiscard]] inline _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const std::shared_ptr<T>&, BaseType baseType) {
 		switch (baseType)
 		{
 		case BaseType::Scalar:
@@ -110,17 +117,15 @@ namespace glslstruct {
 #pragma region DYNAMIC_CAST
 
 	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_type, utils::is_glsl_type_v<T>, = true)
-	[[nodiscard]] static std::shared_ptr<T> dynamic_type_cast(const base_type_handle& type) {
+	[[nodiscard]] inline std::shared_ptr<T> dynamic_type_cast(const base_type_handle& type) {
 		if (is_of_type<T>(type)) {
 			return std::dynamic_pointer_cast<T>(type);
 		}
-		else {
-			return nullptr;
-		}
+		return nullptr;
 	}
 
 	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_type, utils::is_glsl_type_v<T>, = true)
-	[[nodiscard]] static base_type_handle dynamic_type_cast(const std::shared_ptr<T>& type) {
+	[[nodiscard]] inline base_type_handle dynamic_type_cast(const std::shared_ptr<T>& type) {
 		return std::dynamic_pointer_cast<base_type>(type);
 	}
 
@@ -129,16 +134,17 @@ namespace glslstruct {
 #pragma region STATIC_CAST
 
 	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_type, utils::is_glsl_type_v<T>, = true)
-	[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 std::shared_ptr<T> static_type_cast(const base_type_handle& type) {
+	[[nodiscard]] inline _GLSL_STRUCT_CONSTEXPR20 std::shared_ptr<T> static_type_cast(const base_type_handle& type) {
 		std::shared_ptr<T> result = dynamic_type_cast<T>(type);
-		assert(("cannot convert type to desired type", result != nullptr));
+		glsl_struct_assert(result != nullptr, "Cannot convert type to desired type!");
 		return result;
 	}
 
 	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_type, utils::is_glsl_type_v<T>, = true)
-	[[nodiscard]] static base_type_handle static_type_cast(const std::shared_ptr<T>& type) {
+	[[nodiscard]] inline base_type_handle static_type_cast(const std::shared_ptr<T>& type) {
 		return dynamic_type_cast(type);
 	}
 
 #pragma endregion
 }
+#endif

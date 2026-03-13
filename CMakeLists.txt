@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.30)
+project(glslstruct VERSION 1.3.0 LANGUAGES CXX)
 
 # variable for building shared library
 option(BUILD_SHARED_LIBS "Build shared library" OFF)
@@ -10,11 +11,11 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/coverage_report.cmake)
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/glslstruct)
 
-if (BUILD_GLSL_STRUCT_TESTS)
+if (GLSL_STRUCT_BUILD_TESTS)
 	add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/tests)
 endif()
 
-if (BUILD_GLSL_STRUCT_COVERAGE)
+if (GLSL_STRUCT_BUILD_COVERAGE)
     setup_coverage_report(
 		TEST_PROJECT glslstruct-tests
 		FORMAT html

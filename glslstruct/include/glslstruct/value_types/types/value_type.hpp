@@ -8,9 +8,14 @@
  */
 
 #pragma once
-#include <glslstruct/value_types/base_type.hpp>
+#include <glslstruct/config.hpp>
+
+#if !_GLSL_STRUCT_HAS_TYPES
+_GLSL_STRUCT_ERROR("This is only available for c++17 and greater and when types are not disabled with GLSL_STRUCT_DISABLE_TYPES set to 1!");
+#else
+
+#include <glslstruct/value_types/types/base_type.hpp>
 #include <glslstruct/value_types/visitors/eq_type_visitor.hpp>
-#include <glslstruct/value_types/ValueType.hpp>
 
 namespace glslstruct {
 	template<class _Derived>
@@ -61,3 +66,4 @@ namespace glslstruct {
 		return !(lhs == rhs);
 	}
 }
+#endif

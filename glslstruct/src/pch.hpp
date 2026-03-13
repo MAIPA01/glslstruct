@@ -1,3 +1,3 @@
 ﻿#pragma once
 
-#include <glslstruct/libraries.hpp>
+#include <glslstruct/libs.hpp>
