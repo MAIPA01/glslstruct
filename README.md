@@ -18,7 +18,7 @@ It allows you to define structures once and retrieve their precise size and fiel
 ## 🛠️ Requirements
 
 * C++17 compliant compiler (GCC 10+, Clang 10+, MSVC 19.29+).
-* CMake (3.24+) (optional, for building examples and testing).
+* CMake (3.30+) (optional, for building examples and testing).
 
 ---
 
@@ -54,10 +54,10 @@ using namespace glslstruct;
 
 // 1. Define your C++ structure
 std140_struct SceneSettings {
-    std_value<glm::mat4>("viewProjection"),
-    std_value<glm::vec3>("cameraPosition"),
-    std_value<float>("globalTime"),
-    std_value<int>("renderMode")
+    glsl_value<glm::mat4>("viewProjection"),
+    glsl_value<glm::vec3>("cameraPosition"),
+    glsl_value<float>("globalTime"),
+    glsl_value<int>("renderMode")
 };
 
 int main() {    
@@ -117,7 +117,7 @@ all of them with the same base class `base_type`.
 For easier and safer casting instead of using `dynamic_cast` there is implemented function `dynamic_type_cast` and `static_type_cast`.
 
 ### Visitor
-Each type has implemented `accept` function which as a input accepts pointer to `base_type_visitor` class.
+Each type has implemented `accept` function which as a input accepts all types which match with `type_visitor_concept`.
 
 #### Example
 ```cpp
@@ -129,20 +129,20 @@ Each type has implemented `accept` function which as a input accepts pointer to 
 using namespace glslstruct;
 
 std140_struct SceneSettings {
-    std_value<glm::mat4>("viewProjection"),
-    std_value<glm::vec3>("cameraPosition"),
-    std_value<float>("globalTime"),
-    std_value<int>("renderMode")
+    glsl_value<glm::mat4>("viewProjection"),
+    glsl_value<glm::vec3>("cameraPosition"),
+    glsl_value<float>("globalTime"),
+    glsl_value<int>("renderMode")
 };
 
 // Visitor Definition
-class zero_values_visitor : public base_type_visitor {
+class zero_values_visitor {
 private:
     std::string _valueName;
 
 public:
     zero_values_visitor() = default;
-    virtual ~zero_values_visitor() = default;
+    ~zero_values_visitor() = default;
 
     void setValueName(const std::string& name) {
         _valueName = name;
@@ -184,7 +184,7 @@ int main() {
     zero_values_visitor visitor{};
     for (const auto& name : SceneSettings.get_names()) {
         visitor.setValueName(name);
-        SceneSettings.get_type(name)->accept(&visitor);
+        SceneSettings.get_type(name)->accept(visitor);
     }
 
     return 0;
