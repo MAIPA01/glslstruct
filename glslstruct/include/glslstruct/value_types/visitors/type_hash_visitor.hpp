@@ -14,22 +14,22 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater and when types are not disabled with GLSL_STRUCT_DISABLE_TYPES set to 1!");
 #else
 
-#include <glslstruct/value_types/visitors/base_type_visitor.hpp>
+#include <glslstruct/value_types/visitors/type_visitor_concept.hpp>
 
 namespace glslstruct {
-	class type_hash_visitor : public base_type_visitor {
+	class type_hash_visitor {
 	private:
 		size_t _result = 0;
 
 	public:
-		_GLSL_STRUCT_CONSTEXPR20 type_hash_visitor() noexcept;
-		_GLSL_STRUCT_CONSTEXPR20 ~type_hash_visitor() noexcept override;
+		type_hash_visitor() noexcept;
+		~type_hash_visitor() noexcept;
 
-		void visit(const scalar_type& value) override;
-		void visit(const vec_type& value) override;
-		void visit(const mat_type& value) override;
-		void visit(const struct_type& value) override;
-		void visit(const array_type& value) override;
+		void visit(const scalar_type& value);
+		void visit(const vec_type& value);
+		void visit(const mat_type& value);
+		void visit(const struct_type& value);
+		void visit(const array_type& value);
 
 		[[nodiscard]] size_t result() const noexcept;
 	};

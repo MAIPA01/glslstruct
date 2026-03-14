@@ -14,13 +14,11 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 #else
 
-#include <glslstruct/types.hpp>
-
 namespace glslstruct {
-	struct scalar_data {
+	class scalar_data {
 	private:
 		template<class T>
-		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 std::vector<std::byte> _get_value_data(const T& value) {
+		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 std::vector<std::byte> _get_value_data(const T& value) {
 			static_assert(std::is_trivially_copyable_v<T>, "T must be trivially copyable to be treated as raw bytes!!");
 
 			const auto* valueDataPtr = reinterpret_cast<const std::byte*>(std::addressof(value));

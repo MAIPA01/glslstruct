@@ -19,14 +19,17 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 namespace glslstruct::utils {
 #pragma region IS_LAYOUT
 	template<class T, class... Allowed>
-	struct is_glsl_layout : std::bool_constant<(std::is_base_of_v<base_layout, T> &&
-		!std::is_same_v<base_layout, T> && mstd::is_same_type_in_v<T, Allowed...>)> {};
+	struct is_glsl_layout : std::bool_constant<(is_glsl_layout<T>::value && mstd::is_same_type_in_v<T, Allowed...>)> {};
+
+	template<class T>
+	struct is_glsl_layout<T> : std::bool_constant<(std::is_base_of_v<base_layout, T> &&
+		!std::is_same_v<base_layout, T>)> {};
 
 	template<class T, class... Allowed>
 	static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_layout_v = is_glsl_layout<T, Allowed...>::value;
 
 #if _GLSL_STRUCT_HAS_CXX20
-	template<class T, class... Allowed> concept glsl_offset = is_glsl_offset_v<T>;
+	template<class T, class... Allowed> concept glsl_layout = is_glsl_layout_v<T>;
 #endif
 #pragma endregion
 

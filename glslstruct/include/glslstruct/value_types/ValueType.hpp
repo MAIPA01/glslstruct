@@ -14,8 +14,6 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 #else
 
-#include <glslstruct/templates.hpp>
-
 namespace glslstruct {
 	ENUM_CLASS_BASE(ValueType, uint8_t,
 		(Other),
@@ -27,7 +25,7 @@ namespace glslstruct {
 	)
 
 	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_scalar, utils::is_glsl_scalar_v<T>, = true)
-	[[nodiscard]] inline _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept {
+	[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept {
 		if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, bool>) {
 			return ValueType::Bool;
 		}
@@ -50,32 +48,32 @@ namespace glslstruct {
 
 	[[nodiscard]] static inline _GLSL_STRUCT_CONSTEXPR20 std::string vec_type_to_string(ValueType type) noexcept {
 		switch (type) {
-		case ValueType::Other: return "other";
+		[[unlikely]] case ValueType::Other: return "other";
 		case ValueType::Bool: return "bvec";
 		case ValueType::Int: return "ivec";
 		case ValueType::Uint: return "uvec";
 		case ValueType::Float: return "vec";
 		case ValueType::Double: return "dvec";
-		default: return "UNKNOWN";
+		[[unlikely]] default: return "UNKNOWN";
 		}
 	}
 
 	[[nodiscard]] static inline _GLSL_STRUCT_CONSTEXPR20 std::string mat_type_to_string(ValueType type) noexcept {
 		switch (type) {
-		case ValueType::Other: return "other";
+		[[unlikely]] case ValueType::Other: return "other";
 		case ValueType::Bool: return "bmat";
 		case ValueType::Int: return "imat";
 		case ValueType::Uint: return "umat";
 		case ValueType::Float: return "mat";
 		case ValueType::Double: return "dmat";
-		default: return "UNKNOWN";
+		[[unlikely]] default: return "UNKNOWN";
 		}
 	}
 
-	[[nodiscard]] static inline _GLSL_STRUCT_CONSTEXPR17 size_t get_value_type_size(ValueType type) {
+	[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 size_t get_value_type_size(ValueType type) {
 		switch (type) {
-		default:
-		case ValueType::Other:
+		[[unlikely]] default:
+		[[unlikely]] case ValueType::Other:
 			return 0;
 		case ValueType::Bool:
 		case ValueType::Int:

@@ -18,22 +18,49 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater and when types 
 #include <glslstruct/value_types/visitors/eq_type_visitor.hpp>
 
 namespace glslstruct {
-	template<class _Derived>
+	template<class Derived>
 	class value_type : public base_type {
+	private:
+		_GLSL_STRUCT_CONSTEXPR17 const Derived& _get_derived() const noexcept {
+			return *static_cast<const Derived*>(this);
+		}
+
+	protected:
+		void _accept(const mstd::func_t<void(const scalar_type&)>& scalar_visit, const mstd::func_t<void(const vec_type&)>& vec_visit,
+			const mstd::func_t<void(const mat_type&)>& mat_visit, const mstd::func_t<void(const struct_type&)>& struct_visit,
+			const mstd::func_t<void(const array_type&)>& array_visit) const override {
+			if _MSTD_CONSTEXPR17 (std::is_same_v<Derived, scalar_type>) {
+				scalar_visit(_get_derived());
+			}
+			else if _MSTD_CONSTEXPR17 (std::is_same_v<Derived, vec_type>) {
+				vec_visit(_get_derived());
+			}
+			else if _MSTD_CONSTEXPR17 (std::is_same_v<Derived, mat_type>) {
+				mat_visit(_get_derived());
+			}
+			else if _MSTD_CONSTEXPR17 (std::is_same_v<Derived, struct_type>) {
+				struct_visit(_get_derived());
+			}
+			else if _MSTD_CONSTEXPR17 (std::is_same_v<Derived, array_type>) {
+				array_visit(_get_derived());
+			}
+		}
+
 	public:
 		using base_type::operator!=;
 
-		_GLSL_STRUCT_CONSTEXPR20 value_type(size_t size) noexcept 
+		explicit _GLSL_STRUCT_CONSTEXPR20 value_type(size_t size) noexcept
 			: base_type(size) {}
 		_GLSL_STRUCT_CONSTEXPR20 value_type(const value_type& other) noexcept = default;
 		_GLSL_STRUCT_CONSTEXPR20 value_type(value_type&& other) noexcept = default;
-		virtual _GLSL_STRUCT_CONSTEXPR20 ~value_type() noexcept = default;
+		virtual _GLSL_STRUCT_CONSTEXPR20 ~value_type() noexcept override = default;
 
 		_GLSL_STRUCT_CONSTEXPR17 value_type& operator=(const value_type& other) noexcept = default;
 		_GLSL_STRUCT_CONSTEXPR17 value_type& operator=(value_type&& other) noexcept = default;
 
-		virtual void accept(base_type_visitor* const visitor) const override {
-			visitor->visit(*static_cast<const _Derived*>(this));
+		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, type_visitor, is_type_visitor_v<T>, = true)
+		void accept(T& visitor) const {
+			visitor.visit(_get_derived());
 		}
 
 		[[nodiscard]] bool operator==(const base_type& other) const noexcept override {
@@ -41,28 +68,28 @@ namespace glslstruct {
 				return false;
 			}
 
-			eq_type_visitor<_Derived> visitor(static_cast<const _Derived*>(this));
-			other.accept(&visitor);
+			eq_type_visitor<Derived> visitor(&_get_derived());
+			other.accept(visitor);
 			return visitor.result();
 		}
 
-		template<class _DerivedA, class _DerivedB>
-		friend _GLSL_STRUCT_CONSTEXPR17 bool operator==(const value_type<_DerivedA>& lhs, const value_type<_DerivedB>& rhs) noexcept;
-		template<class _DerivedA, class _DerivedB>
-		friend _GLSL_STRUCT_CONSTEXPR17 bool operator!=(const value_type<_DerivedA>& lhs, const value_type<_DerivedB>& rhs) noexcept;
+		template<class DerivedA, class DerivedB>
+		friend _GLSL_STRUCT_CONSTEXPR17 bool operator==(const value_type<DerivedA>& lhs, const value_type<DerivedB>& rhs) noexcept;
+		template<class DerivedA, class DerivedB>
+		friend _GLSL_STRUCT_CONSTEXPR17 bool operator!=(const value_type<DerivedA>& lhs, const value_type<DerivedB>& rhs) noexcept;
 	};
 
-	template<class _Derived, class _ODerived>
-	[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 bool operator==(const value_type<_Derived>& lhs, const value_type<_ODerived>& rhs) noexcept {
-		if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<_Derived, _ODerived>) {
-			return *static_cast<const _Derived*>(&lhs) == *static_cast<const _ODerived*>(&rhs);
+	template<class DerivedA, class DerivedB>
+	[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 bool operator==(const value_type<DerivedA>& lhs, const value_type<DerivedB>& rhs) noexcept {
+		if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<DerivedA, DerivedB>) {
+			return lhs._get_derived() == rhs._get_derived();
 		}
 		else {
 			return false;
 		}
 	}
-	template<class _Derived, class _ODerived>
-	[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 bool operator!=(const value_type<_Derived>& lhs, const value_type<_ODerived>& rhs) noexcept {
+	template<class DerivedA, class DerivedB>
+	[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 bool operator!=(const value_type<DerivedA>& lhs, const value_type<DerivedB>& rhs) noexcept {
 		return !(lhs == rhs);
 	}
 }

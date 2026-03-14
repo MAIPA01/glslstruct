@@ -14,20 +14,16 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 #else
 
+#include <glslstruct/types.hpp>
 #include <glslstruct/value_types/data/vec_data.hpp>
 
 namespace glslstruct {
-	template<class>
-	struct vec_traits {
-		static_assert(false, "You need to define conversion for this type");
-	};
-
-	template<class T, size_t L>
-	struct vec_traits<glm::vec<L, T>> {
+	template<class T, size_t L, glm::qualifier Q>
+	struct vec_traits<glm::vec<L, T, Q>> {
 		using value_type = T;
 		static _GLSL_STRUCT_CONSTEXPR17 const size_t length = L;
 
-		static _GLSL_STRUCT_CONSTEXPR20 vec_data get_data(const glm::vec<L, T>& value) {
+		static vec_data get_data(const glm::vec<L, T>& value) {
 			return vec_data(value);
 		}
 	};
@@ -37,13 +33,13 @@ namespace glslstruct {
 		using value_type = T;
 		static _GLSL_STRUCT_CONSTEXPR17 const size_t length = N;
 
-		static _GLSL_STRUCT_CONSTEXPR20 vec_data get_data(const mstd::vec<N, T>& value) {
+		static vec_data get_data(const mstd::vec<N, T>& value) {
 			return vec_data(value);
 		}
 	};
 
 	template<class T>
-	using glsl_vec_value_type = vec_traits<T>::value_type;
+	using glsl_vec_value_type = typename vec_traits<T>::value_type;
 
 	template<class T>
 	static _GLSL_STRUCT_CONSTEXPR17 const size_t glsl_vec_length = vec_traits<T>::length;

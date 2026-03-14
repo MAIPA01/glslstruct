@@ -23,8 +23,8 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater and when types 
 
 using namespace glslstruct;
 
-_GLSL_STRUCT_CONSTEXPR20 type_hash_visitor::type_hash_visitor() noexcept = default;
-_GLSL_STRUCT_CONSTEXPR20 type_hash_visitor::~type_hash_visitor() noexcept override = default;
+type_hash_visitor::type_hash_visitor() noexcept = default;
+type_hash_visitor::~type_hash_visitor() noexcept = default;
 
 void type_hash_visitor::visit(const scalar_type& value) {
 	_result = std::hash<scalar_type>()(value);

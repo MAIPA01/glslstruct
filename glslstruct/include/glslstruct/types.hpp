@@ -17,48 +17,76 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 #include <glslstruct/libs.hpp>
 
 namespace glslstruct {
-#if !GLSL_STRUCT_DISABLE_TYPES
-#pragma region TYPES
+	#pragma region ENUMS
+	enum class ValueType : uint8_t;
+	enum class MajorType : uint8_t;
+	#pragma endregion
+
+	#if !GLSL_STRUCT_DISABLE_TYPES
+	#pragma region TYPES
 	class base_type;
-	template<class _Derived>
+	template<class Derived>
 	class value_type;
 	class scalar_type;
 	class vec_type;
 	class mat_type;
 	class array_type;
 	class struct_type;
-#pragma endregion
+	#pragma endregion
 
-#pragma region TYPES_HANDLES
+	#pragma region TYPES_HANDLES
 	using base_type_handle = std::shared_ptr<base_type>;
-	template<class _Derived>
-	using value_type_handle = std::shared_ptr<value_type<_Derived>>;
+	template<class Derived>
+	using value_type_handle = std::shared_ptr<value_type<Derived>>;
 	using scalar_type_handle = std::shared_ptr<scalar_type>;
 	using vec_type_handle = std::shared_ptr<vec_type>;
 	using mat_type_handle = std::shared_ptr<mat_type>;
 	using array_type_handle = std::shared_ptr<array_type>;
 	using struct_type_handle = std::shared_ptr<struct_type>;
-#pragma endregion
-#endif
+	#pragma endregion
+	#endif
 
-#include <glslstruct/utils/type_checks.hpp>
-#include <glslstruct/utils/value_checks.hpp>
+	#pragma region TYPE_DATAS
+	class scalar_data;
+	class vec_data;
+	class mat_data;
+	#pragma endregion
 
+	#pragma region TYPE_TRAITS
+	template<class>
+	struct scalar_traits;
+
+	template<class>
+	struct vec_traits;
+
+	template<class>
+	struct mat_traits;
+	#pragma endregion
+}
+
+#include <glslstruct/value_types/checks/type_checks.hpp>
+#include <glslstruct/value_types/checks/value_checks.hpp>
+
+namespace glslstruct {
 	class base_layout;
 	class std140_layout;
 	class std430_layout;
+}
 
-#include <glslstruct/utils/layouts_checks.hpp>
+#include <glslstruct/value_types/checks/layouts_checks.hpp>
 
-	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(_Layout, utils::glsl_layout, utils::is_glsl_layout_v<_Offset>, = true)
+namespace glslstruct {
+	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(_Layout, utils::glsl_layout, utils::is_glsl_layout_v<_Layout>, = true)
 	class base_struct;
+}
 
-#include <glslstruct/utils/struct_checks.hpp>
+#include <glslstruct/value_types/checks/struct_checks.hpp>
 
-	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_simple_or_layout_value, utils::is_glsl_simple_or_layout_value_v<T>, = true, size_t num = 0)
-	struct variable;
-	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_simple_or_struct_value, utils::is_glsl_simple_or_struct_value_v<T>, = true, size_t num = 0)
-	struct value;
+namespace glslstruct {
+	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_simple_or_layout, utils::is_glsl_simple_or_layout_v<T>, = true, size_t num = 0)
+	struct glsl_variable;
+	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_simple_or_struct, utils::is_glsl_simple_or_struct_v<T>, = true, size_t num = 0)
+	struct glsl_value;
 }
 
 #pragma region SOME_ADDITIONAL_GLM_TYPES

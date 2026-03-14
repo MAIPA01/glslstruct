@@ -7,7 +7,6 @@
  * Copyright (c) 2025, Patryk Antosik (MAIPA01)
  */
 
-#pragma once
 #include <glslstruct/config.hpp>
 
 #if !_GLSL_STRUCT_HAS_CXX17

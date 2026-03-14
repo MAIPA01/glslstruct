@@ -14,8 +14,6 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 #else
 
-#include <glslstruct/types.hpp>
-
 namespace glslstruct {
 	ENUM_CLASS_BASE(MajorType, uint8_t,
 		(Column),

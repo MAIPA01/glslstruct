@@ -3,6 +3,8 @@ option(GLSL_STRUCT_DISABLE_TYPES "Disables type classes" OFF)
 option(GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE "Disables assert on release builds" OFF)
 option(GLSL_STRUCT_ENABLE_TYPE_CHECKS "Enables type checking (GLSL_STRUCT_DISABLE_TYPES should by ON)" OFF)
 
+set(MSTD_ENABLE_CXX20 ${GLSL_STRUCT_ENABLE_CXX20} CACHE BOOL "" FORCE)
+
 # source files
 set(PROJECT_SOURCES ${PROJECT_NAME}_SOURCES)
 file(GLOB_RECURSE ${PROJECT_SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
@@ -13,6 +15,8 @@ file(GLOB_RECURSE ${PROJECT_HEADERS} ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp)
 
 # make library
 add_library(${PROJECT_NAME} ${${PROJECT_LIBRARY_TYPE}} ${${PROJECT_HEADERS}} ${${PROJECT_SOURCES}})
+
+enable_clang_tidy(${PROJECT_NAME})
 
 # set library alias
 set(PROJECT_NAMESPACE ${PROJECT_NAME}::)

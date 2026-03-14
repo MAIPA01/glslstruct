@@ -32,27 +32,27 @@ namespace glslstruct {
 	)
 
 	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_type, utils::is_glsl_type_v<T>, = true)
-	class is_of_type_visitor : public base_type_visitor {
+	class is_of_type_visitor {
 	private:
 		bool _result = false;
 
 	public:
 		_GLSL_STRUCT_CONSTEXPR20 is_of_type_visitor() noexcept = default;
-		_GLSL_STRUCT_CONSTEXPR20 ~is_of_type_visitor() noexcept override = default;
+		_GLSL_STRUCT_CONSTEXPR20 ~is_of_type_visitor() noexcept = default;
 
-		void visit(const scalar_type&) override {
+		void visit(const scalar_type&) {
 			_result = std::is_same_v<T, scalar_type>;
 		}
-		void visit(const vec_type&) override {
+		void visit(const vec_type&) {
 			_result = std::is_same_v<T, vec_type>;
 		}
-		void visit(const mat_type&) override {
+		void visit(const mat_type&) {
 			_result = std::is_same_v<T, mat_type>;
 		}
-		void visit(const struct_type&) override {
+		void visit(const struct_type&) {
 			_result = std::is_same_v<T, struct_type>;
 		}
-		void visit(const array_type&) override {
+		void visit(const array_type&) {
 			_result = std::is_same_v<T, array_type>;
 		}
 
@@ -66,7 +66,7 @@ namespace glslstruct {
 	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_type, utils::is_glsl_type_v<T>, = true)
 	[[nodiscard]] inline _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const base_type_handle& type) {
 		is_of_type_visitor<T> visitor;
-		type->accept(&visitor);
+		type->accept(visitor);
 		return visitor.result();
 	}
 

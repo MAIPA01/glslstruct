@@ -14,32 +14,29 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater and when types are not disabled with GLSL_STRUCT_DISABLE_TYPES set to 1!");
 #else
 
-#include <glslstruct/value_data.hpp>
-#include <glslstruct/value_types/value_type.hpp>
+#include <glslstruct/value_types/data/value_data.hpp>
+#include <glslstruct/value_types/types/value_type.hpp>
 
 namespace glslstruct {
-	class struct_type;
-
-	using struct_type_handle = std::shared_ptr<struct_type>;
-
 	class struct_type : public value_type<struct_type> {
 	private:
 		friend struct std::hash<struct_type>;
-
-		using _base_class = value_type<struct_type>;
 
 		std::unordered_map<std::string, value_data> _values;
 
 	public:
 		struct_type(const std::unordered_map<std::string, value_data>& values, size_t size) noexcept;
-		struct_type(const struct_type& other) noexcept = default;
+		struct_type(const struct_type& other) noexcept;
 		struct_type(struct_type&& other) noexcept;
-		virtual ~struct_type() noexcept = default;
+		~struct_type() noexcept override;
 
-		struct_type& operator=(const struct_type& other) noexcept = default;
+		struct_type& operator=(const struct_type& other) noexcept;
 		struct_type& operator=(struct_type&& other) noexcept;
 
-		void accept(base_type_visitor* const visitor) const override;
+		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, type_visitor, is_type_visitor_v<T>, = true)
+		void accept(T& visitor) const {
+			visitor.visit(*this);
+		}
 
 		[[nodiscard]] const std::unordered_map<std::string, value_data>& get_values() const noexcept;
 
@@ -55,6 +52,6 @@ namespace glslstruct {
 
 template<>
 struct std::hash<glslstruct::struct_type> {
-	[[nodiscard]] size_t operator()(const glslstruct::struct_type& value) noexcept;
+	[[nodiscard]] size_t operator()(const glslstruct::struct_type& type) const noexcept;
 };
 #endif

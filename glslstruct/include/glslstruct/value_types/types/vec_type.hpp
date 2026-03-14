@@ -14,32 +14,30 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater and when types are not disabled with GLSL_STRUCT_DISABLE_TYPES set to 1!");
 #else
 
-#include <glslstruct/value_types/value_type.hpp>
+#include <glslstruct/value_types/types/value_type.hpp>
+#include <glslstruct/value_types/ValueType.hpp>
 
 namespace glslstruct {
-	class vec_type;
-
-	using vec_type_handle = std::shared_ptr<vec_type>;
-
 	class vec_type : public value_type<vec_type> {
 	private:
 		friend struct std::hash<vec_type>;
-
-		using _base_class = value_type<vec_type>;
 
 		size_t _length = 0;
 		ValueType _type = ValueType::Other;
 
 	public:
 		vec_type(ValueType type, size_t length) noexcept;
-		_GLSL_STRUCT_CONSTEXPR20 vec_type(const vec_type& other) noexcept = default;
-		_GLSL_STRUCT_CONSTEXPR20 vec_type(vec_type&& other) noexcept = default;
-		virtual _GLSL_STRUCT_CONSTEXPR20 ~vec_type() noexcept = default;
+		vec_type(const vec_type& other) noexcept;
+		vec_type(vec_type&& other) noexcept;
+		~vec_type() noexcept override;
 
-		vec_type& operator=(const vec_type& other) noexcept = default;
-		vec_type& operator=(vec_type&& other) noexcept = default;
+		vec_type& operator=(const vec_type& other) noexcept;
+		vec_type& operator=(vec_type&& other) noexcept;
 
-		void accept(base_type_visitor* const visitor) const override;
+		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, type_visitor, is_type_visitor_v<T>, = true)
+		void accept(T& visitor) const {
+			visitor.visit(*this);
+		}
 
 		[[nodiscard]] ValueType get_type() const noexcept;
 		[[nodiscard]] size_t get_length() const noexcept;
@@ -56,6 +54,6 @@ namespace glslstruct {
 
 template<>
 struct std::hash<glslstruct::vec_type> {
-	[[nodiscard]] size_t operator()(const glslstruct::vec_type& value) noexcept;
+	[[nodiscard]] size_t operator()(const glslstruct::vec_type& value) const noexcept;
 };
 #endif

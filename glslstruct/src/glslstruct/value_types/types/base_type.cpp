@@ -19,9 +19,9 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater and when types 
 using namespace glslstruct;
 
 base_type::base_type(size_t size) noexcept : _size(size) {}
-_GLSL_STRUCT_CONSTEXPR20 base_type::base_type(const base_type& other) noexcept = default;
-_GLSL_STRUCT_CONSTEXPR20 base_type::base_type(base_type&& other) noexcept = default;
-_GLSL_STRUCT_CONSTEXPR20 base_type::~base_type() noexcept = default;
+base_type::base_type(const base_type& other) noexcept = default;
+base_type::base_type(base_type&& other) noexcept = default;
+base_type::~base_type() noexcept = default;
 
 base_type& base_type::operator=(const base_type& other) noexcept = default;
 base_type& base_type::operator=(base_type&& other) noexcept = default;
@@ -51,7 +51,7 @@ std::string glslstruct::to_string(const base_type_handle& type) noexcept {
 
 size_t std::hash<base_type>::operator()(const base_type& type) const noexcept {
 	type_hash_visitor visitor;
-	type.accept(&visitor);
+	type.accept(visitor);
 	size_t result = visitor.result();
 	mstd::hash_append(result, type._size);
 	return result;

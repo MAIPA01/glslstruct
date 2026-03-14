@@ -15,9 +15,6 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 #else
 
 #include <glslstruct/types.hpp>
-#include <glslstruct/value_types/traits/scalar_traits.hpp>
-#include <glslstruct/value_types/traits/vec_traits.hpp>
-#include <glslstruct/value_types/traits/mat_traits.hpp>
 
 namespace glslstruct::utils {
 #pragma region IS_VECTOR_OF
@@ -64,7 +61,7 @@ namespace glslstruct::utils {
 		typename vec_traits<T>::value_type,
 		decltype(vec_traits<T>::length),
 		decltype(vec_traits<T>::get_data(std::declval<T>()))
-	>> : std::bool_constant<(is_glsl_scalar_v<glsl_vec_value_type<T>> && mstd::is_in_range_v<glsl_vec_length<T>, 2, 4>)> {};
+	>> : std::bool_constant<(is_glsl_scalar_v<typename vec_traits<T>::value_type> && mstd::is_in_range_v<vec_traits<T>::length, 2, 4>)> {};
 
 	template<class T>
 	static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_vec_v = is_glsl_vec<T>::value;
@@ -92,8 +89,9 @@ namespace glslstruct::utils {
 		typename mat_traits<T>::value_type,
 		decltype(mat_traits<T>::columns),
 		decltype(mat_traits<T>::rows),
-		decltype(mat_traits<T>::get_data(std::declval<T>()))
-	>> : std::bool_constant<(is_glsl_scalar_v<T> && mstd::is_in_range_v<glsl_mat_columns<T>, 2, 4> && mstd::is_in_range_v<glsl_mat_rows<T>, 2, 4>)> {};
+		decltype(mat_traits<T>::get_data(std::declval<T>(), std::declval<MajorType>()))
+	>> : std::bool_constant<(is_glsl_scalar_v<typename mat_traits<T>::value_type> &&
+		mstd::is_in_range_v<mat_traits<T>::columns, 2, 4> && mstd::is_in_range_v<mat_traits<T>::rows, 2, 4>)> {};
 
 	template<class T>
 	static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_mat_v = is_glsl_mat<T>::value;

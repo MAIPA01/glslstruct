@@ -1,5 +1,5 @@
 /*
- * glslstruct - a C++ library designed to easily represent GLSL's Uniform Buffer Objects (UBOs) and Shader Storage Buffer Objects (SSBOs) in C++.
+* glslstruct - a C++ library designed to easily represent GLSL's Uniform Buffer Objects (UBOs) and Shader Storage Buffer Objects (SSBOs) in C++.
  *
  * Licensed under the BSD 3-Clause License with Attribution Requirement.
  * See the LICENSE file for details: https://github.com/MAIPA01/glslstruct/blob/main/LICENSE
@@ -8,7 +8,13 @@
  */
 
 #pragma once
-#include <glslstruct/std_variable.hpp>
+#include <glslstruct/config.hpp>
+
+#if !_GLSL_STRUCT_HAS_CXX17
+_GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
+#else
+
+#include <glslstruct/variable/glsl_variable.hpp>
 
 namespace glslstruct {
 	template<class T>
@@ -16,7 +22,7 @@ namespace glslstruct {
 		const T value;
 
 		single_value() : value() {}
-		single_value(const T& value) : value(value) {}
+		explicit single_value(const T& value) : value(value) {}
 	};
 
 	template<class T, size_t num>
@@ -50,41 +56,41 @@ namespace glslstruct {
 		}
 
 		array_value() : value() {}
-		array_value(const std::vector<T>& values) : value(init_value(values)) {}
-		array_value(const std::array<T, num>& values) : value(init_value(values)) {}
-		array_value(const T* values, size_t size) : value(init_value(values, size)) {}
-		array_value(const T(&values)[num]) : value(init_value(values)) {}
+		explicit array_value(const std::vector<T>& values) : value(init_value(values)) {}
+		explicit array_value(const std::array<T, num>& values) : value(init_value(values)) {}
+		explicit array_value(const T* values, size_t size) : value(init_value(values, size)) {}
+		explicit array_value(const T(&values)[num]) : value(init_value(values)) {}
 	};
 
 	template<class T, size_t num>
 	struct struct_array_value : public array_value<std::vector<std::byte>, num> {
 	private:
 		using array_type = array_value<std::vector<std::byte>, num>;
-		using offset_type = typename T::offset_type;
+		using layout_type = typename T::layout_type;
 
 	public:
-		const offset_type struct_offsets;
+		const layout_type layout;
 
-		struct_array_value(const offset_type& offsets)
-			: array_type(), struct_offsets(offsets) {}
-		struct_array_value(const offset_type& offsets, const std::vector<T>& values) 
-			: array_type(values), struct_offsets(offsets) {}
-		struct_array_value(const offset_type& offsets, const std::array<T, num>& values)
-			: array_type(values), struct_offsets(offsets) {}
-		struct_array_value(const offset_type& offsets, const T* values, size_t size)
-			: array_type(values, size), struct_offsets(offsets) {}
-		struct_array_value(const offset_type& offsets, const T(&values)[num])
-			: array_type(values), struct_offsets(offsets) {}
+		explicit struct_array_value(const layout_type& layout)
+			: array_type(), layout(layout) {}
+		struct_array_value(const layout_type& layout, const std::vector<T>& values)
+			: array_type(values), layout(layout) {}
+		struct_array_value(const layout_type& layout, const std::array<T, num>& values)
+			: array_type(values), layout(layout) {}
+		struct_array_value(const layout_type& layout, const T* values, size_t size)
+			: array_type(values, size), layout(layout) {}
+		struct_array_value(const layout_type& layout, const T(&values)[num])
+			: array_type(values), layout(layout) {}
 	};
 
-	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_simple_or_struct_value, utils::is_glsl_simple_or_struct_value_v<T>, , size_t num)
-	struct std_value : public std::conditional_t<
+	_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, utils::glsl_simple_or_struct, utils::is_glsl_simple_or_struct_v<T>, , size_t num)
+	struct glsl_value : public std::conditional_t<
 		mstd::is_eq_v<num, 0>,
 		single_value<T>,
 		std::conditional_t<
-		utils::is_glsl_simple_value_v<T>,
-		array_value<T, num>,
-		struct_array_value<T, num>
+			utils::is_glsl_simple_v<T>,
+			array_value<T, num>,
+			struct_array_value<T, num>
 		>
 	> {
 	private:
@@ -92,9 +98,9 @@ namespace glslstruct {
 			mstd::is_eq_v<num, 0>,
 			single_value<T>,
 			std::conditional_t<
-			utils::is_glsl_simple_value_v<T>,
-			array_value<T, num>,
-			struct_array_value<T, num>
+				utils::is_glsl_simple_v<T>,
+				array_value<T, num>,
+				struct_array_value<T, num>
 			>
 		>;
 
@@ -108,41 +114,41 @@ namespace glslstruct {
 #pragma endregion
 
 #pragma region DEFAULT_CONSTRUCTOR
-		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T = value_type, utils::glsl_simple_value, 
-			(utils::is_glsl_simple_value_v<T> && std::is_same_v<T, value_type>), = true)
-		std_value(const std::string& name) _GLSL_STRUCT_REQUIRES((std::is_same_v<T, value_type>))
+		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T = value_type, utils::glsl_simple,
+			(utils::is_glsl_simple_v<T> && std::is_same_v<T, value_type>), = true)
+		glsl_value(const std::string_view& name) _GLSL_STRUCT_REQUIRES((std::is_same_v<T, value_type>))
 			: base_struct(), var_name(name) {}
 #pragma endregion
 
 #pragma region SINGLE_VALUE_CONSTRUCTOR
-		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T = value_type, utils::glsl_simple_or_struct_value,
-				(utils::is_glsl_simple_or_struct_value_v<T> && std::is_same_v<T, value_type> && mstd::is_eq_v<array_size, 0>), = true)
-		std_value(const std::string& name, const T& value) _GLSL_STRUCT_REQUIRES((std::is_same_v<T, value_type> && mstd::is_eq_v<array_size, 0>))
+		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T = value_type, utils::glsl_simple_or_struct,
+				(utils::is_glsl_simple_or_struct_v<T> && std::is_same_v<T, value_type> && mstd::is_eq_v<array_size, 0>), = true)
+		glsl_value(const std::string_view& name, const T& value) _GLSL_STRUCT_REQUIRES((std::is_same_v<T, value_type> && mstd::is_eq_v<array_size, 0>))
 			: base_struct(value), var_name(name) {}
 #pragma endregion
 
 #pragma region ARRAY_CONSTRUCTORS
-		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T = value_type, utils::glsl_simple_value,
-			(utils::is_glsl_simple_value_v<T>&& std::is_same_v<T, value_type> && mstd::is_gt_v<array_size, 0>), = true)
-		std_value(const std::string& name, const std::vector<T>& values) 
+		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T = value_type, utils::glsl_simple,
+			(utils::is_glsl_simple_v<T>&& std::is_same_v<T, value_type> && mstd::is_gt_v<array_size, 0>), = true)
+		glsl_value(const std::string_view& name, const std::vector<T>& values)
 			_GLSL_STRUCT_REQUIRES((std::is_same_v<T, value_type> && mstd::is_gt_v<array_size, 0>))
 			: base_struct(values), var_name(name) {}
 
-		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T = value_type, utils::glsl_simple_value,
-			(utils::is_glsl_simple_value_v<T>&& std::is_same_v<T, value_type>&& mstd::is_eq_v<array_size, 0>), = true)
-		std_value(const std::string& name, const std::array<T, array_size>& values) 
+		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T = value_type, utils::glsl_simple,
+			(utils::is_glsl_simple_v<T>&& std::is_same_v<T, value_type>&& mstd::is_eq_v<array_size, 0>), = true)
+		glsl_value(const std::string_view& name, const std::array<T, array_size>& values)
 			_GLSL_STRUCT_REQUIRES((std::is_same_v<T, value_type>&& mstd::is_gt_v<array_size, 0>))
 			: base_struct(values), var_name(name) {}
 
-		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T = value_type, utils::glsl_simple_value,
-			(utils::is_glsl_simple_value_v<T> && std::is_same_v<T, value_type>&& mstd::is_eq_v<array_size, 0>), = true)
-		std_value(const std::string& name, const T* values, size_t size) 
+		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T = value_type, utils::glsl_simple,
+			(utils::is_glsl_simple_v<T> && std::is_same_v<T, value_type>&& mstd::is_eq_v<array_size, 0>), = true)
+		glsl_value(const std::string_view& name, const T* values, size_t size)
 			_GLSL_STRUCT_REQUIRES((std::is_same_v<T, value_type>&& mstd::is_gt_v<array_size, 0>))
 			: base_struct(values, size), var_name(name) {}
 
-		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T = value_type, utils::glsl_simple_value,
-			(utils::is_glsl_simple_value_v<T> && std::is_same_v<T, value_type>&& mstd::is_eq_v<array_size, 0>), = true)
-		std_value(const std::string& name, const T(&values)[array_size]) 
+		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T = value_type, utils::glsl_simple,
+			(utils::is_glsl_simple_v<T> && std::is_same_v<T, value_type>&& mstd::is_eq_v<array_size, 0>), = true)
+		glsl_value(const std::string_view& name, const T(&values)[array_size])
 			_GLSL_STRUCT_REQUIRES((std::is_same_v<T, value_type> && mstd::is_gt_v<array_size, 0>))
 			: base_struct(values), var_name(name) {}
 #pragma endregion
@@ -150,37 +156,39 @@ namespace glslstruct {
 #pragma region STRUCT_ARRAY_CONSTRUCTORS
 		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T = value_type, utils::glsl_struct,
 			(utils::is_glsl_struct_v<T> && std::is_same_v<T, value_type> && mstd::is_gt_v<array_size, 0>), = true)
-		std_value(const std::string& name, const typename T::offset_type& offsets) 
+		glsl_value(const std::string& name, const typename T::layout_type& layout)
 			_GLSL_STRUCT_REQUIRES((std::is_same_v<T, value_type> && mstd::is_gt_v<array_size, 0>))
-			: base_struct(offsets), var_name(name) {}
+			: base_struct(layout), var_name(name) {}
 
 		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T = value_type, utils::glsl_struct,
 			(utils::is_glsl_struct_v<T> && std::is_same_v<T, value_type> && mstd::is_gt_v<array_size, 0>), = true)
-		std_value(const std::string& name, const typename T::offset_type& offsets,
+		glsl_value(const std::string_view& name, const typename T::layout_type& layout,
 			const std::vector<std::vector<std::byte>>& values) 
 			_GLSL_STRUCT_REQUIRES((std::is_same_v<T, value_type>&& mstd::is_gt_v<array_size, 0>))
-			: base_struct(offsets, values), var_name(name) {}
+			: base_struct(layout, values), var_name(name) {}
 
 		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T = value_type, utils::glsl_struct,
 			(utils::is_glsl_struct_v<T> && std::is_same_v<T, value_type> && mstd::is_gt_v<array_size, 0>), = true)
-		std_value(const std::string& name, const typename T::offset_type& offsets,
+		glsl_value(const std::string_view& name, const typename T::layout_type& layout,
 			const std::array<std::vector<std::byte>, array_size>& values) 
 			_GLSL_STRUCT_REQUIRES((std::is_same_v<T, value_type>&& mstd::is_gt_v<array_size, 0>))
-			: base_struct(offsets, values), var_name(name) {}
+			: base_struct(layout, values), var_name(name) {}
 
 		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T = value_type, utils::glsl_struct,
 			(utils::is_glsl_struct_v<T> && std::is_same_v<T, value_type> && mstd::is_gt_v<array_size, 0>), = true)
-		std_value(const std::string& name, const typename T::offset_type& offsets, 
+		glsl_value(const std::string_view& name, const typename T::layout_type& layout,
 			const std::vector<std::byte>* values, size_t size) 
 			_GLSL_STRUCT_REQUIRES((std::is_same_v<T, value_type>&& mstd::is_gt_v<array_size, 0>))
-			: base_struct(offsets, values, size), var_name(name) {}
+			: base_struct(layout, values, size), var_name(name) {}
 
 		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T = value_type, utils::glsl_struct,
 			(utils::is_glsl_struct_v<T> && std::is_same_v<T, value_type> && mstd::is_gt_v<array_size, 0>), = true)
-		std_value(const std::string& name, const typename T::offset_type& offsets, 
+		glsl_value(const std::string_view& name, const typename T::layout_type& layout,
 			const std::vector<std::byte>(&values)[num]) 
 			_GLSL_STRUCT_REQUIRES((std::is_same_v<T, value_type>&& mstd::is_gt_v<array_size, 0>))
-			: base_struct(offsets, values), var_name(name) {}
+			: base_struct(layout, values), var_name(name) {}
 #pragma endregion
 	};
 }
+
+#endif

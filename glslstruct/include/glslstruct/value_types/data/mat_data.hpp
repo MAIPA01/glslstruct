@@ -14,14 +14,13 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 #else
 
-#include <glslstruct/types.hpp>
 #include <glslstruct/value_types/MajorType.hpp>
 
 namespace glslstruct {
-	struct mat_data {
+	class mat_data {
 	private:
 		template<class T, size_t N>
-		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 std::vector<std::byte> _get_data(const std::array<T, N>& values) {
+		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 std::vector<std::byte> _get_data(const std::array<T, N>& values) {
 			static_assert(std::is_trivially_copyable_v<T>, "T must be trivially copyable to be treated as raw bytes!!");
 
 			std::vector<std::byte> data;
@@ -78,9 +77,9 @@ namespace glslstruct {
 
 	public:
 		template<class T, size_t C, size_t R>
-		mat_data(const glm::mat<C, R, T>& value, MajorType major = MajorType::Column) : _data(_get_data(_to_array(value, major))) {}
+		explicit mat_data(const glm::mat<C, R, T>& value, MajorType major = MajorType::Column) : _data(_get_data(_to_array(value, major))) {}
 		template<class T, size_t C, size_t R>
-		mat_data(const mstd::mat<C, R, T>& value, MajorType major = MajorType::Column) : _data(_get_data(_to_array(value, major))) {}
+		explicit mat_data(const mstd::mat<C, R, T>& value, MajorType major = MajorType::Column) : _data(_get_data(_to_array(value, major))) {}
 
 		mat_data(const mat_data& other);
 		mat_data(mat_data&& other) noexcept;

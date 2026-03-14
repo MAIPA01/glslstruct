@@ -5,7 +5,7 @@ using namespace glm;
 
 TEST(std_struct, add_array) {
 	std430_struct test{
-		std_value<int, 3>("test", { 2, 3, 4 })
+		glsl_value<int, 3>("test", { 2, 3, 4 })
 	};
 	int value = test.get<int>("test[1]");
 	EXPECT_EQ(value, 3);
@@ -15,7 +15,7 @@ TEST(std_struct, add_array) {
 
 TEST(std_struct, copy_test) {
 	std430_struct test{
-		std_value<int, 3>("test", { 2, 3, 4 })
+		glsl_value<int, 3>("test", { 2, 3, 4 })
 	};
 	int value = test.get<int>("test[1]");
 	EXPECT_EQ(value, 3);
@@ -29,14 +29,18 @@ TEST(std_struct, copy_test) {
 	EXPECT_EQ(ret, 0);
 }
 
+#include <glslstruct/value_types/traits/mat_traits.hpp>
+
+static_assert(utils::is_glsl_mat_v<mat4>);
+
 TEST(std_struct, constructor_and_get) {
 	size_t ret;
 	std::vector<size_t> retVec;
 
 #pragma region RECT
 	std430_struct rect{
-		std_value<mat4>("transform", mat4(1.f)),
-		std_value<vec2>("size")
+		glsl_value<mat4>("transform", mat4(1.f)),
+		glsl_value<vec2>("size")
 	};
 	mat4 transform = rect.get<mat4>("transform");
 	EXPECT_EQ(transform, mat4(1.f));
@@ -50,9 +54,9 @@ TEST(std_struct, constructor_and_get) {
 
 #pragma region SPRITE
 	std430_struct sprite{
-		std_value<uvec2>("offset"),
-		std_value<uvec2>("size"),
-		std_value<bool>("isActive")
+		glsl_value<uvec2>("offset"),
+		glsl_value<uvec2>("size"),
+		glsl_value<bool>("isActive")
 	};
 	ret = sprite.get_offset("offset");
 	EXPECT_EQ(ret, 0);
@@ -66,12 +70,12 @@ TEST(std_struct, constructor_and_get) {
 
 #pragma region FILL
 	std430_struct fill{
-		std_value<unsigned int>("type"),
-		std_value<unsigned int>("subType"),
-		std_value<float>("offset"),
-		std_value<float>("progress"),
-		std_value<float>("rotation"),
-		std_value<bool>("isActive")
+		glsl_value<unsigned int>("type"),
+		glsl_value<unsigned int>("subType"),
+		glsl_value<float>("offset"),
+		glsl_value<float>("progress"),
+		glsl_value<float>("rotation"),
+		glsl_value<bool>("isActive")
 	};
 	ret = fill.get_offset("type");
 	EXPECT_EQ(ret, 0);
@@ -91,11 +95,11 @@ TEST(std_struct, constructor_and_get) {
 
 #pragma region UIElement
 	std430_struct uiElement{
-		std_value<std430_struct>("rect", rect),
-		std_value<std430_struct>("sprite", sprite),
-		std_value<std430_struct>("fill", fill),
-		std_value<vec4>("color"),
-		std_value<bool>("isText")
+		glsl_value<std430_struct>("rect", rect),
+		glsl_value<std430_struct>("sprite", sprite),
+		glsl_value<std430_struct>("fill", fill),
+		glsl_value<vec4>("color"),
+		glsl_value<bool>("isText")
 	};
 	ret = uiElement.get_offset("rect");
 	EXPECT_EQ(ret, 0);
@@ -144,8 +148,8 @@ TEST(std_struct, constructor_and_get) {
 
 #pragma region TEXTURE
 	std430_struct texture{
-		std_value<uvec2>("size"),
-		std_value<bool>("isActive")
+		glsl_value<uvec2>("size"),
+		glsl_value<bool>("isActive")
 	};
 	ret = texture.get_offset("size");
 	EXPECT_EQ(ret, 0);
@@ -157,9 +161,9 @@ TEST(std_struct, constructor_and_get) {
 
 #pragma region SSBO
 	std430_struct ssbo{
-		std_value<std430_struct, 8>("uiElements", uiElement.get_offsets()),
-		std_value<std430_struct>("elementTexture", texture),
-		std_value<int>("elementLayer")
+		glsl_value<std430_struct, 8>("uiElements", uiElement.get_layout()),
+		glsl_value<std430_struct>("elementTexture", texture),
+		glsl_value<int>("elementLayer")
 	};
 	std::vector<size_t> resultVec{ 0, 176, 352, 528, 704, 880, 1056, 1232 };
 	retVec = ssbo.get_array_offsets("uiElements");

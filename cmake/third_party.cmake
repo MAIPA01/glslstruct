@@ -22,10 +22,7 @@ endif()
 message(STATUS "Include CPM.cmake from ${CPM_DOWNLOAD_LOCATION}")
 include(${CPM_DOWNLOAD_LOCATION})
 
-CPMAddPackage(
-    URI "gh:maipa01/mstd#v1.4.1"
-    OPTIONS "MSTD_ENABLE_CXX20 ${GLSL_STRUCT_ENABLE_CXX20}"
-)
+CPMAddPackage("gh:maipa01/mstd#v1.4.3")
 
 CPMAddPackage("gh:g-truc/glm#1.0.3")
 

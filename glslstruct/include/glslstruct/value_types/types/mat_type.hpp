@@ -14,36 +14,35 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater and when types are not disabled with GLSL_STRUCT_DISABLE_TYPES set to 1!");
 #else
 
-#include <glslstruct/value_types/value_type.hpp>
+#include <glslstruct/value_types/types/value_type.hpp>
+#include <glslstruct/value_types/ValueType.hpp>
+#include <glslstruct/value_types/MajorType.hpp>
 
 namespace glslstruct {
-	class mat_type;
-
-	using mat_type_handle = std::shared_ptr<mat_type>;
-
 	class mat_type : public value_type<mat_type> {
 	private:
 		friend struct std::hash<mat_type>;
 
-		using _base_class = value_type<mat_type>;
-
 		size_t _cols = 0;
 		size_t _rows = 0;
 		ValueType _type = ValueType::Other;
-		bool _columnMajor = false;
+		MajorType _major = MajorType::Column;
 
-		[[nodiscard]] static size_t _calculate_mat_size(ValueType type, size_t cols, size_t rows, bool columnMajor = true) noexcept;
+		[[nodiscard]] static size_t _calculate_mat_size(ValueType type, size_t cols, size_t rows, MajorType major = MajorType::Column) noexcept;
 
 	public:
-		mat_type(ValueType type, size_t cols, size_t rows, bool columnMajor = true) noexcept;
-		_GLSL_STRUCT_CONSTEXPR20 mat_type(const mat_type& other) noexcept = default;
-		_GLSL_STRUCT_CONSTEXPR20 mat_type(mat_type&& other) noexcept = default;
-		virtual _GLSL_STRUCT_CONSTEXPR20 ~mat_type() noexcept = default;
+		mat_type(ValueType type, size_t cols, size_t rows, MajorType major = MajorType::Column) noexcept;
+		mat_type(const mat_type& other) noexcept;
+		mat_type(mat_type&& other) noexcept;
+		~mat_type() noexcept override;
 
-		mat_type& operator=(const mat_type& other) noexcept = default;
-		mat_type& operator=(mat_type&& other) noexcept = default;
+		mat_type& operator=(const mat_type& other) noexcept;
+		mat_type& operator=(mat_type&& other) noexcept;
 
-		void accept(base_type_visitor* const visitor) const override;
+		_GLSL_STRUCT_ONE_CLASS_TEMPLATE(T, type_visitor, is_type_visitor_v<T>, = true)
+		void accept(T& visitor) const {
+			visitor.visit(*this);
+		}
 
 		[[nodiscard]] ValueType get_type() const noexcept;
 		[[nodiscard]] size_t get_rows() const noexcept;
@@ -51,7 +50,7 @@ namespace glslstruct {
 		[[nodiscard]] size_t get_vec_length() const noexcept;
 		[[nodiscard]] size_t get_array_count() const noexcept;
 
-		[[nodiscard]] bool is_column_major() const noexcept;
+		[[nodiscard]] MajorType get_major_type() const noexcept;
 
 		[[nodiscard]] std::string to_string() const noexcept override;
 
@@ -65,6 +64,6 @@ namespace glslstruct {
 
 template<>
 struct std::hash<glslstruct::mat_type> {
-	[[nodiscard]] size_t operator()(const glslstruct::mat_type& value) noexcept;
+	[[nodiscard]] size_t operator()(const glslstruct::mat_type& value) const noexcept;
 };
 #endif

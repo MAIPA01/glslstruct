@@ -3,18 +3,18 @@
 using namespace glslstruct;
 using namespace glm;
 
-TEST(std140_offset, offset_calculation_1) {
-	std140_offset structOffsets;
-	std140_offset subStructOffsets;
+TEST(std140_layout, offset_calculation_1) {
+	std140_layout structLayout;
+	std140_layout subStructOffsets;
 	size_t ret;
 	std::vector<size_t> retVec;
 	std::vector<size_t> resultVec;
 
-	ret = structOffsets.add<float>("a");
+	ret = structLayout.add<float>("a");
 	EXPECT_EQ(ret, 0);
-	ret = structOffsets.add<vec2>("b");
+	ret = structLayout.add<vec2>("b");
 	EXPECT_EQ(ret, 8);
-	ret = structOffsets.add<vec3>("c");
+	ret = structLayout.add<vec3>("c");
 	EXPECT_EQ(ret, 16);
 
 	ret = subStructOffsets.add<int>("d");
@@ -24,14 +24,14 @@ TEST(std140_offset, offset_calculation_1) {
 	ret = subStructOffsets.size();
 	EXPECT_EQ(ret, 16);
 
-	ret = structOffsets.add("f", subStructOffsets);
+	ret = structLayout.add("f", subStructOffsets);
 	EXPECT_EQ(ret, 32);
-	ret = structOffsets.add<float>("g");
+	ret = structLayout.add<float>("g");
 	EXPECT_EQ(ret, 48);
 	resultVec = { 64, 80 };
-	retVec = structOffsets.add<float>("h", 2);
+	retVec = structLayout.add<float>("h", 2);
 	EXPECT_EQ(retVec, resultVec);
-	ret = structOffsets.add<mat2x3>("i");
+	ret = structLayout.add<mat2x3>("i");
 	EXPECT_EQ(ret, 96);
 
 	subStructOffsets.clear();
@@ -51,15 +51,15 @@ TEST(std140_offset, offset_calculation_1) {
 	EXPECT_EQ(ret, 176);
 
 	resultVec = { 128, 304 };
-	retVec = structOffsets.add("o", subStructOffsets, 2);
+	retVec = structLayout.add("o", subStructOffsets, 2);
 	EXPECT_EQ(retVec, resultVec);
-	ret = structOffsets.size();
+	ret = structLayout.size();
 	EXPECT_EQ(ret, 480);
 }
 
-TEST(std140_offset, offset_calculation_2) {
-	std140_offset structOffsets;
-	std140_offset subStructOffsets;
+TEST(std140_layout, offset_calculation_2) {
+	std140_layout structLayout;
+	std140_layout subStructOffsets;
 	size_t ret;
 
 	ret = subStructOffsets.add<bool>("has_diffuse_texture");
@@ -90,33 +90,33 @@ TEST(std140_offset, offset_calculation_2) {
 	EXPECT_EQ(ret, 80);
 
 	std::vector<size_t> resultVec{ 0, 80, 160, 240, 320, 400, 480, 560 };
-	std::vector<size_t> retVec = structOffsets.add("materialInputs", subStructOffsets, 8);
+	std::vector<size_t> retVec = structLayout.add("materialInputs", subStructOffsets, 8);
 	EXPECT_EQ(retVec, resultVec);
-	ret = structOffsets.size();
+	ret = structLayout.size();
 	EXPECT_EQ(ret, 640);
 }
 
-TEST(std140_offset, offset_calculation_3) {
-	std140_offset structOffsets;
+TEST(std140_layout, offset_calculation_3) {
+	std140_layout structLayout;
 	size_t ret;
 
-	ret = structOffsets.add<vec2>("windowSize");
+	ret = structLayout.add<vec2>("windowSize");
 	EXPECT_EQ(ret, 0);
-	ret = structOffsets.add<float>("nearPlane");
+	ret = structLayout.add<float>("nearPlane");
 	EXPECT_EQ(ret, 8);
-	ret = structOffsets.add<float>("farPlane");
+	ret = structLayout.add<float>("farPlane");
 	EXPECT_EQ(ret, 12);
-	ret = structOffsets.add<float>("gamma");
+	ret = structLayout.add<float>("gamma");
 	EXPECT_EQ(ret, 16);
-	ret = structOffsets.size();
+	ret = structLayout.size();
 	EXPECT_EQ(ret, 32);
 }
 
-TEST(std430_offset, offset_calculation_1) {
+TEST(std430_layout, offset_calculation_1) {
 	size_t ret;
 	std::vector<size_t> retVec;
 
-	std430_offset rect;
+	std430_layout rect;
 	ret = rect.add<mat4>("transform");
 	EXPECT_EQ(ret, 0);
 	ret = rect.add<vec2>("size");
@@ -124,7 +124,7 @@ TEST(std430_offset, offset_calculation_1) {
 	ret = rect.size();
 	EXPECT_EQ(ret, 80);
 
-	std430_offset sprite;
+	std430_layout sprite;
 	ret = sprite.add<uvec2>("offset");
 	EXPECT_EQ(ret, 0);
 	ret = sprite.add<uvec2>("size");
@@ -134,7 +134,7 @@ TEST(std430_offset, offset_calculation_1) {
 	ret = sprite.size();
 	EXPECT_EQ(ret, 32);
 
-	std430_offset fill;
+	std430_layout fill;
 	ret = fill.add<unsigned int>("type");
 	EXPECT_EQ(ret, 0);
 	ret = fill.add<unsigned int>("subType");
@@ -150,7 +150,7 @@ TEST(std430_offset, offset_calculation_1) {
 	ret = fill.size();
 	EXPECT_EQ(ret, 32);
 
-	std430_offset uiElement;
+	std430_layout uiElement;
 	ret = uiElement.add("rect", rect);
 	EXPECT_EQ(ret, 0);
 	ret = uiElement.add("sprite", sprite);
@@ -164,7 +164,7 @@ TEST(std430_offset, offset_calculation_1) {
 	ret = uiElement.size();
 	EXPECT_EQ(ret, 176);
 
-	std430_offset texture;
+	std430_layout texture;
 	ret = texture.add<uvec2>("size");
 	EXPECT_EQ(ret, 0);
 	ret = texture.add<bool>("isActive");
@@ -172,7 +172,7 @@ TEST(std430_offset, offset_calculation_1) {
 	ret = texture.size();
 	EXPECT_EQ(ret, 16);
 
-	std430_offset ssbo;
+	std430_layout ssbo;
 	std::vector<size_t> resultVec{ 0, 176, 352, 528, 704, 880, 1056, 1232 };
 	retVec = ssbo.add("uiElements", uiElement, 8);
 	EXPECT_EQ(retVec, resultVec);
@@ -184,11 +184,11 @@ TEST(std430_offset, offset_calculation_1) {
 	EXPECT_EQ(ret, 1440);
 }
 
-TEST(std430_offset, offset_calculation_2) {
+TEST(std430_layout, offset_calculation_2) {
 	size_t ret;
 	std::vector<size_t> retVec;
 
-	std430_offset pointLight;
+	std430_layout pointLight;
 	ret = pointLight.add<vec3>("position");
 	EXPECT_EQ(ret, 0);
 	ret = pointLight.add<vec3>("color");
@@ -204,7 +204,7 @@ TEST(std430_offset, offset_calculation_2) {
 	ret = pointLight.size();
 	EXPECT_EQ(ret, 48);
 
-	std430_offset spotLight;
+	std430_layout spotLight;
 	ret = spotLight.add<vec3>("position");
 	EXPECT_EQ(ret, 0);
 	ret = spotLight.add<vec3>("direction");
@@ -226,7 +226,7 @@ TEST(std430_offset, offset_calculation_2) {
 	ret = spotLight.size();
 	EXPECT_EQ(ret, 64);
 
-	std430_offset dirLight;
+	std430_layout dirLight;
 	ret = dirLight.add<vec3>("direction");
 	EXPECT_EQ(ret, 0);
 	ret = dirLight.add<vec3>("color");
@@ -244,7 +244,7 @@ TEST(std430_offset, offset_calculation_2) {
 	ret = dirLight.size();
 	EXPECT_EQ(ret, 112);
 
-	std430_offset ssbo;
+	std430_layout ssbo;
 	std::vector<size_t> resultVec;
 	ret = ssbo.add<unsigned int>("numberOfPointLights");
 	EXPECT_EQ(ret, 0);
