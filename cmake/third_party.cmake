@@ -22,11 +22,24 @@ endif()
 message(STATUS "Include CPM.cmake from ${CPM_DOWNLOAD_LOCATION}")
 include(${CPM_DOWNLOAD_LOCATION})
 
-CPMAddPackage("gh:maipa01/mstd#v1.4.3")
+if(NOT ${GLSL_STRUCT_USE_EXTERNAL_MSTD})
+    CPMAddPackage(
+            URI "gh:maipa01/mstd#v1.4.5"
+            OPTIONS "MSTD_ENABLE_CXX20 ${GLSL_STRUCT_ENABLE_CXX20}"
+                    "MSTD_ENABLE_ENUMS_MACROS ON"
+    )
+else()
+    set(MSTD_ENABLE_CXX20 ${GLSL_STRUCT_ENABLE_CXX20})
+    set(MSTD_ENABLE_ENUMS_MACROS ON)
+endif()
 
-CPMAddPackage("gh:g-truc/glm#1.0.3")
+if(NOT ${GLSL_STRUCT_DISABLE_GLM} AND NOT ${GLSL_STRUCT_USE_EXTERNAL_GLM})
+    CPMAddPackage("gh:g-truc/glm#1.0.3")
 
-CPMAddPackage("gh:fmtlib/fmt#12.1.0")
+    target_compile_definitions(glm PRIVATE GLM_ENABLE_EXPERIMENTAL)
+elseif(${GLSL_STRUCT_USE_EXTERNAL_GLM})
+    target_compile_definitions(glm PRIVATE GLM_ENABLE_EXPERIMENTAL)
+endif()
 
 if (GLSL_STRUCT_BUILD_TESTS)
     CPMAddPackage("gh:google/googletest#v1.17.0")

@@ -21,12 +21,11 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 #include <array>
 #include <fmt/core.h>
 #include <functional>
-#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#define USE_ENUMS_MACROS
 #include <mstd/mstd.hpp>
+#include <mstd/hash.hpp>
 #include <memory>
 #include <type_traits>
 #include <cstdint>

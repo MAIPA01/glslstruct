@@ -18,7 +18,7 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 
 #if _DEBUG
 #define glsl_struct_assert(expression, ...) mstd_stop_assert_base(expression, [](const std::string_view&) -> void {} __VA_OPT__(, ) __VA_ARGS__)
-#elif !GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE
+#elif !defined(GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE)
 #define glsl_struct_assert(expression, ...) mstd_log_assert_base(expression, [](const std::string_view&) -> void {} __VA_OPT__(, ) __VA_ARGS__)
 #else
 #define glsl_struct_assert(expression, ...) mstd_empty_assert_base(expression, [](const std::string_view&) -> void {} __VA_OPT__(, ) __VA_ARGS__)
