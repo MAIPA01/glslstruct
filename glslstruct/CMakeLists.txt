@@ -9,7 +9,8 @@ file(GLOB_RECURSE ${PROJECT_HEADERS} ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp)
 # make library
 add_library(${PROJECT_NAME} ${${PROJECT_LIBRARY_TYPE}} ${${PROJECT_HEADERS}} ${${PROJECT_SOURCES}})
 
-#enable_clang_tidy(${PROJECT_NAME})
+disable_clang_tidy_for_file(${CMAKE_CURRENT_SOURCE_DIR}/src/pch.hpp)
+enable_clang_tidy(${PROJECT_NAME})
 
 # set library alias
 set(PROJECT_NAMESPACE ${PROJECT_NAME}::)
@@ -19,10 +20,10 @@ add_library(${PROJECT_ALIAS} ALIAS ${PROJECT_NAME})
 target_compile_features(${PROJECT_NAME} PUBLIC $<IF:$<BOOL:${GLSL_STRUCT_ENABLE_CXX20}>,cxx_std_20,cxx_std_17>)
 
 # set headers folder
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include 
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
                                            PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-target_link_libraries(${PROJECT_NAME} PUBLIC    $<IF:$<NOT:$<BOOL:${GLSL_STRUCT_DISABLE_GLM}>>, glm, >
+target_link_libraries(${PROJECT_NAME} PUBLIC    $<$<NOT:$<BOOL:${GLSL_STRUCT_DISABLE_GLM}>>:glm>
                                                 mstd
 )
 

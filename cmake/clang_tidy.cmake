@@ -11,7 +11,7 @@ function(enable_clang_tidy TARGET)
     endif()
 
     if(NOT CLANG_TIDY_EXE)
-        message(STATUS "clang-tidy not found – skipping for target ${TARGET}")
+        message(STATUS "clang-tidy not found skipping for target ${TARGET}")
         return()
     endif()
 
@@ -45,7 +45,7 @@ function(enable_clang_tidy TARGET)
         "--quiet"
         "--system-headers=false"
         "--extra-arg=-Wno-macro-redefined"
-        "--extra-arg=-std=gnu++20"
+        "--extra-arg=-std=c++20"
         "--header-filter=^.*[\\\\\/\\\\]${PROJECT_FOLDER_NAME}[\\\\\/\\\\]${TARGET_SOURCE_DIR_REL}[\\\\\/\\\\].*"
         "--exclude-header-filter=^.*[\\\\\/\\\\]${PROJECT_FOLDER_NAME}[\\\\\/\\\\]ThirdParty[\\\\\/\\\\].*"
     )
