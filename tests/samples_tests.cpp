@@ -29,7 +29,7 @@ TEST(std140_layout, offset_calculation_1) {
 	ret = structLayout.add<float>("g");
 	EXPECT_EQ(ret, 48);
 	resultVec = { 64, 80 };
-	retVec = structLayout.add<float>("h", 2);
+	retVec	  = structLayout.add<float>("h", 2);
 	EXPECT_EQ(retVec, resultVec);
 	ret = structLayout.add<mat2x3>("i");
 	EXPECT_EQ(ret, 96);
@@ -40,18 +40,18 @@ TEST(std140_layout, offset_calculation_1) {
 	ret = subStructOffsets.add<vec2>("k");
 	EXPECT_EQ(ret, 16);
 	resultVec = { 32, 48 };
-	retVec = subStructOffsets.add<float>("l", 2);
+	retVec	  = subStructOffsets.add<float>("l", 2);
 	EXPECT_EQ(retVec, resultVec);
 	ret = subStructOffsets.add<vec2>("m");
 	EXPECT_EQ(ret, 64);
 	resultVec = { 80, 128 };
-	retVec = subStructOffsets.add<mat3>("n", 2);
+	retVec	  = subStructOffsets.add<mat3>("n", 2);
 	EXPECT_EQ(retVec, resultVec);
 	ret = subStructOffsets.size();
 	EXPECT_EQ(ret, 176);
 
 	resultVec = { 128, 304 };
-	retVec = structLayout.add("o", subStructOffsets, 2);
+	retVec	  = structLayout.add("o", subStructOffsets, 2);
 	EXPECT_EQ(retVec, resultVec);
 	ret = structLayout.size();
 	EXPECT_EQ(ret, 480);
@@ -89,7 +89,7 @@ TEST(std140_layout, offset_calculation_2) {
 	ret = subStructOffsets.size();
 	EXPECT_EQ(ret, 80);
 
-	std::vector<size_t> resultVec{ 0, 80, 160, 240, 320, 400, 480, 560 };
+	std::vector<size_t> resultVec { 0, 80, 160, 240, 320, 400, 480, 560 };
 	std::vector<size_t> retVec = structLayout.add("materialInputs", subStructOffsets, 8);
 	EXPECT_EQ(retVec, resultVec);
 	ret = structLayout.size();
@@ -173,7 +173,7 @@ TEST(std430_layout, offset_calculation_1) {
 	EXPECT_EQ(ret, 16);
 
 	std430_layout ssbo;
-	std::vector<size_t> resultVec{ 0, 176, 352, 528, 704, 880, 1056, 1232 };
+	std::vector<size_t> resultVec { 0, 176, 352, 528, 704, 880, 1056, 1232 };
 	retVec = ssbo.add("uiElements", uiElement, 8);
 	EXPECT_EQ(retVec, resultVec);
 	ret = ssbo.add("elementTexture", texture);
@@ -252,13 +252,13 @@ TEST(std430_layout, offset_calculation_2) {
 	EXPECT_EQ(ret, 4);
 	ret = ssbo.add<unsigned int>("numberOfDirLights");
 	EXPECT_EQ(ret, 8);
-	retVec = ssbo.add("pointLights", pointLight, 8);
+	retVec	  = ssbo.add("pointLights", pointLight, 8);
 	resultVec = { 16, 64, 112, 160, 208, 256, 304, 352 };
 	EXPECT_EQ(retVec, resultVec);
-	retVec = ssbo.add("spotLights", spotLight, 8);
+	retVec	  = ssbo.add("spotLights", spotLight, 8);
 	resultVec = { 400, 464, 528, 592, 656, 720, 784, 848 };
 	EXPECT_EQ(retVec, resultVec);
-	retVec = ssbo.add("dirLights", dirLight, 4);
+	retVec	  = ssbo.add("dirLights", dirLight, 4);
 	resultVec = { 912, 1024, 1136, 1248 };
 	EXPECT_EQ(retVec, resultVec);
 	ret = ssbo.size();

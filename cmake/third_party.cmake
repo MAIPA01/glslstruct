@@ -24,7 +24,7 @@ include(${CPM_DOWNLOAD_LOCATION})
 
 if(NOT ${GLSL_STRUCT_USE_EXTERNAL_MSTD})
     CPMAddPackage(
-            URI "gh:maipa01/mstd#v1.4.7"
+            URI "gh:maipa01/mstd#v1.4.9"
             OPTIONS "MSTD_ENABLE_CXX20 ${GLSL_STRUCT_ENABLE_CXX20}"
                     "MSTD_ENABLE_ENUMS_MACROS ON"
     )

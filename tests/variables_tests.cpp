@@ -8,10 +8,7 @@ TEST(std140_offset, constructor_and_get) {
 	std::vector<size_t> retVec;
 	std::vector<size_t> resultVec;
 
-	std140_layout subStruct1 {
-		glsl_variable<int>("d"),
-		glsl_variable<bvec2>("e")
-	};
+	std140_layout subStruct1 { glsl_variable<int>("d"), glsl_variable<bvec2>("e") };
 	ret = subStruct1.get_offset("d");
 	EXPECT_EQ(ret, 0);
 	ret = subStruct1.get_offset("e");
@@ -19,38 +16,26 @@ TEST(std140_offset, constructor_and_get) {
 	ret = subStruct1.size();
 	EXPECT_EQ(ret, 16);
 
-	std140_layout subStruct2 {
-		glsl_variable<uvec3>("j"),
-		glsl_variable<vec2>("k"),
-		glsl_variable<float, 2>("l"),
-		glsl_variable<vec2>("m"),
-		glsl_variable<mat3, 2>("n")
-	};
+	std140_layout subStruct2 { glsl_variable<uvec3>("j"), glsl_variable<vec2>("k"), glsl_variable<float, 2>("l"),
+		glsl_variable<vec2>("m"), glsl_variable<mat3, 2>("n") };
 	ret = subStruct2.get_offset("j");
 	EXPECT_EQ(ret, 0);
 	ret = subStruct2.get_offset("k");
 	EXPECT_EQ(ret, 16);
 	resultVec = { 32, 48 };
-	retVec = subStruct2.get_array_offsets("l");
+	retVec	  = subStruct2.get_array_offsets("l");
 	EXPECT_EQ(retVec, resultVec);
 	ret = subStruct2.get_offset("m");
 	EXPECT_EQ(ret, 64);
 	resultVec = { 80, 128 };
-	retVec = subStruct2.get_array_offsets("n");
+	retVec	  = subStruct2.get_array_offsets("n");
 	EXPECT_EQ(retVec, resultVec);
 	ret = subStruct2.size();
 	EXPECT_EQ(ret, 176);
 
-	std140_layout structLayout {
-		glsl_variable<float>("a"),
-		glsl_variable<vec2>("b"),
-		glsl_variable<vec3>("c"),
-		glsl_variable<std140_layout>("f", subStruct1),
-		glsl_variable<float>("g"),
-		glsl_variable<float, 2>("h"),
-		glsl_variable<mat2x3>("i"),
-		glsl_variable<std140_layout, 2>("o", subStruct2)
-	};
+	std140_layout structLayout { glsl_variable<float>("a"), glsl_variable<vec2>("b"), glsl_variable<vec3>("c"),
+		glsl_variable<std140_layout>("f", subStruct1), glsl_variable<float>("g"), glsl_variable<float, 2>("h"),
+		glsl_variable<mat2x3>("i"), glsl_variable<std140_layout, 2>("o", subStruct2) };
 	ret = structLayout.get_offset("a");
 	EXPECT_EQ(ret, 0);
 	ret = structLayout.get_offset("b");
@@ -69,12 +54,12 @@ TEST(std140_offset, constructor_and_get) {
 	ret = structLayout.get_offset("g");
 	EXPECT_EQ(ret, 48);
 	resultVec = { 64, 80 };
-	retVec = structLayout.get_array_offsets("h");
+	retVec	  = structLayout.get_array_offsets("h");
 	EXPECT_EQ(retVec, resultVec);
 	ret = structLayout.get_offset("i");
 	EXPECT_EQ(ret, 96);
 	resultVec = { 128, 304 };
-	retVec = structLayout.get_array_offsets("o");
+	retVec	  = structLayout.get_array_offsets("o");
 	EXPECT_EQ(retVec, resultVec);
 
 	// O1 sub values
@@ -82,12 +67,12 @@ TEST(std140_offset, constructor_and_get) {
 	EXPECT_EQ(ret, 128);
 	ret = structLayout.get_offset("o[0].k");
 	EXPECT_EQ(ret, 144);
-	retVec = structLayout.get_array_offsets("o[0].l");
+	retVec	  = structLayout.get_array_offsets("o[0].l");
 	resultVec = { 160, 176 };
 	EXPECT_EQ(retVec, resultVec);
 	ret = structLayout.get_offset("o[0].m");
 	EXPECT_EQ(ret, 192);
-	retVec = structLayout.get_array_offsets("o[0].n");
+	retVec	  = structLayout.get_array_offsets("o[0].n");
 	resultVec = { 208, 256 };
 	EXPECT_EQ(retVec, resultVec);
 
@@ -96,12 +81,12 @@ TEST(std140_offset, constructor_and_get) {
 	EXPECT_EQ(ret, 304);
 	ret = structLayout.get_offset("o[1].k");
 	EXPECT_EQ(ret, 320);
-	retVec = structLayout.get_array_offsets("o[1].l");
+	retVec	  = structLayout.get_array_offsets("o[1].l");
 	resultVec = { 336, 352 };
 	EXPECT_EQ(retVec, resultVec);
 	ret = structLayout.get_offset("o[1].m");
 	EXPECT_EQ(ret, 368);
-	retVec = structLayout.get_array_offsets("o[1].n");
+	retVec	  = structLayout.get_array_offsets("o[1].n");
 	resultVec = { 384, 432 };
 	EXPECT_EQ(retVec, resultVec);
 
@@ -114,10 +99,7 @@ TEST(std430_offset, constructor_and_get) {
 	std::vector<size_t> retVec;
 
 #pragma region RECT
-	std430_layout rect{
-		glsl_variable<mat4>("transform"),
-		glsl_variable<vec2>("size")
-	};
+	std430_layout rect { glsl_variable<mat4>("transform"), glsl_variable<vec2>("size") };
 	ret = rect.get_offset("transform");
 	EXPECT_EQ(ret, 0);
 	ret = rect.get_offset("size");
@@ -127,11 +109,7 @@ TEST(std430_offset, constructor_and_get) {
 #pragma endregion
 
 #pragma region SPRITE
-	std430_layout sprite{
-		glsl_variable<uvec2>("offset"),
-		glsl_variable<uvec2>("size"),
-		glsl_variable<bool>("isActive")
-	};
+	std430_layout sprite { glsl_variable<uvec2>("offset"), glsl_variable<uvec2>("size"), glsl_variable<bool>("isActive") };
 	ret = sprite.get_offset("offset");
 	EXPECT_EQ(ret, 0);
 	ret = sprite.get_offset("size");
@@ -143,14 +121,9 @@ TEST(std430_offset, constructor_and_get) {
 #pragma endregion
 
 #pragma region FILL
-	std430_layout fill{
-		glsl_variable<unsigned int>("type"),
-		glsl_variable<unsigned int>("subType"),
-		glsl_variable<float>("offset"),
-		glsl_variable<float>("progress"),
-		glsl_variable<float>("rotation"),
-		glsl_variable<bool>("isActive")
-	};
+	std430_layout fill { glsl_variable<unsigned int>("type"), glsl_variable<unsigned int>("subType"),
+		glsl_variable<float>("offset"), glsl_variable<float>("progress"), glsl_variable<float>("rotation"),
+		glsl_variable<bool>("isActive") };
 	ret = fill.get_offset("type");
 	EXPECT_EQ(ret, 0);
 	ret = fill.get_offset("subType");
@@ -168,13 +141,8 @@ TEST(std430_offset, constructor_and_get) {
 #pragma endregion
 
 #pragma region UIElement
-	std430_layout uiElement{
-		glsl_variable<std430_layout>("rect", rect),
-		glsl_variable<std430_layout>("sprite", sprite),
-		glsl_variable<std430_layout>("fill", fill),
-		glsl_variable<vec4>("color"),
-		glsl_variable<bool>("isText")
-	};
+	std430_layout uiElement { glsl_variable<std430_layout>("rect", rect), glsl_variable<std430_layout>("sprite", sprite),
+		glsl_variable<std430_layout>("fill", fill), glsl_variable<vec4>("color"), glsl_variable<bool>("isText") };
 	ret = uiElement.get_offset("rect");
 	EXPECT_EQ(ret, 0);
 
@@ -221,10 +189,7 @@ TEST(std430_offset, constructor_and_get) {
 #pragma endregion
 
 #pragma region TEXTURE
-	std430_layout texture{
-		glsl_variable<uvec2>("size"),
-		glsl_variable<bool>("isActive")
-	};
+	std430_layout texture { glsl_variable<uvec2>("size"), glsl_variable<bool>("isActive") };
 	ret = texture.get_offset("size");
 	EXPECT_EQ(ret, 0);
 	ret = texture.get_offset("isActive");
@@ -234,12 +199,9 @@ TEST(std430_offset, constructor_and_get) {
 #pragma endregion
 
 #pragma region SSBO
-	std430_layout ssbo{
-		glsl_variable<std430_layout, 8>("uiElements", uiElement),
-		glsl_variable<std430_layout>("elementTexture", texture),
-		glsl_variable<int>("elementLayer")
-	};
-	std::vector<size_t> resultVec{ 0, 176, 352, 528, 704, 880, 1056, 1232 };
+	std430_layout ssbo { glsl_variable<std430_layout, 8>("uiElements", uiElement),
+		glsl_variable<std430_layout>("elementTexture", texture), glsl_variable<int>("elementLayer") };
+	std::vector<size_t> resultVec { 0, 176, 352, 528, 704, 880, 1056, 1232 };
 	retVec = ssbo.get_array_offsets("uiElements");
 	EXPECT_EQ(retVec, resultVec);
 

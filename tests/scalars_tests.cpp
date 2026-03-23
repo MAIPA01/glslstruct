@@ -6,9 +6,9 @@ using namespace glm;
 TEST(std140_layout, add_scalars) {
 	std140_layout structLayout;
 	size_t ret;
-	base_type_handle base = nullptr;
-	scalar_type_handle temp_type = nullptr;
-	base_type_handle wrong_type = nullptr;
+	base_type_handle base		   = nullptr;
+	scalar_type_handle temp_type   = nullptr;
+	base_type_handle wrong_type	   = nullptr;
 	scalar_type_handle casted_type = nullptr;
 
 #pragma region BOOL
@@ -114,13 +114,13 @@ TEST(std140_layout, add_scalars_array) {
 	std140_layout structLayout;
 	std::vector<size_t> results;
 	std::vector<size_t> ret;
-	base_type_handle base = nullptr;
-	array_type_handle temp_type = nullptr;
+	base_type_handle base		  = nullptr;
+	array_type_handle temp_type	  = nullptr;
 	array_type_handle casted_type = nullptr;
 
 #pragma region BOOL_ARRAY
 	results = { 0, 16 };
-	ret = structLayout.add<bool>("Bools", 2);
+	ret		= structLayout.add<bool>("Bools", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Bools");
@@ -140,7 +140,7 @@ TEST(std140_layout, add_scalars_array) {
 
 #pragma region INT_ARRAY
 	results = { 32, 48 };
-	ret = structLayout.add<int>("Ints", 2);
+	ret		= structLayout.add<int>("Ints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Ints");
@@ -160,7 +160,7 @@ TEST(std140_layout, add_scalars_array) {
 
 #pragma region UINT_ARRAY
 	results = { 64, 80 };
-	ret = structLayout.add<unsigned int>("Uints", 2);
+	ret		= structLayout.add<unsigned int>("Uints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Uints");
@@ -180,7 +180,7 @@ TEST(std140_layout, add_scalars_array) {
 
 #pragma region FLOAT_ARRAY
 	results = { 96, 112 };
-	ret = structLayout.add<float>("Floats", 2);
+	ret		= structLayout.add<float>("Floats", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Floats");
@@ -200,7 +200,7 @@ TEST(std140_layout, add_scalars_array) {
 
 #pragma region DOUBLE_ARRAY
 	results = { 128, 144 };
-	ret = structLayout.add<double>("Doubles", 2);
+	ret		= structLayout.add<double>("Doubles", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Doubles");

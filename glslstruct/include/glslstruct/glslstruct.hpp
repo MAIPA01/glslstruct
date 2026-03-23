@@ -8,23 +8,27 @@
  */
 
 #pragma once
-#include <glslstruct/config.hpp>
+#ifndef _GLSL_STRUCT_GLSLSTRUCT_HPP_
+	#define _GLSL_STRUCT_GLSLSTRUCT_HPP_
 
-#if !_GLSL_STRUCT_HAS_CXX17
+	#include <glslstruct/config.hpp>
+
+	#if !_GLSL_STRUCT_HAS_CXX17
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
-#else
+	#else
 
-#include <glslstruct/types.hpp>
-#include <glslstruct/value_types.hpp>
+		#include <glslstruct/types.hpp>
+		#include <glslstruct/value_types.hpp>
 
-#include <glslstruct/value/glsl_value.hpp>
+		#include <glslstruct/value/glsl_value.hpp>
 
-#include <glslstruct/variable/glsl_variable.hpp>
+		#include <glslstruct/variable/glsl_variable.hpp>
 
-#include <glslstruct/layout/base_layout.hpp>
-#include <glslstruct/layout/std140_layout.hpp>
-#include <glslstruct/layout/std430_layout.hpp>
+		#include <glslstruct/layout/base_layout.hpp>
+		#include <glslstruct/layout/std140_layout.hpp>
+		#include <glslstruct/layout/std430_layout.hpp>
 
-#include <glslstruct/struct/base_struct.hpp>
+		#include <glslstruct/struct/base_struct.hpp>
 
+	#endif
 #endif

@@ -6,8 +6,8 @@ using namespace glm;
 TEST(std140_layout, add_matrixes) {
 	std140_layout structLayout;
 	size_t ret;
-	base_type_handle base = nullptr;
-	mat_type_handle temp_type = nullptr;
+	base_type_handle base		= nullptr;
+	mat_type_handle temp_type	= nullptr;
 	mat_type_handle casted_type = nullptr;
 
 #pragma region COLUMN_MAJOR
@@ -364,7 +364,7 @@ TEST(std140_layout, add_matrixes) {
 #pragma region BMAT2x2
 	ret = structLayout.add<bmat2, MajorType::Row>("Bool");
 	EXPECT_EQ(ret, 0);
-	
+
 	base = structLayout.get_type("Bool");
 	EXPECT_EQ(*base, *base);
 
@@ -707,8 +707,8 @@ TEST(std140_layout, add_marixes_array) {
 	std140_layout structLayout;
 	std::vector<size_t> results;
 	std::vector<size_t> ret;
-	base_type_handle base = nullptr;
-	array_type_handle temp_type = nullptr;
+	base_type_handle base		  = nullptr;
+	array_type_handle temp_type	  = nullptr;
 	array_type_handle casted_type = nullptr;
 
 #pragma region COLUMN_MAJOR
@@ -718,7 +718,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region BMAT2x2_ARRAY
 	results = { 0, 32 };
-	ret = structLayout.add<bmat2>("Bools", 2);
+	ret		= structLayout.add<bmat2>("Bools", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Bools");
@@ -738,7 +738,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region IMAT2x2_ARRAY
 	results = { 64, 96 };
-	ret = structLayout.add<imat2>("Ints", 2);
+	ret		= structLayout.add<imat2>("Ints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Ints");
@@ -758,7 +758,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region UMAT2x2_ARRAY
 	results = { 128, 160 };
-	ret = structLayout.add<umat2>("Uints", 2);
+	ret		= structLayout.add<umat2>("Uints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Uints");
@@ -778,7 +778,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region MAT2x2_ARRAY
 	results = { 192, 224 };
-	ret = structLayout.add<fmat2>("Floats", 2);
+	ret		= structLayout.add<fmat2>("Floats", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Floats");
@@ -798,7 +798,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region DMAT2x2_ARRAY
 	results = { 256, 288 };
-	ret = structLayout.add<dmat2>("Doubles", 2);
+	ret		= structLayout.add<dmat2>("Doubles", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Doubles");
@@ -822,7 +822,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region BMAT2x3_ARRAY
 	results = { 0, 32 };
-	ret = structLayout.add<bmat2x3>("Bools", 2);
+	ret		= structLayout.add<bmat2x3>("Bools", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Bools");
@@ -842,7 +842,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region IMAT2x3_ARRAY
 	results = { 64, 96 };
-	ret = structLayout.add<imat2x3>("Ints", 2);
+	ret		= structLayout.add<imat2x3>("Ints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Ints");
@@ -862,7 +862,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region UMAT2x3_ARRAY
 	results = { 128, 160 };
-	ret = structLayout.add<umat2x3>("Uints", 2);
+	ret		= structLayout.add<umat2x3>("Uints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Uints");
@@ -882,7 +882,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region MAT2x3_ARRAY
 	results = { 192, 224 };
-	ret = structLayout.add<fmat2x3>("Floats", 2);
+	ret		= structLayout.add<fmat2x3>("Floats", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Floats");
@@ -902,7 +902,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region DMAT2x3_ARRAY
 	results = { 256, 320 };
-	ret = structLayout.add<dmat2x3>("Doubles", 2);
+	ret		= structLayout.add<dmat2x3>("Doubles", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Doubles");
@@ -926,7 +926,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region BMAT2x4_ARRAY
 	results = { 0, 32 };
-	ret = structLayout.add<bmat2x4>("Bools", 2);
+	ret		= structLayout.add<bmat2x4>("Bools", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Bools");
@@ -946,7 +946,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region IMAT2x4_ARRAY
 	results = { 64, 96 };
-	ret = structLayout.add<imat2x4>("Ints", 2);
+	ret		= structLayout.add<imat2x4>("Ints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Ints");
@@ -966,7 +966,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region UMAT2x4_ARRAY
 	results = { 128, 160 };
-	ret = structLayout.add<umat2x4>("Uints", 2);
+	ret		= structLayout.add<umat2x4>("Uints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Uints");
@@ -986,7 +986,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region MAT2x4_ARRAY
 	results = { 192, 224 };
-	ret = structLayout.add<fmat2x4>("Floats", 2);
+	ret		= structLayout.add<fmat2x4>("Floats", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Floats");
@@ -1006,7 +1006,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region DMAT2x4_ARRAY
 	results = { 256, 320 };
-	ret = structLayout.add<dmat2x4>("Doubles", 2);
+	ret		= structLayout.add<dmat2x4>("Doubles", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Doubles");
@@ -1034,7 +1034,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region BMAT2x2_ARRAY
 	results = { 0, 32 };
-	ret = structLayout.add<bmat2, MajorType::Row>("Bools", 2);
+	ret		= structLayout.add<bmat2, MajorType::Row>("Bools", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Bools");
@@ -1054,7 +1054,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region IMAT2x2_ARRAY
 	results = { 64, 96 };
-	ret = structLayout.add<imat2, MajorType::Row>("Ints", 2);
+	ret		= structLayout.add<imat2, MajorType::Row>("Ints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Ints");
@@ -1074,7 +1074,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region UMAT2x2_ARRAY
 	results = { 128, 160 };
-	ret = structLayout.add<umat2, MajorType::Row>("Uints", 2);
+	ret		= structLayout.add<umat2, MajorType::Row>("Uints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Uints");
@@ -1094,7 +1094,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region MAT2x2_ARRAY
 	results = { 192, 224 };
-	ret = structLayout.add<fmat2, MajorType::Row>("Floats", 2);
+	ret		= structLayout.add<fmat2, MajorType::Row>("Floats", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Floats");
@@ -1114,7 +1114,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region DMAT2x2_ARRAY
 	results = { 256, 288 };
-	ret = structLayout.add<dmat2, MajorType::Row>("Doubles", 2);
+	ret		= structLayout.add<dmat2, MajorType::Row>("Doubles", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Doubles");
@@ -1138,7 +1138,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region BMAT2x3_ARRAY
 	results = { 0, 48 };
-	ret = structLayout.add<bmat2x3, MajorType::Row>("Bools", 2);
+	ret		= structLayout.add<bmat2x3, MajorType::Row>("Bools", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Bools");
@@ -1158,7 +1158,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region IMAT2x3_ARRAY
 	results = { 96, 144 };
-	ret = structLayout.add<imat2x3, MajorType::Row>("Ints", 2);
+	ret		= structLayout.add<imat2x3, MajorType::Row>("Ints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Ints");
@@ -1178,7 +1178,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region UMAT2x3_ARRAY
 	results = { 192, 240 };
-	ret = structLayout.add<umat2x3, MajorType::Row>("Uints", 2);
+	ret		= structLayout.add<umat2x3, MajorType::Row>("Uints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Uints");
@@ -1198,7 +1198,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region MAT2x3_ARRAY
 	results = { 288, 336 };
-	ret = structLayout.add<fmat2x3, MajorType::Row>("Floats", 2);
+	ret		= structLayout.add<fmat2x3, MajorType::Row>("Floats", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Floats");
@@ -1218,7 +1218,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region DMAT2x3_ARRAY
 	results = { 384, 432 };
-	ret = structLayout.add<dmat2x3, MajorType::Row>("Doubles", 2);
+	ret		= structLayout.add<dmat2x3, MajorType::Row>("Doubles", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Doubles");
@@ -1242,7 +1242,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region BMAT2x4_ARRAY
 	results = { 0, 64 };
-	ret = structLayout.add<bmat2x4, MajorType::Row>("Bools", 2);
+	ret		= structLayout.add<bmat2x4, MajorType::Row>("Bools", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Bools");
@@ -1262,7 +1262,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region IMAT2x4_ARRAY
 	results = { 128, 192 };
-	ret = structLayout.add<imat2x4, MajorType::Row>("Ints", 2);
+	ret		= structLayout.add<imat2x4, MajorType::Row>("Ints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Ints");
@@ -1282,7 +1282,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region UMAT2x4_ARRAY
 	results = { 256, 320 };
-	ret = structLayout.add<umat2x4, MajorType::Row>("Uints", 2);
+	ret		= structLayout.add<umat2x4, MajorType::Row>("Uints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Uints");
@@ -1302,7 +1302,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region MAT2x4_ARRAY
 	results = { 384, 448 };
-	ret = structLayout.add<fmat2x4, MajorType::Row>("Floats", 2);
+	ret		= structLayout.add<fmat2x4, MajorType::Row>("Floats", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Floats");
@@ -1322,7 +1322,7 @@ TEST(std140_layout, add_marixes_array) {
 
 #pragma region DMAT2x4_ARRAY
 	results = { 512, 576 };
-	ret = structLayout.add<dmat2x4, MajorType::Row>("Doubles", 2);
+	ret		= structLayout.add<dmat2x4, MajorType::Row>("Doubles", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Doubles");

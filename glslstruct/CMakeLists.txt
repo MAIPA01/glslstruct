@@ -9,8 +9,22 @@ file(GLOB_RECURSE ${PROJECT_HEADERS} ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp)
 # make library
 add_library(${PROJECT_NAME} ${${PROJECT_LIBRARY_TYPE}} ${${PROJECT_HEADERS}} ${${PROJECT_SOURCES}})
 
-disable_clang_tidy_for_file(${CMAKE_CURRENT_SOURCE_DIR}/src/pch.hpp)
-enable_clang_tidy(${PROJECT_NAME})
+if (GLSL_STRUCT_ENABLE_CLANG_TIDY)
+    if(GLSL_STRUCT_ENABLE_CXX20)
+        set(CLANG_TIDY_CXX_STANDARD c++20)
+    else()
+        set(CLANG_TIDY_CXX_STANDARD c++17)
+    endif()
+
+    disable_clang_tidy_for_file(${CMAKE_CURRENT_SOURCE_DIR}/src/pch.hpp)
+    enable_clang_tidy(
+            TARGET ${PROJECT_NAME}
+            CONFIG "${CMAKE_SOURCE_DIR}/.clang-tidy"
+            CXX_STANDARD ${CLANG_TIDY_CXX_STANDARD}
+            HEADER_FILTER "^${CMAKE_CURRENT_SOURCE_DIR}[\\\\\/\\\\].*"
+            EXCLUDE_HEADER_FILTER "^${CMAKE_SOURCE_DIR}[\\\\\/\\\\]third_party[\\\\\/\\\\].*"
+    )
+endif()
 
 # set library alias
 set(PROJECT_NAMESPACE ${PROJECT_NAME}::)
@@ -47,6 +61,7 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE  $<$<BOOL:${GLSL_STRUCT_ENABL
                                                     $<$<BOOL:${GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE}>:GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE>
                                                     $<$<BOOL:${GLSL_STRUCT_DISABLE_TYPES}>:GLSL_STRUCT_DISABLE_TYPES>
                                                     $<$<BOOL:${GLSL_STRUCT_ENABLE_TYPE_CHECKS}>:GLSL_STRUCT_ENABLE_TYPE_CHECKS>
+                                                    $<$<BOOL:${GLSL_STRUCT_DISABLE_GLM}>:GLSL_STRUCT_DISABLE_GLM>
 )
 
 # Optimizations

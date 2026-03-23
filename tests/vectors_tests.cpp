@@ -6,8 +6,8 @@ using namespace glm;
 TEST(std140_layout, add_vectors) {
 	std140_layout structLayout;
 	size_t ret;
-	base_type_handle base = nullptr;
-	vec_type_handle temp_type = nullptr;
+	base_type_handle base		= nullptr;
+	vec_type_handle temp_type	= nullptr;
 	vec_type_handle casted_type = nullptr;
 
 #pragma region VEC2
@@ -312,8 +312,8 @@ TEST(std140_layout, add_vectors_array) {
 	std140_layout structLayout;
 	std::vector<size_t> results;
 	std::vector<size_t> ret;
-	base_type_handle base = nullptr;
-	array_type_handle temp_type = nullptr;
+	base_type_handle base		  = nullptr;
+	array_type_handle temp_type	  = nullptr;
 	array_type_handle casted_type = nullptr;
 
 #pragma region VEC2_ARRAY
@@ -321,7 +321,7 @@ TEST(std140_layout, add_vectors_array) {
 
 #pragma region BVEC2_ARRAY
 	results = { 0, 16 };
-	ret = structLayout.add<bvec2>("Bools", 2);
+	ret		= structLayout.add<bvec2>("Bools", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Bools");
@@ -341,7 +341,7 @@ TEST(std140_layout, add_vectors_array) {
 
 #pragma region IVEC2_ARRAY
 	results = { 32, 48 };
-	ret = structLayout.add<ivec2>("Ints", 2);
+	ret		= structLayout.add<ivec2>("Ints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Ints");
@@ -361,7 +361,7 @@ TEST(std140_layout, add_vectors_array) {
 
 #pragma region UVEC2_ARRAY
 	results = { 64, 80 };
-	ret = structLayout.add<uvec2>("Uints", 2);
+	ret		= structLayout.add<uvec2>("Uints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Uints");
@@ -381,7 +381,7 @@ TEST(std140_layout, add_vectors_array) {
 
 #pragma region VEC2_ARRAY
 	results = { 96, 112 };
-	ret = structLayout.add<vec2>("Floats", 2);
+	ret		= structLayout.add<vec2>("Floats", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Floats");
@@ -401,7 +401,7 @@ TEST(std140_layout, add_vectors_array) {
 
 #pragma region DVEC2_ARRAY
 	results = { 128, 144 };
-	ret = structLayout.add<dvec2>("Doubles", 2);
+	ret		= structLayout.add<dvec2>("Doubles", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Doubles");
@@ -425,7 +425,7 @@ TEST(std140_layout, add_vectors_array) {
 
 #pragma region BVEC2_ARRAY
 	results = { 0, 16 };
-	ret = structLayout.add<bvec2>("Bools", 2);
+	ret		= structLayout.add<bvec2>("Bools", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Bools");
@@ -445,7 +445,7 @@ TEST(std140_layout, add_vectors_array) {
 
 #pragma region IVEC2_ARRAY
 	results = { 32, 48 };
-	ret = structLayout.add<ivec2>("Ints", 2);
+	ret		= structLayout.add<ivec2>("Ints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Ints");
@@ -465,7 +465,7 @@ TEST(std140_layout, add_vectors_array) {
 
 #pragma region UVEC2_ARRAY
 	results = { 64, 80 };
-	ret = structLayout.add<uvec2>("Uints", 2);
+	ret		= structLayout.add<uvec2>("Uints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Uints");
@@ -485,7 +485,7 @@ TEST(std140_layout, add_vectors_array) {
 
 #pragma region VEC2_ARRAY
 	results = { 96, 112 };
-	ret = structLayout.add<vec2>("Floats", 2);
+	ret		= structLayout.add<vec2>("Floats", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Floats");
@@ -505,7 +505,7 @@ TEST(std140_layout, add_vectors_array) {
 
 #pragma region DVEC2_ARRAY
 	results = { 128, 144 };
-	ret = structLayout.add<dvec2>("Doubles", 2);
+	ret		= structLayout.add<dvec2>("Doubles", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Doubles");
@@ -529,7 +529,7 @@ TEST(std140_layout, add_vectors_array) {
 
 #pragma region BVEC3_ARRAY
 	results = { 0, 16 };
-	ret = structLayout.add<bvec3>("Bools", 2);
+	ret		= structLayout.add<bvec3>("Bools", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Bools");
@@ -549,7 +549,7 @@ TEST(std140_layout, add_vectors_array) {
 
 #pragma region IVEC3_ARRAY
 	results = { 32, 48 };
-	ret = structLayout.add<ivec3>("Ints", 2);
+	ret		= structLayout.add<ivec3>("Ints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Ints");
@@ -569,7 +569,7 @@ TEST(std140_layout, add_vectors_array) {
 
 #pragma region UVEC3_ARRAY
 	results = { 64, 80 };
-	ret = structLayout.add<uvec3>("Uints", 2);
+	ret		= structLayout.add<uvec3>("Uints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Uints");
@@ -589,7 +589,7 @@ TEST(std140_layout, add_vectors_array) {
 
 #pragma region VEC3_ARRAY
 	results = { 96, 112 };
-	ret = structLayout.add<vec3>("Floats", 2);
+	ret		= structLayout.add<vec3>("Floats", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Floats");
@@ -609,7 +609,7 @@ TEST(std140_layout, add_vectors_array) {
 
 #pragma region DVEC3_ARRAY
 	results = { 128, 160 };
-	ret = structLayout.add<dvec3>("Doubles", 2);
+	ret		= structLayout.add<dvec3>("Doubles", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Doubles");
@@ -633,7 +633,7 @@ TEST(std140_layout, add_vectors_array) {
 
 #pragma region BVEC4_ARRAY
 	results = { 0, 16 };
-	ret = structLayout.add<bvec4>("Bools", 2);
+	ret		= structLayout.add<bvec4>("Bools", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Bools");
@@ -653,7 +653,7 @@ TEST(std140_layout, add_vectors_array) {
 
 #pragma region IVEC4_ARRAY
 	results = { 32, 48 };
-	ret = structLayout.add<ivec4>("Ints", 2);
+	ret		= structLayout.add<ivec4>("Ints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Ints");
@@ -673,7 +673,7 @@ TEST(std140_layout, add_vectors_array) {
 
 #pragma region UVEC4_ARRAY
 	results = { 64, 80 };
-	ret = structLayout.add<uvec4>("Uints", 2);
+	ret		= structLayout.add<uvec4>("Uints", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Uints");
@@ -693,7 +693,7 @@ TEST(std140_layout, add_vectors_array) {
 
 #pragma region VEC4_ARRAY
 	results = { 96, 112 };
-	ret = structLayout.add<vec4>("Floats", 2);
+	ret		= structLayout.add<vec4>("Floats", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Floats");
@@ -713,7 +713,7 @@ TEST(std140_layout, add_vectors_array) {
 
 #pragma region DVEC4_ARRAY
 	results = { 128, 160 };
-	ret = structLayout.add<dvec4>("Doubles", 2);
+	ret		= structLayout.add<dvec4>("Doubles", 2);
 	EXPECT_EQ(ret, results);
 
 	base = structLayout.get_type("Doubles");

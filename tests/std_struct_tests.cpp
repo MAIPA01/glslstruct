@@ -4,9 +4,7 @@ using namespace glslstruct;
 using namespace glm;
 
 TEST(std_struct, add_array) {
-	std430_struct test{
-		glsl_value<int, 3>("test", { 2, 3, 4 })
-	};
+	std430_struct test { glsl_value<int, 3>("test", { 2, 3, 4 }) };
 	int value = test.get<int>("test[1]");
 	EXPECT_EQ(value, 3);
 	size_t ret = test.get_offset("test");
@@ -14,22 +12,20 @@ TEST(std_struct, add_array) {
 }
 
 TEST(std_struct, copy_test) {
-	std430_struct test{
-		glsl_value<int, 3>("test", { 2, 3, 4 })
-	};
+	std430_struct test { glsl_value<int, 3>("test", { 2, 3, 4 }) };
 	int value = test.get<int>("test[1]");
 	EXPECT_EQ(value, 3);
 	size_t ret = test.get_offset("test");
 	EXPECT_EQ(ret, 0);
 
 	std430_struct test1 = test;
-	value = test1.get<int>("test[1]");
+	value				= test1.get<int>("test[1]");
 	EXPECT_EQ(value, 3);
 	ret = test1.get_offset("test");
 	EXPECT_EQ(ret, 0);
 }
 
-#include <glslstruct/value_types/traits/mat_traits.hpp>
+#include <../glslstruct/include/glslstruct/type_traits/mat_traits.hpp>
 
 static_assert(utils::is_glsl_mat_v<mat4>);
 
@@ -38,10 +34,7 @@ TEST(std_struct, constructor_and_get) {
 	std::vector<size_t> retVec;
 
 #pragma region RECT
-	std430_struct rect{
-		glsl_value<mat4>("transform", mat4(1.f)),
-		glsl_value<vec2>("size")
-	};
+	std430_struct rect { glsl_value<mat4>("transform", mat4(1.f)), glsl_value<vec2>("size") };
 	mat4 transform = rect.get<mat4>("transform");
 	EXPECT_EQ(transform, mat4(1.f));
 	ret = rect.get_offset("transform");
@@ -53,11 +46,7 @@ TEST(std_struct, constructor_and_get) {
 #pragma endregion
 
 #pragma region SPRITE
-	std430_struct sprite{
-		glsl_value<uvec2>("offset"),
-		glsl_value<uvec2>("size"),
-		glsl_value<bool>("isActive")
-	};
+	std430_struct sprite { glsl_value<uvec2>("offset"), glsl_value<uvec2>("size"), glsl_value<bool>("isActive") };
 	ret = sprite.get_offset("offset");
 	EXPECT_EQ(ret, 0);
 	ret = sprite.get_offset("size");
@@ -69,14 +58,8 @@ TEST(std_struct, constructor_and_get) {
 #pragma endregion
 
 #pragma region FILL
-	std430_struct fill{
-		glsl_value<unsigned int>("type"),
-		glsl_value<unsigned int>("subType"),
-		glsl_value<float>("offset"),
-		glsl_value<float>("progress"),
-		glsl_value<float>("rotation"),
-		glsl_value<bool>("isActive")
-	};
+	std430_struct fill { glsl_value<unsigned int>("type"), glsl_value<unsigned int>("subType"), glsl_value<float>("offset"),
+		glsl_value<float>("progress"), glsl_value<float>("rotation"), glsl_value<bool>("isActive") };
 	ret = fill.get_offset("type");
 	EXPECT_EQ(ret, 0);
 	ret = fill.get_offset("subType");
@@ -94,13 +77,8 @@ TEST(std_struct, constructor_and_get) {
 #pragma endregion
 
 #pragma region UIElement
-	std430_struct uiElement{
-		glsl_value<std430_struct>("rect", rect),
-		glsl_value<std430_struct>("sprite", sprite),
-		glsl_value<std430_struct>("fill", fill),
-		glsl_value<vec4>("color"),
-		glsl_value<bool>("isText")
-	};
+	std430_struct uiElement { glsl_value<std430_struct>("rect", rect), glsl_value<std430_struct>("sprite", sprite),
+		glsl_value<std430_struct>("fill", fill), glsl_value<vec4>("color"), glsl_value<bool>("isText") };
 	ret = uiElement.get_offset("rect");
 	EXPECT_EQ(ret, 0);
 
@@ -147,10 +125,7 @@ TEST(std_struct, constructor_and_get) {
 #pragma endregion
 
 #pragma region TEXTURE
-	std430_struct texture{
-		glsl_value<uvec2>("size"),
-		glsl_value<bool>("isActive")
-	};
+	std430_struct texture { glsl_value<uvec2>("size"), glsl_value<bool>("isActive") };
 	ret = texture.get_offset("size");
 	EXPECT_EQ(ret, 0);
 	ret = texture.get_offset("isActive");
@@ -160,12 +135,9 @@ TEST(std_struct, constructor_and_get) {
 #pragma endregion
 
 #pragma region SSBO
-	std430_struct ssbo{
-		glsl_value<std430_struct, 8>("uiElements", uiElement.get_layout()),
-		glsl_value<std430_struct>("elementTexture", texture),
-		glsl_value<int>("elementLayer")
-	};
-	std::vector<size_t> resultVec{ 0, 176, 352, 528, 704, 880, 1056, 1232 };
+	std430_struct ssbo { glsl_value<std430_struct, 8>("uiElements", uiElement.get_layout()),
+		glsl_value<std430_struct>("elementTexture", texture), glsl_value<int>("elementLayer") };
+	std::vector<size_t> resultVec { 0, 176, 352, 528, 704, 880, 1056, 1232 };
 	retVec = ssbo.get_array_offsets("uiElements");
 	EXPECT_EQ(retVec, resultVec);
 
