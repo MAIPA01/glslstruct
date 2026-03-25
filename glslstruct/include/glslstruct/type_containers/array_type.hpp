@@ -19,22 +19,24 @@ _GLSL_STRUCT_ERROR(
 );
 	#else
 
-		#include <glslstruct/struct_elem/struct_elem_data.hpp>
 		#include <glslstruct/type_containers/type.hpp>
+		#include <glslstruct/var_data/var_data.hpp>
 
 namespace glslstruct {
 	class array_type : public type<array_type> {
 	private:
 		friend struct std::hash<array_type>;
 
+		using base_type		   = type;
+
 		base_type_handle _type = nullptr;
 		size_t _count		   = 0;
 
 	public:
-		array_type(ValueType type, size_t count, size_t size) noexcept;
-		array_type(ValueType type, size_t length, size_t count, size_t size) noexcept;
-		array_type(ValueType type, size_t cols, size_t rows, size_t count, size_t size) noexcept;
-		array_type(const std::unordered_map<std::string, struct_elem_data>& values, size_t structSize, size_t count,
+		array_type(ValueType type, size_t scalarSize, size_t count, size_t size) noexcept;
+		array_type(ValueType type, size_t length, size_t vecSize, size_t count, size_t size) noexcept;
+		array_type(ValueType type, size_t cols, size_t rows, size_t matSize, size_t count, size_t size) noexcept;
+		array_type(const std::unordered_map<std::string, var_data>& values, size_t structSize, size_t count,
 		  size_t size) noexcept;
 		array_type(const base_type_handle& type, size_t count, size_t size) noexcept;
 		#if _GLSL_STRUCT_HAS_CXX20
@@ -63,14 +65,6 @@ namespace glslstruct {
 		}
 
 		[[nodiscard]] const base_type_handle& get_type() const noexcept;
-		// #if _GLSL_STRUCT_HAS_CXX20
-		// template<glsl_type T>
-		// #else
-		// template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
-		// #endif
-		// [[nodiscard]] std::shared_ptr<T> get_type() const noexcept {
-		// 	return dynamic_type_cast<T>(get_type());
-		// }
 
 		[[nodiscard]] size_t get_count() const noexcept;
 

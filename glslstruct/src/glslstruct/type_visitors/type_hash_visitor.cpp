@@ -15,12 +15,12 @@ _GLSL_STRUCT_ERROR(
 );
 #else
 
-	#include <glslstruct/value_types/types/array_type.hpp>
-	#include <glslstruct/value_types/types/mat_type.hpp>
-	#include <glslstruct/value_types/types/scalar_type.hpp>
-	#include <glslstruct/value_types/types/struct_type.hpp>
-	#include <glslstruct/value_types/types/vec_type.hpp>
-	#include <glslstruct/value_types/visitors/type_hash_visitor.hpp>
+	#include <glslstruct/type_containers/array_type.hpp>
+	#include <glslstruct/type_containers/mat_type.hpp>
+	#include <glslstruct/type_containers/scalar_type.hpp>
+	#include <glslstruct/type_containers/struct_type.hpp>
+	#include <glslstruct/type_containers/vec_type.hpp>
+	#include <glslstruct/type_visitors/type_hash_visitor.hpp>
 	#include <pch.hpp>
 
 using namespace glslstruct;

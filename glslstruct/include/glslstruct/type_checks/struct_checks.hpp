@@ -27,6 +27,10 @@ namespace glslstruct {
 		#endif
 	class base_struct;
 
+	using std140_struct = base_struct<std140_layout>;
+	using std430_struct = base_struct<std430_layout>;
+	using scalar_struct = base_struct<scalar_layout>;
+
 	namespace utils {
 		#pragma region IS_STRUCT
 

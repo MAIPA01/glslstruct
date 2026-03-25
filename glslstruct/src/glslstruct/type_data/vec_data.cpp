@@ -13,10 +13,12 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 #else
 
-	#include <../../../../include/glslstruct/type_data/vec_data.hpp>
+	#include <glslstruct/type_data/vec_data.hpp>
 	#include <pch.hpp>
 
 using namespace glslstruct;
+
+vec_data::vec_data(const std::vector<std::byte>& data) : _data(data) {}
 
 vec_data::vec_data(const vec_data& other)				 = default;
 vec_data::vec_data(vec_data&& other) noexcept			 = default;

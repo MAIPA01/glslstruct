@@ -20,9 +20,9 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 		#include <glslstruct/types.hpp>
 
 namespace glslstruct {
-	class struct_elem_data {
+	class var_data {
 	private:
-		friend struct std::hash<struct_elem_data>;
+		friend struct std::hash<var_data>;
 
 		#if _GLSL_STRUCT_HAS_TYPES
 		base_type_handle _type;
@@ -34,22 +34,17 @@ namespace glslstruct {
 
 	public:
 		#if _GLSL_STRUCT_HAS_TYPES
-		struct_elem_data(size_t offset, const base_type_handle& type, size_t padding) noexcept;
+		var_data(size_t offset, const base_type_handle& type, size_t padding) noexcept;
 		#else
-		struct_elem_data(size_t offset, size_t size, size_t padding) noexcept;
+		var_data(size_t offset, size_t size, size_t padding) noexcept;
 		#endif
-		struct_elem_data(const struct_elem_data& other) noexcept;
-		struct_elem_data(struct_elem_data&& other) noexcept;
-		~struct_elem_data() noexcept;
+		var_data(const var_data& other) noexcept;
+		var_data(var_data&& other) noexcept;
+		~var_data() noexcept;
 
-		struct_elem_data& operator=(const struct_elem_data& other) noexcept;
-		struct_elem_data& operator=(struct_elem_data&& other) noexcept;
+		var_data& operator=(const var_data& other) noexcept;
+		var_data& operator=(var_data&& other) noexcept;
 
-		#if _GLSL_STRUCT_HAS_TYPES
-		void set_type(const base_type_handle& newType) noexcept;
-		#else
-		void set_size(size_t size) noexcept;
-		#endif
 		void set_padding(size_t padding) noexcept;
 
 		#if _GLSL_STRUCT_HAS_TYPES
@@ -60,14 +55,14 @@ namespace glslstruct {
 		[[nodiscard]] size_t get_size() const noexcept;
 		[[nodiscard]] size_t get_padding() const noexcept;
 
-		[[nodiscard]] bool operator==(const struct_elem_data& other) const noexcept;
-		[[nodiscard]] bool operator!=(const struct_elem_data& other) const noexcept;
+		[[nodiscard]] bool operator==(const var_data& other) const noexcept;
+		[[nodiscard]] bool operator!=(const var_data& other) const noexcept;
 	};
 } // namespace glslstruct
 
 template<>
-struct std::hash<glslstruct::struct_elem_data> {
-	[[nodiscard]] size_t operator()(const glslstruct::struct_elem_data& value) const noexcept;
+struct std::hash<glslstruct::var_data> {
+	[[nodiscard]] size_t operator()(const glslstruct::var_data& value) const noexcept;
 };
 	#endif
 #endif

@@ -21,31 +21,31 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 
 namespace glslstruct {
 	struct std140_layout_traits {
-		static _GLSL_STRUCT_CONSTEXPR17 size_t ceil_to_nearest_multiple(size_t valueToRoundUp, size_t multipleValue) noexcept {
-			size_t modulo = valueToRoundUp % multipleValue;
-				if (modulo != 0) { valueToRoundUp += multipleValue - modulo; }
+		static _GLSL_STRUCT_CONSTEXPR17 size_t ceil_to_nearest_multiple(size_t valueToRoundUp,
+		  const size_t multipleValue) noexcept {
+				if (size_t modulo = valueToRoundUp % multipleValue; modulo != 0) { valueToRoundUp += multipleValue - modulo; }
 			return valueToRoundUp;
 		}
 
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_scalar_alignment(ValueType valueType) noexcept {
+		static _GLSL_STRUCT_CONSTEXPR17 size_t get_scalar_alignment(const ValueType valueType) noexcept {
 			return get_value_type_size(valueType);
 		}
 
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_vec_alignment(ValueType valueType, size_t length) noexcept {
+		static _GLSL_STRUCT_CONSTEXPR17 size_t get_vec_alignment(const ValueType valueType, const size_t length) noexcept {
 				if (length == 3) { return get_value_type_size(valueType) * 4; }
 			return get_value_type_size(valueType) * length;
 		}
 
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_mat_alignment(ValueType valueType, size_t, size_t rows) noexcept {
-			return ceil_to_nearest_multiple(get_value_type_size(valueType) * rows, 16);
-		}
-
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_array_alignment(size_t elemBaseAlignment) noexcept {
+		static _GLSL_STRUCT_CONSTEXPR17 size_t get_array_alignment(const size_t elemBaseAlignment) noexcept {
 			return ceil_to_nearest_multiple(elemBaseAlignment, 16);
 		}
 
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_struct_alignment(size_t baseAlignment) noexcept {
+		static _GLSL_STRUCT_CONSTEXPR17 size_t get_struct_alignment(const size_t baseAlignment) noexcept {
 			return ceil_to_nearest_multiple(baseAlignment, 16);
+		}
+
+		static _GLSL_STRUCT_CONSTEXPR17 size_t get_struct_size(const size_t baseOffset) noexcept {
+			return ceil_to_nearest_multiple(baseOffset, 16);
 		}
 	};
 } // namespace glslstruct

@@ -26,6 +26,8 @@ namespace glslstruct {
 	private:
 		friend struct std::hash<mat_type>;
 
+		using base_type = type;
+
 		size_t _cols;
 		size_t _rows;
 		ValueType _type;

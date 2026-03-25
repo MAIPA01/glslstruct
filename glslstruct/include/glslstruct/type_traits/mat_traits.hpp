@@ -18,8 +18,6 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 	#else
 
 		#include <glslstruct/type_data/mat_data.hpp>
-		#include <glslstruct/utils/is_vector_of.hpp>
-		#include <glslstruct/utils/ValueType.hpp>
 
 namespace glslstruct {
 	template<class>
@@ -36,6 +34,16 @@ namespace glslstruct {
 		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept { return get_value_type<T>(); }
 
 		static mat_data get_data(const glm::mat<C, R, T, Q>& value) { return mat_data(value); }
+
+		static glm::mat<C, R, T, Q> get_value(const mat_data& data) {
+			const std::vector<vec_data>& vecs = data.data();
+
+			glm::mat<C, R, T, Q> value;
+				for (size_t i = 0; i < vecs.size() && i < C; ++i) {
+					value[i] = vecs[i].get<typename glm::mat<C, R, T, Q>::col_type>();
+				}
+			return value;
+		}
 	};
 
 	template<class T, size_t C, size_t R>
@@ -47,60 +55,23 @@ namespace glslstruct {
 		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept { return get_value_type<T>(); }
 
 		static mat_data get_data(const mstd::mat<C, R, T>& value) { return mat_data(value); }
+
+		static mstd::mat<C, R, T> get_value(const mat_data& data) {
+			const std::vector<vec_data>& vecs = data.data();
+
+			mstd::mat<C, R, T> value;
+				for (size_t i = 0; i < vecs.size() && i < C; ++i) {
+					value[i] = vecs[i].get<typename mstd::mat<C, R, T>::column_type>();
+				}
+			return value;
+		}
 	};
 
 		#pragma endregion
 
-	namespace utils {
-		#pragma region CHECKS
-		#pragma region IS_MAT
-
-		#if _GLSL_STRUCT_HAS_CXX20
-		template<class T>
-		concept glsl_mat = requires {
-			{ mat_traits<T>::get_columns() } -> std::same_as<size_t>;
-			{ mat_traits<T>::get_rows() } -> std::same_as<size_t>;
-			{ mat_traits<T>::get_value_type() } -> std::same_as<ValueType>;
-			{ mat_traits<T>::get_data(std::declval<const T&>()) } -> std::same_as<mat_data>;
-		};
-
-		template<class T>
-		static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_mat_v = glsl_mat<T>;
-
-		template<typename T>
-		struct is_glsl_mat : std::bool_constant<is_glsl_mat_v<T> > {};
-
-		#else
-		template<typename T, typename = void>
-		struct is_glsl_mat : std::false_type {};
-
-		template<typename T>
-		struct is_glsl_mat<T,
-		  std::void_t<std::enable_if_t<std::is_same_v<size_t, decltype(mat_traits<T>::get_columns())> >,
-			std::enable_if_t<std::is_same_v<size_t, decltype(mat_traits<T>::get_rows())> >,
-			std::enable_if_t<std::is_same_v<ValueType, decltype(mat_traits<T>::get_value_type())> >,
-			std::enable_if_t<std::is_same_v<mat_data, decltype(mat_traits<T>::get_data(std::declval<const T&>()))> > > >
-			: std::true_type {};
-
-		template<class T>
-		static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_mat_v = is_glsl_mat<T>::value;
-		#endif
-		#pragma endregion
-
-		#pragma region IS_MATS_VECTOR
-		template<class V>
-		static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_mats_vector_v = is_vector_of_v<is_glsl_mat, V>;
-
-		#if _GLSL_STRUCT_HAS_CXX20
-		template<class V> concept glsl_mats_vector = is_glsl_mats_vector_v<V>;
-		#endif
-		#pragma endregion
-		#pragma endregion
-	} // namespace utils
-
 		#pragma region FUNCTIONS
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<glsl_mat T>
+	template<utils::glsl_mat T>
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
 		#endif
@@ -109,7 +80,7 @@ namespace glslstruct {
 	}
 
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<glsl_mat T>
+	template<utils::glsl_mat T>
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
 		#endif
@@ -118,7 +89,7 @@ namespace glslstruct {
 	}
 
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<glsl_mat T>
+	template<utils::glsl_mat T>
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
 		#endif
@@ -127,7 +98,7 @@ namespace glslstruct {
 	}
 
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<glsl_mat T>
+	template<utils::glsl_mat T>
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
 		#endif
@@ -135,7 +106,16 @@ namespace glslstruct {
 		return mat_traits<T>::get_data(value);
 	}
 
-	static inline std::string mat_to_string(ValueType valueType, size_t columns, size_t rows) {
+		#if _GLSL_STRUCT_HAS_CXX20
+	template<utils::glsl_mat T>
+		#else
+	template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
+		#endif
+	static inline T get_mat_value(const mat_data& data) {
+		return mat_traits<T>::get_value(data);
+	}
+
+	static inline std::string mat_to_string(const ValueType valueType, const size_t columns, const size_t rows) {
 		std::string sizeStr = columns == rows ? std::to_string(columns) : fmt::format("{}x{}", columns, rows);
 
 			switch (valueType) {
@@ -150,7 +130,7 @@ namespace glslstruct {
 	}
 
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<glsl_mat T>
+	template<utils::glsl_mat T>
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
 		#endif

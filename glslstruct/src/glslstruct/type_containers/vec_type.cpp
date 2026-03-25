@@ -15,13 +15,13 @@ _GLSL_STRUCT_ERROR(
 );
 #else
 
-	#include <glslstruct/value_types/types/vec_type.hpp>
+	#include <glslstruct/type_containers/vec_type.hpp>
 	#include <pch.hpp>
 
 using namespace glslstruct;
 
-vec_type::vec_type(ValueType type, size_t length) noexcept
-	: value_type(get_value_type_size(type) * length), _length(length), _type(type) {}
+vec_type::vec_type(const ValueType type, const size_t length, const size_t size) noexcept
+	: base_type(size), _length(length), _type(type) {}
 
 vec_type::vec_type(const vec_type& other) noexcept			  = default;
 vec_type::vec_type(vec_type&& other) noexcept				  = default;
@@ -34,13 +34,17 @@ ValueType vec_type::get_type() const noexcept { return _type; }
 
 size_t vec_type::get_length() const noexcept { return _length; }
 
-std::string vec_type::to_string() const noexcept { return fmt::format("{}{}", vec_type_to_string(_type), _length); }
+std::string vec_type::to_string() const noexcept { return vec_to_string(_type, _length); }
 
 bool glslstruct::operator==(const vec_type& lhs, const vec_type& rhs) noexcept {
 	return lhs._type == rhs._type && lhs._length == rhs._length;
 }
 
+	#if _GLSL_STRUCT_HAS_CXX20
+bool glslstruct::operator!=(const vec_type& lhs, const vec_type& rhs) noexcept = default;
+	#else
 bool glslstruct::operator!=(const vec_type& lhs, const vec_type& rhs) noexcept { return !(lhs == rhs); }
+	#endif
 
 size_t std::hash<vec_type>::operator()(const vec_type& value) const noexcept {
 	size_t seed = static_cast<size_t>(value._type);

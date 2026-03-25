@@ -13,20 +13,22 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 #else
 
-	#include <../../../../include/glslstruct/type_data/scalar_data.hpp>
+	#include <glslstruct/type_data/scalar_data.hpp>
 	#include <pch.hpp>
 
 using namespace glslstruct;
 
-scalar_data::scalar_data(bool value) : scalar_data(static_cast<int>(value)) {}
+scalar_data::scalar_data(const std::vector<std::byte>& data) : _data(data) {}
 
-scalar_data::scalar_data(int value) : _data(_get_value_data(value)) {}
+scalar_data::scalar_data(const bool value) : scalar_data(static_cast<int>(value)) {}
 
-scalar_data::scalar_data(unsigned int value) : _data(_get_value_data(value)) {}
+scalar_data::scalar_data(const int value) : scalar_data(_get_value_data(value)) {}
 
-scalar_data::scalar_data(float value) : _data(_get_value_data(value)) {}
+scalar_data::scalar_data(const unsigned int value) : scalar_data(_get_value_data(value)) {}
 
-scalar_data::scalar_data(double value) : _data(_get_value_data(value)) {}
+scalar_data::scalar_data(const float value) : scalar_data(_get_value_data(value)) {}
+
+scalar_data::scalar_data(const double value) : scalar_data(_get_value_data(value)) {}
 
 scalar_data::scalar_data(const scalar_data& other)				  = default;
 scalar_data::scalar_data(scalar_data&& other) noexcept			  = default;

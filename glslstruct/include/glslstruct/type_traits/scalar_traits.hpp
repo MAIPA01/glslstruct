@@ -18,97 +18,61 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 	#else
 
 		#include <glslstruct/type_data/scalar_data.hpp>
-		#include <glslstruct/utils/is_vector_of.hpp>
 		#include <glslstruct/utils/ValueType.hpp>
 
 namespace glslstruct {
-	template<class>
-	struct scalar_traits;
-
 		#pragma region DEFAULT_TRAITS
 
 	template<>
 	struct scalar_traits<bool> {
-		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept { return ValueType::Bool; }
+		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept;
 
-		static scalar_data get_data(const bool value) { return scalar_data(value); }
+		static scalar_data get_data(bool value);
+
+		static bool get_value(const scalar_data& data);
 	};
 
 	template<>
 	struct scalar_traits<int> {
-		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept { return ValueType::Int; }
+		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept;
 
-		static scalar_data get_data(const int value) { return scalar_data(value); }
+		static scalar_data get_data(int value);
+
+		static int get_value(const scalar_data& data);
 	};
 
 	template<>
 	struct scalar_traits<unsigned int> {
-		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept { return ValueType::Uint; }
+		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept;
 
-		static scalar_data get_data(const unsigned int value) { return scalar_data(value); }
+		static scalar_data get_data(unsigned int value);
+
+		static unsigned int get_value(const scalar_data& data);
 	};
 
 	template<>
 	struct scalar_traits<float> {
-		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept { return ValueType::Float; }
+		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept;
 
-		static scalar_data get_data(const float value) { return scalar_data(value); }
+		static scalar_data get_data(float value);
+
+		static float get_value(const scalar_data& data);
 	};
 
 	template<>
 	struct scalar_traits<double> {
-		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept { return ValueType::Double; }
+		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept;
 
-		static scalar_data get_data(const double value) { return scalar_data(value); }
+		static scalar_data get_data(double value);
+
+		static double get_value(const scalar_data& data);
 	};
 
 		#pragma endregion
 
-	namespace utils {
-		#pragma region CHECKS
-
-		#pragma region IS_SCALAR
-		#if _GLSL_STRUCT_HAS_CXX20
-		template<class T>
-		concept glsl_scalar = requires {
-			{ scalar_traits<T>::get_value_type() } -> std::same_as<ValueType>;
-			{ scalar_traits<T>::get_data(std::declval<const T&>()) } -> std::same_as<scalar_data>;
-		};
-
-		template<class T>
-		static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_scalar_v = glsl_scalar<T>;
-
-		template<class T>
-		struct is_glsl_scalar : std::bool_constant<is_glsl_scalar_v<T> > {};
-		#else
-		template<class T, class = void>
-		struct is_glsl_scalar : std::false_type {};
-
-		template<class T>
-		struct is_glsl_scalar<T,
-		  std::void_t<std::enable_if_t<std::is_same_v<ValueType, decltype(scalar_traits<T>::get_value_type())> >,
-			std::enable_if_t<std::is_same_v<scalar_data, decltype(scalar_traits<T>::get_data(std::declval<const T&>()))> > > >
-			: std::true_type {};
-
-		template<class T>
-		static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_scalar_v = is_glsl_scalar<T>::value;
-		#endif
-		#pragma endregion
-
-		#pragma region IS_SCALARS_VECTOR
-		template<class V>
-		static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_scalars_vector_v = is_vector_of_v<is_glsl_scalar, V>;
-
-		#if _GLSL_STRUCT_HAS_CXX20
-		template<class V> concept glsl_scalars_vector = is_glsl_scalars_vector_v<V>;
-		#endif
-		#pragma endregion
-		#pragma endregion
-	} // namespace utils
-
 		#pragma region FUNCTIONS
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<glsl_scalar T>
+	template<utils::glsl_scalar T>
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_scalar_v<T>, bool> = true>
 		#endif
@@ -117,15 +81,24 @@ namespace glslstruct {
 	}
 
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<glsl_scalar T>
+	template<utils::glsl_scalar T>
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_scalar_v<T>, bool> = true>
 		#endif
-	static inline scalar_data get_scalar_data() {
-		return scalar_traits<T>::get_data();
+	static inline scalar_data get_scalar_data(const T& value) {
+		return scalar_traits<T>::get_data(value);
 	}
 
-	static inline std::string scalar_to_string(ValueType valueType) {
+		#if _GLSL_STRUCT_HAS_CXX20
+	template<utils::glsl_scalar T>
+		#else
+	template<class T, std::enable_if_t<utils::is_glsl_scalar_v<T>, bool> = true>
+		#endif
+	static inline T get_scalar_value(const scalar_data& data) {
+		return scalar_traits<T>::get_value(data);
+	}
+
+	static inline std::string scalar_to_string(const ValueType valueType) {
 			switch (valueType) {
 			[[unlikely]] default:
 				return "UNKNOWN";
@@ -138,7 +111,7 @@ namespace glslstruct {
 	}
 
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<glsl_scalar T>
+	template<utils::glsl_scalar T>
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_scalar_v<T>, bool> = true>
 		#endif

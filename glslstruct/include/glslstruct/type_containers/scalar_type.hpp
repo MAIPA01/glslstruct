@@ -26,6 +26,8 @@ namespace glslstruct {
 	private:
 		friend struct std::hash<scalar_type>;
 
+		using base_type = type;
+
 		ValueType _type;
 
 	public:

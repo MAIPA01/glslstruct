@@ -17,9 +17,12 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 	#else
 
-		#include <glslstruct/libs.hpp>
+		#include <glslstruct/type_traits_concepts/scalar_traits_concept.hpp>
 
 namespace glslstruct {
+	template<class>
+	struct scalar_traits;
+
 	class scalar_data {
 	private:
 		template<class T>
@@ -33,6 +36,7 @@ namespace glslstruct {
 		std::vector<std::byte> _data;
 
 	public:
+		explicit scalar_data(const std::vector<std::byte>& data);
 		explicit scalar_data(bool value);
 		explicit scalar_data(int value);
 		explicit scalar_data(unsigned int value);
@@ -46,6 +50,15 @@ namespace glslstruct {
 
 		scalar_data& operator=(const scalar_data& other);
 		scalar_data& operator=(scalar_data&& other) noexcept;
+
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<utils::glsl_scalar T>
+		#else
+		template<class T, std::enable_if_t<utils::is_glsl_scalar_v<T>, bool> = true>
+		#endif
+		T get() const {
+			return scalar_traits<T>::get_value(*this);
+		}
 
 		[[nodiscard]] const std::vector<std::byte>& data() const noexcept;
 	};

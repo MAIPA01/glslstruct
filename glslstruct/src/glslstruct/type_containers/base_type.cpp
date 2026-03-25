@@ -15,12 +15,13 @@ _GLSL_STRUCT_ERROR(
 );
 #else
 
-	#include <glslstruct/value_types/types/base_type.hpp>
+	#include <glslstruct/type_containers/base_type.hpp>
+	#include <glslstruct/type_visitors/type_hash_visitor.hpp>
 	#include <pch.hpp>
 
 using namespace glslstruct;
 
-base_type::base_type(size_t size) noexcept : _size(size) {}
+base_type::base_type(const size_t size) noexcept : _size(size) {}
 
 base_type::base_type(const base_type& other) noexcept			 = default;
 base_type::base_type(base_type&& other) noexcept				 = default;

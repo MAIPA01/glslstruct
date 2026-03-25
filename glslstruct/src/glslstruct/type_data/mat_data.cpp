@@ -13,10 +13,12 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 #else
 
-	#include <../../../../include/glslstruct/type_data/mat_data.hpp>
+	#include <glslstruct/type_data/mat_data.hpp>
 	#include <pch.hpp>
 
 using namespace glslstruct;
+
+mat_data::mat_data(const std::vector<vec_data>& data) : _data(data) {}
 
 mat_data::mat_data(const mat_data& other)				 = default;
 mat_data::mat_data(mat_data&& other) noexcept			 = default;
@@ -26,6 +28,6 @@ mat_data::~mat_data()									 = default;
 mat_data& mat_data::operator=(const mat_data& other)	 = default;
 mat_data& mat_data::operator=(mat_data&& other) noexcept = default;
 
-const std::vector<std::byte>& mat_data::data() const noexcept { return _data; }
+const std::vector<vec_data>& mat_data::data() const noexcept { return _data; }
 
 #endif

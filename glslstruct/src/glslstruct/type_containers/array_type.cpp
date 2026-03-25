@@ -15,56 +15,42 @@ _GLSL_STRUCT_ERROR(
 );
 #else
 
-	#include <glslstruct/value_types.hpp>
-	#include <glslstruct/value_types/types/array_type.hpp>
+	#include <glslstruct/type_containers/array_type.hpp>
+	#include <glslstruct/type_containers/mat_type.hpp>
+	#include <glslstruct/type_containers/scalar_type.hpp>
+	#include <glslstruct/type_containers/struct_type.hpp>
+	#include <glslstruct/type_containers/vec_type.hpp>
 	#include <pch.hpp>
 
 using namespace glslstruct;
 
-size_t array_type::_calculate_array_size(const base_type_handle& type, size_t count) noexcept {
-	size_t typeSize												= type->get_size();
-	static _GLSL_STRUCT_CONSTEXPR17 const size_t elem_alignment = 16;
-		if (typeSize % elem_alignment != 0) { typeSize += (elem_alignment - (typeSize % elem_alignment)); }
-	return typeSize * count;
-}
+array_type::array_type(const ValueType type, const size_t scalarSize, const size_t count, const size_t size) noexcept
+	: array_type(std::make_shared<scalar_type>(type, scalarSize), count, size) {}
 
-array_type::array_type(ValueType type, size_t count) noexcept : array_type(std::make_shared<scalar_type>(type), count) {}
+array_type::array_type(const ValueType type, const size_t length, const size_t vecSize, const size_t count,
+  const size_t size) noexcept
+	: array_type(std::make_shared<vec_type>(type, length, vecSize), count, size) {}
 
-array_type::array_type(ValueType type, size_t length, size_t count) noexcept
-	: array_type(std::make_shared<vec_type>(type, length), count) {}
+array_type::array_type(const ValueType type, const size_t cols, const size_t rows, const size_t matSize, const size_t count,
+  const size_t size) noexcept
+	: array_type(std::make_shared<mat_type>(type, cols, rows, matSize), count, size) {}
 
-array_type::array_type(ValueType type, size_t cols, size_t rows, MajorType major, size_t count) noexcept
-	: array_type(std::make_shared<mat_type>(type, cols, rows, major), count) {}
+array_type::array_type(const std::unordered_map<std::string, var_data>& values, const size_t structSize, const size_t count,
+  const size_t size) noexcept
+	: array_type(std::make_shared<struct_type>(values, structSize), count, size) {}
 
-array_type::array_type(ValueType type, size_t cols, size_t rows, size_t count) noexcept
-	: array_type(type, cols, rows, MajorType::Column, count) {}
+array_type::array_type(const base_type_handle& type, const size_t count, const size_t size) noexcept
+	: base_type(size), _type(type), _count(count) {}
 
-array_type::array_type(const std::unordered_map<std::string, value_data>& values, size_t size, size_t count) noexcept
-	: array_type(std::make_shared<struct_type>(values, size), count) {}
+array_type::array_type(const array_type& other) noexcept			= default;
 
-array_type::array_type(const base_type_handle& type, size_t count) noexcept
-	: value_type(_calculate_array_size(type, count)), _type(type), _count(count) {}
+array_type::array_type(array_type&& other) noexcept					= default;
 
-array_type::array_type(const array_type& other) noexcept = default;
+array_type::~array_type() noexcept									= default;
 
-array_type::array_type(array_type&& other) noexcept
-	: value_type(other), _type(std::exchange(other._type, nullptr)), _count(std::exchange(other._count, 0)) {}
+array_type& array_type::operator=(const array_type& other) noexcept = default;
 
-array_type::~array_type() noexcept = default;
-
-array_type& array_type::operator=(const array_type& other) noexcept {
-	value_type::operator=(other);
-	_type  = other._type;
-	_count = other._count;
-	return *this;
-}
-
-array_type& array_type::operator=(array_type&& other) noexcept {
-	value_type::operator=(other);
-	_type  = std::exchange(other._type, nullptr);
-	_count = std::exchange(other._count, 0);
-	return *this;
-}
+array_type& array_type::operator=(array_type&& other) noexcept		= default;
 
 const base_type_handle& array_type::get_type() const noexcept { return _type; }
 
@@ -76,7 +62,11 @@ bool glslstruct::operator==(const array_type& lhs, const array_type& rhs) noexce
 	return *lhs._type == *rhs._type && lhs._count == rhs._count;
 }
 
+	#if _GLSL_STRUCT_HAS_CXX20
+bool glslstruct::operator!=(const array_type& lhs, const array_type& rhs) noexcept = default;
+	#else
 bool glslstruct::operator!=(const array_type& lhs, const array_type& rhs) noexcept { return !(lhs == rhs); }
+	#endif
 
 size_t std::hash<array_type>::operator()(const array_type& type) const noexcept {
 	return mstd::hash_combine(type._count, *type._type);

@@ -21,24 +21,22 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 
 namespace glslstruct {
 	struct std430_layout_traits {
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_scalar_alignment(ValueType valueType) noexcept {
+		static _GLSL_STRUCT_CONSTEXPR17 size_t get_scalar_alignment(const ValueType valueType) noexcept {
 			return get_value_type_size(valueType);
 		}
 
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_vec_alignment(ValueType valueType, size_t length) noexcept {
+		static _GLSL_STRUCT_CONSTEXPR17 size_t get_vec_alignment(const ValueType valueType, const size_t length) noexcept {
 				if (length == 3) { return get_value_type_size(valueType) * 4; }
 			return get_value_type_size(valueType) * length;
 		}
 
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_mat_alignment(ValueType valueType, size_t, size_t rows) noexcept {
-			return get_vec_alignment(valueType, rows);
-		}
-
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_array_alignment(size_t elemBaseAlignment) noexcept {
+		static _GLSL_STRUCT_CONSTEXPR17 size_t get_array_alignment(const size_t elemBaseAlignment) noexcept {
 			return elemBaseAlignment;
 		}
 
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_struct_alignment(size_t baseAlignment) noexcept { return baseAlignment; }
+		static _GLSL_STRUCT_CONSTEXPR17 size_t get_struct_alignment(const size_t baseAlignment) noexcept { return baseAlignment; }
+
+		static _GLSL_STRUCT_CONSTEXPR17 size_t get_struct_size(const size_t baseOffset) noexcept { return baseOffset; }
 	};
 } // namespace glslstruct
 

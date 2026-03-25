@@ -15,22 +15,13 @@ _GLSL_STRUCT_ERROR(
 );
 #else
 
-	#include <glslstruct/value_types/types/mat_type.hpp>
+	#include <glslstruct/type_containers/mat_type.hpp>
 	#include <pch.hpp>
 
 using namespace glslstruct;
 
-size_t mat_type::_calculate_mat_size(ValueType type, size_t cols, size_t rows, MajorType major) noexcept {
-	const size_t arrayCount = major == MajorType::Column ? cols : rows;
-	size_t vecSize			= (major == MajorType::Column ? rows : cols) * get_value_type_size(type);
-
-	static _GLSL_STRUCT_CONSTEXPR17 const size_t vec_alignment = 16;
-		if (vecSize % vec_alignment != 0) { vecSize += vec_alignment - (vecSize % vec_alignment); }
-	return vecSize * arrayCount;
-}
-
-mat_type::mat_type(ValueType type, size_t cols, size_t rows, MajorType major) noexcept
-	: value_type(_calculate_mat_size(type, cols, rows, major)), _cols(cols), _rows(rows), _type(type), _major(major) {}
+mat_type::mat_type(const ValueType type, const size_t cols, const size_t rows, const size_t size) noexcept
+	: base_type(size), _cols(cols), _rows(rows), _type(type) {}
 
 mat_type::mat_type(const mat_type& other) noexcept			  = default;
 mat_type::mat_type(mat_type&& other) noexcept				  = default;
@@ -45,34 +36,21 @@ size_t mat_type::get_rows() const noexcept { return _rows; }
 
 size_t mat_type::get_cols() const noexcept { return _cols; }
 
-size_t mat_type::get_vec_length() const noexcept {
-		switch (_major) {
-		default:
-		case MajorType::Column: return _rows;
-		case MajorType::Row:	return _cols;
-		}
-}
+size_t mat_type::get_vec_length() const noexcept { return _rows; }
 
-size_t mat_type::get_array_count() const noexcept {
-		switch (_major) {
-		default:
-		case MajorType::Column: return _cols;
-		case MajorType::Row:	return _rows;
-		}
-}
+size_t mat_type::get_array_count() const noexcept { return _cols; }
 
-MajorType mat_type::get_major_type() const noexcept { return _major; }
-
-std::string mat_type::to_string() const noexcept {
-	return fmt::format("{}{}", mat_type_to_string(_type),
-	  _cols == _rows ? fmt::format("{}", _cols) : fmt::format("{}x{}", _cols, _rows));
-}
+std::string mat_type::to_string() const noexcept { return mat_to_string(_type, _cols, _rows); }
 
 bool glslstruct::operator==(const mat_type& lhs, const mat_type& rhs) noexcept {
 	return lhs._type == rhs._type && lhs._cols == rhs._cols && lhs._rows == rhs._rows;
 }
 
+	#if _GLSL_STRUCT_HAS_CXX20
+bool glslstruct::operator!=(const mat_type& lhs, const mat_type& rhs) noexcept = default;
+	#else
 bool glslstruct::operator!=(const mat_type& lhs, const mat_type& rhs) noexcept { return !(lhs == rhs); }
+	#endif
 
 size_t std::hash<mat_type>::operator()(const mat_type& value) const noexcept {
 	size_t seed = static_cast<size_t>(value._type);

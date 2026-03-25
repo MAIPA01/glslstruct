@@ -15,39 +15,34 @@ _GLSL_STRUCT_ERROR(
 );
 #else
 
-	#include <glslstruct/value_types/types/struct_type.hpp>
+	#include <glslstruct/type_containers/struct_type.hpp>
 	#include <pch.hpp>
 
 using namespace glslstruct;
 
-struct_type::struct_type(const std::unordered_map<std::string, value_data>& values, size_t size) noexcept
-	: value_type(size), _values(values) {}
+struct_type::struct_type(const std::unordered_map<std::string, var_data>& values, size_t size) noexcept
+	: base_type(size), _values(values) {}
 
-struct_type::struct_type(const struct_type& other) noexcept = default;
+struct_type::struct_type(const struct_type& other) noexcept			   = default;
+struct_type::struct_type(struct_type&& other) noexcept				   = default;
 
-struct_type::struct_type(struct_type&& other) noexcept : value_type(other), _values(std::exchange(other._values, {})) {}
+struct_type::~struct_type() noexcept								   = default;
 
-struct_type::~struct_type() noexcept = default;
+struct_type& struct_type::operator=(const struct_type& other) noexcept = default;
 
-struct_type& struct_type::operator=(const struct_type& other) noexcept {
-	value_type::operator=(other);
-	_values = other._values;
-	return *this;
-}
+struct_type& struct_type::operator=(struct_type&& other) noexcept	   = default;
 
-struct_type& struct_type::operator=(struct_type&& other) noexcept {
-	value_type::operator=(other);
-	_values = std::exchange(other._values, {});
-	return *this;
-}
-
-const std::unordered_map<std::string, value_data>& struct_type::get_values() const noexcept { return _values; }
+const std::unordered_map<std::string, var_data>& struct_type::get_values() const noexcept { return _values; }
 
 std::string struct_type::to_string() const noexcept { return "struct"; }
 
 bool glslstruct::operator==(const struct_type& lhs, const struct_type& rhs) noexcept { return lhs._values == rhs._values; }
 
+	#if _GLSL_STRUCT_HAS_CXX20
+bool glslstruct::operator!=(const struct_type& lhs, const struct_type& rhs) noexcept = default;
+	#else
 bool glslstruct::operator!=(const struct_type& lhs, const struct_type& rhs) noexcept { return !(lhs == rhs); }
+	#endif
 
 size_t std::hash<struct_type>::operator()(const struct_type& type) const noexcept {
 	size_t seed = 0;

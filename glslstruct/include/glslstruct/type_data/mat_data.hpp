@@ -17,8 +17,8 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 	#else
 
-		#include <glslstruct/libs.hpp>
 		#include <glslstruct/type_data/vec_data.hpp>
+		#include <glslstruct/type_traits_concepts/mat_traits_concept.hpp>
 
 namespace glslstruct {
 	class mat_data {
@@ -47,6 +47,8 @@ namespace glslstruct {
 		std::vector<vec_data> _data;
 
 	public:
+		explicit mat_data(const std::vector<vec_data>& data);
+
 		#if _GLSL_STRUCT_HAS_CXX20
 		template<class T, size_t C, size_t R, glm::qualifier Q>
 		#else
@@ -58,7 +60,7 @@ namespace glslstruct {
 		  const glm::mat<C, R, T, Q>& value
 		) _GLSL_STRUCT_REQUIRES((mstd::is_same_type_in_v<T, bool, int, unsigned int, float, double> &&
 								 mstd::is_in_range_v<C, 2, 4> && mstd::is_in_range_v<R, 2, 4>))
-			: _data(_get_data(value)) {
+			: mat_data(_get_data(value)) {
 		}
 
 		#if _GLSL_STRUCT_HAS_CXX20
@@ -72,7 +74,7 @@ namespace glslstruct {
 		  const mstd::mat<C, R, T>& value
 		) _GLSL_STRUCT_REQUIRES((mstd::is_same_type_in_v<T, bool, int, unsigned int, float, double> &&
 								 mstd::is_in_range_v<C, 2, 4> && mstd::is_in_range_v<R, 2, 4>))
-			: _data(_get_data(value)) {
+			: mat_data(_get_data(value)) {
 		}
 
 		mat_data(const mat_data& other);
@@ -82,6 +84,15 @@ namespace glslstruct {
 
 		mat_data& operator=(const mat_data& other);
 		mat_data& operator=(mat_data&& other) noexcept;
+
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<utils::glsl_mat T>
+		#else
+		template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
+		#endif
+		T get() const {
+			return mat_traits<T>::get_value(*this);
+		}
 
 		[[nodiscard]] const std::vector<vec_data>& data() const noexcept;
 	};

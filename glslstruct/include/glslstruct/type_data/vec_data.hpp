@@ -20,7 +20,7 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 	#else
 
-		#include <glslstruct/libs.hpp>
+		#include <glslstruct/type_traits_concepts/vec_traits_concept.hpp>
 
 namespace glslstruct {
 	class vec_data {
@@ -29,7 +29,7 @@ namespace glslstruct {
 		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 std::vector<std::byte> _get_data(const std::array<T, N>& values) {
 			static_assert(std::is_trivially_copyable_v<T>, "T must be trivially copyable to be treated as raw bytes!!");
 
-				if (std::is_same_v<T, bool>) {
+				if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, bool>) {
 					std::vector<std::byte> data;
 					data.reserve(N * sizeof(int));
 
@@ -64,6 +64,8 @@ namespace glslstruct {
 		std::vector<std::byte> _data;
 
 	public:
+		explicit vec_data(const std::vector<std::byte>& data);
+
 		#if _GLSL_STRUCT_HAS_CXX20
 		template<class T, size_t L, glm::qualifier Q>
 		#else
@@ -74,7 +76,7 @@ namespace glslstruct {
 		explicit vec_data(const glm::vec<L, T, Q>& value) _GLSL_STRUCT_REQUIRES((
 		  mstd::is_same_type_in_v<T, bool, int, unsigned int, float, double> && mstd::is_in_range_v<L, 2, 4>
 		))
-			: _data(_get_data(_to_array(value))) {
+			: vec_data(_get_data(_to_array(value))) {
 		}
 
 		#if _GLSL_STRUCT_HAS_CXX20
@@ -87,7 +89,7 @@ namespace glslstruct {
 		explicit vec_data(const mstd::vec<N, T>& value) _GLSL_STRUCT_REQUIRES((
 		  mstd::is_same_type_in_v<T, bool, int, unsigned int, float, double> && mstd::is_in_range_v<N, 2, 4>
 		))
-			: _data(_get_data(_to_array(value))) {
+			: vec_data(_get_data(_to_array(value))) {
 		}
 
 		vec_data(const vec_data& other);
@@ -97,6 +99,15 @@ namespace glslstruct {
 
 		vec_data& operator=(const vec_data& other);
 		vec_data& operator=(vec_data&& other) noexcept;
+
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<utils::glsl_vec T>
+		#else
+		template<class T, std::enable_if_t<utils::is_glsl_vec_v<T>, bool> = true>
+		#endif
+		T get() const {
+			return vec_traits<T>::get_value(*this);
+		}
 
 		[[nodiscard]] const std::vector<std::byte>& data() const noexcept;
 	};

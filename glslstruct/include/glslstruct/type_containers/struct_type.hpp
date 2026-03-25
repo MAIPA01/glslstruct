@@ -19,18 +19,20 @@ _GLSL_STRUCT_ERROR(
 );
 	#else
 
-		#include <glslstruct/struct_elem/struct_elem_data.hpp>
 		#include <glslstruct/type_containers/type.hpp>
+		#include <glslstruct/var_data/var_data.hpp>
 
 namespace glslstruct {
 	class struct_type : public type<struct_type> {
 	private:
 		friend struct std::hash<struct_type>;
 
-		std::unordered_map<std::string, struct_elem_data> _values;
+		using base_type = type;
+
+		std::unordered_map<std::string, var_data> _values;
 
 	public:
-		struct_type(const std::unordered_map<std::string, struct_elem_data>& values, size_t size) noexcept;
+		struct_type(const std::unordered_map<std::string, var_data>& values, size_t size) noexcept;
 		struct_type(const struct_type& other) noexcept;
 		struct_type(struct_type&& other) noexcept;
 		~struct_type() noexcept override;
@@ -47,7 +49,7 @@ namespace glslstruct {
 			visitor.visit(*this);
 		}
 
-		[[nodiscard]] const std::unordered_map<std::string, struct_elem_data>& get_values() const noexcept;
+		[[nodiscard]] const std::unordered_map<std::string, var_data>& get_values() const noexcept;
 
 		[[nodiscard]] std::string to_string() const noexcept override;
 

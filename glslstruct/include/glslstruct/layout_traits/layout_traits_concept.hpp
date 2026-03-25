@@ -24,22 +24,20 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 // add custom additional Data
 
 namespace glslstruct {
-		// get_scalar_alignment(valueType)
-		// get_vec_alignment(valueType, size_t length)
-		// get_mat_alignment(valueType, size_t columns, size_t rows, majorType)
-		// get_array_alignment(elemBaseAlignment)
-		// get_struct_alignment(structBaseAlignment)
+		// get_scalar_alignment(const ValueType) -> size_t
+		// get_vec_alignment(const ValueType, const size_t length) -> size_t
+		// get_array_alignment(const size_t elemBaseAlignment) -> size_t
+		// get_struct_alignment(const size_t structBaseAlignment) -> size_t
+		// get_struct_size(const size_t structBaseOffset) -> size_t
 
 		#if _GLSL_STRUCT_HAS_CXX20
 	template<class T>
 	concept layout_traits = requires {
-		{ T::get_scalar_alignment(std::declval<ValueType>()) } -> std::same_as<size_t>;
-		{ T::get_vec_alignment(std::declval<ValueType>(), std::declval<size_t>()) } -> std::same_as<size_t>;
-		{
-			T::get_mat_alignment(std::declval<ValueType>(), std::declval<size_t>(), std::declval<size_t>())
-		} -> std::same_as<size_t>;
-		{ T::get_array_alignment(std::declval<size_t>()) } -> std::same_as<size_t>;
-		{ T::get_struct_alignment(std::declval<size_t>()) } -> std::same_as<size_t>;
+		{ T::get_scalar_alignment(std::declval<const ValueType>()) } -> std::same_as<size_t>;
+		{ T::get_vec_alignment(std::declval<const ValueType>(), std::declval<const size_t>()) } -> std::same_as<size_t>;
+		{ T::get_array_alignment(std::declval<const size_t>()) } -> std::same_as<size_t>;
+		{ T::get_struct_alignment(std::declval<const size_t>()) } -> std::same_as<size_t>;
+		{ T::get_struct_size(std::declval<const size_t>()) } -> std::same_as<size_t>;
 	};
 
 	template<class T>
@@ -53,13 +51,12 @@ namespace glslstruct {
 
 	template<class T>
 	struct is_layout_traits<T,
-	  std::void_t<std::enable_if_t<std::is_same_v<size_t, decltype(T::get_scalar_alignment(std::declval<ValueType>()))> >,
+	  std::void_t<std::enable_if_t<std::is_same_v<size_t, decltype(T::get_scalar_alignment(std::declval<const ValueType>()))> >,
 		std::enable_if_t<std::is_same_v<size_t,
-		  decltype(T::get_vec_alignment(std::declval<ValueType>(), std::declval<size_t>()))> >,
-		std::enable_if_t<std::is_same_v<size_t,
-		  decltype(T::get_mat_alignment(std::declval<ValueType>(), std::declval<size_t>(), std::declval<size_t>()))> >,
-		std::enable_if_t<std::is_same_v<size_t, decltype(T::get_array_alignment(std::declval<size_t>()))> >,
-		std::enable_if_t<std::is_same_v<size_t, decltype(T::get_struct_alignment(std::declval<size_t>()))> > > >
+		  decltype(T::get_vec_alignment(std::declval<const ValueType>(), std::declval<const size_t>()))> >,
+		std::enable_if_t<std::is_same_v<size_t, decltype(T::get_array_alignment(std::declval<const size_t>()))> >,
+		std::enable_if_t<std::is_same_v<size_t, decltype(T::get_struct_alignment(std::declval<const size_t>()))> >,
+		std::enable_if_t<std::is_same_v<size_t, decltype(T::get_struct_size(std::declval<const size_t>()))> > > >
 		: std::true_type {};
 
 	template<class T>
