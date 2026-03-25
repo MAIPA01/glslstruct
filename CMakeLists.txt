@@ -5,7 +5,7 @@ project(glslstruct VERSION 1.3.3 LANGUAGES CXX)
 option(BUILD_SHARED_LIBS 					"Build shared library" 			OFF)
 option(GLSL_STRUCT_BUILD_TESTS 				"Build glsl struct tests" 		OFF)
 option(GLSL_STRUCT_BUILD_COVERAGE 			"Enable coverage reporting" 	OFF)
-option(GLSL_STRUCT_BUILD_DOCUMENTATIONS 	"Build glsl documentation" 		OFF)
+option(GLSL_STRUCT_BUILD_DOCUMENTATION	 	"Build glsl documentation" 		OFF)
 option(GLSL_STRUCT_ENABLE_CLANG_TIDY 		"Enables clang-tidy checks" 	OFF)
 
 option(GLSL_STRUCT_USE_EXTERNAL_MSTD 			"Uses users own mstd library (tested and compatible with: 1.4.9)"	OFF)
