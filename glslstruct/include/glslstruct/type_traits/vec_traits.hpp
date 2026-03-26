@@ -22,11 +22,11 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 namespace glslstruct {
 		#pragma region DEFAULT_TRAITS
 
-	template<class T, size_t L, glm::qualifier Q>
+	template<class T, glm::length_t L, glm::qualifier Q>
 	struct vec_traits<glm::vec<L, T, Q> > {
 		static _GLSL_STRUCT_CONSTEXPR17 size_t get_length() noexcept { return L; }
 
-		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept { return get_value_type<T>(); }
+		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept { return glslstruct::get_value_type<T>(); }
 
 		static vec_data get_data(const glm::vec<L, T, Q>& value) { return vec_data(value); }
 
@@ -54,7 +54,7 @@ namespace glslstruct {
 	struct vec_traits<mstd::vec<N, T> > {
 		static _GLSL_STRUCT_CONSTEXPR17 size_t get_length() noexcept { return N; }
 
-		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept { return get_value_type<T>(); }
+		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept { return glslstruct::get_value_type<T>(); }
 
 		static vec_data get_data(const mstd::vec<N, T>& value) { return vec_data(value); }
 

@@ -25,7 +25,7 @@ namespace glslstruct {
 
 	template<>
 	struct scalar_traits<bool> {
-		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept;
+		static ValueType get_value_type() noexcept;
 
 		static scalar_data get_data(bool value);
 
@@ -34,7 +34,7 @@ namespace glslstruct {
 
 	template<>
 	struct scalar_traits<int> {
-		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept;
+		static ValueType get_value_type() noexcept;
 
 		static scalar_data get_data(int value);
 
@@ -43,7 +43,7 @@ namespace glslstruct {
 
 	template<>
 	struct scalar_traits<unsigned int> {
-		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept;
+		static ValueType get_value_type() noexcept;
 
 		static scalar_data get_data(unsigned int value);
 
@@ -52,7 +52,7 @@ namespace glslstruct {
 
 	template<>
 	struct scalar_traits<float> {
-		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept;
+		static ValueType get_value_type() noexcept;
 
 		static scalar_data get_data(float value);
 
@@ -61,7 +61,7 @@ namespace glslstruct {
 
 	template<>
 	struct scalar_traits<double> {
-		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept;
+		static ValueType get_value_type() noexcept;
 
 		static scalar_data get_data(double value);
 

@@ -28,7 +28,7 @@ namespace glslstruct {
 	template<class T, std::enable_if_t<mstd::is_same_type_in_v<T, bool, int, unsigned int, float, double>, bool> = true>
 		#endif
 	[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 ValueType
-	  get_value_type() _GLSL_STRUCT_REQUIRES((mstd::is_same_type_in_v<T, bool, int, unsigned int, float, double>)) noexcept {
+	  get_value_type() noexcept _GLSL_STRUCT_REQUIRES((mstd::is_same_type_in_v<T, bool, int, unsigned int, float, double>)) {
 			if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, bool>) { return ValueType::Bool; }
 			else if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, int>) { return ValueType::Int; }
 			else if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, unsigned int>) { return ValueType::Uint; }

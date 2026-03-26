@@ -25,8 +25,6 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 		#include <glslstruct/variable/glsl_variable.hpp>
 
 		#include <glslstruct/layout/base_layout.hpp>
-		#include <glslstruct/layout/std140_layout.hpp>
-		#include <glslstruct/layout/std430_layout.hpp>
 
 		#include <glslstruct/struct/base_struct.hpp>
 

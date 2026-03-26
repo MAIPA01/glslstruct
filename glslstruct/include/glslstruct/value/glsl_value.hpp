@@ -181,59 +181,70 @@ namespace glslstruct {
 		#pragma endregion
 
 		#pragma region STRUCT_ARRAY_CONSTRUCTORS
-		#if !_GLSL_STRUCT_HAS_CXX20
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<utils::glsl_struct Type = value_type>
+		#else
 		template<class Type = value_type,
 		  std::enable_if_t<(utils::is_glsl_struct_v<Type> && std::is_same_v<Type, value_type> && mstd::is_gt_v<array_size, 0>),
 			bool>			= true>
 		#endif
 		glsl_value(
-		  const std::string_view name, const typename value_type::layout_type& layout
-		) _GLSL_STRUCT_REQUIRES((utils::is_glsl_struct_v<value_type> && mstd::is_gt_v<array_size, 0>))
+		  const std::string_view name, const typename Type::layout_type& layout
+		) _GLSL_STRUCT_REQUIRES((utils::is_glsl_struct_v<value_type> && std::is_same_v<Type, value_type> && mstd::is_gt_v<array_size, 0>))
 			: base_struct(layout), var_name(name) {
 		}
 
-		#if !_GLSL_STRUCT_HAS_CXX20
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<utils::glsl_struct Type = value_type>
+		#else
 		template<class Type = value_type,
 		  std::enable_if_t<(utils::is_glsl_struct_v<Type> && std::is_same_v<Type, value_type> && mstd::is_gt_v<array_size, 0>),
 			bool>			= true>
 		#endif
-		glsl_value(const std::string_view name, const typename value_type::layout_type& layout,
+		glsl_value(const std::string_view name, const typename Type::layout_type& layout,
 		  const std::vector<std::vector<std::byte> >& values) _GLSL_STRUCT_REQUIRES((utils::is_glsl_struct_v<value_type> &&
+		  	std::is_same_v<Type, value_type> &&
 																					 mstd::is_gt_v<array_size, 0>))
 			: base_struct(layout, values), var_name(name) {
 		}
 
-		#if !_GLSL_STRUCT_HAS_CXX20
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<utils::glsl_struct Type = value_type>
+		#else
 		template<class Type = value_type,
 		  std::enable_if_t<(utils::is_glsl_struct_v<Type> && std::is_same_v<Type, value_type> && mstd::is_gt_v<array_size, 0>),
 			bool>			= true>
 		#endif
 		glsl_value(
-		  const std::string_view name, const typename value_type::layout_type& layout,
+		  const std::string_view name, const typename Type::layout_type& layout,
 		  const std::array<std::vector<std::byte>, array_size>& values
-		) _GLSL_STRUCT_REQUIRES((utils::is_glsl_struct_v<value_type> && mstd::is_gt_v<array_size, 0>))
+		) _GLSL_STRUCT_REQUIRES((utils::is_glsl_struct_v<value_type> && std::is_same_v<Type, value_type> && mstd::is_gt_v<array_size, 0>))
 			: base_struct(layout, values), var_name(name) {
 		}
 
-		#if !_GLSL_STRUCT_HAS_CXX20
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<utils::glsl_struct Type = value_type>
+		#else
 		template<class Type = value_type,
 		  std::enable_if_t<(utils::is_glsl_struct_v<Type> && std::is_same_v<Type, value_type> && mstd::is_gt_v<array_size, 0>),
 			bool>			= true>
 		#endif
-		glsl_value(const std::string_view name, const typename value_type::layout_type& layout,
+		glsl_value(const std::string_view name, const typename Type::layout_type& layout,
 		  const std::vector<std::byte>* values,
-		  size_t size) _GLSL_STRUCT_REQUIRES((utils::is_glsl_struct_v<value_type> && mstd::is_gt_v<array_size, 0>))
+		  size_t size) _GLSL_STRUCT_REQUIRES((utils::is_glsl_struct_v<value_type> && std::is_same_v<Type, value_type> && mstd::is_gt_v<array_size, 0>))
 			: base_struct(layout, values, size), var_name(name) {
 		}
 
-		#if !_GLSL_STRUCT_HAS_CXX20
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<utils::glsl_struct Type = value_type>
+		#else
 		template<class Type = value_type,
 		  std::enable_if_t<(utils::is_glsl_struct_v<Type> && std::is_same_v<Type, value_type> && mstd::is_gt_v<array_size, 0>),
 			bool>			= true>
 		#endif
 		glsl_value(
-		  const std::string_view name, const typename value_type::layout_type& layout, const std::vector<std::byte> (&values)[num]
-		) _GLSL_STRUCT_REQUIRES((utils::is_glsl_struct_v<value_type> && mstd::is_gt_v<array_size, 0>))
+		  const std::string_view name, const typename Type::layout_type& layout, const std::vector<std::byte> (&values)[num]
+		) _GLSL_STRUCT_REQUIRES((utils::is_glsl_struct_v<value_type> && std::is_same_v<Type, value_type> && mstd::is_gt_v<array_size, 0>))
 			: base_struct(layout, values), var_name(name) {
 		}
 

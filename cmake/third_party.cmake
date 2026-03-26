@@ -41,6 +41,6 @@ elseif(${GLSL_STRUCT_USE_EXTERNAL_GLM})
     target_compile_definitions(glm PRIVATE GLM_ENABLE_EXPERIMENTAL)
 endif()
 
-if (GLSL_STRUCT_BUILD_TESTS)
+if (GLSL_STRUCT_BUILD_TESTS OR GLSL_STRUCT_BUILD_COVERAGE)
     CPMAddPackage("gh:google/googletest#v1.17.0")
 endif()

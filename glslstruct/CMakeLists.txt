@@ -1,10 +1,10 @@
 # source files
 set(PROJECT_SOURCES ${PROJECT_NAME}_SOURCES)
-file(GLOB_RECURSE ${PROJECT_SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
+file(GLOB_RECURSE ${PROJECT_SOURCES} CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 
 # header files
 set(PROJECT_HEADERS ${PROJECT_NAME}_HEADERS)
-file(GLOB_RECURSE ${PROJECT_HEADERS} ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp)
+file(GLOB_RECURSE ${PROJECT_HEADERS} CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp)
 
 # make library
 add_library(${PROJECT_NAME} ${${PROJECT_LIBRARY_TYPE}} ${${PROJECT_HEADERS}} ${${PROJECT_SOURCES}})
@@ -92,23 +92,8 @@ target_compile_options(${PROJECT_NAME} PRIVATE
         -Wextra
         -Werror
         -fno-strict-aliasing
-        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:
-            --coverage
-            -fcoverage-mcdc
-            -fprofile-instr-generate
-            -fcoverage-mapping
-        >
     >
-    # disable noexcept type warning on GCC
-    $<$<CXX_COMPILER_ID:GNU>:
-        $<$<CONFIG:Release>:
-            -O3
-            -flto
-        >
-        -Wall
-        -Wextra
-        -Werror
-        -fno-strict-aliasing
+    $<$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:GNU>>:
         $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:
             --coverage
             -fcoverage-mcdc
@@ -128,12 +113,11 @@ target_link_options(${PROJECT_NAME} PRIVATE
     $<$<OR:$<CXX_COMPILER_ID:GNU>,$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:GNU>>>:
         $<$<CONFIG:Release>:-flto>
         -static
-        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-instr-generate>
     >
-    # disable noexcept type warning on GCC
-    $<$<CXX_COMPILER_ID:GNU>:
-        $<$<CONFIG:Release>:-flto>
-        -static
-        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-instr-generate>
+    $<$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:GNU>>:
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:
+            --coverage
+            -fprofile-instr-generate
+        >
     >
 )

@@ -18,7 +18,7 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 
 using namespace glslstruct;
 
-_GLSL_STRUCT_CONSTEXPR17 ValueType scalar_traits<bool>::get_value_type() noexcept { return ValueType::Bool; }
+ValueType scalar_traits<bool>::get_value_type() noexcept { return ValueType::Bool; }
 
 scalar_data scalar_traits<bool>::get_data(const bool value) { return scalar_data(value); }
 
@@ -31,7 +31,7 @@ bool scalar_traits<bool>::get_value(const scalar_data& data) {
 	return value > 0;
 }
 
-_GLSL_STRUCT_CONSTEXPR17 ValueType scalar_traits<int>::get_value_type() noexcept { return ValueType::Int; }
+ValueType scalar_traits<int>::get_value_type() noexcept { return ValueType::Int; }
 
 scalar_data scalar_traits<int>::get_data(const int value) { return scalar_data(value); }
 
@@ -44,7 +44,7 @@ int scalar_traits<int>::get_value(const scalar_data& data) {
 	return value;
 }
 
-_GLSL_STRUCT_CONSTEXPR17 ValueType scalar_traits<unsigned int>::get_value_type() noexcept { return ValueType::Uint; }
+ValueType scalar_traits<unsigned int>::get_value_type() noexcept { return ValueType::Uint; }
 
 scalar_data scalar_traits<unsigned int>::get_data(const unsigned int value) { return scalar_data(value); }
 
@@ -57,7 +57,7 @@ unsigned int scalar_traits<unsigned int>::get_value(const scalar_data& data) {
 	return value;
 }
 
-_GLSL_STRUCT_CONSTEXPR17 ValueType scalar_traits<float>::get_value_type() noexcept { return ValueType::Float; }
+ValueType scalar_traits<float>::get_value_type() noexcept { return ValueType::Float; }
 
 scalar_data scalar_traits<float>::get_data(const float value) { return scalar_data(value); }
 
@@ -70,7 +70,7 @@ float scalar_traits<float>::get_value(const scalar_data& data) {
 	return value;
 }
 
-_GLSL_STRUCT_CONSTEXPR17 ValueType scalar_traits<double>::get_value_type() noexcept { return ValueType::Double; }
+ValueType scalar_traits<double>::get_value_type() noexcept { return ValueType::Double; }
 
 scalar_data scalar_traits<double>::get_data(const double value) { return scalar_data(value); }
 

@@ -27,7 +27,7 @@ endif()
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/glslstruct)
 
-if (GLSL_STRUCT_BUILD_TESTS)
+if (GLSL_STRUCT_BUILD_TESTS OR GLSL_STRUCT_BUILD_TESTS)
 	add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/tests)
 endif()
 

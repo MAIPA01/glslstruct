@@ -26,6 +26,8 @@ namespace glslstruct {
 	private:
 		friend struct std::hash<vec_type>;
 
+		using base_type = type;
+
 		size_t _length;
 		ValueType _type;
 

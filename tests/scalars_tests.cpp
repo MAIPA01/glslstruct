@@ -1,4 +1,4 @@
-#include "pch.hpp"
+#include <pch.hpp>
 
 using namespace glslstruct;
 using namespace glm;
@@ -20,7 +20,7 @@ TEST(std140_layout, add_scalars) {
 	EXPECT_EQ(*base, *base);
 	EXPECT_EQ(std::hash<base_type>()(*base), std::hash<base_type>()(*base));
 
-	temp_type = std::make_shared<scalar_type>(ValueType::Bool);
+	temp_type = std::make_shared<scalar_type>(ValueType::Bool, 4);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<scalar_type>(base);
@@ -30,10 +30,10 @@ TEST(std140_layout, add_scalars) {
 	EXPECT_EQ(casted_type->get_type(), temp_type->get_type());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
 
-	wrong_type = std::make_shared<scalar_type>(ValueType::Int);
+	wrong_type = std::make_shared<scalar_type>(ValueType::Int, 4);
 	EXPECT_NE(*base, *wrong_type);
 
-	wrong_type = std::make_shared<vec_type>(ValueType::Bool, 2);
+	wrong_type = std::make_shared<vec_type>(ValueType::Bool, 2, 8);
 	EXPECT_NE(*base, *wrong_type);
 #pragma endregion
 
@@ -44,7 +44,7 @@ TEST(std140_layout, add_scalars) {
 	base = structLayout.get_type("Int");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<scalar_type>(ValueType::Int);
+	temp_type = std::make_shared<scalar_type>(ValueType::Int, 4);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<scalar_type>(base);
@@ -62,7 +62,7 @@ TEST(std140_layout, add_scalars) {
 	base = structLayout.get_type("Uint");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<scalar_type>(ValueType::Uint);
+	temp_type = std::make_shared<scalar_type>(ValueType::Uint, 4);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<scalar_type>(base);
@@ -80,7 +80,7 @@ TEST(std140_layout, add_scalars) {
 	base = structLayout.get_type("Float");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<scalar_type>(ValueType::Float);
+	temp_type = std::make_shared<scalar_type>(ValueType::Float, 4);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<scalar_type>(base);
@@ -98,7 +98,7 @@ TEST(std140_layout, add_scalars) {
 	base = structLayout.get_type("Double");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<scalar_type>(ValueType::Double);
+	temp_type = std::make_shared<scalar_type>(ValueType::Double, 4);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<scalar_type>(base);
@@ -126,7 +126,7 @@ TEST(std140_layout, add_scalars_array) {
 	base = structLayout.get_type("Bools");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<array_type>(ValueType::Bool, 2);
+	temp_type = std::make_shared<array_type>(ValueType::Bool, 4, 2, 128);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
@@ -146,7 +146,7 @@ TEST(std140_layout, add_scalars_array) {
 	base = structLayout.get_type("Ints");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<array_type>(ValueType::Int, 2);
+	temp_type = std::make_shared<array_type>(ValueType::Int, 4, 2, 128);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
@@ -166,7 +166,7 @@ TEST(std140_layout, add_scalars_array) {
 	base = structLayout.get_type("Uints");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<array_type>(ValueType::Uint, 2);
+	temp_type = std::make_shared<array_type>(ValueType::Uint, 4, 2, 128);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
@@ -186,7 +186,7 @@ TEST(std140_layout, add_scalars_array) {
 	base = structLayout.get_type("Floats");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<array_type>(ValueType::Float, 2);
+	temp_type = std::make_shared<array_type>(ValueType::Float, 4, 2, 128);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
@@ -206,7 +206,7 @@ TEST(std140_layout, add_scalars_array) {
 	base = structLayout.get_type("Doubles");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<array_type>(ValueType::Double, 2);
+	temp_type = std::make_shared<array_type>(ValueType::Double, 4, 2, 128);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);

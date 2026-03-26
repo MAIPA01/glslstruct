@@ -11,9 +11,6 @@
 #ifndef _GLSL_STRUCT_VEC_DATA_HPP_
 	#define _GLSL_STRUCT_VEC_DATA_HPP_
 
-	#include "glm/vec4.hpp"
-
-
 	#include <glslstruct/config.hpp>
 
 	#if !_GLSL_STRUCT_HAS_CXX17
@@ -47,7 +44,7 @@ namespace glslstruct {
 				}
 		}
 
-		template<class T, size_t L, glm::qualifier Q>
+		template<class T, glm::length_t L, glm::qualifier Q>
 		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 std::array<T, L> _to_array(const glm::vec<L, T, Q>& value) {
 			std::array<T, L> array;
 			std::copy_n(glm::value_ptr(value), L, array.begin());
@@ -67,9 +64,9 @@ namespace glslstruct {
 		explicit vec_data(const std::vector<std::byte>& data);
 
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<class T, size_t L, glm::qualifier Q>
+		template<class T, glm::length_t L, glm::qualifier Q>
 		#else
-		template<class T, size_t L, glm::qualifier Q,
+		template<class T, glm::length_t L, glm::qualifier Q,
 		  std::enable_if_t<(mstd::is_same_type_in_v<T, bool, int, unsigned int, float, double> && mstd::is_in_range_v<L, 2, 4>),
 			bool> = true>
 		#endif

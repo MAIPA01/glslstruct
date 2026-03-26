@@ -27,7 +27,7 @@ namespace glslstruct {
 	class scalar_data;
 
 	template<class>
-	struct scalar_traits;
+	struct scalar_traits {};
 
 	namespace utils {
 		#pragma region CHECKS

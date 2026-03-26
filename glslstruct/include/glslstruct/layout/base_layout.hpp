@@ -48,12 +48,12 @@ namespace glslstruct {
 		size_t _currentOffset = 0;
 		size_t _maxAlignment  = 0;
 
-		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 std::string _get_array_elem_name(std::string_view arrayName,
+		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 std::string _get_array_elem_name(std::string_view arrayName,
 		  size_t elemIdx) {
 			return fmt::format("{}[{}]", arrayName, elemIdx);
 		}
 
-		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 std::string _get_struct_elem_name(std::string_view structName,
+		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 std::string _get_struct_elem_name(std::string_view structName,
 		  std::string_view elemName) {
 			return fmt::format("{}.{}", structName, elemName);
 		}
@@ -128,7 +128,7 @@ namespace glslstruct {
 			return alignmentOffset;
 		}
 
-		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 std::vector<size_t> _add_array(size_t& currentOffset,
+		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 std::vector<size_t> _add_array(size_t& currentOffset,
 		  const size_t arrayBaseAlignment, const size_t elemBaseOffset, const size_t count) noexcept {
 			// GET ALIGNMENT OFFSET
 			size_t alignmentOffset = _calculate_alignment_offset(currentOffset, arrayBaseAlignment);
@@ -250,15 +250,15 @@ namespace glslstruct {
 			const size_t arrayPadding			 = _calculate_padding(_currentOffset, arrayBaseAlignment);
 
 			// APPLY PADDING TO CURRENT OFFSET
-			glsl_struct_assert(!_move_current_offset(_currentOffset, alignmentOffsets.back(), arrayBaseAlignment),
+			glsl_struct_assert(_move_current_offset(_currentOffset, alignmentOffsets.back(), arrayBaseAlignment),
 			  "Data overflow!");
 
 				// ADD VARIABLE DATA
 		#if _GLSL_STRUCT_HAS_TYPES
-			auto scalarType = std::make_shared<scalar_type>(valueType, baseOffset);
-			auto arrayType	= std::make_shared<array_type>(scalarType, count, arraySize);
+			const auto scalarType = std::make_shared<scalar_type>(valueType, baseOffset);
+			const auto arrayType	= std::make_shared<array_type>(scalarType, count, arraySize);
 
-			_add_array_variable(name, alignmentOffsets, arrayBaseAlignment, scalarType, arrayType, count)
+			_add_array_variable(name, alignmentOffsets, arrayBaseAlignment, scalarType, arrayType)
 			  .set_padding(arrayPadding);
 		#else
 			_add_array_variable(name, alignmentOffset, arrayBaseAlignment, baseOffset, arraySize, count)
@@ -314,17 +314,17 @@ namespace glslstruct {
 			const size_t arrayPadding			 = _calculate_padding(_currentOffset, arrayBaseAlignment);
 
 			// APPLY PADDING TO CURRENT OFFSET
-			glsl_struct_assert(!_move_current_offset(_currentOffset, alignmentOffsets.back(), arrayBaseAlignment),
+			glsl_struct_assert(_move_current_offset(_currentOffset, alignmentOffsets.back(), arrayBaseAlignment),
 			  "Data overflow!");
 
 		// ADD VARIABLE DATA
 		#if _GLSL_STRUCT_HAS_TYPES
-			auto vecType	  = std::make_shared<vec_type>(valueType, length, baseOffset);
-			auto arrayType	  = std::make_shared<array_type>(vecType, count, arraySize);
+			const auto vecType	  = std::make_shared<vec_type>(valueType, length, baseOffset);
+			const auto arrayType	  = std::make_shared<array_type>(vecType, count, arraySize);
 
-			var_data& varData = _add_array_variable(name, alignmentOffsets, arrayBaseAlignment, vecType, arrayType, count);
+			var_data& varData = _add_array_variable(name, alignmentOffsets, arrayBaseAlignment, vecType, arrayType);
 		#else
-			var_data& varData = _add_array_variable(name, alignmentOffset, arrayBaseAlignment, baseOffset, arraySize, count);
+			var_data& varData = _add_array_variable(name, alignmentOffset, arrayBaseAlignment, baseOffset, arraySize);
 		#endif
 
 			// APPLY PADDING TO VAR DATA
@@ -357,15 +357,15 @@ namespace glslstruct {
 			const size_t matPadding				 = _calculate_padding(_currentOffset, matBaseAlignment);
 
 			// APPLY PADDING TO CURRENT OFFSET
-			glsl_struct_assert(!_move_current_offset(_currentOffset, alignmentOffsets.back(), matBaseAlignment),
+			glsl_struct_assert(_move_current_offset(_currentOffset, alignmentOffsets.back(), matBaseAlignment),
 			  "Data overflow!");
 
 		// ADD VARIABLE DATA
 		#if _GLSL_STRUCT_HAS_TYPES
-			auto vecType = std::make_shared<vec_type>(valueType, rows, vecBaseOffset);
-			auto matType = std::make_shared<mat_type>(valueType, columns, rows, matSize);
+			const auto vecType = std::make_shared<vec_type>(valueType, rows, vecBaseOffset);
+			const auto matType = std::make_shared<mat_type>(valueType, columns, rows, matSize);
 
-			_add_array_variable(name, alignmentOffsets, matBaseAlignment, vecType, matType, columns).set_padding(matPadding);
+			_add_array_variable(name, alignmentOffsets, matBaseAlignment, vecType, matType).set_padding(matPadding);
 		#else
 			_add_array_variable(name, alignmentOffset, matBaseAlignment, vecBaseOffset, matSize, columns).set_padding(matPadding);
 		#endif
@@ -393,8 +393,8 @@ namespace glslstruct {
 			const size_t matSize				 = alignmentOffsets.back() + vecBaseOffset - alignmentOffsets.front();
 
 		#if _GLSL_STRUCT_HAS_TYPES
-			auto vecType = std::make_shared<vec_type>(valueType, rows, vecBaseOffset);
-			auto matType = std::make_shared<mat_type>(valueType, columns, rows, matSize);
+			const auto vecType = std::make_shared<vec_type>(valueType, rows, vecBaseOffset);
+			const auto matType = std::make_shared<mat_type>(valueType, columns, rows, matSize);
 		#endif
 
 			std::vector<std::vector<size_t> > alignmentOffsetsPerMat;
@@ -411,16 +411,16 @@ namespace glslstruct {
 					matPadding		 = _calculate_padding(_currentOffset, matBaseAlignment);
 
 					// APPLY PADDING TO CURRENT OFFSET
-					glsl_struct_assert(!_move_current_offset(_currentOffset, alignmentOffsets.back(), matBaseAlignment),
+					glsl_struct_assert(_move_current_offset(_currentOffset, alignmentOffsets.back(), matBaseAlignment),
 					  "Data overflow!");
 
 		// ADD VARIABLE DATA
 		#if _GLSL_STRUCT_HAS_TYPES
 					var_data& varData = _add_array_variable(_get_array_elem_name(name, i), alignmentOffsets, matBaseAlignment,
-					  vecType, matType, columns);
+					  vecType, matType);
 		#else
 					var_data& varData = _add_array_variable(_get_array_elem_name(name, i), alignmentOffsets, matBaseAlignment,
-					  vecBaseOffset, matSize, columns);
+					  vecBaseOffset, matSize);
 		#endif
 
 						if (i < count - 1) { varData.set_padding(matPadding); }
@@ -434,15 +434,16 @@ namespace glslstruct {
 			const size_t arraySize = matsOffsets.back() + matSize - matsOffsets.front();
 
 			// APPLY PADDING TO CURRENT OFFSET
-			glsl_struct_assert(!_move_current_offset(_currentOffset, matsOffsets.back(), matSize + matPadding), "Data overflow!");
+			glsl_struct_assert(_move_current_offset(_currentOffset, matsOffsets.back(), matSize + matPadding), "Data overflow!");
 
 		// ADD VARIABLE DATA
 		#if _GLSL_STRUCT_HAS_TYPES
-			auto arrayType = std::make_shared<array_type>(matType, count, arraySize);
+			const auto arrayType = std::make_shared<array_type>(matType, count, arraySize);
 
-			_add_array_variable(name, matsOffsets, matBaseAlignment, matType, arrayType, count).set_padding(matPadding);
+			// TODO: Fix adding array pointer and adding mat pointer
+			_add_variable(name, matsOffsets, matBaseAlignment, matType, arrayType).set_padding(matPadding);
 		#else
-			_add_array_variable(name, matsOffsets, matBaseAlignment, matSize, arraySize, count).set_padding(matPadding);
+			_add_variable(name, matsOffsets, matBaseAlignment, matSize, arraySize).set_padding(matPadding);
 		#endif
 
 			return alignmentOffsetsPerMat;
@@ -478,7 +479,7 @@ namespace glslstruct {
 			const size_t structPadding = _calculate_padding(_currentOffset, baseAlignment);
 
 			// APPLY PADDING TO CURRENT OFFSET
-			glsl_struct_assert(!_move_current_offset(_currentOffset, alignmentOffset, baseOffset + structPadding),
+			glsl_struct_assert(_move_current_offset(_currentOffset, alignmentOffset, baseOffset + structPadding),
 			  "Data overflow!");
 
 			// APPLY PADDING TO VAR DATA
@@ -502,7 +503,7 @@ namespace glslstruct {
 			const size_t arrayPadding			 = _calculate_padding(_currentOffset, arrayBaseAlignment);
 
 			// APPLY PADDING TO CURRENT OFFSET
-			glsl_struct_assert(!_move_current_offset(_currentOffset, alignmentOffsets.back(), arrayBaseAlignment),
+			glsl_struct_assert(_move_current_offset(_currentOffset, alignmentOffsets.back(), arrayBaseAlignment),
 			  "Data overflow!");
 
 				for (size_t i = 0; i < count; ++i) {
@@ -527,10 +528,10 @@ namespace glslstruct {
 			auto structType = std::make_shared<struct_type>(values, elemBaseOffset);
 			auto arrayType	= std::make_shared<array_type>(structType, count, arraySize);
 
-			_add_array_variable(name, alignmentOffsets, arrayBaseAlignment, structType, arrayType, count)
+			_add_array_variable(name, alignmentOffsets, arrayBaseAlignment, structType, arrayType)
 			  .set_padding(arrayPadding);
 		#else
-			_add_array_variable(name, alignmentOffset, arrayBaseAlignment, elemBaseOffset, arraySize, count)
+			_add_array_variable(name, alignmentOffset, arrayBaseAlignment, elemBaseOffset, arraySize)
 			  .set_padding(arrayPadding);
 		#endif
 
@@ -556,7 +557,7 @@ namespace glslstruct {
 
 		template<class... Ts, size_t... nums>
 		explicit base_layout(const glsl_variable<Ts, nums>&... vars) noexcept {
-			_add_multiple(vars...);
+			_add_variables(vars...);
 		}
 
 		base_layout(const base_layout& other) noexcept			  = default;
@@ -651,7 +652,7 @@ namespace glslstruct {
 		template<class T, std::enable_if_t<utils::is_glsl_scalar_v<T>, bool> = true>
 		#endif
 		[[nodiscard]] size_t add(const std::string_view name) {
-			static _GLSL_STRUCT_CONSTEXPR17 ValueType valueType = get_scalar_value_type<T>();
+			static ValueType valueType = get_scalar_value_type<T>();
 			return _add_scalar(name, valueType);
 		}
 
@@ -661,7 +662,7 @@ namespace glslstruct {
 		template<class T, std::enable_if_t<utils::is_glsl_scalar_v<T>, bool> = true>
 		#endif
 		[[nodiscard]] std::vector<size_t> add(const std::string_view name, const size_t count) {
-			static _GLSL_STRUCT_CONSTEXPR17 ValueType valueType = get_scalar_value_type<T>();
+			static ValueType valueType = get_scalar_value_type<T>();
 			return _add_scalar_array(name, valueType, count);
 		}
 
@@ -674,8 +675,8 @@ namespace glslstruct {
 		template<class V, std::enable_if_t<utils::is_glsl_vec_v<V>, bool> = true>
 		#endif
 		[[nodiscard]] size_t add(const std::string_view name) {
-			static _GLSL_STRUCT_CONSTEXPR17 ValueType valueType = get_vec_value_type<V>();
-			static _GLSL_STRUCT_CONSTEXPR17 size_t length		= get_vec_length<V>(valueType);
+			static ValueType valueType = get_vec_value_type<V>();
+			static size_t length		= get_vec_length<V>();
 			return _add_vec(name, length, valueType);
 		}
 
@@ -685,8 +686,8 @@ namespace glslstruct {
 		template<class V, std::enable_if_t<utils::is_glsl_vec_v<V>, bool> = true>
 		#endif
 		[[nodiscard]] std::vector<size_t> add(const std::string_view name, const size_t count) {
-			static _GLSL_STRUCT_CONSTEXPR17 ValueType valueType = get_vec_value_type<V>();
-			static _GLSL_STRUCT_CONSTEXPR17 size_t length		= get_vec_length<V>();
+			static ValueType valueType = get_vec_value_type<V>();
+			static size_t length		= get_vec_length<V>();
 			return _add_vec_array(name, length, valueType, count);
 		}
 
@@ -699,9 +700,9 @@ namespace glslstruct {
 		template<class M, std::enable_if_t<utils::is_glsl_mat_v<M>, bool> = true>
 		#endif
 		[[nodiscard]] std::vector<size_t> add(const std::string_view name) {
-			static _GLSL_STRUCT_CONSTEXPR17 ValueType valueType = get_mat_value_type<M>();
-			static _GLSL_STRUCT_CONSTEXPR17 size_t columns		= get_mat_columns<M>;
-			static _GLSL_STRUCT_CONSTEXPR17 size_t rows			= get_mat_rows<M>;
+			static ValueType valueType = get_mat_value_type<M>();
+			static size_t columns		= get_mat_columns<M>();
+			static size_t rows			= get_mat_rows<M>();
 			return _add_mat(name, columns, rows, valueType);
 		}
 
@@ -711,9 +712,9 @@ namespace glslstruct {
 		template<class M, std::enable_if_t<utils::is_glsl_mat_v<M>, bool> = true>
 		#endif
 		[[nodiscard]] std::vector<std::vector<size_t> > add(const std::string_view name, const size_t count) {
-			static _GLSL_STRUCT_CONSTEXPR17 ValueType valueType = get_mat_value_type<M>();
-			static _GLSL_STRUCT_CONSTEXPR17 size_t columns		= get_mat_columns<M>;
-			static _GLSL_STRUCT_CONSTEXPR17 size_t rows			= get_mat_rows<M>;
+			static ValueType valueType = get_mat_value_type<M>();
+			static size_t columns		= get_mat_columns<M>();
+			static size_t rows			= get_mat_rows<M>();
 			return _add_mat_array(name, columns, rows, valueType, count);
 		}
 
@@ -743,11 +744,7 @@ namespace glslstruct {
 	};
 } // namespace glslstruct
 
-		#if _GLSL_STRUCT_HAS_CXX20
-template<glslstruct::layout_traits T>
-		#else
-template<class T, std::enable_if_t<glslstruct::is_layout_traits_v<T>, bool> = true>
-		#endif
+template<class T>
 struct std::hash<glslstruct::base_layout<T> > {
 	[[nodiscard]] size_t operator()(const glslstruct::base_layout<T>& layout) const noexcept {
 		size_t seed = mstd::hash_combine(layout._currentOffset, layout._maxAlignment);

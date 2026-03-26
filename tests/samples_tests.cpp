@@ -1,4 +1,4 @@
-#include "pch.hpp"
+#include <pch.hpp>
 
 using namespace glslstruct;
 using namespace glm;
@@ -7,6 +7,7 @@ TEST(std140_layout, offset_calculation_1) {
 	std140_layout structLayout;
 	std140_layout subStructOffsets;
 	size_t ret;
+	std::vector<std::vector<size_t>> tempVec;
 	std::vector<size_t> retVec;
 	std::vector<size_t> resultVec;
 
@@ -31,7 +32,7 @@ TEST(std140_layout, offset_calculation_1) {
 	resultVec = { 64, 80 };
 	retVec	  = structLayout.add<float>("h", 2);
 	EXPECT_EQ(retVec, resultVec);
-	ret = structLayout.add<mat2x3>("i");
+	ret = structLayout.add<mat2x3>("i").front();
 	EXPECT_EQ(ret, 96);
 
 	subStructOffsets.clear();
@@ -45,7 +46,13 @@ TEST(std140_layout, offset_calculation_1) {
 	ret = subStructOffsets.add<vec2>("m");
 	EXPECT_EQ(ret, 64);
 	resultVec = { 80, 128 };
-	retVec	  = subStructOffsets.add<mat3>("n", 2);
+	tempVec	  = subStructOffsets.add<mat3>("n", 2);
+
+	retVec.clear();
+	for (size_t  i = 0; i < tempVec.size(); i++) {
+		retVec.push_back(tempVec[i].front());
+	}
+
 	EXPECT_EQ(retVec, resultVec);
 	ret = subStructOffsets.size();
 	EXPECT_EQ(ret, 176);
@@ -117,7 +124,7 @@ TEST(std430_layout, offset_calculation_1) {
 	std::vector<size_t> retVec;
 
 	std430_layout rect;
-	ret = rect.add<mat4>("transform");
+	ret = rect.add<mat4>("transform").front();
 	EXPECT_EQ(ret, 0);
 	ret = rect.add<vec2>("size");
 	EXPECT_EQ(ret, 64);
@@ -231,7 +238,7 @@ TEST(std430_layout, offset_calculation_2) {
 	EXPECT_EQ(ret, 0);
 	ret = dirLight.add<vec3>("color");
 	EXPECT_EQ(ret, 16);
-	ret = dirLight.add<mat4>("lightSpaceMatrix");
+	ret = dirLight.add<mat4>("lightSpaceMatrix").front();
 	EXPECT_EQ(ret, 32);
 	ret = dirLight.add<float>("power");
 	EXPECT_EQ(ret, 96);

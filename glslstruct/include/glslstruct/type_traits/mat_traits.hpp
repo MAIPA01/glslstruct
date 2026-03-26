@@ -25,13 +25,13 @@ namespace glslstruct {
 
 		#pragma region DEFAULT_TRAITS
 
-	template<class T, size_t C, size_t R, glm::qualifier Q>
+	template<class T, glm::length_t C, glm::length_t R, glm::qualifier Q>
 	struct mat_traits<glm::mat<C, R, T, Q> > {
 		static _GLSL_STRUCT_CONSTEXPR17 size_t get_columns() noexcept { return C; }
 
 		static _GLSL_STRUCT_CONSTEXPR17 size_t get_rows() noexcept { return R; }
 
-		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept { return get_value_type<T>(); }
+		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept { return glslstruct::get_value_type<T>(); }
 
 		static mat_data get_data(const glm::mat<C, R, T, Q>& value) { return mat_data(value); }
 
@@ -52,7 +52,7 @@ namespace glslstruct {
 
 		static _GLSL_STRUCT_CONSTEXPR17 size_t get_rows() noexcept { return R; }
 
-		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept { return get_value_type<T>(); }
+		static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept { return glslstruct::get_value_type<T>(); }
 
 		static mat_data get_data(const mstd::mat<C, R, T>& value) { return mat_data(value); }
 

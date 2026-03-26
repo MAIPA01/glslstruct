@@ -5,7 +5,6 @@
       "name": "cpp-base",
       "hidden": true,
       "cacheVariables": {
-        "CMAKE_C_COMPILER": "clang.exe",
         "CMAKE_CXX_COMPILER": "clang++.exe",
         "CMAKE_CXX_STANDARD_REQUIRED": "ON",
         "CMAKE_CXX_EXTENSIONS": "OFF",

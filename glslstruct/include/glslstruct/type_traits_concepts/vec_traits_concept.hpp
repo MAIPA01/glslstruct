@@ -24,7 +24,7 @@ namespace glslstruct {
 	class vec_data;
 
 	template<class>
-	struct vec_traits;
+	struct vec_traits {};
 
 	namespace utils {
 		#pragma region CHECKS

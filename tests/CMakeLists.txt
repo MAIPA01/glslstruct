@@ -2,7 +2,7 @@ project(glslstruct-tests VERSION 1.3.0 LANGUAGES CXX)
 
 # source files
 set(PROJECT_TEST_SOURCES ${PROJECT_NAME}_TEST_SOURCES)
-file(GLOB_RECURSE ${PROJECT_TEST_SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+file(GLOB_RECURSE ${PROJECT_TEST_SOURCES} CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
 enable_testing()
 
@@ -14,6 +14,8 @@ target_link_libraries(${PROJECT_NAME} PRIVATE glslstruct gtest_main)
 
 # Konfiguracja PCH
 target_precompile_headers(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/pch.hpp")
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Optimizations
 target_compile_options(${PROJECT_NAME} PRIVATE
@@ -43,23 +45,8 @@ target_compile_options(${PROJECT_NAME} PRIVATE
         -Wextra
         -Werror
         -fno-strict-aliasing
-        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:
-            --coverage
-            -fcoverage-mcdc
-            -fprofile-instr-generate
-            -fcoverage-mapping
-        >
     >
-    # disable noexcept type warning on GCC
-    $<$<CXX_COMPILER_ID:GNU>:
-        $<$<CONFIG:Release>:
-            -O3
-            -flto
-        >
-        -Wall
-        -Wextra
-        -Werror
-        -fno-strict-aliasing
+    $<$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:GNU>>:
         $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:
             --coverage
             -fcoverage-mcdc
@@ -79,12 +66,11 @@ target_link_options(${PROJECT_NAME} PRIVATE
     $<$<OR:$<CXX_COMPILER_ID:GNU>,$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:GNU>>>:
         $<$<CONFIG:Release>:-flto>
         -static
-        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-instr-generate>
     >
-    # disable noexcept type warning on GCC
-    $<$<CXX_COMPILER_ID:GNU>:
-        $<$<CONFIG:Release>:-flto>
-        -static
-        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:-fprofile-instr-generate>
+    $<$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:GNU>>:
+        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:
+            --coverage
+            -fprofile-instr-generate
+        >
     >
 )

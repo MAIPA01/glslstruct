@@ -23,7 +23,7 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 namespace glslstruct {
 	class mat_data {
 	private:
-		template<class T, size_t C, size_t R, glm::qualifier Q>
+		template<class T, glm::length_t C, glm::length_t R, glm::qualifier Q>
 		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 std::vector<vec_data> _get_data(const glm::mat<C, R, T, Q>& value) {
 			static_assert(std::is_trivially_copyable_v<T>, "T must be trivially copyable to be treated as raw bytes!!");
 
@@ -33,7 +33,7 @@ namespace glslstruct {
 		}
 
 		template<class T, size_t C, size_t R>
-		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 std::vector<vec_data> _get_data(const mstd::mat<C, R, T>& value) {
+		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 std::vector<vec_data> _get_data(const mstd::mat<C, R, T>& value) {
 			static_assert(std::is_trivially_copyable_v<T>, "T must be trivially copyable to be treated as raw bytes!!");
 
 			using column_type = typename mstd::mat<C, R, T>::column_type;
@@ -50,11 +50,11 @@ namespace glslstruct {
 		explicit mat_data(const std::vector<vec_data>& data);
 
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<class T, size_t C, size_t R, glm::qualifier Q>
+		template<class T, glm::length_t C, glm::length_t R, glm::qualifier Q>
 		#else
-		template<class T, size_t C, size_t R, glm::qualifier Q,
+		template<class T, glm::length_t C, glm::length_t R, glm::qualifier Q,
 		  std::enable_if_t<(mstd::is_same_type_in_v<T, bool, int, unsigned int, float, double> && mstd::is_in_range_v<C, 2, 4> &&
-							mstd::is_in_range_v<R, 2, 4>)> >
+							mstd::is_in_range_v<R, 2, 4>), bool> = true>
 		#endif
 		explicit mat_data(
 		  const glm::mat<C, R, T, Q>& value
@@ -68,7 +68,7 @@ namespace glslstruct {
 		#else
 		template<class T, size_t C, size_t R,
 		  std::enable_if_t<(mstd::is_same_type_in_v<T, bool, int, unsigned int, float, double> && mstd::is_in_range_v<C, 2, 4> &&
-							mstd::is_in_range_v<R, 2, 4>)> >
+							mstd::is_in_range_v<R, 2, 4>), bool> = true>
 		#endif
 		explicit mat_data(
 		  const mstd::mat<C, R, T>& value
