@@ -440,10 +440,9 @@ namespace glslstruct {
 		#if _GLSL_STRUCT_HAS_TYPES
 			const auto arrayType = std::make_shared<array_type>(matType, count, arraySize);
 
-			// TODO: Fix adding array pointer and adding mat pointer
-			_add_variable(name, matsOffsets, matBaseAlignment, matType, arrayType).set_padding(matPadding);
+			_add_variable(name, matsOffsets.front(), matBaseAlignment, arrayType).set_padding(matPadding);
 		#else
-			_add_variable(name, matsOffsets, matBaseAlignment, matSize, arraySize).set_padding(matPadding);
+			_add_variable(name, matsOffsets.front(), matBaseAlignment, arraySize).set_padding(matPadding);
 		#endif
 
 			return alignmentOffsetsPerMat;
@@ -503,7 +502,7 @@ namespace glslstruct {
 			const size_t arrayPadding			 = _calculate_padding(_currentOffset, arrayBaseAlignment);
 
 			// APPLY PADDING TO CURRENT OFFSET
-			glsl_struct_assert(_move_current_offset(_currentOffset, alignmentOffsets.back(), arrayBaseAlignment),
+			glsl_struct_assert(_move_current_offset(_currentOffset, _currentOffset, arrayPadding),
 			  "Data overflow!");
 
 				for (size_t i = 0; i < count; ++i) {
@@ -525,8 +524,8 @@ namespace glslstruct {
 
 		// ADD VARIABLE DATA
 		#if _GLSL_STRUCT_HAS_TYPES
-			auto structType = std::make_shared<struct_type>(values, elemBaseOffset);
-			auto arrayType	= std::make_shared<array_type>(structType, count, arraySize);
+			const auto structType = std::make_shared<struct_type>(values, elemBaseOffset);
+			const auto arrayType	= std::make_shared<array_type>(structType, count, arraySize);
 
 			_add_array_variable(name, alignmentOffsets, arrayBaseAlignment, structType, arrayType)
 			  .set_padding(arrayPadding);

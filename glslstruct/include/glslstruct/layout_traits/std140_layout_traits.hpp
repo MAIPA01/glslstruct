@@ -23,7 +23,7 @@ namespace glslstruct {
 	struct std140_layout_traits {
 		static _GLSL_STRUCT_CONSTEXPR17 size_t ceil_to_nearest_multiple(size_t valueToRoundUp,
 		  const size_t multipleValue) noexcept {
-				if (size_t modulo = valueToRoundUp % multipleValue; modulo != 0) { valueToRoundUp += multipleValue - modulo; }
+				if (const size_t modulo = valueToRoundUp % multipleValue; modulo != 0) { valueToRoundUp += multipleValue - modulo; }
 			return valueToRoundUp;
 		}
 

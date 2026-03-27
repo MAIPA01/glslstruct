@@ -96,7 +96,7 @@ TEST(std140_layout, add_vectors) {
 	base = structLayout.get_type("Double");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<vec_type>(ValueType::Double, 2, 8);
+	temp_type = std::make_shared<vec_type>(ValueType::Double, 2, 16);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<vec_type>(base);
@@ -195,7 +195,7 @@ TEST(std140_layout, add_vectors) {
 	base = structLayout.get_type("Double");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<vec_type>(ValueType::Double, 3, 12);
+	temp_type = std::make_shared<vec_type>(ValueType::Double, 3, 24);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<vec_type>(base);
@@ -294,7 +294,7 @@ TEST(std140_layout, add_vectors) {
 	base = structLayout.get_type("Double");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<vec_type>(ValueType::Double, 4, 16);
+	temp_type = std::make_shared<vec_type>(ValueType::Double, 4, 32);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<vec_type>(base);

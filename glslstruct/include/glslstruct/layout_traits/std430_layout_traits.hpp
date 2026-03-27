@@ -21,6 +21,12 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 
 namespace glslstruct {
 	struct std430_layout_traits {
+		static _GLSL_STRUCT_CONSTEXPR17 size_t ceil_to_nearest_multiple(size_t valueToRoundUp,
+		  const size_t multipleValue) noexcept {
+			if (const size_t modulo = valueToRoundUp % multipleValue; modulo != 0) { valueToRoundUp += multipleValue - modulo; }
+			return valueToRoundUp;
+		}
+
 		static _GLSL_STRUCT_CONSTEXPR17 size_t get_scalar_alignment(const ValueType valueType) noexcept {
 			return get_value_type_size(valueType);
 		}
@@ -36,7 +42,8 @@ namespace glslstruct {
 
 		static _GLSL_STRUCT_CONSTEXPR17 size_t get_struct_alignment(const size_t baseAlignment) noexcept { return baseAlignment; }
 
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_struct_size(const size_t baseOffset) noexcept { return baseOffset; }
+		// TODO: think about size of struct etc..
+		static _GLSL_STRUCT_CONSTEXPR17 size_t get_struct_size(const size_t baseOffset) noexcept { return ceil_to_nearest_multiple(baseOffset, 16); }
 	};
 } // namespace glslstruct
 

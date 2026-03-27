@@ -98,7 +98,7 @@ TEST(std140_layout, add_scalars) {
 	base = structLayout.get_type("Double");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<scalar_type>(ValueType::Double, 4);
+	temp_type = std::make_shared<scalar_type>(ValueType::Double, 8);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<scalar_type>(base);
