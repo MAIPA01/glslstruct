@@ -331,7 +331,7 @@ namespace glslstruct {
 
 			_add_array_variable(name, alignmentOffsets, scalarType, arrayType).set_padding(arrayPadding);
 		#else
-			_add_array_variable(name, alignmentOffset, baseOffset, arraySize, count).set_padding(arrayPadding);
+			_add_array_variable(name, alignmentOffsets, baseOffset, arraySize).set_padding(arrayPadding);
 		#endif
 
 				// AFTER ADD SCALAR ARRAY
@@ -455,7 +455,7 @@ namespace glslstruct {
 
 			_add_array_variable(name, alignmentOffsets, vecType, arrayType).set_padding(arrayPadding);
 		#else
-			_add_array_variable(name, alignmentOffset, baseOffset, arraySize).set_padding(arrayPadding);
+			_add_array_variable(name, alignmentOffsets, baseOffset, arraySize).set_padding(arrayPadding);
 		#endif
 
 				// AFTER ADD VEC ARRAY
@@ -526,7 +526,7 @@ namespace glslstruct {
 
 			_add_array_variable(name, alignmentOffsets, vecType, matType).set_padding(matPadding);
 		#else
-			_add_array_variable(name, alignmentOffset, vecBaseOffset, matSize).set_padding(matPadding);
+			_add_array_variable(name, alignmentOffsets, vecBaseOffset, matSize).set_padding(matPadding);
 		#endif
 
 				// AFTER ADD VEC
@@ -764,7 +764,7 @@ namespace glslstruct {
 
 			_add_array_variable(name, alignmentOffsets, structType, arrayType).set_padding(arrayPadding);
 		#else
-			_add_array_variable(name, alignmentOffset, elemBaseOffset, arraySize).set_padding(arrayPadding);
+			_add_array_variable(name, alignmentOffsets, elemBaseOffset, arraySize).set_padding(arrayPadding);
 		#endif
 
 				// AFTER ADD SCALAR ARRAY
@@ -872,39 +872,50 @@ namespace glslstruct {
 			return _values.at(name.data());
 		}
 
+		[[nodiscard]] size_t get_array_count(const std::string_view name) const noexcept {
+			if (!contains(name)) {
+				return 0;
+			}
+
+			#if _GLSL_STRUCT_HAS_TYPES
+			const base_type_handle& varType = get_type(name);
+
+			if (is_of_type<mat_type>(varType)) { return static_type_cast<mat_type>(varType)->get_array_count(); }
+			if (is_of_type<array_type>(varType)) { return static_type_cast<array_type>(varType)->get_count(); }
+			#else
+			size_t i = 0;
+			while (true) {
+				const std::string valueName = _get_array_elem_name(name, i);
+
+				if (!contains(valueName)) { break; }
+				++i;
+			}
+
+			if (i != 0) {
+				return i;
+			}
+			#endif
+			return 1;
+		}
+
 		[[nodiscard]] size_t get_offset(const std::string_view name) const noexcept { return get(name).get_offset(); }
 
 		[[nodiscard]] std::vector<size_t> get_array_offsets(const std::string_view name) const noexcept {
-			const base_type_handle& varType = get_type(name);
+			const size_t arrayCount = get_array_count(name);
 
-		#if _GLSL_STRUCT_HAS_TYPES
-			size_t arraySize;
-				if (is_of_type<mat_type>(varType)) { arraySize = static_type_cast<mat_type>(varType)->get_array_count(); }
-				else if (is_of_type<array_type>(varType)) { arraySize = static_type_cast<array_type>(varType)->get_count(); }
-				else { return { _values.at(name.data()).get_offset() }; }
-		#endif
+			if (arrayCount == 0) {
+				return {};
+			}
+
+			if (arrayCount == 1) {
+				return { _values.at(name.data()).get_offset() };
+			}
 
 			std::vector<size_t> values;
-		#if _GLSL_STRUCT_HAS_TYPES
-			values.reserve(arraySize);
-				for (size_t i = 0; i != arraySize; ++i) {
-					values.push_back(_values.at(_get_array_elem_name(name, i)).get_offset());
-				}
-		#else
-			size_t i = 0;
-				while (true) {
-					const std::string valueName = _get_array_elem_name(name, i);
-
-						if (!contains(valueName)) { break; }
-					values.push_back(_values.at(valueName).get_offset());
-					++i;
-				}
-
-				if (i == 0) {
-					return { _values.at(name.data()).get_offset() };
-				}
-		#endif
-
+			values.reserve(arrayCount);
+			for (size_t i = 0; i != arrayCount; ++i) {
+				values.push_back(_values.at(_get_array_elem_name(name, i)).get_offset());
+			}
 			return values;
 		}
 

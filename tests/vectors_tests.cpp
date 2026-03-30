@@ -6,11 +6,11 @@ using namespace glm;
 TEST(std140_layout, add_vectors) {
 	std140_layout structLayout;
 	size_t ret;
-	#if _GLSL_STRUCT_HAS_TYPES
+#if _GLSL_STRUCT_HAS_TYPES
 	base_type_handle base		= nullptr;
 	vec_type_handle temp_type	= nullptr;
 	vec_type_handle casted_type = nullptr;
-	#endif
+#endif
 
 #pragma region VEC2
 	structLayout.clear();
@@ -19,6 +19,7 @@ TEST(std140_layout, add_vectors) {
 	ret = structLayout.add<bvec2>("Bool");
 	EXPECT_EQ(ret, 0);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Bool");
 	EXPECT_EQ(*base, *base);
 
@@ -32,12 +33,17 @@ TEST(std140_layout, add_vectors) {
 	EXPECT_EQ(casted_type->get_type(), temp_type->get_type());
 	EXPECT_EQ(casted_type->get_length(), temp_type->get_length());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Bool"), 8);
+	EXPECT_EQ(structLayout.get_array_count("Bool"), 1);
 #pragma endregion
 
 #pragma region IVEC2
 	ret = structLayout.add<ivec2>("Int");
 	EXPECT_EQ(ret, 8);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Int");
 	EXPECT_EQ(*base, *base);
 
@@ -51,12 +57,17 @@ TEST(std140_layout, add_vectors) {
 	EXPECT_EQ(casted_type->get_type(), temp_type->get_type());
 	EXPECT_EQ(casted_type->get_length(), temp_type->get_length());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Int"), 8);
+	EXPECT_EQ(structLayout.get_array_count("Int"), 1);
 #pragma endregion
 
 #pragma region UVEC2
 	ret = structLayout.add<uvec2>("Uint");
 	EXPECT_EQ(ret, 16);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Uint");
 	EXPECT_EQ(*base, *base);
 
@@ -70,12 +81,17 @@ TEST(std140_layout, add_vectors) {
 	EXPECT_EQ(casted_type->get_type(), temp_type->get_type());
 	EXPECT_EQ(casted_type->get_length(), temp_type->get_length());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Uint"), 8);
+	EXPECT_EQ(structLayout.get_array_count("Uint"), 1);
 #pragma endregion
 
 #pragma region VEC2
 	ret = structLayout.add<vec2>("Float");
 	EXPECT_EQ(ret, 24);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Float");
 	EXPECT_EQ(*base, *base);
 
@@ -89,12 +105,17 @@ TEST(std140_layout, add_vectors) {
 	EXPECT_EQ(casted_type->get_type(), temp_type->get_type());
 	EXPECT_EQ(casted_type->get_length(), temp_type->get_length());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Float"), 8);
+	EXPECT_EQ(structLayout.get_array_count("Float"), 1);
 #pragma endregion
 
 #pragma region DVEC2
 	ret = structLayout.add<dvec2>("Double");
 	EXPECT_EQ(ret, 32);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Double");
 	EXPECT_EQ(*base, *base);
 
@@ -108,6 +129,10 @@ TEST(std140_layout, add_vectors) {
 	EXPECT_EQ(casted_type->get_type(), temp_type->get_type());
 	EXPECT_EQ(casted_type->get_length(), temp_type->get_length());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Double"), 16);
+	EXPECT_EQ(structLayout.get_array_count("Double"), 1);
 #pragma endregion
 #pragma endregion
 
@@ -118,6 +143,7 @@ TEST(std140_layout, add_vectors) {
 	ret = structLayout.add<bvec3>("Bool");
 	EXPECT_EQ(ret, 0);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Bool");
 	EXPECT_EQ(*base, *base);
 
@@ -131,12 +157,17 @@ TEST(std140_layout, add_vectors) {
 	EXPECT_EQ(casted_type->get_type(), temp_type->get_type());
 	EXPECT_EQ(casted_type->get_length(), temp_type->get_length());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Bool"), 12);
+	EXPECT_EQ(structLayout.get_array_count("Bool"), 1);
 #pragma endregion
 
 #pragma region IVEC3
 	ret = structLayout.add<ivec3>("Int");
 	EXPECT_EQ(ret, 16);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Int");
 	EXPECT_EQ(*base, *base);
 
@@ -150,12 +181,17 @@ TEST(std140_layout, add_vectors) {
 	EXPECT_EQ(casted_type->get_type(), temp_type->get_type());
 	EXPECT_EQ(casted_type->get_length(), temp_type->get_length());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Int"), 12);
+	EXPECT_EQ(structLayout.get_array_count("Int"), 1);
 #pragma endregion
 
 #pragma region UVEC3
 	ret = structLayout.add<uvec3>("Uint");
 	EXPECT_EQ(ret, 32);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Uint");
 	EXPECT_EQ(*base, *base);
 
@@ -169,12 +205,17 @@ TEST(std140_layout, add_vectors) {
 	EXPECT_EQ(casted_type->get_type(), temp_type->get_type());
 	EXPECT_EQ(casted_type->get_length(), temp_type->get_length());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Uint"), 12);
+	EXPECT_EQ(structLayout.get_array_count("Uint"), 1);
 #pragma endregion
 
 #pragma region VEC3
 	ret = structLayout.add<vec3>("Float");
 	EXPECT_EQ(ret, 48);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Float");
 	EXPECT_EQ(*base, *base);
 
@@ -188,12 +229,17 @@ TEST(std140_layout, add_vectors) {
 	EXPECT_EQ(casted_type->get_type(), temp_type->get_type());
 	EXPECT_EQ(casted_type->get_length(), temp_type->get_length());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Float"), 12);
+	EXPECT_EQ(structLayout.get_array_count("Float"), 1);
 #pragma endregion
 
 #pragma region DVEC3
 	ret = structLayout.add<dvec3>("Double");
 	EXPECT_EQ(ret, 64);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Double");
 	EXPECT_EQ(*base, *base);
 
@@ -207,6 +253,10 @@ TEST(std140_layout, add_vectors) {
 	EXPECT_EQ(casted_type->get_type(), temp_type->get_type());
 	EXPECT_EQ(casted_type->get_length(), temp_type->get_length());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Double"), 24);
+	EXPECT_EQ(structLayout.get_array_count("Double"), 1);
 #pragma endregion
 #pragma endregion
 
@@ -217,6 +267,7 @@ TEST(std140_layout, add_vectors) {
 	ret = structLayout.add<bvec4>("Bool");
 	EXPECT_EQ(ret, 0);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Bool");
 	EXPECT_EQ(*base, *base);
 
@@ -230,12 +281,17 @@ TEST(std140_layout, add_vectors) {
 	EXPECT_EQ(casted_type->get_type(), temp_type->get_type());
 	EXPECT_EQ(casted_type->get_length(), temp_type->get_length());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Bool"), 16);
+	EXPECT_EQ(structLayout.get_array_count("Bool"), 1);
 #pragma endregion
 
 #pragma region IVEC4
 	ret = structLayout.add<ivec4>("Int");
 	EXPECT_EQ(ret, 16);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Int");
 	EXPECT_EQ(*base, *base);
 
@@ -249,12 +305,17 @@ TEST(std140_layout, add_vectors) {
 	EXPECT_EQ(casted_type->get_type(), temp_type->get_type());
 	EXPECT_EQ(casted_type->get_length(), temp_type->get_length());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Int"), 16);
+	EXPECT_EQ(structLayout.get_array_count("Int"), 1);
 #pragma endregion
 
 #pragma region UVEC4
 	ret = structLayout.add<uvec4>("Uint");
 	EXPECT_EQ(ret, 32);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Uint");
 	EXPECT_EQ(*base, *base);
 
@@ -268,12 +329,17 @@ TEST(std140_layout, add_vectors) {
 	EXPECT_EQ(casted_type->get_type(), temp_type->get_type());
 	EXPECT_EQ(casted_type->get_length(), temp_type->get_length());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Uint"), 16);
+	EXPECT_EQ(structLayout.get_array_count("Uint"), 1);
 #pragma endregion
 
 #pragma region VEC4
 	ret = structLayout.add<vec4>("Float");
 	EXPECT_EQ(ret, 48);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Float");
 	EXPECT_EQ(*base, *base);
 
@@ -287,12 +353,17 @@ TEST(std140_layout, add_vectors) {
 	EXPECT_EQ(casted_type->get_type(), temp_type->get_type());
 	EXPECT_EQ(casted_type->get_length(), temp_type->get_length());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Float"), 16);
+	EXPECT_EQ(structLayout.get_array_count("Float"), 1);
 #pragma endregion
 
 #pragma region DVEC4
 	ret = structLayout.add<dvec4>("Double");
 	EXPECT_EQ(ret, 64);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Double");
 	EXPECT_EQ(*base, *base);
 
@@ -306,6 +377,10 @@ TEST(std140_layout, add_vectors) {
 	EXPECT_EQ(casted_type->get_type(), temp_type->get_type());
 	EXPECT_EQ(casted_type->get_length(), temp_type->get_length());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Double"), 32);
+	EXPECT_EQ(structLayout.get_array_count("Double"), 1);
 #pragma endregion
 #pragma endregion
 }
@@ -314,9 +389,11 @@ TEST(std140_layout, add_vectors_array) {
 	std140_layout structLayout;
 	std::vector<size_t> results;
 	std::vector<size_t> ret;
+#if _GLSL_STRUCT_HAS_TYPES
 	base_type_handle base		  = nullptr;
 	array_type_handle temp_type	  = nullptr;
 	array_type_handle casted_type = nullptr;
+#endif
 
 #pragma region VEC2_ARRAY
 	structLayout.clear();
@@ -326,6 +403,7 @@ TEST(std140_layout, add_vectors_array) {
 	ret		= structLayout.add<bvec2>("Bools", 2);
 	EXPECT_EQ(ret, results);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Bools");
 	EXPECT_EQ(*base, *base);
 
@@ -339,6 +417,10 @@ TEST(std140_layout, add_vectors_array) {
 	EXPECT_EQ(*casted_type->get_type(), *temp_type->get_type());
 	EXPECT_EQ(casted_type->get_count(), temp_type->get_count());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Bools"), 24);
+	EXPECT_EQ(structLayout.get_array_count("Bools"), 2);
 #pragma endregion
 
 #pragma region IVEC2_ARRAY
@@ -346,6 +428,7 @@ TEST(std140_layout, add_vectors_array) {
 	ret		= structLayout.add<ivec2>("Ints", 2);
 	EXPECT_EQ(ret, results);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Ints");
 	EXPECT_EQ(*base, *base);
 
@@ -359,6 +442,10 @@ TEST(std140_layout, add_vectors_array) {
 	EXPECT_EQ(*casted_type->get_type(), *temp_type->get_type());
 	EXPECT_EQ(casted_type->get_count(), temp_type->get_count());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Ints"), 24);
+	EXPECT_EQ(structLayout.get_array_count("Ints"), 2);
 #pragma endregion
 
 #pragma region UVEC2_ARRAY
@@ -366,6 +453,7 @@ TEST(std140_layout, add_vectors_array) {
 	ret		= structLayout.add<uvec2>("Uints", 2);
 	EXPECT_EQ(ret, results);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Uints");
 	EXPECT_EQ(*base, *base);
 
@@ -379,6 +467,10 @@ TEST(std140_layout, add_vectors_array) {
 	EXPECT_EQ(*casted_type->get_type(), *temp_type->get_type());
 	EXPECT_EQ(casted_type->get_count(), temp_type->get_count());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Uints"), 24);
+	EXPECT_EQ(structLayout.get_array_count("Uints"), 2);
 #pragma endregion
 
 #pragma region VEC2_ARRAY
@@ -386,6 +478,7 @@ TEST(std140_layout, add_vectors_array) {
 	ret		= structLayout.add<vec2>("Floats", 2);
 	EXPECT_EQ(ret, results);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Floats");
 	EXPECT_EQ(*base, *base);
 
@@ -399,6 +492,10 @@ TEST(std140_layout, add_vectors_array) {
 	EXPECT_EQ(*casted_type->get_type(), *temp_type->get_type());
 	EXPECT_EQ(casted_type->get_count(), temp_type->get_count());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Floats"), 24);
+	EXPECT_EQ(structLayout.get_array_count("Floats"), 2);
 #pragma endregion
 
 #pragma region DVEC2_ARRAY
@@ -406,6 +503,7 @@ TEST(std140_layout, add_vectors_array) {
 	ret		= structLayout.add<dvec2>("Doubles", 2);
 	EXPECT_EQ(ret, results);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Doubles");
 	EXPECT_EQ(*base, *base);
 
@@ -419,6 +517,10 @@ TEST(std140_layout, add_vectors_array) {
 	EXPECT_EQ(*casted_type->get_type(), *temp_type->get_type());
 	EXPECT_EQ(casted_type->get_count(), temp_type->get_count());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Doubles"), 32);
+	EXPECT_EQ(structLayout.get_array_count("Doubles"), 2);
 #pragma endregion
 #pragma endregion
 
@@ -430,6 +532,7 @@ TEST(std140_layout, add_vectors_array) {
 	ret		= structLayout.add<bvec3>("Bools", 2);
 	EXPECT_EQ(ret, results);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Bools");
 	EXPECT_EQ(*base, *base);
 
@@ -443,6 +546,10 @@ TEST(std140_layout, add_vectors_array) {
 	EXPECT_EQ(*casted_type->get_type(), *temp_type->get_type());
 	EXPECT_EQ(casted_type->get_count(), temp_type->get_count());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Bools"), 28);
+	EXPECT_EQ(structLayout.get_array_count("Bools"), 2);
 #pragma endregion
 
 #pragma region IVEC3_ARRAY
@@ -450,6 +557,7 @@ TEST(std140_layout, add_vectors_array) {
 	ret		= structLayout.add<ivec3>("Ints", 2);
 	EXPECT_EQ(ret, results);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Ints");
 	EXPECT_EQ(*base, *base);
 
@@ -463,6 +571,10 @@ TEST(std140_layout, add_vectors_array) {
 	EXPECT_EQ(*casted_type->get_type(), *temp_type->get_type());
 	EXPECT_EQ(casted_type->get_count(), temp_type->get_count());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Ints"), 28);
+	EXPECT_EQ(structLayout.get_array_count("Ints"), 2);
 #pragma endregion
 
 #pragma region UVEC3_ARRAY
@@ -470,6 +582,7 @@ TEST(std140_layout, add_vectors_array) {
 	ret		= structLayout.add<uvec3>("Uints", 2);
 	EXPECT_EQ(ret, results);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Uints");
 	EXPECT_EQ(*base, *base);
 
@@ -483,6 +596,10 @@ TEST(std140_layout, add_vectors_array) {
 	EXPECT_EQ(*casted_type->get_type(), *temp_type->get_type());
 	EXPECT_EQ(casted_type->get_count(), temp_type->get_count());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Uints"), 28);
+	EXPECT_EQ(structLayout.get_array_count("Uints"), 2);
 #pragma endregion
 
 #pragma region VEC3_ARRAY
@@ -490,6 +607,7 @@ TEST(std140_layout, add_vectors_array) {
 	ret		= structLayout.add<vec3>("Floats", 2);
 	EXPECT_EQ(ret, results);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Floats");
 	EXPECT_EQ(*base, *base);
 
@@ -503,6 +621,10 @@ TEST(std140_layout, add_vectors_array) {
 	EXPECT_EQ(*casted_type->get_type(), *temp_type->get_type());
 	EXPECT_EQ(casted_type->get_count(), temp_type->get_count());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Floats"), 28);
+	EXPECT_EQ(structLayout.get_array_count("Floats"), 2);
 #pragma endregion
 
 #pragma region DVEC3_ARRAY
@@ -510,6 +632,7 @@ TEST(std140_layout, add_vectors_array) {
 	ret		= structLayout.add<dvec3>("Doubles", 2);
 	EXPECT_EQ(ret, results);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Doubles");
 	EXPECT_EQ(*base, *base);
 
@@ -523,6 +646,10 @@ TEST(std140_layout, add_vectors_array) {
 	EXPECT_EQ(*casted_type->get_type(), *temp_type->get_type());
 	EXPECT_EQ(casted_type->get_count(), temp_type->get_count());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Doubles"), 56);
+	EXPECT_EQ(structLayout.get_array_count("Doubles"), 2);
 #pragma endregion
 #pragma endregion
 
@@ -534,6 +661,7 @@ TEST(std140_layout, add_vectors_array) {
 	ret		= structLayout.add<bvec4>("Bools", 2);
 	EXPECT_EQ(ret, results);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Bools");
 	EXPECT_EQ(*base, *base);
 
@@ -547,6 +675,10 @@ TEST(std140_layout, add_vectors_array) {
 	EXPECT_EQ(*casted_type->get_type(), *temp_type->get_type());
 	EXPECT_EQ(casted_type->get_count(), temp_type->get_count());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Bools"), 32);
+	EXPECT_EQ(structLayout.get_array_count("Bools"), 2);
 #pragma endregion
 
 #pragma region IVEC4_ARRAY
@@ -554,6 +686,7 @@ TEST(std140_layout, add_vectors_array) {
 	ret		= structLayout.add<ivec4>("Ints", 2);
 	EXPECT_EQ(ret, results);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Ints");
 	EXPECT_EQ(*base, *base);
 
@@ -567,6 +700,10 @@ TEST(std140_layout, add_vectors_array) {
 	EXPECT_EQ(*casted_type->get_type(), *temp_type->get_type());
 	EXPECT_EQ(casted_type->get_count(), temp_type->get_count());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Ints"), 32);
+	EXPECT_EQ(structLayout.get_array_count("Ints"), 2);
 #pragma endregion
 
 #pragma region UVEC4_ARRAY
@@ -574,6 +711,7 @@ TEST(std140_layout, add_vectors_array) {
 	ret		= structLayout.add<uvec4>("Uints", 2);
 	EXPECT_EQ(ret, results);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Uints");
 	EXPECT_EQ(*base, *base);
 
@@ -587,6 +725,10 @@ TEST(std140_layout, add_vectors_array) {
 	EXPECT_EQ(*casted_type->get_type(), *temp_type->get_type());
 	EXPECT_EQ(casted_type->get_count(), temp_type->get_count());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Uints"), 32);
+	EXPECT_EQ(structLayout.get_array_count("Uints"), 2);
 #pragma endregion
 
 #pragma region VEC4_ARRAY
@@ -594,6 +736,7 @@ TEST(std140_layout, add_vectors_array) {
 	ret		= structLayout.add<vec4>("Floats", 2);
 	EXPECT_EQ(ret, results);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Floats");
 	EXPECT_EQ(*base, *base);
 
@@ -607,6 +750,10 @@ TEST(std140_layout, add_vectors_array) {
 	EXPECT_EQ(*casted_type->get_type(), *temp_type->get_type());
 	EXPECT_EQ(casted_type->get_count(), temp_type->get_count());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Floats"), 32);
+	EXPECT_EQ(structLayout.get_array_count("Floats"), 2);
 #pragma endregion
 
 #pragma region DVEC4_ARRAY
@@ -614,6 +761,7 @@ TEST(std140_layout, add_vectors_array) {
 	ret		= structLayout.add<dvec4>("Doubles", 2);
 	EXPECT_EQ(ret, results);
 
+#if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Doubles");
 	EXPECT_EQ(*base, *base);
 
@@ -627,6 +775,10 @@ TEST(std140_layout, add_vectors_array) {
 	EXPECT_EQ(*casted_type->get_type(), *temp_type->get_type());
 	EXPECT_EQ(casted_type->get_count(), temp_type->get_count());
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
+#endif
+
+	EXPECT_EQ(structLayout.get_size("Doubles"), 64);
+	EXPECT_EQ(structLayout.get_array_count("Doubles"), 2);
 #pragma endregion
 #pragma endregion
 }
