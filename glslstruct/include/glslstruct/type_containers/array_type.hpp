@@ -45,7 +45,7 @@ namespace glslstruct {
 		template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 array_type(const std::shared_ptr<T>& type, const size_t count, const size_t size) noexcept
-			: base_type(size), _type(std::dynamic_pointer_cast<base_type>(type)), _count(count) {
+			: base_type(size), _type(std::dynamic_pointer_cast<glslstruct::base_type>(type)), _count(count) {
 		}
 
 		array_type(const array_type& other) noexcept;

@@ -17,33 +17,49 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 	#else
 
+		#include <glslstruct/layout_traits_contexts/layout_traits_contexts.hpp>
 		#include <glslstruct/utils/ValueType.hpp>
 
 namespace glslstruct {
-	struct std430_layout_traits {
-		static _GLSL_STRUCT_CONSTEXPR17 size_t ceil_to_nearest_multiple(size_t valueToRoundUp,
-		  const size_t multipleValue) noexcept {
-			if (const size_t modulo = valueToRoundUp % multipleValue; modulo != 0) { valueToRoundUp += multipleValue - modulo; }
-			return valueToRoundUp;
-		}
+	struct std430_layout_context : max_alignment_layout_context,
+								   struct_added_layout_context {};
 
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_scalar_alignment(const ValueType valueType) noexcept {
+	struct std430_layout_traits {
+		using context_type = std430_layout_context;
+
+		static _GLSL_STRUCT_CONSTEXPR17 size_t get_scalar_alignment(const ValueType valueType, context_type&) noexcept {
 			return get_value_type_size(valueType);
 		}
 
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_vec_alignment(const ValueType valueType, const size_t length) noexcept {
+		static _GLSL_STRUCT_CONSTEXPR17 size_t get_vec_alignment(const ValueType valueType, const size_t length,
+		  context_type&) noexcept {
 				if (length == 3) { return get_value_type_size(valueType) * 4; }
 			return get_value_type_size(valueType) * length;
 		}
 
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_array_alignment(const size_t elemBaseAlignment) noexcept {
+		static _GLSL_STRUCT_CONSTEXPR17 size_t get_array_alignment(const size_t elemBaseAlignment, context_type&) noexcept {
 			return elemBaseAlignment;
 		}
 
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_struct_alignment(const size_t baseAlignment) noexcept { return baseAlignment; }
+		static _GLSL_STRUCT_CONSTEXPR17 size_t get_struct_alignment(const context_type& ctx) noexcept { return ctx.maxAlignment; }
 
-		// TODO: think about size of struct etc..
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_struct_size(const size_t baseOffset) noexcept { return ceil_to_nearest_multiple(baseOffset, 16); }
+		static _GLSL_STRUCT_CONSTEXPR17 void before_add(size_t& currentOffset, context_type& ctx) noexcept {
+				if (ctx.structAlignment != 0) {
+					currentOffset		= context_type::ceil_to_nearest_multiple(currentOffset, ctx.structAlignment);
+					ctx.structAlignment = 0;
+				}
+		}
+
+		static _GLSL_STRUCT_CONSTEXPR17 void after_add(size_t&, const size_t, const size_t alignment,
+		  context_type& ctx) noexcept {
+			ctx.update_max_alignment(alignment);
+		}
+
+		static _GLSL_STRUCT_CONSTEXPR17 void after_add_struct(size_t& currentOffset, const size_t size, const size_t alignment,
+		  context_type& ctx) noexcept {
+			ctx.structAlignment = alignment;
+			after_add(currentOffset, size, alignment, ctx);
+		}
 	};
 } // namespace glslstruct
 

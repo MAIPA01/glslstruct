@@ -13,7 +13,7 @@
 
 	#include <glslstruct/config.hpp>
 
-	#if !_GLSL_STRUCT_HAS_TYPES
+	#if !_GLSL_STRUCT_HAS_CXX17
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 	#else
 

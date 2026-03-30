@@ -20,23 +20,27 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 		#include <glslstruct/utils/MajorType.hpp>
 		#include <glslstruct/utils/ValueType.hpp>
 
-		#include <glslstruct/type_containers/array_type.hpp>
-		#include <glslstruct/type_containers/base_type.hpp>
-		#include <glslstruct/type_containers/type.hpp>
-		#include <glslstruct/type_containers/mat_type.hpp>
-		#include <glslstruct/type_containers/scalar_type.hpp>
-		#include <glslstruct/type_containers/struct_type.hpp>
-		#include <glslstruct/type_containers/vec_type.hpp>
+		#if _GLSL_STRUCT_HAS_TYPES
+			#include <glslstruct/type_containers/array_type.hpp>
+			#include <glslstruct/type_containers/base_type.hpp>
+			#include <glslstruct/type_containers/mat_type.hpp>
+			#include <glslstruct/type_containers/scalar_type.hpp>
+			#include <glslstruct/type_containers/struct_type.hpp>
+			#include <glslstruct/type_containers/type.hpp>
+			#include <glslstruct/type_containers/vec_type.hpp>
 
-		#include <glslstruct/type_visitors/eq_type_visitor.hpp>
-		#include <glslstruct/type_visitors/is_of_type_visitor.hpp>
-		#include <glslstruct/type_visitors/type_hash_visitor.hpp>
-		#include <glslstruct/type_visitors/type_visitor_concept.hpp>
+			#include <glslstruct/type_visitors/eq_type_visitor.hpp>
+			#include <glslstruct/type_visitors/is_of_type_visitor.hpp>
+			#include <glslstruct/type_visitors/type_hash_visitor.hpp>
+			#include <glslstruct/type_visitors/type_visitor_concept.hpp>
+		#endif
 
 		#include <glslstruct/type_checks/layouts_checks.hpp>
-		#include <glslstruct/type_checks/struct_checks.hpp>
-		#include <glslstruct/type_checks/type_checks.hpp>
 		#include <glslstruct/type_checks/simple_checks.hpp>
+		#include <glslstruct/type_checks/struct_checks.hpp>
+		#if _GLSL_STRUCT_HAS_TYPES
+			#include <glslstruct/type_checks/type_checks.hpp>
+		#endif
 
 		#include <glslstruct/type_data/mat_data.hpp>
 		#include <glslstruct/type_data/scalar_data.hpp>

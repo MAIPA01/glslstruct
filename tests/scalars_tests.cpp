@@ -126,7 +126,7 @@ TEST(std140_layout, add_scalars_array) {
 	base = structLayout.get_type("Bools");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<array_type>(ValueType::Bool, 4, 2, 128);
+	temp_type = std::make_shared<array_type>(ValueType::Bool, 4, 2, 20);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
@@ -146,7 +146,7 @@ TEST(std140_layout, add_scalars_array) {
 	base = structLayout.get_type("Ints");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<array_type>(ValueType::Int, 4, 2, 128);
+	temp_type = std::make_shared<array_type>(ValueType::Int, 4, 2, 20);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
@@ -166,7 +166,7 @@ TEST(std140_layout, add_scalars_array) {
 	base = structLayout.get_type("Uints");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<array_type>(ValueType::Uint, 4, 2, 128);
+	temp_type = std::make_shared<array_type>(ValueType::Uint, 4, 2, 20);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
@@ -186,7 +186,7 @@ TEST(std140_layout, add_scalars_array) {
 	base = structLayout.get_type("Floats");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<array_type>(ValueType::Float, 4, 2, 128);
+	temp_type = std::make_shared<array_type>(ValueType::Float, 4, 2, 20);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
@@ -206,7 +206,7 @@ TEST(std140_layout, add_scalars_array) {
 	base = structLayout.get_type("Doubles");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<array_type>(ValueType::Double, 4, 2, 128);
+	temp_type = std::make_shared<array_type>(ValueType::Double, 8, 2, 24);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);

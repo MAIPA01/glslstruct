@@ -32,7 +32,7 @@ namespace glslstruct {
 		friend struct std::hash<base_struct>;
 
 		template<class T>
-		struct _is_simple_or_struct_with_offset : std::bool_constant<utils::is_glsl_simple_or_layout_struct_v<T, Layout> > {};
+		struct _is_glsl_simple_or_layout_struct : std::bool_constant<utils::is_glsl_simple_or_layout_struct_v<T, Layout> > {};
 
 		Layout _layout;
 		std::vector<std::byte> _data;
@@ -49,7 +49,7 @@ namespace glslstruct {
 
 		template<class T>
 		static _GLSL_STRUCT_CONSTEXPR20 std::vector<std::vector<std::byte> > _get_mat_value_data(const T& value) {
-			const std::vector<vec_data>& vecsData = mat_traits<T>::get_data(value).data();
+			const std::vector<vec_data> vecsData = mat_traits<T>::get_data(value).data();
 
 			std::vector<std::vector<std::byte> > data;
 			data.reserve(vecsData.size());
@@ -211,23 +211,41 @@ namespace glslstruct {
 	public:
 		using layout_type								= Layout;
 
-		_GLSL_STRUCT_CONSTEXPR20 base_struct() noexcept = default;
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<class T = layout_type, std::enable_if_t<std::is_same_v<T, layout_type> && std::is_default_constructible_v<layout_type>, bool> = true>
+		#endif
+		_GLSL_STRUCT_CONSTEXPR20 base_struct() noexcept _GLSL_STRUCT_REQUIRES(std::is_default_constructible_v<layout_type>) : _layout() {}
+
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<class T = layout_type, std::enable_if_t<std::is_same_v<T, layout_type> && layout_type::has_context, bool> = true>
+		#endif
+		explicit _GLSL_STRUCT_CONSTEXPR20 base_struct(const layout_type::context_type& ctx) noexcept _GLSL_STRUCT_REQUIRES(layout_type::has_context) : _layout(ctx) {}
 
 		explicit _GLSL_STRUCT_CONSTEXPR20 base_struct(const layout_type& layout) noexcept
 			: _layout(layout), _data(_layout.size(), static_cast<std::byte>(0)) {}
 
-		explicit _GLSL_STRUCT_CONSTEXPR20 base_struct(const Layout& layout, const std::vector<std::byte>& data) noexcept
+		explicit _GLSL_STRUCT_CONSTEXPR20 base_struct(const layout_type& layout, const std::vector<std::byte>& data) noexcept
 			: _layout(layout), _data(data) {
 			_data.resize(_layout.size(), static_cast<std::byte>(0));
 		}
 
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_simple_or_struct_with_offset_value<_Offset>... Args, size_t... nums>
+		template<utils::glsl_simple_or_layout_struct<layout_type>... Args, size_t... nums, std::enable_if_t<std::is_default_constructible_v<layout_type>, bool> = true>
 		#else
 		template<class... Args, size_t... nums,
-		  std::enable_if_t<mstd::all_check_v<_is_simple_or_struct_with_offset, Args...>, bool> = true>
+		  std::enable_if_t<mstd::all_check_v<_is_glsl_simple_or_layout_struct, Args...>, bool> = true>
 		#endif
-		explicit _GLSL_STRUCT_CONSTEXPR20 base_struct(const glsl_value<Args, nums>&... values) noexcept {
+		explicit _GLSL_STRUCT_CONSTEXPR20 base_struct(const glsl_value<Args, nums>&... values) noexcept _GLSL_STRUCT_REQUIRES(std::is_default_constructible_v<layout_type>) {
+			_add_values(values...);
+		}
+
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<utils::glsl_simple_or_layout_struct<layout_type>... Args, size_t... nums, std::enable_if_t<layout_type::has_context, bool> = true>
+		#else
+		template<class... Args, size_t... nums,
+		  std::enable_if_t<mstd::all_check_v<_is_glsl_simple_or_layout_struct, Args...>, bool> = true>
+		#endif
+		explicit _GLSL_STRUCT_CONSTEXPR20 base_struct(const glsl_value<Args, nums>&... values, const layout_type::context_type& ctx) noexcept _GLSL_STRUCT_REQUIRES(layout_type::has_context) : _layout(ctx) {
 			_add_values(values...);
 		}
 
@@ -246,7 +264,7 @@ namespace glslstruct {
 			return *this;
 		}
 
-		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 size_t bad_offset() noexcept { return Layout::bad_offset(); }
+		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 size_t bad_offset() noexcept { return layout_type::bad_offset(); }
 
 		#pragma region ADD
 		#pragma region ADD_SCALAR
@@ -422,7 +440,7 @@ namespace glslstruct {
 		template<class M, std::enable_if_t<utils::is_glsl_mat_v<M>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 size_t add(const std::string_view name, const M& value) {
-			const std::vector<size_t> valuesOffsets			= _layout.template add<M>(name);
+			const std::vector<size_t> valuesOffsets				  = _layout.template add<M>(name);
 
 			const std::vector<std::vector<std::byte> > valuesData = _get_mat_value_data(value);
 
@@ -520,13 +538,13 @@ namespace glslstruct {
 			return add(name, value._layout, value._data);
 		}
 
-		_GLSL_STRUCT_CONSTEXPR17 size_t add(const std::string_view name, const Layout& value) {
+		_GLSL_STRUCT_CONSTEXPR17 size_t add(const std::string_view name, const layout_type& value) {
 			return add(name, value, std::vector<std::byte>(value.size(), std::byte {}));
 		}
 
-		_GLSL_STRUCT_CONSTEXPR20 size_t add(const std::string_view name, const Layout& value,
+		_GLSL_STRUCT_CONSTEXPR20 size_t add(const std::string_view name, const layout_type& value,
 		  const std::vector<std::byte>& data) {
-			const size_t valueOffset				   = _layout.add(name, value);
+			const size_t valueOffset		   = _layout.add(name, value);
 
 			std::vector<std::byte> resizedData = data;
 			resizedData.resize(value.size(), std::byte {});
@@ -538,7 +556,7 @@ namespace glslstruct {
 
 		#pragma region ADD_STRUCT_ARRAYS
 
-		_GLSL_STRUCT_CONSTEXPR20 std::vector<size_t> add(const std::string_view name, const Layout& layout,
+		_GLSL_STRUCT_CONSTEXPR20 std::vector<size_t> add(const std::string_view name, const layout_type& layout,
 		  const std::vector<std::byte>* values, size_t size) {
 			const std::vector<size_t>& valuesOffsets = _layout.add(name, layout, size);
 
@@ -546,7 +564,7 @@ namespace glslstruct {
 		}
 
 		template<size_t N>
-		_GLSL_STRUCT_CONSTEXPR20 std::vector<size_t> add(const std::string_view name, const Layout& layout,
+		_GLSL_STRUCT_CONSTEXPR20 std::vector<size_t> add(const std::string_view name, const layout_type& layout,
 		  const std::vector<std::byte> (&values)[N]) {
 			const std::vector<size_t>& valuesOffsets = _layout.add(name, layout, N);
 
@@ -554,14 +572,14 @@ namespace glslstruct {
 		}
 
 		template<size_t N>
-		_GLSL_STRUCT_CONSTEXPR20 std::vector<size_t> add(const std::string_view name, const Layout& layout,
+		_GLSL_STRUCT_CONSTEXPR20 std::vector<size_t> add(const std::string_view name, const layout_type& layout,
 		  const std::array<std::vector<std::byte>, N>& values) {
 			const std::vector<size_t>& valuesOffsets = _layout.add(name, layout, N);
 
 			return _add_array(valuesOffsets, values.data());
 		}
 
-		_GLSL_STRUCT_CONSTEXPR20 std::vector<size_t> add(const std::string_view name, const Layout& layout,
+		_GLSL_STRUCT_CONSTEXPR20 std::vector<size_t> add(const std::string_view name, const layout_type& layout,
 		  const std::vector<std::vector<std::byte> >& values) {
 			const std::vector<size_t>& valuesOffsets = _layout.add(name, layout, values.size());
 
@@ -745,7 +763,7 @@ namespace glslstruct {
 		template<class M, std::enable_if_t<utils::is_glsl_mat_v<M>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 bool set(const std::string_view name, const M& value) {
-			const std::vector<size_t> valuesOffsets			= _layout.template get<M>(name);
+			const std::vector<size_t> valuesOffsets				  = _layout.template get<M>(name);
 
 			const std::vector<std::vector<std::byte> > valuesData = _get_mat_value_data(value);
 
@@ -1033,11 +1051,11 @@ namespace glslstruct {
 
 		#pragma region GET_STRUCT
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_layout_struct<Layout> S>
+		template<utils::glsl_layout_struct<layout_type> S>
 		#else
-		template<class S, std::enable_if_t<utils::is_glsl_layout_struct_v<S, Layout>, bool> = true>
+		template<class S, std::enable_if_t<utils::is_glsl_layout_struct_v<S, layout_type>, bool> = true>
 		#endif
-		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 S get(const std::string_view name, const Layout& layout) const {
+		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 S get(const std::string_view name, const layout_type& layout) const {
 			const size_t valueOffset = _layout.get_offset(name);
 
 			return S(layout, _get(valueOffset, layout.size()));
@@ -1047,13 +1065,13 @@ namespace glslstruct {
 
 		#pragma region GET_STRUCT_ARRAYS
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_layout_struct<Layout> S>
+		template<utils::glsl_layout_struct<layout_type> S>
 		#else
-		template<class S, std::enable_if_t<utils::is_glsl_layout_struct_v<S, Layout>, bool> = true>
+		template<class S, std::enable_if_t<utils::is_glsl_layout_struct_v<S, layout_type>, bool> = true>
 		#endif
-		_GLSL_STRUCT_CONSTEXPR20 void get(const std::string_view name, const Layout& layout, S*& valuesDest,
+		_GLSL_STRUCT_CONSTEXPR20 void get(const std::string_view name, const layout_type& layout, S*& valuesDest,
 		  const size_t size) const {
-			const std::vector<size_t> valuesOffsets			= _layout.get_array(name, layout);
+			const std::vector<size_t> valuesOffsets				  = _layout.get_array(name, layout);
 
 			const std::vector<std::vector<std::byte> > valuesData = _get_array(valuesOffsets, layout.size());
 
@@ -1066,9 +1084,9 @@ namespace glslstruct {
 		template<class VS, std::enable_if_t<utils::is_glsl_layout_structs_vector_v<VS, Layout>, bool> = true>
 		#endif
 		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR20 VS get(const std::string_view name, const Layout& layout) const {
-			using S											= typename VS::value_type;
+			using S												  = typename VS::value_type;
 
-			const std::vector<size_t> valuesOffsets			= _layout.get_array(name, layout);
+			const std::vector<size_t> valuesOffsets				  = _layout.get_array(name, layout);
 
 			const std::vector<std::vector<std::byte> > valuesData = _get_array(valuesOffsets, layout.size());
 
@@ -1083,7 +1101,7 @@ namespace glslstruct {
 		#pragma endregion
 		#pragma endregion
 
-		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 const Layout& get_layout() const noexcept { return _layout; }
+		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 const layout_type& get_layout() const noexcept { return _layout; }
 
 		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 bool contains(const std::string_view name) const { return _layout.contains(name); }
 
@@ -1095,17 +1113,19 @@ namespace glslstruct {
 			return _layout.get_array_offsets(name);
 		}
 
+		#if _GLSL_STRUCT_HAS_TYPES
 		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR20 const base_type_handle& get_type(const std::string_view name) const {
 			return _layout.get_type(name);
 		}
-		#if _GLSL_STRUCT_HAS_CXX20
+			#if _GLSL_STRUCT_HAS_CXX20
 		template<utils::glsl_type T>
-		#else
+			#else
 		template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
-		#endif
+			#endif
 		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 std::shared_ptr<T> get_type(const std::string_view name) const {
 			return _layout.template get_type<T>(name);
 		}
+		#endif
 
 		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 size_t get_total_size(const std::string_view name) const noexcept {
 			return _layout.get_total_size(name);

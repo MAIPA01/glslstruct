@@ -63,6 +63,12 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE  $<$<BOOL:${GLSL_STRUCT_ENABL
                                                     $<$<BOOL:${GLSL_STRUCT_ENABLE_TYPE_CHECKS}>:GLSL_STRUCT_ENABLE_TYPE_CHECKS>
                                                     $<$<BOOL:${GLSL_STRUCT_DISABLE_GLM}>:GLSL_STRUCT_DISABLE_GLM>
 )
+target_compile_definitions(${PROJECT_NAME} INTERFACE    $<$<BOOL:${GLSL_STRUCT_ENABLE_CXX20}>:GLSL_STRUCT_ENABLE_CXX20>
+                                                        $<$<BOOL:${GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE}>:GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE>
+                                                        $<$<BOOL:${GLSL_STRUCT_DISABLE_TYPES}>:GLSL_STRUCT_DISABLE_TYPES>
+                                                        $<$<BOOL:${GLSL_STRUCT_ENABLE_TYPE_CHECKS}>:GLSL_STRUCT_ENABLE_TYPE_CHECKS>
+                                                        $<$<BOOL:${GLSL_STRUCT_DISABLE_GLM}>:GLSL_STRUCT_DISABLE_GLM>
+)
 
 # Optimizations
 target_compile_options(${PROJECT_NAME} PRIVATE

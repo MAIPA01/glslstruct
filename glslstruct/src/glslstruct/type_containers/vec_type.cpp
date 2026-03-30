@@ -9,11 +9,7 @@
 
 #include <glslstruct/config.hpp>
 
-#if !_GLSL_STRUCT_HAS_TYPES
-_GLSL_STRUCT_ERROR(
-  "This is only available for c++17 and greater and when types are not disabled with GLSL_STRUCT_DISABLE_TYPES set to 1!"
-);
-#else
+#if _GLSL_STRUCT_HAS_TYPES
 
 	#include <glslstruct/type_containers/vec_type.hpp>
 	#include <pch.hpp>

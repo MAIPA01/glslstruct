@@ -30,7 +30,7 @@
 	#pragma endregion
 
 	#pragma region LAST_UPDATE
-	#define GLSL_STRUCT_LAST_UPDATE_DAY	  19
+	#define GLSL_STRUCT_LAST_UPDATE_DAY	  30
 	#define GLSL_STRUCT_LAST_UPDATE_MONTH 03
 	#define GLSL_STRUCT_LAST_UPDATE_YEAR  2026
 
@@ -58,7 +58,7 @@
 	#define _GLSL_STRUCT_HAS_CXX20 __cplusplus >= 202002l && GLSL_STRUCT_ENABLE_CXX20
 	// clang-format on
 	#else
-		#define _GLSL_STRUCT_HAS_CXX20 _HAS_CXX20&& GLSL_STRUCT_ENABLE_CXX20
+		#define _GLSL_STRUCT_HAS_CXX20 _HAS_CXX20 && GLSL_STRUCT_ENABLE_CXX20
 	#endif
 	#pragma endregion
 

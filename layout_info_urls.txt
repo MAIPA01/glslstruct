@@ -1,1 +1,5 @@
 https://gist.github.com/teoxoy/936891c16c2a3d1c3c5e7204ac6cd76c
+https://github.com/KhronosGroup/GLSL/blob/main/extensions/ext/GL_EXT_scalar_block_layout.txt
+https://jackjamison.net/interactive/glsl-layout-calculator/
+https://registry.khronos.org/OpenGL/specs/gl/glspec46.core.pdf
+https://github.com/MAIPA01/GLSL-Struct-Layout-Calculator/

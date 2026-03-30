@@ -8,90 +8,96 @@ TEST(std140_offset, constructor_and_get) {
 	std::vector<size_t> retVec;
 	std::vector<size_t> resultVec;
 
-	std140_layout subStruct1 { glsl_variable<int>("d"), glsl_variable<bvec2>("e") };
-	ret = subStruct1.get_offset("d");
+	#pragma region FStruct
+	std140_layout fStructLayout { glsl_variable<int>("d"), glsl_variable<bvec2>("e") };
+	ret = fStructLayout.get_offset("d");
 	EXPECT_EQ(ret, 0);
-	ret = subStruct1.get_offset("e");
+	ret = fStructLayout.get_offset("e");
 	EXPECT_EQ(ret, 8);
-	ret = subStruct1.size();
+	ret = fStructLayout.size();
 	EXPECT_EQ(ret, 16);
+	#pragma endregion
 
-	std140_layout subStruct2 { glsl_variable<uvec3>("j"), glsl_variable<vec2>("k"), glsl_variable<float, 2>("l"),
+	#pragma region OStruct
+	std140_layout oStructLayout { glsl_variable<uvec3>("j"), glsl_variable<vec2>("k"), glsl_variable<float, 2>("l"),
 		glsl_variable<vec2>("m"), glsl_variable<mat3, 2>("n") };
-	ret = subStruct2.get_offset("j");
+	ret = oStructLayout.get_offset("j");
 	EXPECT_EQ(ret, 0);
-	ret = subStruct2.get_offset("k");
+	ret = oStructLayout.get_offset("k");
 	EXPECT_EQ(ret, 16);
 	resultVec = { 32, 48 };
-	retVec	  = subStruct2.get_array_offsets("l");
+	retVec	  = oStructLayout.get_array_offsets("l");
 	EXPECT_EQ(retVec, resultVec);
-	ret = subStruct2.get_offset("m");
+	ret = oStructLayout.get_offset("m");
 	EXPECT_EQ(ret, 64);
 	resultVec = { 80, 128 };
-	retVec	  = subStruct2.get_array_offsets("n");
+	retVec	  = oStructLayout.get_array_offsets("n");
 	EXPECT_EQ(retVec, resultVec);
-	ret = subStruct2.size();
+	ret = oStructLayout.size();
 	EXPECT_EQ(ret, 176);
+	#pragma endregion
 
-	std140_layout structLayout { glsl_variable<float>("a"), glsl_variable<vec2>("b"), glsl_variable<vec3>("c"),
-		glsl_variable<std140_layout>("f", subStruct1), glsl_variable<float>("g"), glsl_variable<float, 2>("h"),
-		glsl_variable<mat2x3>("i"), glsl_variable<std140_layout, 2>("o", subStruct2) };
-	ret = structLayout.get_offset("a");
+	#pragma region UBO
+	std140_layout uboLayout { glsl_variable<float>("a"), glsl_variable<vec2>("b"), glsl_variable<vec3>("c"),
+		glsl_variable<std140_layout>("f", fStructLayout), glsl_variable<float>("g"), glsl_variable<float, 2>("h"),
+		glsl_variable<mat2x3>("i"), glsl_variable<std140_layout, 2>("o", oStructLayout) };
+	ret = uboLayout.get_offset("a");
 	EXPECT_EQ(ret, 0);
-	ret = structLayout.get_offset("b");
+	ret = uboLayout.get_offset("b");
 	EXPECT_EQ(ret, 8);
-	ret = structLayout.get_offset("c");
+	ret = uboLayout.get_offset("c");
 	EXPECT_EQ(ret, 16);
-	ret = structLayout.get_offset("f");
+	ret = uboLayout.get_offset("f");
 	EXPECT_EQ(ret, 32);
 
 	// F sub values
-	ret = structLayout.get_offset("f.d");
+	ret = uboLayout.get_offset("f.d");
 	EXPECT_EQ(ret, 32);
-	ret = structLayout.get_offset("f.e");
+	ret = uboLayout.get_offset("f.e");
 	EXPECT_EQ(ret, 40);
 
-	ret = structLayout.get_offset("g");
+	ret = uboLayout.get_offset("g");
 	EXPECT_EQ(ret, 48);
 	resultVec = { 64, 80 };
-	retVec	  = structLayout.get_array_offsets("h");
+	retVec	  = uboLayout.get_array_offsets("h");
 	EXPECT_EQ(retVec, resultVec);
-	ret = structLayout.get_offset("i");
+	ret = uboLayout.get_offset("i");
 	EXPECT_EQ(ret, 96);
 	resultVec = { 128, 304 };
-	retVec	  = structLayout.get_array_offsets("o");
+	retVec	  = uboLayout.get_array_offsets("o");
 	EXPECT_EQ(retVec, resultVec);
 
 	// O1 sub values
-	ret = structLayout.get_offset("o[0].j");
+	ret = uboLayout.get_offset("o[0].j");
 	EXPECT_EQ(ret, 128);
-	ret = structLayout.get_offset("o[0].k");
+	ret = uboLayout.get_offset("o[0].k");
 	EXPECT_EQ(ret, 144);
-	retVec	  = structLayout.get_array_offsets("o[0].l");
+	retVec	  = uboLayout.get_array_offsets("o[0].l");
 	resultVec = { 160, 176 };
 	EXPECT_EQ(retVec, resultVec);
-	ret = structLayout.get_offset("o[0].m");
+	ret = uboLayout.get_offset("o[0].m");
 	EXPECT_EQ(ret, 192);
-	retVec	  = structLayout.get_array_offsets("o[0].n");
+	retVec	  = uboLayout.get_array_offsets("o[0].n");
 	resultVec = { 208, 256 };
 	EXPECT_EQ(retVec, resultVec);
 
 	// O2 sub values
-	ret = structLayout.get_offset("o[1].j");
+	ret = uboLayout.get_offset("o[1].j");
 	EXPECT_EQ(ret, 304);
-	ret = structLayout.get_offset("o[1].k");
+	ret = uboLayout.get_offset("o[1].k");
 	EXPECT_EQ(ret, 320);
-	retVec	  = structLayout.get_array_offsets("o[1].l");
+	retVec	  = uboLayout.get_array_offsets("o[1].l");
 	resultVec = { 336, 352 };
 	EXPECT_EQ(retVec, resultVec);
-	ret = structLayout.get_offset("o[1].m");
+	ret = uboLayout.get_offset("o[1].m");
 	EXPECT_EQ(ret, 368);
-	retVec	  = structLayout.get_array_offsets("o[1].n");
+	retVec	  = uboLayout.get_array_offsets("o[1].n");
 	resultVec = { 384, 432 };
 	EXPECT_EQ(retVec, resultVec);
 
-	ret = structLayout.size();
+	ret = uboLayout.size();
 	EXPECT_EQ(ret, 480);
+	#pragma endregion
 }
 
 TEST(std430_offset, constructor_and_get) {
@@ -105,7 +111,7 @@ TEST(std430_offset, constructor_and_get) {
 	ret = rect.get_offset("size");
 	EXPECT_EQ(ret, 64);
 	ret = rect.size();
-	EXPECT_EQ(ret, 80);
+	EXPECT_EQ(ret, 72);
 #pragma endregion
 
 #pragma region SPRITE
@@ -117,7 +123,7 @@ TEST(std430_offset, constructor_and_get) {
 	ret = sprite.get_offset("isActive");
 	EXPECT_EQ(ret, 16);
 	ret = sprite.size();
-	EXPECT_EQ(ret, 32);
+	EXPECT_EQ(ret, 20);
 #pragma endregion
 
 #pragma region FILL
@@ -137,7 +143,7 @@ TEST(std430_offset, constructor_and_get) {
 	ret = fill.get_offset("isActive");
 	EXPECT_EQ(ret, 20);
 	ret = fill.size();
-	EXPECT_EQ(ret, 32);
+	EXPECT_EQ(ret, 24);
 #pragma endregion
 
 #pragma region UIElement
@@ -164,28 +170,28 @@ TEST(std430_offset, constructor_and_get) {
 	EXPECT_EQ(ret, 96);
 
 	ret = uiElement.get_offset("fill");
-	EXPECT_EQ(ret, 112);
+	EXPECT_EQ(ret, 104);
 
 	// FILL sub Values
 	ret = uiElement.get_offset("fill.type");
-	EXPECT_EQ(ret, 112);
+	EXPECT_EQ(ret, 104);
 	ret = uiElement.get_offset("fill.subType");
-	EXPECT_EQ(ret, 116);
+	EXPECT_EQ(ret, 108);
 	ret = uiElement.get_offset("fill.offset");
-	EXPECT_EQ(ret, 120);
+	EXPECT_EQ(ret, 112);
 	ret = uiElement.get_offset("fill.progress");
-	EXPECT_EQ(ret, 124);
+	EXPECT_EQ(ret, 116);
 	ret = uiElement.get_offset("fill.rotation");
-	EXPECT_EQ(ret, 128);
+	EXPECT_EQ(ret, 120);
 	ret = uiElement.get_offset("fill.isActive");
-	EXPECT_EQ(ret, 132);
+	EXPECT_EQ(ret, 124);
 
 	ret = uiElement.get_offset("color");
-	EXPECT_EQ(ret, 144);
+	EXPECT_EQ(ret, 128);
 	ret = uiElement.get_offset("isText");
-	EXPECT_EQ(ret, 160);
+	EXPECT_EQ(ret, 144);
 	ret = uiElement.size();
-	EXPECT_EQ(ret, 176);
+	EXPECT_EQ(ret, 148);
 #pragma endregion
 
 #pragma region TEXTURE
@@ -195,13 +201,13 @@ TEST(std430_offset, constructor_and_get) {
 	ret = texture.get_offset("isActive");
 	EXPECT_EQ(ret, 8);
 	ret = texture.size();
-	EXPECT_EQ(ret, 16);
+	EXPECT_EQ(ret, 12);
 #pragma endregion
 
 #pragma region SSBO
 	std430_layout ssbo { glsl_variable<std430_layout, 8>("uiElements", uiElement),
 		glsl_variable<std430_layout>("elementTexture", texture), glsl_variable<int>("elementLayer") };
-	std::vector<size_t> resultVec { 0, 176, 352, 528, 704, 880, 1056, 1232 };
+	std::vector<size_t> resultVec { 0, 160, 320, 480, 640, 800, 960, 1120 };
 	retVec = ssbo.get_array_offsets("uiElements");
 	EXPECT_EQ(retVec, resultVec);
 
@@ -227,39 +233,39 @@ TEST(std430_offset, constructor_and_get) {
 	EXPECT_EQ(ret, 96);
 
 	ret = ssbo.get_offset("uiElements[0].fill");
-	EXPECT_EQ(ret, 112);
+	EXPECT_EQ(ret, 104);
 
 	// FILL sub Values
 	ret = ssbo.get_offset("uiElements[0].fill.type");
-	EXPECT_EQ(ret, 112);
+	EXPECT_EQ(ret, 104);
 	ret = ssbo.get_offset("uiElements[0].fill.subType");
-	EXPECT_EQ(ret, 116);
+	EXPECT_EQ(ret, 108);
 	ret = ssbo.get_offset("uiElements[0].fill.offset");
-	EXPECT_EQ(ret, 120);
+	EXPECT_EQ(ret, 112);
 	ret = ssbo.get_offset("uiElements[0].fill.progress");
-	EXPECT_EQ(ret, 124);
+	EXPECT_EQ(ret, 116);
 	ret = ssbo.get_offset("uiElements[0].fill.rotation");
-	EXPECT_EQ(ret, 128);
+	EXPECT_EQ(ret, 120);
 	ret = ssbo.get_offset("uiElements[0].fill.isActive");
-	EXPECT_EQ(ret, 132);
+	EXPECT_EQ(ret, 124);
 
 	ret = ssbo.get_offset("uiElements[0].color");
-	EXPECT_EQ(ret, 144);
+	EXPECT_EQ(ret, 128);
 	ret = ssbo.get_offset("uiElements[0].isText");
-	EXPECT_EQ(ret, 160);
+	EXPECT_EQ(ret, 144);
 
 	ret = ssbo.get_offset("elementTexture");
-	EXPECT_EQ(ret, 1408);
+	EXPECT_EQ(ret, 1280);
 
 	// TEXTURE SUB VALUES
 	ret = ssbo.get_offset("elementTexture.size");
-	EXPECT_EQ(ret, 1408);
+	EXPECT_EQ(ret, 1280);
 	ret = ssbo.get_offset("elementTexture.isActive");
-	EXPECT_EQ(ret, 1416);
+	EXPECT_EQ(ret, 1288);
 
 	ret = ssbo.get_offset("elementLayer");
-	EXPECT_EQ(ret, 1424);
+	EXPECT_EQ(ret, 1296);
 	ret = ssbo.size();
-	EXPECT_EQ(ret, 1440);
+	EXPECT_EQ(ret, 1300);
 #pragma endregion
 }

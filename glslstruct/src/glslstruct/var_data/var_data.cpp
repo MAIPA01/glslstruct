@@ -7,14 +7,15 @@
  * Copyright (c) 2025, Patryk Antosik (MAIPA01)
  */
 
-#include "glslstruct/type_containers/base_type.hpp"
-
-
 #include <glslstruct/config.hpp>
 
 #if !_GLSL_STRUCT_HAS_CXX17
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 #else
+
+#if _GLSL_STRUCT_HAS_TYPES
+	#include <glslstruct/type_containers/base_type.hpp>
+#endif
 
 	#include <glslstruct/var_data/var_data.hpp>
 	#include <pch.hpp>
@@ -26,7 +27,7 @@ var_data::var_data(const size_t offset, const base_type_handle& type, const size
 	: _type(type), _offset(offset), _padding(padding) {}
 	#else
 var_data::var_data(const size_t offset, const size_t size, const size_t padding) noexcept
-	: _offset(offset), _size(size), _padding(padding) {}
+	: _size(size), _offset(offset), _padding(padding) {}
 	#endif
 var_data::var_data(const var_data& other) noexcept			  = default;
 var_data::var_data(var_data&& other) noexcept				  = default;
