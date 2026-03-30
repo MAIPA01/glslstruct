@@ -3,7 +3,7 @@
 using namespace glslstruct;
 using namespace glm;
 
-TEST(std140_offset, constructor_and_get) {
+TEST(std140_layout, constructor_and_get) {
 	size_t ret;
 	std::vector<size_t> retVec;
 	std::vector<size_t> resultVec;
@@ -100,7 +100,7 @@ TEST(std140_offset, constructor_and_get) {
 	#pragma endregion
 }
 
-TEST(std430_offset, constructor_and_get) {
+TEST(std430_layout, constructor_and_get) {
 	size_t ret;
 	std::vector<size_t> retVec;
 

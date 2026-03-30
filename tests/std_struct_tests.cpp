@@ -3,7 +3,7 @@
 using namespace glslstruct;
 using namespace glm;
 
-TEST(std_struct, add_array) {
+TEST(std430_struct, add_array) {
 	const std430_struct test { glsl_value<int, 3>("test", { 2, 3, 4 }) };
 	const int value = test.get<int>("test[1]");
 	EXPECT_EQ(value, 3);
@@ -11,7 +11,7 @@ TEST(std_struct, add_array) {
 	EXPECT_EQ(ret, 0);
 }
 
-TEST(std_struct, copy_test) {
+TEST(std430_struct, copy_test) {
 	const std430_struct test { glsl_value<int, 3>("test", { 2, 3, 4 }) };
 	int value = test.get<int>("test[1]");
 	EXPECT_EQ(value, 3);
@@ -25,7 +25,7 @@ TEST(std_struct, copy_test) {
 	EXPECT_EQ(ret, 0);
 }
 
-TEST(std_struct, constructor_and_get) {
+TEST(std430_struct, constructor_and_get) {
 	size_t ret;
 	std::vector<size_t> retVec;
 

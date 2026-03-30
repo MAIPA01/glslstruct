@@ -19,6 +19,7 @@ TEST(std140_layout, add_vectors) {
 	ret = structLayout.add<bvec2>("Bool");
 	EXPECT_EQ(ret, 0);
 
+
 #if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Bool");
 	EXPECT_EQ(*base, *base);
