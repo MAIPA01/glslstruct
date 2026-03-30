@@ -112,10 +112,34 @@
       "inherits": ["windows-base", "cpp20", "x64", "debug", "type-checks"]
     },
     {
+      "name": "x64-debug-cpp20-no-type-checks",
+      "displayName": "x64 Debug C++20 No Type Checks",
+      "description": "Docelowy system Windows (64-bitowy) ze środowiskiem programistycznym programu Visual Studio. (Debug)",
+      "inherits": ["no-type-checks", "x64-debug-cpp20"]
+    },
+    {
+      "name": "x64-debug-cpp20-no-types",
+      "displayName": "x64 Debug C++20 No Types",
+      "description": "Docelowy system Windows (64-bitowy) ze środowiskiem programistycznym programu Visual Studio. (Debug)",
+      "inherits": ["no-types", "x64-debug-cpp20"]
+    },
+    {
       "name": "x64-debug-cpp17",
       "displayName": "x64 Debug C++17",
       "description": "Docelowy system Windows (64-bitowy) ze środowiskiem programistycznym programu Visual Studio. (Debug)",
       "inherits": ["windows-base", "cpp17", "x64", "debug", "type-checks"]
+    },
+    {
+      "name": "x64-debug-cpp17-no-type-checks",
+      "displayName": "x64 Debug C++17 No Type Checks",
+      "description": "Docelowy system Windows (64-bitowy) ze środowiskiem programistycznym programu Visual Studio. (Debug)",
+      "inherits": ["no-type-checks", "x64-debug-cpp17"]
+    },
+    {
+      "name": "x64-debug-cpp17-no-types",
+      "displayName": "x64 Debug C++17 No Types",
+      "description": "Docelowy system Windows (64-bitowy) ze środowiskiem programistycznym programu Visual Studio. (Debug)",
+      "inherits": ["no-types", "x64-debug-cpp17"]
     },
     {
       "name": "x64-release-cpp20",
@@ -124,34 +148,10 @@
       "inherits": ["release", "x64-debug-cpp20"]
     },
     {
-      "name": "x64-release-cpp20-no-type-checks",
-      "displayName": "x64 Release C++20 No Type Checks",
-      "description": "Docelowy system Windows (64-bitowy) ze środowiskiem programistycznym programu Visual Studio. (RelWithDebInfo)",
-      "inherits": ["no-type-checks", "x64-release-cpp20"]
-    },
-    {
-      "name": "x64-release-cpp20-no-types",
-      "displayName": "x64 Release C++20 No Types",
-      "description": "Docelowy system Windows (64-bitowy) ze środowiskiem programistycznym programu Visual Studio. (RelWithDebInfo)",
-      "inherits": ["no-types", "x64-release-cpp20"]
-    },
-    {
       "name": "x64-release-cpp17",
       "displayName": "x64 Release C++17",
       "description": "Docelowy system Windows (64-bitowy) ze środowiskiem programistycznym programu Visual Studio. (RelWithDebInfo)",
       "inherits": ["release", "x64-debug-cpp17"]
-    },
-    {
-      "name": "x64-release-cpp17-no-type-checks",
-      "displayName": "x64 Release C++17 No Type Checks",
-      "description": "Docelowy system Windows (64-bitowy) ze środowiskiem programistycznym programu Visual Studio. (RelWithDebInfo)",
-      "inherits": ["no-type-checks", "x64-release-cpp17"]
-    },
-    {
-      "name": "x64-release-cpp17-no-types",
-      "displayName": "x64 Release C++17 No Types",
-      "description": "Docelowy system Windows (64-bitowy) ze środowiskiem programistycznym programu Visual Studio. (RelWithDebInfo)",
-      "inherits": ["no-types", "x64-release-cpp17"]
     },
     {
       "name": "x86-debug-cpp20",

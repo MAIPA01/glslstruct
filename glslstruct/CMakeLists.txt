@@ -2,9 +2,17 @@
 set(PROJECT_SOURCES ${PROJECT_NAME}_SOURCES)
 file(GLOB_RECURSE ${PROJECT_SOURCES} CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 
+if (GLSL_STRUCT_DISABLE_TYPES)
+    list(FILTER ${PROJECT_SOURCES} EXCLUDE REGEX "^.*/(type_containers|type_visitors)/.*\\.cpp$")
+endif()
+
 # header files
 set(PROJECT_HEADERS ${PROJECT_NAME}_HEADERS)
 file(GLOB_RECURSE ${PROJECT_HEADERS} CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp)
+
+if (GLSL_STRUCT_DISABLE_TYPES)
+    list(FILTER ${PROJECT_SOURCES} EXCLUDE REGEX "^.*/(type_containers|type_visitors)/.*\\.hpp$")
+endif()
 
 # make library
 add_library(${PROJECT_NAME} ${${PROJECT_LIBRARY_TYPE}} ${${PROJECT_HEADERS}} ${${PROJECT_SOURCES}})

@@ -750,7 +750,7 @@ namespace glslstruct {
 							  alignmentOffsets[i] + data.get_offset(), data.get_type())
 							  .set_padding(data.get_padding());
 		#else
-							_add_variable(_get_struct_elem_name(name, value_name), alignmentOffsets[i] + data.get_offset(),
+							_add_variable(_get_struct_elem_name(arrayElemName, value_name), alignmentOffsets[i] + data.get_offset(),
 							  data.get_size())
 							  .set_padding(data.get_padding());
 		#endif
