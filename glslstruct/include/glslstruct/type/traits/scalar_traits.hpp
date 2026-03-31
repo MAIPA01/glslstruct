@@ -137,17 +137,7 @@ namespace glslstruct {
 	}
 
 	/// @brief returns glsl scalar type string
-	static inline std::string scalar_to_string(const ValueType valueType) {
-			switch (valueType) {
-			[[unlikely]] default:
-				return "UNKNOWN";
-			case ValueType::Bool:	return "bool";
-			case ValueType::Int:	return "int";
-			case ValueType::Uint:	return "uint";
-			case ValueType::Float:	return "float";
-			case ValueType::Double: return "double";
-			}
-	}
+	std::string scalar_to_string(ValueType valueType);
 
 	/// @brief returns glsl scalar type string from type T based on scalar_traits
 		#if _GLSL_STRUCT_HAS_CXX20

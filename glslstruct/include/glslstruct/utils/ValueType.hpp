@@ -59,20 +59,7 @@ namespace glslstruct {
 	 * @ingroup glslstruct
 	 * @param type scalar value type
 	 */
-	[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 size_t get_value_type_size(const ValueType type) {
-		_GLSL_STRUCT_CONSTEXPR17 size_t intSize	   = 4;
-		_GLSL_STRUCT_CONSTEXPR17 size_t doubleSize = 8;
-
-			switch (type) {
-			[[unlikely]] default:
-				return 0;
-			case ValueType::Bool:
-			case ValueType::Int:
-			case ValueType::Uint:
-			case ValueType::Float:	return intSize;	   // sizeof(int) == sizeof(unsigned int) == sizeof(float); bool -> int
-			case ValueType::Double: return doubleSize; // sizeof(double);
-			}
-	}
+	[[nodiscard]] size_t get_value_type_size(ValueType type);
 } // namespace glslstruct
 	#endif
 #endif

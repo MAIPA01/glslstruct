@@ -136,19 +136,7 @@ namespace glslstruct {
 	}
 
 	/// @brief returns glsl mat type string
-	static inline std::string mat_to_string(const ValueType valueType, const size_t columns, const size_t rows) {
-		std::string sizeStr = columns == rows ? std::to_string(columns) : fmt::format("{}x{}", columns, rows);
-
-			switch (valueType) {
-			[[unlikely]] default:
-				return "UNKNOWN";
-			case ValueType::Bool:	return fmt::format("bmat{}", sizeStr);
-			case ValueType::Int:	return fmt::format("imat{}", sizeStr);
-			case ValueType::Uint:	return fmt::format("umat{}", sizeStr);
-			case ValueType::Float:	return fmt::format("mat{}", sizeStr);
-			case ValueType::Double: return fmt::format("dmat{}", sizeStr);
-			}
-	}
+	std::string mat_to_string(ValueType valueType, size_t columns, size_t rows);
 
 		/// @brief returns glsl mat type string from type T based on mat_traits
 		#if _GLSL_STRUCT_HAS_CXX20

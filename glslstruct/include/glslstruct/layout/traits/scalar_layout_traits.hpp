@@ -36,29 +36,19 @@ namespace glslstruct {
 		using context_type = scalar_layout_context;
 
 		/// @brief scalar layout scalar alignment
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_scalar_alignment(const ValueType valueType, context_type&) noexcept {
-			return get_value_type_size(valueType);
-		}
+		static size_t get_scalar_alignment(ValueType valueType, context_type& ctx) noexcept;
 
 		/// @brief scalar layout vec alignment
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_vec_alignment(const ValueType valueType, const size_t,
-		  context_type& ctx) noexcept {
-			return get_scalar_alignment(valueType, ctx);
-		}
+		static size_t get_vec_alignment(ValueType valueType, size_t length, context_type& ctx) noexcept;
 
 		/// @brief scalar layout array alignment
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_array_alignment(const size_t elemBaseAlignment, context_type&) noexcept {
-			return elemBaseAlignment;
-		}
+		static size_t get_array_alignment(size_t elemBaseAlignment, context_type& ctx) noexcept;
 
 		/// @brief scalar layout struct alignment
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_struct_alignment(const context_type& ctx) noexcept { return ctx.maxAlignment; }
+		static size_t get_struct_alignment(const context_type& ctx) noexcept;
 
 		/// @brief scalar layout after_add action
-		static _GLSL_STRUCT_CONSTEXPR17 void after_add(size_t&, const size_t, const size_t alignment,
-		  context_type& ctx) noexcept {
-			ctx.update_max_alignment(alignment);
-		}
+		static void after_add(size_t& currentOffset, size_t size, size_t alignment, context_type& ctx) noexcept;
 	};
 } // namespace glslstruct
 

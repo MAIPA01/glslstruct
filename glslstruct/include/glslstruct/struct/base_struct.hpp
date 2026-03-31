@@ -1383,6 +1383,7 @@ namespace glslstruct {
 /**
  * @brief std::hash overload for base_struct
  * @tparam Layout layout of struct
+ * @ingroup glslstruct
  */
 template<class Layout>
 struct std::hash<glslstruct::base_struct<Layout> > {

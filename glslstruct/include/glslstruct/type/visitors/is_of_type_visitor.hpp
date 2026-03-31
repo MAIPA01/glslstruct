@@ -107,16 +107,7 @@ namespace glslstruct {
 	 * @param type base_type handle
 	 * @param baseType type which is required
 	 */
-	[[nodiscard]] inline _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const base_type_handle& type, const BaseType baseType) {
-			switch (baseType) {
-			case BaseType::Scalar: return is_of_type<scalar_type>(type);
-			case BaseType::Vec:	   return is_of_type<vec_type>(type);
-			case BaseType::Mat:	   return is_of_type<mat_type>(type);
-			case BaseType::Struct: return is_of_type<struct_type>(type);
-			case BaseType::Array:  return is_of_type<array_type>(type);
-			default:			   return false;
-			}
-	}
+	[[nodiscard]] bool is_of_type(const base_type_handle& type, BaseType baseType);
 
 		/**
 		 * @brief requests is_of_type visitor to visit any glsl type

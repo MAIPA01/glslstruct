@@ -1,6 +1,4 @@
 - add variable arrays (just add possibility to resize array if it is last variable)
-- move some functions to global glslstruct namespace scope (ceil_up_to_multiple)
-- move some code to .cpp files
 - make tests for every layout type
 - create struct and layout from glsl string
 - convert struct and layout to glsl string

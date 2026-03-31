@@ -23,8 +23,10 @@ namespace glslstruct {
 	 * @ingroup glslstruct
 	 */
 	struct max_alignment_layout_context {
+		/// @brief contains max alignment value
 		size_t maxAlignment = 0;
 
+		/// @brief updates max alignment value
 		_GLSL_STRUCT_CONSTEXPR17 void update_max_alignment(const size_t currentAlignment) noexcept {
 			maxAlignment = std::max(maxAlignment, currentAlignment);
 		}
@@ -35,15 +37,8 @@ namespace glslstruct {
 	 * @ingroup glslstruct
 	 */
 	struct struct_added_layout_context {
+		/// @brief contains last added struct alignment
 		size_t structAlignment = 0;
-
-		static _GLSL_STRUCT_CONSTEXPR17 size_t ceil_to_nearest_multiple(size_t valueToRoundUp,
-		  const size_t multipleValue) noexcept {
-				if (const size_t modulo = valueToRoundUp % multipleValue; modulo != 0) {
-					valueToRoundUp += multipleValue - modulo;
-				}
-			return valueToRoundUp;
-		}
 	};
 } // namespace glslstruct
 

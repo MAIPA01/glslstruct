@@ -37,45 +37,25 @@ namespace glslstruct {
 		using context_type = std430_layout_context;
 
 		/// @brief std430 layout scalar alignment
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_scalar_alignment(const ValueType valueType, context_type&) noexcept {
-			return get_value_type_size(valueType);
-		}
+		static size_t get_scalar_alignment(ValueType valueType, context_type& ctx) noexcept;
 
 		/// @brief std430 layout vec alignment
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_vec_alignment(const ValueType valueType, const size_t length,
-		  context_type&) noexcept {
-				if (length == 3) { return get_value_type_size(valueType) * 4; }
-			return get_value_type_size(valueType) * length;
-		}
+		static size_t get_vec_alignment(ValueType valueType, size_t length, context_type& ctx) noexcept;
 
 		/// @brief std430 layout array alignment
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_array_alignment(const size_t elemBaseAlignment, context_type&) noexcept {
-			return elemBaseAlignment;
-		}
+		static size_t get_array_alignment(size_t elemBaseAlignment, context_type& ctx) noexcept;
 
 		/// @brief std430 layout struct alignment
-		static _GLSL_STRUCT_CONSTEXPR17 size_t get_struct_alignment(const context_type& ctx) noexcept { return ctx.maxAlignment; }
+		static size_t get_struct_alignment(const context_type& ctx) noexcept;
 
 		/// @brief std430 layout before_add action
-		static _GLSL_STRUCT_CONSTEXPR17 void before_add(size_t& currentOffset, context_type& ctx) noexcept {
-				if (ctx.structAlignment != 0) {
-					currentOffset		= context_type::ceil_to_nearest_multiple(currentOffset, ctx.structAlignment);
-					ctx.structAlignment = 0;
-				}
-		}
+		static void before_add(size_t& currentOffset, context_type& ctx) noexcept;
 
 		/// @brief std430 layout after_add action
-		static _GLSL_STRUCT_CONSTEXPR17 void after_add(size_t&, const size_t, const size_t alignment,
-		  context_type& ctx) noexcept {
-			ctx.update_max_alignment(alignment);
-		}
+		static void after_add(size_t&, size_t size, size_t alignment, context_type& ctx) noexcept;
 
 		/// @brief std430 layout after_add_struct action
-		static _GLSL_STRUCT_CONSTEXPR17 void after_add_struct(size_t& currentOffset, const size_t size, const size_t alignment,
-		  context_type& ctx) noexcept {
-			ctx.structAlignment = alignment;
-			after_add(currentOffset, size, alignment, ctx);
-		}
+		static void after_add_struct(size_t& currentOffset, size_t size, size_t alignment, context_type& ctx) noexcept;
 	};
 } // namespace glslstruct
 

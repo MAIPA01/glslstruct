@@ -141,17 +141,7 @@ namespace glslstruct {
 	}
 
 	/// @brief returns glsl vec type string
-	static inline std::string vec_to_string(const ValueType valueType, const size_t length) {
-			switch (valueType) {
-			[[unlikely]] default:
-				return "UNKNOWN";
-			case ValueType::Bool:	return fmt::format("bvec{}", length);
-			case ValueType::Int:	return fmt::format("ivec{}", length);
-			case ValueType::Uint:	return fmt::format("uvec{}", length);
-			case ValueType::Float:	return fmt::format("vec{}", length);
-			case ValueType::Double: return fmt::format("dvec{}", length);
-			}
-	}
+	std::string vec_to_string(ValueType valueType, size_t length);
 
 		/// @brief returns glsl vec type string from type T based on vec_traits
 		#if _GLSL_STRUCT_HAS_CXX20

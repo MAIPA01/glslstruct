@@ -29,6 +29,7 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 			#include <glslstruct/type/visitors/is_of_type_visitor.hpp>
 		#endif
 		#include <glslstruct/utils/assert.hpp>
+		#include <glslstruct/utils/functions.hpp>
 		#include <glslstruct/utils/ValueType.hpp>
 		#include <glslstruct/var_data/var_data.hpp>
 		#include <glslstruct/variable/glsl_variable.hpp>
@@ -115,15 +116,6 @@ namespace glslstruct {
 			return fmt::format("{}.{}", structName, elemName);
 		}
 
-		/// @brief returns value rounded up to nearest multiple of given value
-		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 size_t _ceil_to_nearest_multiple(size_t valueToRoundUp,
-		  const size_t multipleValue) noexcept {
-				if (const size_t modulo = valueToRoundUp % multipleValue; modulo != 0) {
-					valueToRoundUp += multipleValue - modulo;
-				}
-			return valueToRoundUp;
-		}
-
 		/// @brief sets variable data
 		#if _GLSL_STRUCT_HAS_TYPES
 		var_data& _set_variable(const std::string_view name, const size_t offset, const base_type_handle& type,
@@ -140,7 +132,7 @@ namespace glslstruct {
 		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 size_t _calculate_alignment_offset(const size_t currentOffset,
 		  const size_t baseAlignment) noexcept {
 			// CALCULATE ALIGNMENT
-			const size_t alignmentOffset = _ceil_to_nearest_multiple(currentOffset, baseAlignment);
+			const size_t alignmentOffset = ceil_to_nearest_multiple(currentOffset, baseAlignment);
 
 				// CHECK IF NOT OVERFLOWED
 				if (alignmentOffset < currentOffset) {
