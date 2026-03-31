@@ -23,4 +23,12 @@ size_t glslstruct::ceil_to_nearest_multiple(size_t valueToRoundUp, const size_t 
 	return valueToRoundUp;
 }
 
+std::string glslstruct::get_array_elem_name(const std::string_view arrayName, const size_t elemIdx) {
+	return fmt::format("{}[{}]", arrayName, elemIdx);
+}
+
+std::string glslstruct::get_struct_elem_name(const std::string_view structName, const std::string_view elemName) {
+	return fmt::format("{}.{}", structName, elemName);
+}
+
 #endif

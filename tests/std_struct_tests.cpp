@@ -5,10 +5,87 @@ using namespace glm;
 
 TEST(std430_struct, add_array) {
 	const std430_struct test { glsl_value<int, 3>("test", { 2, 3, 4 }) };
-	const int value = test.get<int>("test[1]");
-	EXPECT_EQ(value, 3);
-	const size_t ret = test.get_offset("test");
-	EXPECT_EQ(ret, 0);
+	EXPECT_EQ(test.get<int>("test[1]"), 3);
+	EXPECT_EQ(test.get_offset("test"), 0);
+}
+
+TEST(std430_struct, set_get_test) {
+	std430_struct subTest { glsl_value<bool>("a", true) };
+
+	std430_struct test { glsl_value<int>("scalar", 0), glsl_value<int, 3>("scalar_array", { 2, 3, 4 }), glsl_value<vec2>("vec"),
+		glsl_value<vec3, 2>("vec_array", { vec3(), vec3() }), glsl_value<mat2>("mat"),
+		glsl_value<mat3, 2>("mat_array", { mat3(), mat3() }), glsl_value<std430_struct>("struct", subTest),
+		glsl_value<std430_struct, 2>("struct_array", subTest.get_layout()) };
+
+#pragma region SET_SCALAR
+	EXPECT_EQ(test.get<int>("scalar"), 0);
+	EXPECT_TRUE(test.set<int>("scalar", 2));
+	EXPECT_EQ(test.get<int>("scalar"), 2);
+#pragma endregion
+
+#pragma region SET_SCALAR_ARRAY
+	std::vector<int> scalar_array { 2, 3, 4 };
+	EXPECT_EQ(test.get<std::vector<int>>("scalar_array"), scalar_array);
+	scalar_array = { 3, 4, 5 };
+	EXPECT_TRUE(test.set("scalar_array", scalar_array));
+	EXPECT_EQ(test.get<std::vector<int>>("scalar_array"), scalar_array);
+#pragma endregion
+
+#pragma region SET_VEC
+	EXPECT_EQ(test.get<vec2>("vec"), vec2());
+	EXPECT_TRUE(test.set<vec2>("vec", vec2(1, 2)));
+	EXPECT_EQ(test.get<vec2>("vec"), vec2(1, 2));
+#pragma endregion
+
+#pragma region SET_VEC_ARRAY
+	std::vector<vec3> vec_array { vec3(), vec3() };
+	EXPECT_EQ(test.get<std::vector<vec3>>("vec_array"), vec_array);
+	vec_array = { vec3(1, 2, 3), vec3(2, 3, 4) };
+	EXPECT_TRUE(test.set("vec_array", vec_array));
+	EXPECT_EQ(test.get<std::vector<vec3>>("vec_array"), vec_array);
+#pragma endregion
+
+#pragma region SET_MAT
+	EXPECT_EQ(test.get<mat2>("mat"), mat2());
+	EXPECT_TRUE(test.set<mat2>("mat", mat2(2)));
+	EXPECT_EQ(test.get<mat2>("mat"), mat2(2));
+#pragma endregion
+
+#pragma region SET_MAT_ARRAY
+	std::vector<mat3> mat_array { mat3(), mat3() };
+	EXPECT_EQ(test.get<std::vector<mat3>>("mat_array"), mat_array);
+	mat_array = { mat3(3), mat3(4) };
+	EXPECT_TRUE(test.set("mat_array", mat_array));
+	EXPECT_EQ(test.get<std::vector<mat3>>("mat_array"), mat_array);
+#pragma endregion
+
+#pragma region SET_STRUCT
+	EXPECT_EQ(test.get<std430_struct>("struct", subTest.get_layout()), subTest);
+	subTest.set<bool>("a", false);
+	EXPECT_TRUE(test.set("struct", subTest));
+	EXPECT_EQ(test.get<std430_struct>("struct", subTest.get_layout()), subTest);
+#pragma endregion
+
+#pragma region SET_STRUCT_ARRAY
+	std::vector<std430_struct> struct_array { std430_struct(subTest.get_layout()), std430_struct(subTest.get_layout()) };
+	EXPECT_EQ(test.get<std::vector<std430_struct>>("struct_array", subTest.get_layout()), struct_array);
+	struct_array[0].set<bool>("a", true);
+	std::vector<std::vector<std::byte>> struct_array_data { struct_array[0].data(), struct_array[1].data() };
+	EXPECT_TRUE(test.set("struct_array", subTest.get_layout(), struct_array_data));
+	EXPECT_EQ(test.get<std::vector<std430_struct>>("struct_array", subTest.get_layout()), struct_array);
+#pragma endregion
+
+#pragma region GET_SUBSTRUCT_VALUE
+	EXPECT_EQ(test.get<bool>("struct.a"), false);
+	EXPECT_TRUE(test.set<bool>("struct.a", true));
+	EXPECT_EQ(test.get<bool>("struct.a"), true);
+#pragma endregion
+
+#pragma region GET_ARRAY_ELEM_VALUE
+	EXPECT_EQ(test.get<int>("scalar_array[0]"), 3);
+	EXPECT_TRUE(test.set<int>("scalar_array[0]", 2));
+	EXPECT_EQ(test.get<int>("scalar_array[0]"), 2);
+#pragma endregion
 }
 
 TEST(std430_struct, copy_test) {

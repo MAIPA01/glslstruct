@@ -4,4 +4,10 @@
 - convert struct and layout to glsl string
 - add value from glsl string
 - add variable from glsl string
-- add type checks for struct getters and setters
+
+// Final
+- check clang-tidy
+- format all with clang-format
+- check coverage
+- check docs
+- update readme

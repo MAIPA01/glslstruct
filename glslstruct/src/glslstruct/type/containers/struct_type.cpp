@@ -16,8 +16,8 @@
 
 using namespace glslstruct;
 
-struct_type::struct_type(const std::unordered_map<std::string, var_data>& values, size_t size) noexcept
-	: base_type(size), _values(values) {}
+struct_type::struct_type(const std::unordered_map<std::string, var_data>& values, const size_t size) noexcept
+	: base_type(size), _variables(values) {}
 
 struct_type::struct_type(const struct_type& other) noexcept			   = default;
 struct_type::struct_type(struct_type&& other) noexcept				   = default;
@@ -28,11 +28,19 @@ struct_type& struct_type::operator=(const struct_type& other) noexcept = default
 
 struct_type& struct_type::operator=(struct_type&& other) noexcept	   = default;
 
-const std::unordered_map<std::string, var_data>& struct_type::get_values() const noexcept { return _values; }
+bool struct_type::contains(const std::string_view name) const noexcept {
+	#if _GLSL_STRUCT_HAS_CXX20
+	return _variables.contains(name.data());
+	#else
+	return _variables.find(name.data()) != _variables.end();
+	#endif
+}
+
+const std::unordered_map<std::string, var_data>& struct_type::get_variables() const noexcept { return _variables; }
 
 std::string struct_type::to_string() const noexcept { return "struct"; }
 
-bool glslstruct::operator==(const struct_type& lhs, const struct_type& rhs) noexcept { return lhs._values == rhs._values; }
+bool glslstruct::operator==(const struct_type& lhs, const struct_type& rhs) noexcept { return lhs._variables == rhs._variables; }
 
 	#if _GLSL_STRUCT_HAS_CXX20
 bool glslstruct::operator!=(const struct_type& lhs, const struct_type& rhs) noexcept = default;
@@ -42,7 +50,7 @@ bool glslstruct::operator!=(const struct_type& lhs, const struct_type& rhs) noex
 
 size_t std::hash<struct_type>::operator()(const struct_type& type) const noexcept {
 	size_t seed = 0;
-		for (const auto& [name, data] : type._values) { mstd::hash_append(seed, name, data); }
+		for (const auto& [name, data] : type._variables) { mstd::hash_append(seed, name, data); }
 	return seed;
 }
 

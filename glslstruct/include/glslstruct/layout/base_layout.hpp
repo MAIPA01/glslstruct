@@ -104,18 +104,7 @@ namespace glslstruct {
 		/// @brief current offset
 		size_t _currentOffset								 = 0;
 
-		/// @brief static array elem name constructor
-		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 std::string _get_array_elem_name(const std::string_view arrayName,
-		  const size_t elemIdx) {
-			return fmt::format("{}[{}]", arrayName, elemIdx);
-		}
-
-		/// @brief static struct elem name constructor
-		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 std::string _get_struct_elem_name(const std::string_view structName,
-		  const std::string_view elemName) {
-			return fmt::format("{}.{}", structName, elemName);
-		}
-
+		#pragma region VARIABLE_SET
 		/// @brief sets variable data
 		#if _GLSL_STRUCT_HAS_TYPES
 		var_data& _set_variable(const std::string_view name, const size_t offset, const base_type_handle& type,
@@ -127,6 +116,7 @@ namespace glslstruct {
 			return _variables.emplace(name, var_data(offset, size, padding)).first->second;
 		}
 		#endif
+		#pragma endregion
 
 		/// @brief calculates alignment offset
 		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 size_t _calculate_alignment_offset(const size_t currentOffset,
@@ -158,6 +148,8 @@ namespace glslstruct {
 				}
 			return true;
 		}
+
+		#pragma region STANDARD_ADD
 
 		/// @brief returns alignment offset of variable and moves current offset
 		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 size_t _add(size_t& currentOffset, const size_t baseAlignment,
@@ -197,6 +189,10 @@ namespace glslstruct {
 			return arrayOffsets;
 		}
 
+		#pragma endregion
+
+		#pragma region VARIABLE_ADD
+
 		/// @brief sets variable data
 		var_data& _add_variable(
 		  const std::string_view name, const size_t alignmentOffset,
@@ -232,12 +228,12 @@ namespace glslstruct {
 				for (size_t i = 0; i < alignmentOffsets.size(); ++i) {
 		// SET ELEMENT VARIABLE
 		#if _GLSL_STRUCT_HAS_TYPES
-					var_data& varData = _add_variable(_get_array_elem_name(name, i), alignmentOffsets[i], elemType);
+					var_data& varData = _add_variable(get_array_elem_name(name, i), alignmentOffsets[i], elemType);
 						if (i < alignmentOffsets.size() - 1) {
 							varData.set_padding(alignmentOffsets[i + 1] - alignmentOffsets[i] - elemType->get_size());
 						}
 		#else
-					var_data& varData = _add_variable(_get_array_elem_name(name, i), alignmentOffsets[i], elemBaseOffset);
+					var_data& varData = _add_variable(get_array_elem_name(name, i), alignmentOffsets[i], elemBaseOffset);
 
 						if (i < alignmentOffsets.size() - 1) {
 							varData.set_padding(alignmentOffsets[i + 1] - alignmentOffsets[i] - elemBaseOffset);
@@ -252,6 +248,10 @@ namespace glslstruct {
 			return _add_variable(name, alignmentOffsets.front(), arrayBaseOffset);
 		#endif
 		}
+
+		#pragma endregion
+
+		#pragma region SPECIALIZED_ADD
 
 		/// @brief adds scalar
 		[[nodiscard]] size_t _add_scalar(const std::string_view name, const ValueType valueType) {
@@ -634,10 +634,10 @@ namespace glslstruct {
 
 		// ADD VARIABLE DATA
 		#if _GLSL_STRUCT_HAS_TYPES
-					var_data& varData = _add_array_variable(_get_array_elem_name(name, i), alignmentOffsets, vecType, matType);
+					var_data& varData = _add_array_variable(get_array_elem_name(name, i), alignmentOffsets, vecType, matType);
 		#else
 					var_data& varData =
-					  _add_array_variable(_get_array_elem_name(name, i), alignmentOffsets, vecBaseOffset, matSize);
+					  _add_array_variable(get_array_elem_name(name, i), alignmentOffsets, vecBaseOffset, matSize);
 		#endif
 
 						if (i < count - 1) { varData.set_padding(matPadding); }
@@ -709,10 +709,10 @@ namespace glslstruct {
 			// ADD STRUCTURE VARIABLES DATA
 				for (const auto& [value_name, data] : values) {
 		#if _GLSL_STRUCT_HAS_TYPES
-					_add_variable(_get_struct_elem_name(name, value_name), alignmentOffset + data.get_offset(), data.get_type())
+					_add_variable(get_struct_elem_name(name, value_name), alignmentOffset + data.get_offset(), data.get_type())
 					  .set_padding(data.get_padding());
 		#else
-					_add_variable(_get_struct_elem_name(name, value_name), alignmentOffset + data.get_offset(), data.get_size())
+					_add_variable(get_struct_elem_name(name, value_name), alignmentOffset + data.get_offset(), data.get_size())
 					  .set_padding(data.get_padding());
 		#endif
 				}
@@ -771,16 +771,16 @@ namespace glslstruct {
 			glsl_struct_assert(_move_current_offset(_currentOffset, _currentOffset, arrayPadding), "Data overflow!");
 
 				for (size_t i = 0; i < count; ++i) {
-					const std::string arrayElemName = _get_array_elem_name(name, i);
+					const std::string arrayElemName = get_array_elem_name(name, i);
 
 						// ADD STRUCTURE VARIABLES DATA
 						for (const auto& [value_name, data] : values) {
 		#if _GLSL_STRUCT_HAS_TYPES
-							_add_variable(_get_struct_elem_name(arrayElemName, value_name),
+							_add_variable(get_struct_elem_name(arrayElemName, value_name),
 							  alignmentOffsets[i] + data.get_offset(), data.get_type())
 							  .set_padding(data.get_padding());
 		#else
-							_add_variable(_get_struct_elem_name(arrayElemName, value_name),
+							_add_variable(get_struct_elem_name(arrayElemName, value_name),
 							  alignmentOffsets[i] + data.get_offset(), data.get_size())
 							  .set_padding(data.get_padding());
 		#endif
@@ -828,6 +828,8 @@ namespace glslstruct {
 				}
 				if _GLSL_STRUCT_CONSTEXPR17 (sizeof...(Ts) > 0 && sizeof...(nums) > 0) { _add_variables(vars...); }
 		}
+
+		#pragma endregion
 
 	public:
 		#pragma region CONSTRUCTORS_WITHOUT_CONTEXT
@@ -927,7 +929,7 @@ namespace glslstruct {
 		#else
 			size_t i = 0;
 				while (true) {
-					const std::string valueName = _get_array_elem_name(name, i);
+					const std::string valueName = get_array_elem_name(name, i);
 
 						if (!contains(valueName)) { break; }
 					++i;
@@ -946,7 +948,7 @@ namespace glslstruct {
 
 				if (arrayCount == 1) { return _variables.at(name.data()).get_size(); }
 
-			return _variables.at(_get_array_elem_name(name, 0)).get_size();
+			return _variables.at(get_array_elem_name(name, 0)).get_size();
 		}
 
 		/// @brief returns offset of variable with given name
@@ -963,7 +965,7 @@ namespace glslstruct {
 			std::vector<size_t> values;
 			values.reserve(arrayCount);
 				for (size_t i = 0; i != arrayCount; ++i) {
-					values.push_back(_variables.at(_get_array_elem_name(name, i)).get_offset());
+					values.push_back(_variables.at(get_array_elem_name(name, i)).get_offset());
 				}
 			return values;
 		}
