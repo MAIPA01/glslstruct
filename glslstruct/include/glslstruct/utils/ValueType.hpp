@@ -19,12 +19,26 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 
 namespace glslstruct {
 	// clang-format off
+	/**
+	 * @brief Value Type Enum
+	 * @ingroup glslstruct
+	 */
 	ENUM_CLASS_BASE(ValueType, uint8_t, (Bool), (Int), (Uint), (Float), (Double))
 		// clang-format on
 
 		#if _GLSL_STRUCT_HAS_CXX20
+	/**
+	 * @brief Converts type to ValueType Enum value
+	 * @ingroup glslstruct
+	 * @tparam T type of scalar to convert to ValueType enum (only works for { bool, int, unsigned int, float, double })
+	 */
 	template<class T>
 		#else
+	/**
+	 * @brief Converts type to ValueType Enum value
+	 * @ingroup glslstruct
+	 * @tparam T type of scalar to convert to ValueType enum (only works for { bool, int, unsigned int, float, double })
+	 */
 	template<class T, std::enable_if_t<mstd::is_same_type_in_v<T, bool, int, unsigned int, float, double>, bool> = true>
 		#endif
 	[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 ValueType
@@ -40,7 +54,12 @@ namespace glslstruct {
 			}
 	}
 
-	[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 size_t get_value_type_size(ValueType type) {
+	/**
+	 * @brief Returns glsl type size of scalar
+	 * @ingroup glslstruct
+	 * @param type scalar value type
+	 */
+	[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 size_t get_value_type_size(const ValueType type) {
 		_GLSL_STRUCT_CONSTEXPR17 size_t intSize	   = 4;
 		_GLSL_STRUCT_CONSTEXPR17 size_t doubleSize = 8;
 

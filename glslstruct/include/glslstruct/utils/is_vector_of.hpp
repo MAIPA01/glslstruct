@@ -20,14 +20,22 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 		#include <glslstruct/libs.hpp>
 
 namespace glslstruct::utils {
+	/**
+	 * @brief checks if value type is std::vector<type> and if type passes given test template struct
+	 * @ingroup utils
+	 */
 	template<template<class, class...> class Test, class V, class... Args>
 	struct is_vector_of : std::false_type {};
 
 	template<template<class, class...> class Test, class T, class... Args>
 	struct is_vector_of<Test, std::vector<T>, Args...> : Test<T, Args...> {};
 
+	/**
+	 * @brief checks if value type is std::vector<type> and if type passes given test template struct
+	 * @ingroup utils
+	 */
 	template<template<class, class...> class Test, class V, class... Args>
-	static _GLSL_STRUCT_CONSTEXPR17 const bool is_vector_of_v = is_vector_of<Test, V, Args...>::value;
+	static _GLSL_STRUCT_CONSTEXPR17 bool is_vector_of_v = is_vector_of<Test, V, Args...>::value;
 } // namespace glslstruct::utils
 
 	#endif

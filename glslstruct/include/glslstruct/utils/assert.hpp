@@ -19,6 +19,12 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 
 		#include <mstd/mstd.hpp>
 
+	/**
+	 * @def glsl_struct_assert(expression, ...)
+	 * @brief glslstruct assert
+	 * @ingroup utils
+	 */
+
 		#if _DEBUG
 			#define glsl_struct_assert(expression, ...)                                                             \
 				MSTD_STOP_ASSERT_BASE(expression, [](const std::string_view) -> void {} __VA_OPT__(, ) __VA_ARGS__)

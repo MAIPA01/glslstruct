@@ -21,36 +21,36 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 		#include <glslstruct/utils/ValueType.hpp>
 
 		#if _GLSL_STRUCT_HAS_TYPES
-			#include <glslstruct/type_containers/array_type.hpp>
-			#include <glslstruct/type_containers/base_type.hpp>
-			#include <glslstruct/type_containers/mat_type.hpp>
-			#include <glslstruct/type_containers/scalar_type.hpp>
-			#include <glslstruct/type_containers/struct_type.hpp>
-			#include <glslstruct/type_containers/type.hpp>
-			#include <glslstruct/type_containers/vec_type.hpp>
+			#include <glslstruct/type/containers/array_type.hpp>
+			#include <glslstruct/type/containers/base_type.hpp>
+			#include <glslstruct/type/containers/mat_type.hpp>
+			#include <glslstruct/type/containers/scalar_type.hpp>
+			#include <glslstruct/type/containers/struct_type.hpp>
+			#include <glslstruct/type/containers/type.hpp>
+			#include <glslstruct/type/containers/vec_type.hpp>
 
-			#include <glslstruct/type_visitors/eq_type_visitor.hpp>
-			#include <glslstruct/type_visitors/is_of_type_visitor.hpp>
-			#include <glslstruct/type_visitors/type_hash_visitor.hpp>
-			#include <glslstruct/type_visitors/type_visitor_concept.hpp>
+			#include <glslstruct/type/visitors/eq_type_visitor.hpp>
+			#include <glslstruct/type/visitors/is_of_type_visitor.hpp>
+			#include <glslstruct/type/visitors/type_hash_visitor.hpp>
+			#include <glslstruct/type/visitors/type_visitor_concept.hpp>
 		#endif
 
-		#include <glslstruct/type_checks/layouts_checks.hpp>
-		#include <glslstruct/type_checks/simple_checks.hpp>
-		#include <glslstruct/type_checks/struct_checks.hpp>
+		#include <glslstruct/type/checks/struct_checks.hpp>
+		#include <glslstruct/type/checks/layouts_checks.hpp>
+		#include <glslstruct/type/checks/simple_checks.hpp>
 		#if _GLSL_STRUCT_HAS_TYPES
-			#include <glslstruct/type_checks/type_checks.hpp>
+			#include <glslstruct/type/checks/type_checks.hpp>
 		#endif
 
-		#include <glslstruct/type_data/mat_data.hpp>
-		#include <glslstruct/type_data/scalar_data.hpp>
-		#include <glslstruct/type_data/vec_data.hpp>
+		#include <glslstruct/type/data/scalar_data.hpp>
+		#include <glslstruct/type/data/mat_data.hpp>
+		#include <glslstruct/type/data/vec_data.hpp>
 
 		#include <glslstruct/var_data/var_data.hpp>
 
-		#include <glslstruct/type_traits/mat_traits.hpp>
-		#include <glslstruct/type_traits/scalar_traits.hpp>
-		#include <glslstruct/type_traits/vec_traits.hpp>
+		#include <glslstruct/type/traits/vec_traits.hpp>
+		#include <glslstruct/type/traits/mat_traits.hpp>
+		#include <glslstruct/type/traits/scalar_traits.hpp>
 
 	#endif
 #endif

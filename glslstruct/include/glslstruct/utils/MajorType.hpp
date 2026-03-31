@@ -19,6 +19,10 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 
 namespace glslstruct {
 	// clang-format off
+	/**
+	 * @brief Major Type Enum for matrices (for now not used)
+	 * @ingroup glslstruct
+	 */
 	ENUM_CLASS_BASE(MajorType, uint8_t, (Column), (Row))
 	// clang-format on
 } // namespace glslstruct

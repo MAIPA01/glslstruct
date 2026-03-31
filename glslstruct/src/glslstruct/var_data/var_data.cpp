@@ -14,7 +14,7 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 #else
 
 #if _GLSL_STRUCT_HAS_TYPES
-	#include <glslstruct/type_containers/base_type.hpp>
+	#include <glslstruct/type/containers/base_type.hpp>
 #endif
 
 	#include <glslstruct/var_data/var_data.hpp>

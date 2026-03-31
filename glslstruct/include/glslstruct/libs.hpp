@@ -33,6 +33,10 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 		#include <unordered_map>
 		#include <utility>
 		#include <vector>
+		#if _GLSL_STRUCT_HAS_CXX20
+			#include <ranges>
+			#include <span>
+		#endif
 
 	#endif
 #endif

@@ -19,14 +19,14 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 
 		#include <glslstruct/types.hpp>
 
-		#include <glslstruct/layout_traits/layout_traits_concept.hpp>
+		#include <glslstruct/layout/traits/layout_traits_concept.hpp>
 		#if _GLSL_STRUCT_HAS_TYPES
-			#include <glslstruct/type_containers/array_type.hpp>
-			#include <glslstruct/type_containers/mat_type.hpp>
-			#include <glslstruct/type_containers/scalar_type.hpp>
-			#include <glslstruct/type_containers/struct_type.hpp>
-			#include <glslstruct/type_containers/vec_type.hpp>
-			#include <glslstruct/type_visitors/is_of_type_visitor.hpp>
+			#include <glslstruct/type/containers/array_type.hpp>
+			#include <glslstruct/type/containers/mat_type.hpp>
+			#include <glslstruct/type/containers/scalar_type.hpp>
+			#include <glslstruct/type/containers/struct_type.hpp>
+			#include <glslstruct/type/containers/vec_type.hpp>
+			#include <glslstruct/type/visitors/is_of_type_visitor.hpp>
 		#endif
 		#include <glslstruct/utils/assert.hpp>
 		#include <glslstruct/utils/ValueType.hpp>
@@ -35,29 +35,48 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 
 namespace glslstruct {
 	namespace utils {
+		/**
+		 * @brief Context container for layout
+		 * @ingroup utils
+		 * @tparam Traits layout traits type
+		 */
 		template<class Traits>
 		struct layout_with_context {
+			/// @brief context type
 			using context_type = typename Traits::context_type;
 
 		protected:
-			context_type context;
+			/// @brief context value
+			context_type _context;
 
 		public:
+				/// @brief default constructor
 		#if !_GLSL_STRUCT_HAS_CXX20
 			template<class C = context_type,
 			  std::enable_if_t<std::is_default_constructible_v<context_type> && std::is_same_v<C, context_type>, bool> = true>
 		#endif
-			layout_with_context() noexcept _GLSL_STRUCT_REQUIRES(std::is_default_constructible_v<context_type>) : context() {
+			layout_with_context() noexcept _GLSL_STRUCT_REQUIRES(std::is_default_constructible_v<context_type>) : _context() {
 			}
 
-			explicit layout_with_context(const context_type& ctx) : context(ctx) {}
+			/// @brief constructor with context value
+			explicit layout_with_context(const context_type& ctx) : _context(ctx) {}
 
+			/// @brief default destructor
 			~layout_with_context() = default;
 		};
 
+		/**
+		 * @brief empty container for layout
+		 * @ingroup utils
+		 */
 		struct layout_without_context {};
 	} // namespace utils
 
+		/**
+		 * @brief base layout container
+		 * @ingroup glslstruct
+		 * @tparam Traits layout traits type
+		 */
 		#if _GLSL_STRUCT_HAS_CXX20
 	template<layout_traits Traits>
 		#else
@@ -66,29 +85,37 @@ namespace glslstruct {
 	class base_layout : public std::conditional_t<utils::has_layout_traits_context_v<Traits>, utils::layout_with_context<Traits>,
 						  utils::layout_without_context> {
 	public:
+		/// @brief traits type
 		using traits_type								 = Traits;
 
+		/// @brief value indicating if traits has context defined
 		static _GLSL_STRUCT_CONSTEXPR17 bool has_context = utils::has_layout_traits_context_v<traits_type>;
 
 	private:
 		friend struct std::hash<base_layout>;
 
+		/// @brief base layout struct
 		using base_struct =
 		  std::conditional_t<has_context, utils::layout_with_context<traits_type>, utils::layout_without_context>;
 
-		std::unordered_map<std::string, var_data> _values = {};
-		size_t _currentOffset							  = 0;
+		/// @brief variables data
+		std::unordered_map<std::string, var_data> _variables = {};
+		/// @brief current offset
+		size_t _currentOffset								 = 0;
 
-		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 std::string _get_array_elem_name(std::string_view arrayName,
-		  size_t elemIdx) {
+		/// @brief static array elem name constructor
+		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 std::string _get_array_elem_name(const std::string_view arrayName,
+		  const size_t elemIdx) {
 			return fmt::format("{}[{}]", arrayName, elemIdx);
 		}
 
-		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 std::string _get_struct_elem_name(std::string_view structName,
-		  std::string_view elemName) {
+		/// @brief static struct elem name constructor
+		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 std::string _get_struct_elem_name(const std::string_view structName,
+		  const std::string_view elemName) {
 			return fmt::format("{}.{}", structName, elemName);
 		}
 
+		/// @brief returns value rounded up to nearest multiple of given value
 		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 size_t _ceil_to_nearest_multiple(size_t valueToRoundUp,
 		  const size_t multipleValue) noexcept {
 				if (const size_t modulo = valueToRoundUp % multipleValue; modulo != 0) {
@@ -97,23 +124,19 @@ namespace glslstruct {
 			return valueToRoundUp;
 		}
 
+		/// @brief sets variable data
 		#if _GLSL_STRUCT_HAS_TYPES
-		var_data& _set_variable(std::string_view name, const size_t offset, const base_type_handle& type,
+		var_data& _set_variable(const std::string_view name, const size_t offset, const base_type_handle& type,
 		  const size_t padding = 0) {
-			return _values.emplace(name, var_data(offset, type, padding)).first->second;
+			return _variables.emplace(name, var_data(offset, type, padding)).first->second;
 		}
 		#else
-		var_data& _set_variable(std::string_view name, const size_t offset, const size_t size, const size_t padding = 0) {
-			return _values.emplace(name, var_data(offset, size, padding)).first->second;
+		var_data& _set_variable(const std::string_view name, const size_t offset, const size_t size, const size_t padding = 0) {
+			return _variables.emplace(name, var_data(offset, size, padding)).first->second;
 		}
 		#endif
 
-		void _remove_variable(const std::string_view name) {
-				if (!contains(name)) { return; }
-
-			_values.erase(name.data());
-		}
-
+		/// @brief calculates alignment offset
 		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 size_t _calculate_alignment_offset(const size_t currentOffset,
 		  const size_t baseAlignment) noexcept {
 			// CALCULATE ALIGNMENT
@@ -128,11 +151,13 @@ namespace glslstruct {
 			return alignmentOffset;
 		}
 
+		/// @brief returns padding value
 		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 size_t _calculate_padding(const size_t currentOffset,
 		  const size_t baseAlignment) noexcept {
 			return _calculate_alignment_offset(currentOffset, baseAlignment) - currentOffset;
 		}
 
+		/// @brief moves current offset to end of variable
 		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 bool _move_current_offset(size_t& currentOffset,
 		  const size_t alignmentOffset, const size_t baseOffset) noexcept {
 				if (mstd::add_overflow(alignmentOffset, baseOffset, currentOffset)) {
@@ -142,6 +167,7 @@ namespace glslstruct {
 			return true;
 		}
 
+		/// @brief returns alignment offset of variable and moves current offset
 		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 size_t _add(size_t& currentOffset, const size_t baseAlignment,
 		  const size_t baseOffset) noexcept {
 			// GET ALIGNMENT OFFSET
@@ -155,6 +181,7 @@ namespace glslstruct {
 			return alignmentOffset;
 		}
 
+		/// @brief returns alignment offsets of array variables and moves current offset
 		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 std::vector<size_t> _add_array(size_t& currentOffset,
 		  const size_t arrayBaseAlignment, const size_t elemBaseOffset, const size_t count) noexcept {
 			// GET ALIGNMENT OFFSET
@@ -178,12 +205,13 @@ namespace glslstruct {
 			return arrayOffsets;
 		}
 
+		/// @brief sets variable data
 		var_data& _add_variable(
-		  std::string_view name, const size_t alignmentOffset,
+		  const std::string_view name, const size_t alignmentOffset,
 		#if _GLSL_STRUCT_HAS_TYPES
 		  const base_type_handle& type
 		#else
-		  size_t baseOffset
+		  const size_t baseOffset
 		#endif
 		) {
 			// CHECK VARIABLE NAME
@@ -197,6 +225,7 @@ namespace glslstruct {
 		#endif
 		}
 
+		/// @brief sets array variables data
 		var_data& _add_array_variable(
 		  const std::string_view name, const std::vector<size_t>& alignmentOffsets,
 		#if _GLSL_STRUCT_HAS_TYPES
@@ -232,33 +261,34 @@ namespace glslstruct {
 		#endif
 		}
 
-		[[nodiscard]] size_t _add_scalar(std::string_view name, ValueType valueType) {
+		/// @brief adds scalar
+		[[nodiscard]] size_t _add_scalar(const std::string_view name, const ValueType valueType) {
 				// BEFORE ADD SCALAR
 				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_before_add_scalar_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::before_add_scalar(_currentOffset, base_struct::context);
+							traits_type::before_add_scalar(_currentOffset, base_struct::_context);
 						}
 						else { traits_type::before_add_scalar(_currentOffset); }
 				}
 				else if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_before_add_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::before_add(_currentOffset, base_struct::context);
+							traits_type::before_add(_currentOffset, base_struct::_context);
 						}
 						else { traits_type::before_add(_currentOffset); }
 				}
 
 			// GET BASE OFFSET
-			size_t baseOffset	 = get_value_type_size(valueType);
+			const size_t baseOffset = get_value_type_size(valueType);
 
 			// GET BASE ALIGNMENT
-			size_t baseAlignment = 0;
+			size_t baseAlignment	= 0;
 				if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-					baseAlignment = traits_type::get_scalar_alignment(valueType, base_struct::context);
+					baseAlignment = traits_type::get_scalar_alignment(valueType, base_struct::_context);
 				}
 				else { baseAlignment = traits_type::get_scalar_alignment(valueType); }
 
 			// GET ALIGNMENT OFFSET
-			size_t alignmentOffset = _add(_currentOffset, baseAlignment, baseOffset);
+			const size_t alignmentOffset = _add(_currentOffset, baseAlignment, baseOffset);
 
 				// ADD VARIABLE DATA
 		#if _GLSL_STRUCT_HAS_TYPES
@@ -270,13 +300,13 @@ namespace glslstruct {
 				// AFTER ADD SCALAR
 				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_after_add_scalar_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::after_add_scalar(_currentOffset, baseOffset, baseAlignment, base_struct::context);
+							traits_type::after_add_scalar(_currentOffset, baseOffset, baseAlignment, base_struct::_context);
 						}
 						else { traits_type::after_add_scalar(_currentOffset, baseOffset, baseAlignment); }
 				}
 				else if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_after_add_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::after_add(_currentOffset, baseOffset, baseAlignment, base_struct::context);
+							traits_type::after_add(_currentOffset, baseOffset, baseAlignment, base_struct::_context);
 						}
 						else { traits_type::after_add(_currentOffset, baseOffset, baseAlignment); }
 				}
@@ -284,41 +314,43 @@ namespace glslstruct {
 			return alignmentOffset;
 		}
 
-		[[nodiscard]] std::vector<size_t> _add_scalar_array(std::string_view name, ValueType valueType, size_t count) {
+		/// @brief adds array of scalars
+		[[nodiscard]] std::vector<size_t> _add_scalar_array(const std::string_view name, const ValueType valueType,
+		  const size_t count) {
 				// BEFORE ADD SCALAR ARRAY
 				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_before_add_array_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::before_add_array(_currentOffset, base_struct::context);
+							traits_type::before_add_array(_currentOffset, base_struct::_context);
 						}
 						else { traits_type::before_add_array(_currentOffset); }
 				}
 				else if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_before_add_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::before_add(_currentOffset, base_struct::context);
+							traits_type::before_add(_currentOffset, base_struct::_context);
 						}
 						else { traits_type::before_add(_currentOffset); }
 				}
 
 			// GET BASE OFFSET
-			size_t baseOffset		  = get_value_type_size(valueType);
+			const size_t baseOffset	  = get_value_type_size(valueType);
 
 			// GET ARRAY ALIGNMENT
 			size_t arrayBaseAlignment = 0;
 				if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
 					arrayBaseAlignment =
-					  traits_type::get_array_alignment(traits_type::get_scalar_alignment(valueType, base_struct::context),
-						base_struct::context);
+					  traits_type::get_array_alignment(traits_type::get_scalar_alignment(valueType, base_struct::_context),
+						base_struct::_context);
 				}
 				else { arrayBaseAlignment = traits_type::get_array_alignment(traits_type::get_scalar_alignment(valueType)); }
 
 			// GET ALIGNMENT OFFSETS
-			std::vector<size_t> alignmentOffsets = _add_array(_currentOffset, arrayBaseAlignment, baseOffset, count);
+			const std::vector<size_t> alignmentOffsets = _add_array(_currentOffset, arrayBaseAlignment, baseOffset, count);
 
 			// GET ARRAY SIZE
-			const size_t arraySize				 = alignmentOffsets.back() + baseOffset - alignmentOffsets.front();
+			const size_t arraySize					   = alignmentOffsets.back() + baseOffset - alignmentOffsets.front();
 
 			// GET ARRAY PADDING
-			const size_t arrayPadding			 = _calculate_padding(_currentOffset, arrayBaseAlignment);
+			const size_t arrayPadding				   = _calculate_padding(_currentOffset, arrayBaseAlignment);
 
 			// APPLY PADDING TO CURRENT OFFSET
 			glsl_struct_assert(_move_current_offset(_currentOffset, alignmentOffsets.back(), arrayBaseAlignment),
@@ -337,13 +369,13 @@ namespace glslstruct {
 				// AFTER ADD SCALAR ARRAY
 				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_after_add_array_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::after_add_array(_currentOffset, arraySize, arrayBaseAlignment, base_struct::context);
+							traits_type::after_add_array(_currentOffset, arraySize, arrayBaseAlignment, base_struct::_context);
 						}
 						else { traits_type::after_add_array(_currentOffset, arraySize, arrayBaseAlignment); }
 				}
 				else if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_after_add_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::after_add(_currentOffset, arraySize, arrayBaseAlignment, base_struct::context);
+							traits_type::after_add(_currentOffset, arraySize, arrayBaseAlignment, base_struct::_context);
 						}
 						else { traits_type::after_add(_currentOffset, arraySize, arrayBaseAlignment); }
 				}
@@ -351,35 +383,36 @@ namespace glslstruct {
 			return alignmentOffsets;
 		}
 
-		[[nodiscard]] size_t _add_vec(std::string_view name, size_t length, ValueType valueType) {
+		/// @brief adds vec
+		[[nodiscard]] size_t _add_vec(const std::string_view name, const size_t length, const ValueType valueType) {
 			glsl_struct_assert(length >= 2 && length <= 4, "vec length should be in range <2, 4>!");
 
 				// BEFORE ADD VEC
 				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_before_add_vec_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::before_add_vec(_currentOffset, base_struct::context);
+							traits_type::before_add_vec(_currentOffset, base_struct::_context);
 						}
 						else { traits_type::before_add_vec(_currentOffset); }
 				}
 				else if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_before_add_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::before_add(_currentOffset, base_struct::context);
+							traits_type::before_add(_currentOffset, base_struct::_context);
 						}
 						else { traits_type::before_add(_currentOffset); }
 				}
 
 			// GET BASE OFFSET
-			size_t baseOffset	 = get_value_type_size(valueType) * length;
+			const size_t baseOffset = get_value_type_size(valueType) * length;
 
 			// GET BASE ALIGNMENT
-			size_t baseAlignment = 0;
+			size_t baseAlignment	= 0;
 				if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-					baseAlignment = traits_type::get_vec_alignment(valueType, length, base_struct::context);
+					baseAlignment = traits_type::get_vec_alignment(valueType, length, base_struct::_context);
 				}
 				else { baseAlignment = traits_type::get_vec_alignment(valueType, length); }
 
 			// GET ALIGNMENT OFFSET
-			size_t alignmentOffset = _add(_currentOffset, baseAlignment, baseOffset);
+			const size_t alignmentOffset = _add(_currentOffset, baseAlignment, baseOffset);
 
 				// ADD VARIABLE DATA
 		#if _GLSL_STRUCT_HAS_TYPES
@@ -391,13 +424,13 @@ namespace glslstruct {
 				// AFTER ADD VEC
 				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_after_add_vec_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::after_add_vec(_currentOffset, baseOffset, baseAlignment, base_struct::context);
+							traits_type::after_add_vec(_currentOffset, baseOffset, baseAlignment, base_struct::_context);
 						}
 						else { traits_type::after_add_vec(_currentOffset, baseOffset, baseAlignment); }
 				}
 				else if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_after_add_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::after_add(_currentOffset, baseOffset, baseAlignment, base_struct::context);
+							traits_type::after_add(_currentOffset, baseOffset, baseAlignment, base_struct::_context);
 						}
 						else { traits_type::after_add(_currentOffset, baseOffset, baseAlignment); }
 				}
@@ -405,44 +438,45 @@ namespace glslstruct {
 			return alignmentOffset;
 		}
 
-		[[nodiscard]] std::vector<size_t> _add_vec_array(std::string_view name, size_t length, ValueType valueType,
-		  size_t count) {
+		/// @brief adds array of vecs
+		[[nodiscard]] std::vector<size_t> _add_vec_array(const std::string_view name, const size_t length,
+		  const ValueType valueType, const size_t count) {
 			glsl_struct_assert(length >= 2 && length <= 4, "vec length should be in range <2, 4>!");
 
 				// BEFORE ADD VEC ARRAY
 				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_before_add_array_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::before_add_array(_currentOffset, base_struct::context);
+							traits_type::before_add_array(_currentOffset, base_struct::_context);
 						}
 						else { traits_type::before_add_array(_currentOffset); }
 				}
 				else if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_before_add_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::before_add(_currentOffset, base_struct::context);
+							traits_type::before_add(_currentOffset, base_struct::_context);
 						}
 						else { traits_type::before_add(_currentOffset); }
 				}
 
 			// GET BASE OFFSET
-			size_t baseOffset		  = get_value_type_size(valueType) * length;
+			const size_t baseOffset	  = get_value_type_size(valueType) * length;
 
 			// GET ARRAY ALIGNMENT
 			size_t arrayBaseAlignment = 0;
 				if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
 					arrayBaseAlignment =
-					  traits_type::get_array_alignment(traits_type::get_vec_alignment(valueType, length, base_struct::context),
-						base_struct::context);
+					  traits_type::get_array_alignment(traits_type::get_vec_alignment(valueType, length, base_struct::_context),
+						base_struct::_context);
 				}
 				else { arrayBaseAlignment = traits_type::get_array_alignment(traits_type::get_vec_alignment(valueType, length)); }
 
 			// GET ALIGNMENT OFFSETS
-			std::vector<size_t> alignmentOffsets = _add_array(_currentOffset, arrayBaseAlignment, baseOffset, count);
+			const std::vector<size_t> alignmentOffsets = _add_array(_currentOffset, arrayBaseAlignment, baseOffset, count);
 
 			// GET ARRAY SIZE
-			const size_t arraySize				 = alignmentOffsets.back() + baseOffset - alignmentOffsets.front();
+			const size_t arraySize					   = alignmentOffsets.back() + baseOffset - alignmentOffsets.front();
 
 			// GET ARRAY PADDING
-			const size_t arrayPadding			 = _calculate_padding(_currentOffset, arrayBaseAlignment);
+			const size_t arrayPadding				   = _calculate_padding(_currentOffset, arrayBaseAlignment);
 
 			// APPLY PADDING TO CURRENT OFFSET
 			glsl_struct_assert(_move_current_offset(_currentOffset, alignmentOffsets.back(), arrayBaseAlignment),
@@ -461,13 +495,13 @@ namespace glslstruct {
 				// AFTER ADD VEC ARRAY
 				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_after_add_array_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::after_add_array(_currentOffset, arraySize, arrayBaseAlignment, base_struct::context);
+							traits_type::after_add_array(_currentOffset, arraySize, arrayBaseAlignment, base_struct::_context);
 						}
 						else { traits_type::after_add_array(_currentOffset, arraySize, arrayBaseAlignment); }
 				}
 				else if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_after_add_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::after_add(_currentOffset, arraySize, arrayBaseAlignment, base_struct::context);
+							traits_type::after_add(_currentOffset, arraySize, arrayBaseAlignment, base_struct::_context);
 						}
 						else { traits_type::after_add(_currentOffset, arraySize, arrayBaseAlignment); }
 				}
@@ -475,46 +509,47 @@ namespace glslstruct {
 			return alignmentOffsets;
 		}
 
-		[[nodiscard]] std::vector<size_t> _add_mat(const std::string_view name, size_t columns, size_t rows,
-		  ValueType valueType) {
+		/// @brief adds mat
+		[[nodiscard]] std::vector<size_t> _add_mat(const std::string_view name, const size_t columns, const size_t rows,
+		  const ValueType valueType) {
 			glsl_struct_assert(columns >= 2 && columns <= 4, "mat columns should be in range <2, 4>!");
 			glsl_struct_assert(rows >= 2 && rows <= 4, "mat rows should be in range <2, 4>!");
 
 				// BEFORE ADD MAT
 				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_before_add_mat_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::before_add_mat(_currentOffset, base_struct::context);
+							traits_type::before_add_mat(_currentOffset, base_struct::_context);
 						}
 						else { traits_type::before_add_mat(_currentOffset); }
 				}
 				else if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_before_add_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::before_add(_currentOffset, base_struct::context);
+							traits_type::before_add(_currentOffset, base_struct::_context);
 						}
 						else { traits_type::before_add(_currentOffset); }
 				}
 
 			// GET BASE OFFSET
-			size_t vecBaseOffset	= get_value_type_size(valueType) * rows;
+			const size_t vecBaseOffset = get_value_type_size(valueType) * rows;
 
 			// GET MAT ALIGNMENT
-			size_t matBaseAlignment = 0;
+			size_t matBaseAlignment	   = 0;
 				if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
 					matBaseAlignment =
-					  traits_type::get_array_alignment(traits_type::get_vec_alignment(valueType, rows, base_struct::context),
-						base_struct::context);
+					  traits_type::get_array_alignment(traits_type::get_vec_alignment(valueType, rows, base_struct::_context),
+						base_struct::_context);
 				}
 				else { matBaseAlignment = traits_type::get_array_alignment(traits_type::get_vec_alignment(valueType, rows)); }
 
 
 			// GET ALIGNMENT OFFSETS
-			std::vector<size_t> alignmentOffsets = _add_array(_currentOffset, matBaseAlignment, vecBaseOffset, columns);
+			const std::vector<size_t> alignmentOffsets = _add_array(_currentOffset, matBaseAlignment, vecBaseOffset, columns);
 
 			// GET MAT SIZE
-			const size_t matSize				 = alignmentOffsets.back() + vecBaseOffset - alignmentOffsets.front();
+			const size_t matSize					   = alignmentOffsets.back() + vecBaseOffset - alignmentOffsets.front();
 
 			// GET ARRAY PADDING
-			const size_t matPadding				 = _calculate_padding(_currentOffset, matBaseAlignment);
+			const size_t matPadding					   = _calculate_padding(_currentOffset, matBaseAlignment);
 
 			// APPLY PADDING TO CURRENT OFFSET
 			glsl_struct_assert(_move_current_offset(_currentOffset, alignmentOffsets.back(), matBaseAlignment), "Data overflow!");
@@ -532,13 +567,13 @@ namespace glslstruct {
 				// AFTER ADD VEC
 				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_after_add_mat_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::after_add_mat(_currentOffset, matSize, matBaseAlignment, base_struct::context);
+							traits_type::after_add_mat(_currentOffset, matSize, matBaseAlignment, base_struct::_context);
 						}
 						else { traits_type::after_add_mat(_currentOffset, matSize, matBaseAlignment); }
 				}
 				else if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_after_add_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::after_add(_currentOffset, matSize, matBaseAlignment, base_struct::context);
+							traits_type::after_add(_currentOffset, matSize, matBaseAlignment, base_struct::_context);
 						}
 						else { traits_type::after_add(_currentOffset, matSize, matBaseAlignment); }
 				}
@@ -546,34 +581,35 @@ namespace glslstruct {
 			return alignmentOffsets;
 		}
 
-		[[nodiscard]] std::vector<std::vector<size_t> > _add_mat_array(std::string_view name, size_t columns, size_t rows,
-		  ValueType valueType, size_t count) {
+		/// @brief adds array of mats
+		[[nodiscard]] std::vector<std::vector<size_t> > _add_mat_array(const std::string_view name, const size_t columns,
+		  const size_t rows, const ValueType valueType, const size_t count) {
 			glsl_struct_assert(columns >= 2 && columns <= 4, "mat columns should be in range <2, 4>!");
 			glsl_struct_assert(rows >= 2 && rows <= 4, "mat rows should be in range <2, 4>!");
 
 				// BEFORE ADD MAT ARRAY
 				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_before_add_array_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::before_add_array(_currentOffset, base_struct::context);
+							traits_type::before_add_array(_currentOffset, base_struct::_context);
 						}
 						else { traits_type::before_add_array(_currentOffset); }
 				}
 				else if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_before_add_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::before_add(_currentOffset, base_struct::context);
+							traits_type::before_add(_currentOffset, base_struct::_context);
 						}
 						else { traits_type::before_add(_currentOffset); }
 				}
 
 			// GET BASE OFFSET
-			size_t vecBaseOffset	= get_value_type_size(valueType) * rows;
+			const size_t vecBaseOffset = get_value_type_size(valueType) * rows;
 
 			// GET ARRAY ALIGNMENT
-			size_t matBaseAlignment = 0;
+			size_t matBaseAlignment	   = 0;
 				if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
 					matBaseAlignment =
-					  traits_type::get_array_alignment(traits_type::get_vec_alignment(valueType, rows, base_struct::context),
-						base_struct::context);
+					  traits_type::get_array_alignment(traits_type::get_vec_alignment(valueType, rows, base_struct::_context),
+						base_struct::_context);
 				}
 				else { matBaseAlignment = traits_type::get_array_alignment(traits_type::get_vec_alignment(valueType, rows)); }
 
@@ -637,13 +673,13 @@ namespace glslstruct {
 				// AFTER ADD SCALAR ARRAY
 				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_after_add_array_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::after_add_array(_currentOffset, arraySize, matBaseAlignment, base_struct::context);
+							traits_type::after_add_array(_currentOffset, arraySize, matBaseAlignment, base_struct::_context);
 						}
 						else { traits_type::after_add_array(_currentOffset, arraySize, matBaseAlignment); }
 				}
 				else if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_after_add_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::after_add(_currentOffset, arraySize, matBaseAlignment, base_struct::context);
+							traits_type::after_add(_currentOffset, arraySize, matBaseAlignment, base_struct::_context);
 						}
 						else { traits_type::after_add(_currentOffset, arraySize, matBaseAlignment); }
 				}
@@ -651,18 +687,19 @@ namespace glslstruct {
 			return alignmentOffsetsPerMat;
 		}
 
-		[[nodiscard]] size_t _add_struct(std::string_view name, size_t baseAlignment, size_t baseOffset,
+		/// @brief adds struct
+		[[nodiscard]] size_t _add_struct(const std::string_view name, const size_t baseAlignment, const size_t baseOffset,
 		  const std::unordered_map<std::string, var_data>& values) {
 				// BEFORE ADD STRUCT
 				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_before_add_struct_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::before_add_struct(_currentOffset, base_struct::context);
+							traits_type::before_add_struct(_currentOffset, base_struct::_context);
 						}
 						else { traits_type::before_add_struct(_currentOffset); }
 				}
 				else if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_before_add_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::before_add(_currentOffset, base_struct::context);
+							traits_type::before_add(_currentOffset, base_struct::_context);
 						}
 						else { traits_type::before_add(_currentOffset); }
 				}
@@ -691,13 +728,13 @@ namespace glslstruct {
 				// AFTER ADD STRUCT
 				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_after_add_struct_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::after_add_struct(_currentOffset, baseOffset, baseAlignment, base_struct::context);
+							traits_type::after_add_struct(_currentOffset, baseOffset, baseAlignment, base_struct::_context);
 						}
 						else { traits_type::after_add_struct(_currentOffset, baseOffset, baseAlignment); }
 				}
 				else if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_after_add_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::after_add(_currentOffset, baseOffset, baseAlignment, base_struct::context);
+							traits_type::after_add(_currentOffset, baseOffset, baseAlignment, base_struct::_context);
 						}
 						else { traits_type::after_add(_currentOffset, baseOffset, baseAlignment); }
 				}
@@ -705,18 +742,19 @@ namespace glslstruct {
 			return alignmentOffset;
 		}
 
-		[[nodiscard]] std::vector<size_t> _add_struct_array(std::string_view name, size_t elemBaseAlignment,
-		  size_t elemBaseOffset, const std::unordered_map<std::string, var_data>& values, size_t count) {
+		/// @brief adds array of structs
+		[[nodiscard]] std::vector<size_t> _add_struct_array(const std::string_view name, const size_t baseAlignment,
+		  const size_t baseOffset, const std::unordered_map<std::string, var_data>& values, const size_t count) {
 				// BEFORE ADD SCALAR
 				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_before_add_array_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::before_add_array(_currentOffset, base_struct::context);
+							traits_type::before_add_array(_currentOffset, base_struct::_context);
 						}
 						else { traits_type::before_add_array(_currentOffset); }
 				}
 				else if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_before_add_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::before_add(_currentOffset, base_struct::context);
+							traits_type::before_add(_currentOffset, base_struct::_context);
 						}
 						else { traits_type::before_add(_currentOffset); }
 				}
@@ -724,24 +762,24 @@ namespace glslstruct {
 			// GET ARRAY ALIGNMENT
 			size_t arrayBaseAlignment = 0;
 				if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-					arrayBaseAlignment = traits_type::get_array_alignment(elemBaseAlignment, base_struct::context);
+					arrayBaseAlignment = traits_type::get_array_alignment(baseAlignment, base_struct::_context);
 				}
-				else { arrayBaseAlignment = traits_type::get_array_alignment(elemBaseAlignment); }
+				else { arrayBaseAlignment = traits_type::get_array_alignment(baseAlignment); }
 
 			// GET ALIGNMENT OFFSETS
-			std::vector<size_t> alignmentOffsets = _add_array(_currentOffset, arrayBaseAlignment, elemBaseOffset, count);
+			const std::vector<size_t> alignmentOffsets = _add_array(_currentOffset, arrayBaseAlignment, baseOffset, count);
 
 			// GET ARRAY SIZE
-			const size_t arraySize				 = alignmentOffsets.back() + elemBaseOffset - alignmentOffsets.front();
+			const size_t arraySize					   = alignmentOffsets.back() + baseOffset - alignmentOffsets.front();
 
 			// GET ARRAY PADDING
-			const size_t arrayPadding			 = _calculate_padding(_currentOffset, arrayBaseAlignment);
+			const size_t arrayPadding				   = _calculate_padding(_currentOffset, arrayBaseAlignment);
 
 			// APPLY PADDING TO CURRENT OFFSET
 			glsl_struct_assert(_move_current_offset(_currentOffset, _currentOffset, arrayPadding), "Data overflow!");
 
 				for (size_t i = 0; i < count; ++i) {
-					std::string arrayElemName = _get_array_elem_name(name, i);
+					const std::string arrayElemName = _get_array_elem_name(name, i);
 
 						// ADD STRUCTURE VARIABLES DATA
 						for (const auto& [value_name, data] : values) {
@@ -750,8 +788,8 @@ namespace glslstruct {
 							  alignmentOffsets[i] + data.get_offset(), data.get_type())
 							  .set_padding(data.get_padding());
 		#else
-							_add_variable(_get_struct_elem_name(arrayElemName, value_name), alignmentOffsets[i] + data.get_offset(),
-							  data.get_size())
+							_add_variable(_get_struct_elem_name(arrayElemName, value_name),
+							  alignmentOffsets[i] + data.get_offset(), data.get_size())
 							  .set_padding(data.get_padding());
 		#endif
 						}
@@ -759,24 +797,24 @@ namespace glslstruct {
 
 		// ADD VARIABLE DATA
 		#if _GLSL_STRUCT_HAS_TYPES
-			const auto structType = std::make_shared<struct_type>(values, elemBaseOffset);
+			const auto structType = std::make_shared<struct_type>(values, baseOffset);
 			const auto arrayType  = std::make_shared<array_type>(structType, count, arraySize);
 
 			_add_array_variable(name, alignmentOffsets, structType, arrayType).set_padding(arrayPadding);
 		#else
-			_add_array_variable(name, alignmentOffsets, elemBaseOffset, arraySize).set_padding(arrayPadding);
+			_add_array_variable(name, alignmentOffsets, baseOffset, arraySize).set_padding(arrayPadding);
 		#endif
 
 				// AFTER ADD SCALAR ARRAY
 				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_after_add_array_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::after_add_array(_currentOffset, arraySize, arrayBaseAlignment, base_struct::context);
+							traits_type::after_add_array(_currentOffset, arraySize, arrayBaseAlignment, base_struct::_context);
 						}
 						else { traits_type::after_add_array(_currentOffset, arraySize, arrayBaseAlignment); }
 				}
 				else if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_after_add_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::after_add(_currentOffset, arraySize, arrayBaseAlignment, base_struct::context);
+							traits_type::after_add(_currentOffset, arraySize, arrayBaseAlignment, base_struct::_context);
 						}
 						else { traits_type::after_add(_currentOffset, arraySize, arrayBaseAlignment); }
 				}
@@ -784,22 +822,24 @@ namespace glslstruct {
 			return alignmentOffsets;
 		}
 
+		/// @brief adds multiple variables
 		template<class T, class... Ts, size_t num, size_t... nums>
 		_GLSL_STRUCT_CONSTEXPR17 void _add_variables(const glsl_variable<T, num>& var,
 		  const glsl_variable<Ts, nums>&... vars) noexcept {
 				if _GLSL_STRUCT_CONSTEXPR17 (var.is_layout) {
-						if _GLSL_STRUCT_CONSTEXPR17 (num == 0) { add(var.var_name, var.layout); }
-						else { add(var.var_name, var.layout, num); }
+						if _GLSL_STRUCT_CONSTEXPR17 (var.is_array) { add(var.var_name, var.layout, num); }
+						else { add(var.var_name, var.layout); }
 				}
 				else {
-						if _GLSL_STRUCT_CONSTEXPR17 (num == 0) { add<T>(var.var_name); }
-						else { add<T>(var.var_name, num); }
+						if _GLSL_STRUCT_CONSTEXPR17 (var.is_array) { add<T>(var.var_name, num); }
+						else { add<T>(var.var_name); }
 				}
 				if _GLSL_STRUCT_CONSTEXPR17 (sizeof...(Ts) > 0 && sizeof...(nums) > 0) { _add_variables(vars...); }
 		}
 
 	public:
 		#pragma region CONSTRUCTORS_WITHOUT_CONTEXT
+		/// @brief default constructor without providing context
 		#if !_GLSL_STRUCT_HAS_CXX20
 		template<class T = traits_type,
 		  std::enable_if_t<(!has_context || (has_context && std::is_default_constructible_v<base_struct>)) &&
@@ -811,6 +851,7 @@ namespace glslstruct {
 			: base_struct() {
 		}
 
+		/// @brief constructor for multiple variables
 		#if _GLSL_STRUCT_HAS_CXX20
 		template<class... Ts, size_t... nums>
 		#else
@@ -827,6 +868,7 @@ namespace glslstruct {
 		#pragma endregion
 
 		#pragma region CONSTRUCTORS_WITH_CONTEXT
+		/// @brief constructor with provided context
 		#if !_GLSL_STRUCT_HAS_CXX20
 		template<class T = traits_type, std::enable_if_t<has_context && std::is_same_v<T, traits_type>, bool> = true>
 		#endif
@@ -834,6 +876,7 @@ namespace glslstruct {
 			: base_struct(ctx) {
 		}
 
+		/// @brief constructor for multiple variables and with provided context
 		#if _GLSL_STRUCT_HAS_CXX20
 		template<class... Ts, size_t... nums>
 		#else
@@ -847,82 +890,99 @@ namespace glslstruct {
 
 		#pragma endregion
 
+		/// @brief default copy constructor
 		base_layout(const base_layout& other) noexcept			  = default;
 
+		/// @brief default move constructor
 		base_layout(base_layout&& other) noexcept				  = default;
 
+		/// @brief default destructor
 		~base_layout() noexcept									  = default;
 
+		/// @brief default copy assign operator
 		base_layout& operator=(const base_layout& other) noexcept = default;
 
+		/// @brief default move assign operator
 		base_layout& operator=(base_layout&& other) noexcept	  = default;
 
+		/// @brief value indicating error while returning offset
 		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 size_t bad_offset() noexcept { return std::numeric_limits<size_t>::max(); }
 
+		/// @brief returns true if layout contains variable with given name
 		[[nodiscard]] bool contains(const std::string_view name) const noexcept {
 		#if _GLSL_STRUCT_HAS_CXX20
-			return _values.contains(name.data());
+			return _variables.contains(name.data());
 		#else
-			return _values.find(name.data()) != _values.end();
+			return _variables.find(name.data()) != _variables.end();
 		#endif
 		}
 
+		/// @brief returns variable data
 		[[nodiscard]] const var_data& get(const std::string_view name) const noexcept {
 			glsl_struct_assert(contains(name), "The variable name doesn't exists!");
-			return _values.at(name.data());
+			return _variables.at(name.data());
 		}
 
+		/// @breif returns array count (if single value then returns 1 else if value doesn't exist returns 0 else array count)
 		[[nodiscard]] size_t get_array_count(const std::string_view name) const noexcept {
-			if (!contains(name)) {
-				return 0;
-			}
+				if (!contains(name)) { return 0; }
 
-			#if _GLSL_STRUCT_HAS_TYPES
+		#if _GLSL_STRUCT_HAS_TYPES
 			const base_type_handle& varType = get_type(name);
 
-			if (is_of_type<mat_type>(varType)) { return static_type_cast<mat_type>(varType)->get_array_count(); }
-			if (is_of_type<array_type>(varType)) { return static_type_cast<array_type>(varType)->get_count(); }
-			#else
+				if (is_of_type<mat_type>(varType)) { return static_type_cast<mat_type>(varType)->get_array_count(); }
+				if (is_of_type<array_type>(varType)) { return static_type_cast<array_type>(varType)->get_count(); }
+		#else
 			size_t i = 0;
-			while (true) {
-				const std::string valueName = _get_array_elem_name(name, i);
+				while (true) {
+					const std::string valueName = _get_array_elem_name(name, i);
 
-				if (!contains(valueName)) { break; }
-				++i;
-			}
+						if (!contains(valueName)) { break; }
+					++i;
+				}
 
-			if (i != 0) {
-				return i;
-			}
-			#endif
+				if (i != 0) { return i; }
+		#endif
 			return 1;
 		}
 
+		/// @brief returns elem size of array
+		[[nodiscard]] size_t get_array_elem_size(const std::string_view name) const noexcept {
+			const size_t arrayCount = get_array_count(name);
+
+				if (arrayCount == 0) { return 0; }
+
+				if (arrayCount == 1) { return _variables.at(name.data()).get_size(); }
+
+			return _variables.at(_get_array_elem_name(name, 0)).get_size();
+		}
+
+		/// @brief returns offset of variable with given name
 		[[nodiscard]] size_t get_offset(const std::string_view name) const noexcept { return get(name).get_offset(); }
 
+		/// @brief returns offsets of array elements
 		[[nodiscard]] std::vector<size_t> get_array_offsets(const std::string_view name) const noexcept {
 			const size_t arrayCount = get_array_count(name);
 
-			if (arrayCount == 0) {
-				return {};
-			}
+				if (arrayCount == 0) { return {}; }
 
-			if (arrayCount == 1) {
-				return { _values.at(name.data()).get_offset() };
-			}
+				if (arrayCount == 1) { return { _variables.at(name.data()).get_offset() }; }
 
 			std::vector<size_t> values;
 			values.reserve(arrayCount);
-			for (size_t i = 0; i != arrayCount; ++i) {
-				values.push_back(_values.at(_get_array_elem_name(name, i)).get_offset());
-			}
+				for (size_t i = 0; i != arrayCount; ++i) {
+					values.push_back(_variables.at(_get_array_elem_name(name, i)).get_offset());
+				}
 			return values;
 		}
 
 		#if _GLSL_STRUCT_HAS_TYPES
+		/// @brief returns type of variable
 		[[nodiscard]] const base_type_handle& get_type(const std::string_view name) const noexcept {
 			return get(name).get_type();
 		}
+
+				/// @brief returns type of variable with casting to given type (dynamic casting occures)
 			#if _GLSL_STRUCT_HAS_CXX20
 		template<utils::glsl_type Type>
 			#else
@@ -933,34 +993,49 @@ namespace glslstruct {
 		}
 		#endif
 
+		/// @brief returns total size of variable (size + padding)
 		[[nodiscard]] size_t get_total_size(const std::string_view name) const noexcept { return get(name).get_total_size(); }
 
+		/// @brief returns size of variable
 		[[nodiscard]] size_t get_size(const std::string_view name) const noexcept { return get(name).get_size(); }
 
+		/// @brief returns padding of variable
 		[[nodiscard]] size_t get_padding(const std::string_view name) const noexcept { return get(name).get_padding(); }
 
+		/// @brief returns all variables names
 		[[nodiscard]] std::vector<std::string> get_names() const noexcept {
 			std::vector<std::string> names;
-			names.reserve(_values.size());
+			names.reserve(_variables.size());
 
-				for (const auto& [name, data] : _values) { names.push_back(name); }
+		#if _GLSL_STRUCT_HAS_CXX20
+				for (const auto& name : _variables | std::views::keys) { names.push_back(name); }
+		#else
+				for (const auto& [name, data] : _variables) { names.push_back(name); }
+		#endif
 
 			return names;
 		}
 
+		/// @brief returns all variables and their data
+		[[nodiscard]] const std::unordered_map<std::string, var_data>& get_variables() const noexcept { return _variables; }
+
+		/// @brief returns base alignment of layout
 		[[nodiscard]] size_t base_alignment() const noexcept {
-				if _GLSL_STRUCT_CONSTEXPR17 (has_context) { return traits_type::get_struct_alignment(base_struct::context); }
+				if _GLSL_STRUCT_CONSTEXPR17 (has_context) { return traits_type::get_struct_alignment(base_struct::_context); }
 				else { return traits_type::get_struct_alignment(); }
 		}
 
+		/// @brief returns size of layout
 		[[nodiscard]] size_t size() const noexcept { return _currentOffset; }
 
+		/// @brief clears layout and all variables
 		void clear() noexcept {
 			_currentOffset = 0;
-			_values.clear();
+			_variables.clear();
 		}
 
 		#pragma region ADD_SCALAR
+		/// @brief adds scalar
 		#if _GLSL_STRUCT_HAS_CXX20
 		template<utils::glsl_scalar T>
 		#else
@@ -971,6 +1046,7 @@ namespace glslstruct {
 			return _add_scalar(name, valueType);
 		}
 
+		/// @brief adds array of scalars
 		#if _GLSL_STRUCT_HAS_CXX20
 		template<utils::glsl_scalar T>
 		#else
@@ -984,6 +1060,7 @@ namespace glslstruct {
 		#pragma endregion
 
 		#pragma region ADD_VEC
+		/// @brief adds vec
 		#if _GLSL_STRUCT_HAS_CXX20
 		template<utils::glsl_vec V>
 		#else
@@ -995,6 +1072,7 @@ namespace glslstruct {
 			return _add_vec(name, length, valueType);
 		}
 
+		/// @brief adds array of vecs
 		#if _GLSL_STRUCT_HAS_CXX20
 		template<utils::glsl_vec V>
 		#else
@@ -1009,6 +1087,7 @@ namespace glslstruct {
 		#pragma endregion
 
 		#pragma region ADD_MAT
+		/// @brief adds mat
 		#if _GLSL_STRUCT_HAS_CXX20
 		template<utils::glsl_mat M>
 		#else
@@ -1021,6 +1100,7 @@ namespace glslstruct {
 			return _add_mat(name, columns, rows, valueType);
 		}
 
+		/// @brief adds array of mats
 		#if _GLSL_STRUCT_HAS_CXX20
 		template<utils::glsl_mat M>
 		#else
@@ -1037,20 +1117,24 @@ namespace glslstruct {
 
 		#pragma region ADD_STRUCT
 
+		/// @brief adds struct with given layout
 		size_t add(const std::string_view name, const base_layout& layout) {
-			return _add_struct(name, layout.base_alignment(), layout._currentOffset, layout._values);
+			return _add_struct(name, layout.base_alignment(), layout._currentOffset, layout._variables);
 		}
 
+		/// @brief adds array of structs with given layout
 		std::vector<size_t> add(const std::string_view name, const base_layout& layout, const size_t count) {
-			return _add_struct_array(name, layout.base_alignment(), layout._currentOffset, layout._values, count);
+			return _add_struct_array(name, layout.base_alignment(), layout._currentOffset, layout._variables, count);
 		}
 
 		#pragma endregion
 
+		/// @brief checks equality of layouts
 		[[nodiscard]] bool operator==(const base_layout& other) const noexcept {
-			return _currentOffset == other._currentOffset && _values == other._values;
+			return _currentOffset == other._currentOffset && _variables == other._variables;
 		}
 
+		/// @brief default not equal operator
 		#if _GLSL_STRUCT_HAS_CXX20
 		[[nodiscard]] bool operator!=(const base_layout& other) const noexcept = default;
 		#else
@@ -1059,11 +1143,16 @@ namespace glslstruct {
 	};
 } // namespace glslstruct
 
-template<class T>
-struct std::hash<glslstruct::base_layout<T> > {
-	[[nodiscard]] size_t operator()(const glslstruct::base_layout<T>& layout) const noexcept {
+/**
+ * @brief std::hash overload for base_layout
+ * @ingroup glslstruct
+ * @tparam Traits layout traits type
+ */
+template<class Traits>
+struct std::hash<glslstruct::base_layout<Traits> > {
+	[[nodiscard]] size_t operator()(const glslstruct::base_layout<Traits>& layout) const noexcept {
 		size_t seed = mstd::hash_combine(layout._currentOffset, layout._maxAlignment);
-			for (const auto& [name, data] : layout._values) { mstd::hash_append(seed, name, data); }
+			for (const auto& [name, data] : layout._variables) { mstd::hash_append(seed, name, data); }
 		return seed;
 	}
 };

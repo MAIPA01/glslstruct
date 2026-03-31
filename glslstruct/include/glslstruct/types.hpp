@@ -17,10 +17,10 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 	#else
 
-		#include <glslstruct/type_checks/struct_checks.hpp>
-#if _GLSL_STRUCT_HAS_TYPES
-		#include <glslstruct/type_checks/type_checks.hpp>
-#endif
+		#include <glslstruct/type/checks/struct_checks.hpp>
+		#if _GLSL_STRUCT_HAS_TYPES
+			#include <glslstruct/type/checks/type_checks.hpp>
+		#endif
 
 namespace glslstruct {
 		#if _GLSL_STRUCT_HAS_CXX20
