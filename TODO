@@ -4,6 +4,7 @@
 - convert struct and layout to glsl string
 - add value from glsl string
 - add variable from glsl string
+- implement disable glm flag
 
 // Final
 - check clang-tidy
