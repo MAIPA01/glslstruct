@@ -31,7 +31,7 @@ array_type::array_type(const ValueType type, const size_t cols, const size_t row
   const size_t size) noexcept
 	: array_type(std::make_shared<mat_type>(type, cols, rows, matSize), count, size) {}
 
-array_type::array_type(const std::unordered_map<std::string, var_data>& values, const size_t structSize, const size_t count,
+array_type::array_type(const mstd::ordered_map<std::string, var_data>& values, const size_t structSize, const size_t count,
   const size_t size) noexcept
 	: array_type(std::make_shared<struct_type>(values, structSize), count, size) {}
 

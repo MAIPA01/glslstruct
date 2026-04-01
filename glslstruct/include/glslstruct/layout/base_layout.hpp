@@ -100,7 +100,7 @@ namespace glslstruct {
 		  std::conditional_t<has_context, utils::layout_with_context<traits_type>, utils::layout_without_context>;
 
 		/// @brief variables data
-		std::unordered_map<std::string, var_data> _variables = {};
+		mstd::ordered_map<std::string, var_data> _variables = {};
 		/// @brief current offset
 		size_t _currentOffset								 = 0;
 
@@ -108,12 +108,13 @@ namespace glslstruct {
 		/// @brief sets variable data
 		#if _GLSL_STRUCT_HAS_TYPES
 		var_data& _set_variable(const std::string_view name, const size_t offset, const base_type_handle& type,
-		  const size_t padding = 0) {
-			return _variables.emplace(name, var_data(offset, type, padding)).first->second;
+		  const bool isTopLevel, const size_t padding = 0) {
+			return _variables.emplace_back(name.data(), var_data(offset, type, isTopLevel, padding));
 		}
 		#else
-		var_data& _set_variable(const std::string_view name, const size_t offset, const size_t size, const size_t padding = 0) {
-			return _variables.emplace(name, var_data(offset, size, padding)).first->second;
+		var_data& _set_variable(const std::string_view name, const size_t offset, const size_t size, const bool isTopLevel,
+		  const size_t padding = 0) {
+			return _variables.emplace_back(name.data(), var_data(offset, size, isTopLevel, padding));
 		}
 		#endif
 		#pragma endregion
@@ -195,7 +196,7 @@ namespace glslstruct {
 
 		/// @brief sets variable data
 		var_data& _add_variable(
-		  const std::string_view name, const size_t alignmentOffset,
+		  const std::string_view name, const size_t alignmentOffset, const bool isTopLevel,
 		#if _GLSL_STRUCT_HAS_TYPES
 		  const base_type_handle& type
 		#else
@@ -207,15 +208,15 @@ namespace glslstruct {
 
 				// SET VARIABLE
 		#if _GLSL_STRUCT_HAS_TYPES
-			return _set_variable(name, alignmentOffset, type);
+			return _set_variable(name, alignmentOffset, type, isTopLevel);
 		#else
-			return _set_variable(name, alignmentOffset, baseOffset);
+			return _set_variable(name, alignmentOffset, baseOffset, isTopLevel);
 		#endif
 		}
 
 		/// @brief sets array variables data
 		var_data& _add_array_variable(
-		  const std::string_view name, const std::vector<size_t>& alignmentOffsets,
+		  const std::string_view name, const std::vector<size_t>& alignmentOffsets, const bool isTopLevel,
 		#if _GLSL_STRUCT_HAS_TYPES
 		  const base_type_handle& elemType, const base_type_handle& arrayType
 		#else
@@ -228,12 +229,12 @@ namespace glslstruct {
 				for (size_t i = 0; i < alignmentOffsets.size(); ++i) {
 		// SET ELEMENT VARIABLE
 		#if _GLSL_STRUCT_HAS_TYPES
-					var_data& varData = _add_variable(get_array_elem_name(name, i), alignmentOffsets[i], elemType);
+					var_data& varData = _add_variable(get_array_elem_name(name, i), alignmentOffsets[i], false, elemType);
 						if (i < alignmentOffsets.size() - 1) {
 							varData.set_padding(alignmentOffsets[i + 1] - alignmentOffsets[i] - elemType->get_size());
 						}
 		#else
-					var_data& varData = _add_variable(get_array_elem_name(name, i), alignmentOffsets[i], elemBaseOffset);
+					var_data& varData = _add_variable(get_array_elem_name(name, i), alignmentOffsets[i], false, elemBaseOffset);
 
 						if (i < alignmentOffsets.size() - 1) {
 							varData.set_padding(alignmentOffsets[i + 1] - alignmentOffsets[i] - elemBaseOffset);
@@ -243,9 +244,9 @@ namespace glslstruct {
 
 		// ADD ARRAY VAR
 		#if _GLSL_STRUCT_HAS_TYPES
-			return _add_variable(name, alignmentOffsets.front(), arrayType);
+			return _add_variable(name, alignmentOffsets.front(), isTopLevel, arrayType);
 		#else
-			return _add_variable(name, alignmentOffsets.front(), arrayBaseOffset);
+			return _add_variable(name, alignmentOffsets.front(), isTopLevel, arrayBaseOffset);
 		#endif
 		}
 
@@ -284,9 +285,9 @@ namespace glslstruct {
 
 				// ADD VARIABLE DATA
 		#if _GLSL_STRUCT_HAS_TYPES
-			_add_variable(name, alignmentOffset, std::make_shared<scalar_type>(valueType, baseOffset));
+			_add_variable(name, alignmentOffset, true, std::make_shared<scalar_type>(valueType, baseOffset));
 		#else
-			_add_variable(name, alignmentOffset, baseOffset);
+			_add_variable(name, alignmentOffset, true, baseOffset);
 		#endif
 
 				// AFTER ADD SCALAR
@@ -353,9 +354,9 @@ namespace glslstruct {
 			const auto scalarType = std::make_shared<scalar_type>(valueType, baseOffset);
 			const auto arrayType  = std::make_shared<array_type>(scalarType, count, arraySize);
 
-			_add_array_variable(name, alignmentOffsets, scalarType, arrayType).set_padding(arrayPadding);
+			_add_array_variable(name, alignmentOffsets, true, scalarType, arrayType).set_padding(arrayPadding);
 		#else
-			_add_array_variable(name, alignmentOffsets, baseOffset, arraySize).set_padding(arrayPadding);
+			_add_array_variable(name, alignmentOffsets, true, baseOffset, arraySize).set_padding(arrayPadding);
 		#endif
 
 				// AFTER ADD SCALAR ARRAY
@@ -408,9 +409,9 @@ namespace glslstruct {
 
 				// ADD VARIABLE DATA
 		#if _GLSL_STRUCT_HAS_TYPES
-			_add_variable(name, alignmentOffset, std::make_shared<vec_type>(valueType, length, baseOffset));
+			_add_variable(name, alignmentOffset, true, std::make_shared<vec_type>(valueType, length, baseOffset));
 		#else
-			_add_variable(name, alignmentOffset, baseOffset);
+			_add_variable(name, alignmentOffset, true, baseOffset);
 		#endif
 
 				// AFTER ADD VEC
@@ -479,9 +480,9 @@ namespace glslstruct {
 			const auto vecType	 = std::make_shared<vec_type>(valueType, length, baseOffset);
 			const auto arrayType = std::make_shared<array_type>(vecType, count, arraySize);
 
-			_add_array_variable(name, alignmentOffsets, vecType, arrayType).set_padding(arrayPadding);
+			_add_array_variable(name, alignmentOffsets, true, vecType, arrayType).set_padding(arrayPadding);
 		#else
-			_add_array_variable(name, alignmentOffsets, baseOffset, arraySize).set_padding(arrayPadding);
+			_add_array_variable(name, alignmentOffsets, true, baseOffset, arraySize).set_padding(arrayPadding);
 		#endif
 
 				// AFTER ADD VEC ARRAY
@@ -551,9 +552,9 @@ namespace glslstruct {
 			const auto vecType = std::make_shared<vec_type>(valueType, rows, vecBaseOffset);
 			const auto matType = std::make_shared<mat_type>(valueType, columns, rows, matSize);
 
-			_add_array_variable(name, alignmentOffsets, vecType, matType).set_padding(matPadding);
+			_add_array_variable(name, alignmentOffsets, true, vecType, matType).set_padding(matPadding);
 		#else
-			_add_array_variable(name, alignmentOffsets, vecBaseOffset, matSize).set_padding(matPadding);
+			_add_array_variable(name, alignmentOffsets, true, vecBaseOffset, matSize).set_padding(matPadding);
 		#endif
 
 				// AFTER ADD VEC
@@ -634,10 +635,11 @@ namespace glslstruct {
 
 		// ADD VARIABLE DATA
 		#if _GLSL_STRUCT_HAS_TYPES
-					var_data& varData = _add_array_variable(get_array_elem_name(name, i), alignmentOffsets, vecType, matType);
+					var_data& varData =
+					  _add_array_variable(get_array_elem_name(name, i), alignmentOffsets, false, vecType, matType);
 		#else
 					var_data& varData =
-					  _add_array_variable(get_array_elem_name(name, i), alignmentOffsets, vecBaseOffset, matSize);
+					  _add_array_variable(get_array_elem_name(name, i), alignmentOffsets, false, vecBaseOffset, matSize);
 		#endif
 
 						if (i < count - 1) { varData.set_padding(matPadding); }
@@ -657,9 +659,9 @@ namespace glslstruct {
 		#if _GLSL_STRUCT_HAS_TYPES
 			const auto arrayType = std::make_shared<array_type>(matType, count, arraySize);
 
-			_add_variable(name, matsOffsets.front(), arrayType).set_padding(matPadding);
+			_add_variable(name, matsOffsets.front(), true, arrayType).set_padding(matPadding);
 		#else
-			_add_variable(name, matsOffsets.front(), arraySize).set_padding(matPadding);
+			_add_variable(name, matsOffsets.front(), true, arraySize).set_padding(matPadding);
 		#endif
 
 				// AFTER ADD SCALAR ARRAY
@@ -681,7 +683,7 @@ namespace glslstruct {
 
 		/// @brief adds struct
 		[[nodiscard]] size_t _add_struct(const std::string_view name, const size_t baseAlignment, const size_t baseOffset,
-		  const std::unordered_map<std::string, var_data>& values) {
+		  const mstd::ordered_map<std::string, var_data>& values) {
 				// BEFORE ADD STRUCT
 				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_before_add_struct_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
@@ -701,18 +703,20 @@ namespace glslstruct {
 
 		// ADD VARIABLE DATA
 		#if _GLSL_STRUCT_HAS_TYPES
-			_add_variable(name, alignmentOffset, std::make_shared<struct_type>(values, baseOffset));
+			_add_variable(name, alignmentOffset, true, std::make_shared<struct_type>(values, baseOffset));
 		#else
-			_add_variable(name, alignmentOffset, baseOffset);
+			_add_variable(name, alignmentOffset, true, baseOffset);
 		#endif
 
 			// ADD STRUCTURE VARIABLES DATA
 				for (const auto& [value_name, data] : values) {
 		#if _GLSL_STRUCT_HAS_TYPES
-					_add_variable(get_struct_elem_name(name, value_name), alignmentOffset + data.get_offset(), data.get_type())
+					_add_variable(get_struct_elem_name(name, value_name), alignmentOffset + data.get_offset(), false,
+					  data.get_type())
 					  .set_padding(data.get_padding());
 		#else
-					_add_variable(get_struct_elem_name(name, value_name), alignmentOffset + data.get_offset(), data.get_size())
+					_add_variable(get_struct_elem_name(name, value_name), alignmentOffset + data.get_offset(), false,
+					  data.get_size())
 					  .set_padding(data.get_padding());
 		#endif
 				}
@@ -736,7 +740,7 @@ namespace glslstruct {
 
 		/// @brief adds array of structs
 		[[nodiscard]] std::vector<size_t> _add_struct_array(const std::string_view name, const size_t baseAlignment,
-		  const size_t baseOffset, const std::unordered_map<std::string, var_data>& values, const size_t count) {
+		  const size_t baseOffset, const mstd::ordered_map<std::string, var_data>& values, const size_t count) {
 				// BEFORE ADD SCALAR
 				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_before_add_array_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
@@ -777,11 +781,11 @@ namespace glslstruct {
 						for (const auto& [value_name, data] : values) {
 		#if _GLSL_STRUCT_HAS_TYPES
 							_add_variable(get_struct_elem_name(arrayElemName, value_name),
-							  alignmentOffsets[i] + data.get_offset(), data.get_type())
+							  alignmentOffsets[i] + data.get_offset(), false, data.get_type())
 							  .set_padding(data.get_padding());
 		#else
 							_add_variable(get_struct_elem_name(arrayElemName, value_name),
-							  alignmentOffsets[i] + data.get_offset(), data.get_size())
+							  alignmentOffsets[i] + data.get_offset(), false, data.get_size())
 							  .set_padding(data.get_padding());
 		#endif
 						}
@@ -792,9 +796,9 @@ namespace glslstruct {
 			const auto structType = std::make_shared<struct_type>(values, baseOffset);
 			const auto arrayType  = std::make_shared<array_type>(structType, count, arraySize);
 
-			_add_array_variable(name, alignmentOffsets, structType, arrayType).set_padding(arrayPadding);
+			_add_array_variable(name, alignmentOffsets, true, structType, arrayType).set_padding(arrayPadding);
 		#else
-			_add_array_variable(name, alignmentOffsets, baseOffset, arraySize).set_padding(arrayPadding);
+			_add_array_variable(name, alignmentOffsets, true, baseOffset, arraySize).set_padding(arrayPadding);
 		#endif
 
 				// AFTER ADD SCALAR ARRAY
@@ -904,11 +908,7 @@ namespace glslstruct {
 
 		/// @brief returns true if layout contains variable with given name
 		[[nodiscard]] bool contains(const std::string_view name) const noexcept {
-		#if _GLSL_STRUCT_HAS_CXX20
 			return _variables.contains(name.data());
-		#else
-			return _variables.find(name.data()) != _variables.end();
-		#endif
 		}
 
 		/// @brief returns variable data
@@ -941,7 +941,7 @@ namespace glslstruct {
 		}
 
 		/// @brief returns elem size of array
-		[[nodiscard]] size_t get_array_elem_size(const std::string_view name) const noexcept {
+		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 size_t get_array_elem_size(const std::string_view name) const noexcept {
 			const size_t arrayCount = get_array_count(name);
 
 				if (arrayCount == 0) { return 0; }
@@ -952,7 +952,9 @@ namespace glslstruct {
 		}
 
 		/// @brief returns offset of variable with given name
-		[[nodiscard]] size_t get_offset(const std::string_view name) const noexcept { return get(name).get_offset(); }
+		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 size_t get_offset(const std::string_view name) const noexcept {
+			return get(name).get_offset();
+		}
 
 		/// @brief returns offsets of array elements
 		[[nodiscard]] std::vector<size_t> get_array_offsets(const std::string_view name) const noexcept {
@@ -988,13 +990,19 @@ namespace glslstruct {
 		#endif
 
 		/// @brief returns total size of variable (size + padding)
-		[[nodiscard]] size_t get_total_size(const std::string_view name) const noexcept { return get(name).get_total_size(); }
+		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 size_t get_total_size(const std::string_view name) const noexcept {
+			return get(name).get_total_size();
+		}
 
 		/// @brief returns size of variable
-		[[nodiscard]] size_t get_size(const std::string_view name) const noexcept { return get(name).get_size(); }
+		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 size_t get_size(const std::string_view name) const noexcept {
+			return get(name).get_size();
+		}
 
 		/// @brief returns padding of variable
-		[[nodiscard]] size_t get_padding(const std::string_view name) const noexcept { return get(name).get_padding(); }
+		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 size_t get_padding(const std::string_view name) const noexcept {
+			return get(name).get_padding();
+		}
 
 		/// @brief returns all variables names
 		[[nodiscard]] std::vector<std::string> get_names() const noexcept {
@@ -1011,16 +1019,28 @@ namespace glslstruct {
 		}
 
 		/// @brief returns all variables and their data
-		[[nodiscard]] const std::unordered_map<std::string, var_data>& get_variables() const noexcept { return _variables; }
+		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR20 const mstd::ordered_map<std::string, var_data>& get_variables() const noexcept {
+			return _variables;
+		}
+
+		/// @brief returns all top level variables and their data
+		[[nodiscard]] mstd::ordered_map<std::string, var_data> get_top_level_variables() const noexcept {
+			mstd::ordered_map<std::string, var_data> variables;
+				for (const auto& [name, data] : _variables) {
+						if (!data.is_top_level()) { continue; }
+					variables.emplace_back(name, data);
+				}
+			return variables;
+		}
 
 		/// @brief returns base alignment of layout
-		[[nodiscard]] size_t base_alignment() const noexcept {
+		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 size_t base_alignment() const noexcept {
 				if _GLSL_STRUCT_CONSTEXPR17 (has_context) { return traits_type::get_struct_alignment(base_struct::_context); }
 				else { return traits_type::get_struct_alignment(); }
 		}
 
 		/// @brief returns size of layout
-		[[nodiscard]] size_t size() const noexcept { return _currentOffset; }
+		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 size_t size() const noexcept { return _currentOffset; }
 
 		/// @brief clears layout and all variables
 		void clear() noexcept {

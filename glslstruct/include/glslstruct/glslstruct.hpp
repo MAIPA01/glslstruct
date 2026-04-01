@@ -28,5 +28,9 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 
 		#include <glslstruct/struct/base_struct.hpp>
 
+#if _GLSL_STRUCT_HAS_TYPES
+        #include <glslstruct/writer/glsl/writer.hpp>
+#endif
+
 	#endif
 #endif

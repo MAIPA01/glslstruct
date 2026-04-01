@@ -16,7 +16,7 @@
 
 using namespace glslstruct;
 
-struct_type::struct_type(const std::unordered_map<std::string, var_data>& values, const size_t size) noexcept
+struct_type::struct_type(const mstd::ordered_map<std::string, var_data>& values, const size_t size) noexcept
 	: base_type(size), _variables(values) {}
 
 struct_type::struct_type(const struct_type& other) noexcept			   = default;
@@ -29,14 +29,19 @@ struct_type& struct_type::operator=(const struct_type& other) noexcept = default
 struct_type& struct_type::operator=(struct_type&& other) noexcept	   = default;
 
 bool struct_type::contains(const std::string_view name) const noexcept {
-	#if _GLSL_STRUCT_HAS_CXX20
 	return _variables.contains(name.data());
-	#else
-	return _variables.find(name.data()) != _variables.end();
-	#endif
 }
 
-const std::unordered_map<std::string, var_data>& struct_type::get_variables() const noexcept { return _variables; }
+const mstd::ordered_map<std::string, var_data>& struct_type::get_variables() const noexcept { return _variables; }
+
+mstd::ordered_map<std::string, var_data> struct_type::get_top_level_variables() const noexcept {
+	mstd::ordered_map<std::string, var_data> result;
+	for (const auto& [name, data] : _variables) {
+		if (!data.is_top_level()) continue;
+		result.emplace_back(name, data);
+	}
+	return result;
+}
 
 std::string struct_type::to_string() const noexcept { return "struct"; }
 

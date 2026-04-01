@@ -77,20 +77,18 @@ namespace glslstruct {
 
 		#pragma region IS_STRUCTS_VECTOR
 		/**
-		 * @brief check if type is vector of glsl structs
+		 * @brief check if type is array of glsl structs
 		 * @ingroup utils
-		 * @tparam T type which is vector of glsl structs
 		 */
 		template<class T>
-		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_structs_vector_v = is_vector_of_v<is_glsl_struct, T>;
+		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_structs_array_v = is_array_of_v<is_glsl_struct, T>;
 
 		#if _GLSL_STRUCT_HAS_CXX20
 		/**
-		 * @brief check if type is vector of glsl structs
+		 * @brief check if type is array of glsl structs
 		 * @ingroup utils
-		 * @tparam T type which is vector of glsl structs
 		 */
-		template<class T> concept glsl_structs_vector = is_glsl_structs_vector_v<T>;
+		template<class T> concept glsl_structs_array = is_glsl_structs_array_v<T>;
 		#endif
 		#pragma endregion
 
@@ -130,22 +128,22 @@ namespace glslstruct {
 
 		#pragma region IS_LAYOUT_STRUCTS_VECTOR
 		/**
-		 * @brief check if type is vector of glsl structs with required layout
+		 * @brief check if type is array of glsl structs with required layout
 		 * @ingroup utils
-		 * @tparam VS type which is vector of glsl structs with required layout
+		 * @tparam VS type which is array of glsl structs with required layout
 		 * @tparam Layout required glsl layout type
 		 */
 		template<class VS, class Layout>
-		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_layout_structs_vector_v = is_vector_of_v<is_glsl_layout_struct, VS, Layout>;
+		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_layout_structs_array_v = is_array_of_v<is_glsl_layout_struct, VS, Layout>;
 
 		#if _GLSL_STRUCT_HAS_CXX20
 		/**
-		 * @brief check if type is vector of glsl structs with required layout
+		 * @brief check if type is array of glsl structs with required layout
 		 * @ingroup utils
-		 * @tparam VS type which is vector of glsl structs with required layout
+		 * @tparam VS type which is array of glsl structs with required layout
 		 * @tparam Layout required glsl layout type
 		 */
-		template<class VS, class Layout> concept glsl_layout_structs_vector = is_glsl_layout_structs_vector_v<VS, Layout>;
+		template<class VS, class Layout> concept glsl_layout_structs_array = is_glsl_layout_structs_array_v<VS, Layout>;
 		#endif
 		#pragma endregion
 

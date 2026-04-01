@@ -34,11 +34,11 @@ namespace glslstruct {
 		using base_type = type;
 
 		/// @brief map with all values of struct
-		std::unordered_map<std::string, var_data> _variables;
+		mstd::ordered_map<std::string, var_data> _variables;
 
 	public:
 		/// @brief constructor with struct values and type size
-		struct_type(const std::unordered_map<std::string, var_data>& values, size_t size) noexcept;
+		struct_type(const mstd::ordered_map<std::string, var_data>& values, size_t size) noexcept;
 		/// @brief default copy constructor
 		struct_type(const struct_type& other) noexcept;
 		/// @brief default move constructor
@@ -64,8 +64,11 @@ namespace glslstruct {
 		/// @brief returns true if struct type contains variable of given name
 		[[nodiscard]] bool contains(std::string_view name) const noexcept;
 
-		/// @brief returns map of with all values
-		[[nodiscard]] const std::unordered_map<std::string, var_data>& get_variables() const noexcept;
+		/// @brief returns map with all values
+		[[nodiscard]] const mstd::ordered_map<std::string, var_data>& get_variables() const noexcept;
+
+		/// @brief returns map with all top level values
+		[[nodiscard]] mstd::ordered_map<std::string, var_data> get_top_level_variables() const noexcept;
 
 		/// @brief converts type to string
 		[[nodiscard]] std::string to_string() const noexcept override;

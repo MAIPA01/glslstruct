@@ -4,6 +4,7 @@ file(GLOB_RECURSE ${PROJECT_SOURCES} CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DI
 
 if (GLSL_STRUCT_DISABLE_TYPES)
     list(FILTER ${PROJECT_SOURCES} EXCLUDE REGEX "^.*[\\\/\\\\]type[\\\/\\\\](containers|visitors)[\\\/\\\\].*\\.cpp$")
+    list(FILTER ${PROJECT_SOURCES} EXCLUDE REGEX "^.*[\\\/\\\\]writer[\\\/\\\\].*[\\\/\\\\].*\\.cpp$")
 endif()
 
 # header files
@@ -11,7 +12,8 @@ set(PROJECT_HEADERS ${PROJECT_NAME}_HEADERS)
 file(GLOB_RECURSE ${PROJECT_HEADERS} CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp)
 
 if (GLSL_STRUCT_DISABLE_TYPES)
-    list(FILTER ${PROJECT_SOURCES} EXCLUDE REGEX "^.*[\\\/\\\\]type[\\\/\\\\](containers|visitors)[\\\/\\\\].*\\.hpp$")
+    list(FILTER ${PROJECT_HEADERS} EXCLUDE REGEX "^.*[\\\/\\\\]type[\\\/\\\\](containers|visitors)[\\\/\\\\].*\\.hpp$")
+    list(FILTER ${PROJECT_HEADERS} EXCLUDE REGEX "^.*[\\\/\\\\]writer[\\\/\\\\].*[\\\/\\\\].*\\.hpp$")
 endif()
 
 # make library

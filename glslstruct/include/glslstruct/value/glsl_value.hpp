@@ -51,7 +51,7 @@ namespace glslstruct {
 		template<class T, size_t num>
 		struct array_value {
 			/// @brief array value
-			const std::array<T, num> value;
+			const std::array<T, num> value = {};
 
 			/// @brief static conversion from std::vector to std::array
 			static std::array<T, num> init_value(const std::vector<T>& values) {
@@ -85,8 +85,12 @@ namespace glslstruct {
 			}
 		#endif
 
-			/// @brief default constructor
-			array_value() = default;
+		/// @brief default constructor
+		#if !_GLSL_STRUCT_HAS_CXX20
+			template<class type = T, std::enable_if_t<std::is_default_constructible_v<T> && std::is_same_v<type, T>, bool> = true>
+		#endif
+			array_value() _GLSL_STRUCT_REQUIRES(std::is_default_constructible_v<T>) : value() {
+			}
 
 			/// @brief constructor with std::vector values
 			explicit array_value(const std::vector<T>& values) : value(init_value(values)) {}
@@ -215,6 +219,16 @@ namespace glslstruct {
 		#pragma endregion
 
 		#pragma region ARRAY_CONSTRUCTORS
+		/// @brief constructor for array values with pointer to values and size
+		#if !_GLSL_STRUCT_HAS_CXX20
+		template<class Type																						  = value_type,
+		  std::enable_if_t<(utils::is_glsl_simple_v<Type> && std::is_same_v<Type, value_type> && is_array), bool> = true>
+		#endif
+		glsl_value(const std::string_view name, const value_type* values,
+		  const size_t size) _GLSL_STRUCT_REQUIRES(utils::is_glsl_simple_v<value_type>&& is_array)
+			: base_struct(values, size), var_name(name) {
+		}
+
 		/// @brief constructor for array values with std::vector
 		#if !_GLSL_STRUCT_HAS_CXX20
 		template<class Type																						  = value_type,
@@ -233,16 +247,6 @@ namespace glslstruct {
 		glsl_value(const std::string_view name,
 		  const std::array<value_type, array_size>& values) _GLSL_STRUCT_REQUIRES(utils::is_glsl_simple_v<value_type>&& is_array)
 			: base_struct(values), var_name(name) {
-		}
-
-		/// @brief constructor for array values with pointer to values and size
-		#if !_GLSL_STRUCT_HAS_CXX20
-		template<class Type																						  = value_type,
-		  std::enable_if_t<(utils::is_glsl_simple_v<Type> && std::is_same_v<Type, value_type> && is_array), bool> = true>
-		#endif
-		glsl_value(const std::string_view name, const value_type* values,
-		  const size_t size) _GLSL_STRUCT_REQUIRES(utils::is_glsl_simple_v<value_type>&& is_array)
-			: base_struct(values, size), var_name(name) {
 		}
 
 		/// @brief constructor for array values with c-style array

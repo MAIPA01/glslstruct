@@ -31,6 +31,13 @@ namespace glslstruct::utils {
 	template<class T>
 	static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_simple_v = is_glsl_scalar_v<T> || is_glsl_vec_v<T> || is_glsl_mat_v<T>;
 
+	/**
+	 * @brief check if type is array of glsl simple (scalar or vec or mat type)
+	 * @ingroup utils
+	 */
+	template<class T>
+	static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_simples_array_v = is_glsl_scalars_array_v<T> || is_glsl_vecs_array_v<T> || is_glsl_mats_array_v<T>;
+
 		#if _GLSL_STRUCT_HAS_CXX20
 	/**
 	 * @brief check if type is glsl simple (is of scalar or vec or mat type)
@@ -38,6 +45,12 @@ namespace glslstruct::utils {
 	 * @tparam T type which is glsl simple type
 	 */
 	template<class T> concept glsl_simple = is_glsl_simple_v<T>;
+
+	/**
+	 * @brief check if type is array of glsl simple (scalar or vec or mat type)
+	 * @ingroup utils
+	 */
+	template<class T> concept glsl_simples_array = is_glsl_simples_array_v<T>;
 		#endif
 		#pragma endregion
 } // namespace glslstruct::utils

@@ -1,16 +1,14 @@
 - add variable arrays (just add possibility to resize array if it is last variable)
-- make tests for every layout type
 
 - create struct and layout from glsl string
-- convert struct and layout to glsl string
 - add value from glsl string
 - add variable from glsl string
 - add disable parser (to make library more lightweight)
-- make parser dependent from types
 
 - implement disable glm flag
 
 // Final
+- make tests for every layout type
 - check clang-tidy
 - format all with clang-format
 - check coverage

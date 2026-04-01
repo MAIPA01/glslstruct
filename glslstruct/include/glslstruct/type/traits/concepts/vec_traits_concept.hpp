@@ -17,7 +17,7 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 	#else
 
-		#include <glslstruct/utils/is_vector_of.hpp>
+		#include <glslstruct/utils/array_traits.hpp>
 		#include <glslstruct/utils/ValueType.hpp>
 
 namespace glslstruct {
@@ -96,20 +96,20 @@ namespace glslstruct {
 
 		#pragma region IS_VECS_VECTOR
 		/**
-		 * @brief Bool value which is true if type V is std::vector of types that passes is_glsl_vec test
+		 * @brief Bool value which is true if type V is array of types that passes is_glsl_vec test
 		 * @ingroup utils
 		 * @tparam V type that is checked
 		 */
 		template<class V>
-		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_vecs_vector_v = is_vector_of_v<is_glsl_vec, V>;
+		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_vecs_array_v = is_array_of_v<is_glsl_vec, V>;
 
 		#if _GLSL_STRUCT_HAS_CXX20
 		/**
-		 * @brief Concept which is true if type V is std::vector of types that passes is_glsl_vec test
+		 * @brief Concept which is true if type V is array of types that passes is_glsl_vec test
 		 * @ingroup utils
 		 * @tparam V type that is checked
 		 */
-		template<class V> concept glsl_vecs_vector = is_glsl_vecs_vector_v<V>;
+		template<class V> concept glsl_vecs_array = is_glsl_vecs_array_v<V>;
 		#endif
 		#pragma endregion
 		#pragma endregion

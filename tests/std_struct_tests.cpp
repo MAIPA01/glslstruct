@@ -10,12 +10,22 @@ TEST(std430_struct, add_array) {
 }
 
 TEST(std430_struct, set_get_test) {
-	std430_struct subTest { glsl_value<bool>("a", true) };
+	// clang-format off
+	std430_struct subTest {
+		glsl_value<bool>("a", true)
+	};
 
-	std430_struct test { glsl_value<int>("scalar", 0), glsl_value<int, 3>("scalar_array", { 2, 3, 4 }), glsl_value<vec2>("vec"),
-		glsl_value<vec3, 2>("vec_array", { vec3(), vec3() }), glsl_value<mat2>("mat"),
-		glsl_value<mat3, 2>("mat_array", { mat3(), mat3() }), glsl_value<std430_struct>("struct", subTest),
-		glsl_value<std430_struct, 2>("struct_array", subTest.get_layout()) };
+	std430_struct test {
+		glsl_value<int>("scalar", 0),
+		glsl_value<int, 3>("scalar_array", { 2, 3, 4 }),
+		glsl_value<vec2>("vec"),
+		glsl_value<vec3, 2>("vec_array"),
+		glsl_value<mat2>("mat"),
+		glsl_value<mat3, 2>("mat_array"),
+		glsl_value<std430_struct>("struct", subTest),
+		glsl_value<std430_struct, 2>("struct_array", subTest.get_layout())
+	};
+	// clang-format on
 
 #pragma region SET_SCALAR
 	EXPECT_EQ(test.get<int>("scalar"), 0);
@@ -86,6 +96,40 @@ TEST(std430_struct, set_get_test) {
 	EXPECT_TRUE(test.set<int>("scalar_array[0]", 2));
 	EXPECT_EQ(test.get<int>("scalar_array[0]"), 2);
 #pragma endregion
+}
+
+TEST(std430_struct, writer) {
+	// clang-format off
+	std430_struct subSubTest {
+		glsl_value<int>("b")
+	};
+
+	std430_struct subTest {
+		glsl_value<bool>("a", true),
+		glsl_value<std430_struct>("c", subSubTest)
+	};
+
+	std430_struct test {
+		glsl_value<int>("scalar", 0),
+		glsl_value<int, 3>("scalar_array", { 2, 3, 4 }),
+		glsl_value<vec2>("vec"),
+		glsl_value<vec3, 2>("vec_array"),
+		glsl_value<mat2>("mat"),
+		glsl_value<mat3, 2>("mat_array"),
+		glsl_value<std430_struct>("struct", subTest),
+		glsl_value<std430_struct, 2>("struct_array", subTest.get_layout())
+	};
+	// clang-format on
+
+	glsl_opengl_writer glWriter;
+	glWriter.append_struct("SubTest", *test.get_type<struct_type>("struct"));
+	glWriter.append_shader_storage_buffer(0, "Test", test);
+	//std::cout << "OPENGL: \n" << glWriter.to_string() << std::endl << std::endl << std::endl;
+
+	glsl_vulkan_writer vkWriter;
+	vkWriter.append_struct("SubTest", *test.get_type<struct_type>("struct"));
+	vkWriter.append_shader_storage_buffer(0, 0, "Test", "ssbo", test, "readonly");
+	//std::cout << "VULKAN: \n" << vkWriter.to_string() << std::endl;
 }
 
 TEST(std430_struct, copy_test) {

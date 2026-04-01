@@ -8,7 +8,7 @@ option(GLSL_STRUCT_BUILD_COVERAGE 			"Enable coverage reporting" 	OFF)
 option(GLSL_STRUCT_BUILD_DOCUMENTATION	 	"Build glsl documentation" 		OFF)
 option(GLSL_STRUCT_ENABLE_CLANG_TIDY 		"Enables clang-tidy checks" 	OFF)
 
-option(GLSL_STRUCT_USE_EXTERNAL_MSTD 			"Uses users own mstd library (tested and compatible with: 1.4.9)"	OFF)
+option(GLSL_STRUCT_USE_EXTERNAL_MSTD 			"Uses users own mstd library (tested and compatible with: 1.5.0)"	OFF)
 option(GLSL_STRUCT_USE_EXTERNAL_GLM 			"Uses users own glm library (tested and compatible with: 1.0.3)"	OFF)
 option(GLSL_STRUCT_DISABLE_GLM 					"Disables glm support"												OFF)
 

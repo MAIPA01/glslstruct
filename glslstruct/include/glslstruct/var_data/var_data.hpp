@@ -39,14 +39,16 @@ namespace glslstruct {
 		size_t _offset;
 		/// @brief additional variable padding
 		size_t _padding;
+		/// @brief indicates if variable is in top level
+		bool _isTopLevel;
 
 	public:
 		#if _GLSL_STRUCT_HAS_TYPES
 		/// @brief constructor with offset, var type and padding
-		var_data(size_t offset, const base_type_handle& type, size_t padding) noexcept;
+		var_data(size_t offset, const base_type_handle& type, bool isTopLevel, size_t padding) noexcept;
 		#else
 		/// @brief constructor with offset, var type size and padding
-		var_data(size_t offset, size_t size, size_t padding) noexcept;
+		var_data(size_t offset, size_t size, bool isTopLevel, size_t padding) noexcept;
 		#endif
 		/// @brief default copy constructor
 		var_data(const var_data& other) noexcept;
@@ -62,6 +64,8 @@ namespace glslstruct {
 
 		/// @brief padding setter
 		void set_padding(size_t padding) noexcept;
+		/// @brief sets top level
+		void set_is_top_level(bool topLevel) noexcept;
 
 		#if _GLSL_STRUCT_HAS_TYPES
 		/// @brief returns type of variable
@@ -75,6 +79,8 @@ namespace glslstruct {
 		[[nodiscard]] size_t get_size() const noexcept;
 		/// @brief returns var padding
 		[[nodiscard]] size_t get_padding() const noexcept;
+		/// @brief returns isTopLevel
+		[[nodiscard]] bool is_top_level() const noexcept;
 
 		/// @brief checks if this var_data is equal to other var_data
 		[[nodiscard]] bool operator==(const var_data& other) const noexcept;
