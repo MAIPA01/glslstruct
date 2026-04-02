@@ -22,12 +22,17 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 		#include <cstddef>
 		#include <cstdint>
 		#include <functional>
+#if _GLSL_STRUCT_HAS_GLM
 		#include <glm/glm.hpp>
 		#include <glm/gtc/matrix_access.hpp>
 		#include <glm/gtc/matrix_transform.hpp>
 		#include <glm/gtc/type_ptr.hpp>
+#endif
 		#include <memory>
 		#include <mstd/mstd.hpp>
+#if _GLSL_STRUCT_HAS_PARSER
+		#include <pcre2cpp/pcre2cpp.hpp>
+#endif
 		#include <string>
 		#include <type_traits>
 		#include <unordered_map>

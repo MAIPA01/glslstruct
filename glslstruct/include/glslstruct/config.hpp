@@ -174,6 +174,30 @@
 	#endif
 	#pragma endregion
 
+/**
+ * @def _GLSL_STRUCT_HAS_GLM
+ * @brief check if user enabled glm support
+ * @ingroup utils
+ */
+
+	#ifdef GLSL_STRUCT_DISABLE_GLM
+		#define _GLSL_STRUCT_HAS_GLM 0
+	#else
+		#define _GLSL_STRUCT_HAS_GLM 1
+	#endif
+
+/**
+ * @def _GLSL_STRUCT_HAS_PARSER
+ * @brief check if user want to include parser functionality
+ * @ingroup utils
+ */
+
+	#ifdef GLSL_STRUCT_DISABLE_PARSER
+		#define _GLSL_STRUCT_HAS_PARSER 0
+	#else
+		#define _GLSL_STRUCT_HAS_PARSER _GLSL_STRUCT_HAS_CXX17
+	#endif
+
 	#pragma region VERSION_SPECIFIC_VALUES
 /**
  * @def _GLSL_STRUCT_CONSTEXPR17

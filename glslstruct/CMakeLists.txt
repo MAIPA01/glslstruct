@@ -4,7 +4,11 @@ file(GLOB_RECURSE ${PROJECT_SOURCES} CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DI
 
 if (GLSL_STRUCT_DISABLE_TYPES)
     list(FILTER ${PROJECT_SOURCES} EXCLUDE REGEX "^.*[\\\/\\\\]type[\\\/\\\\](containers|visitors)[\\\/\\\\].*\\.cpp$")
-    list(FILTER ${PROJECT_SOURCES} EXCLUDE REGEX "^.*[\\\/\\\\]writer[\\\/\\\\].*[\\\/\\\\].*\\.cpp$")
+    list(FILTER ${PROJECT_SOURCES} EXCLUDE REGEX "^.*[\\\/\\\\]writer[\\\/\\\\].*\\.cpp$")
+endif()
+
+if (GLSL_STRUCT_DISABLE_PARSER)
+    list(FILTER ${PROJECT_SOURCES} EXCLUDE REGEX "^.*[\\\/\\\\]parser[\\\/\\\\].*\\.cpp$")
 endif()
 
 # header files
@@ -13,11 +17,20 @@ file(GLOB_RECURSE ${PROJECT_HEADERS} CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DI
 
 if (GLSL_STRUCT_DISABLE_TYPES)
     list(FILTER ${PROJECT_HEADERS} EXCLUDE REGEX "^.*[\\\/\\\\]type[\\\/\\\\](containers|visitors)[\\\/\\\\].*\\.hpp$")
-    list(FILTER ${PROJECT_HEADERS} EXCLUDE REGEX "^.*[\\\/\\\\]writer[\\\/\\\\].*[\\\/\\\\].*\\.hpp$")
+    list(FILTER ${PROJECT_HEADERS} EXCLUDE REGEX "^.*[\\\/\\\\]writer[\\\/\\\\].*\\.hpp$")
+endif()
+
+if (GLSL_STRUCT_DISABLE_PARSER)
+    list(FILTER ${PROJECT_HEADERS} EXCLUDE REGEX "^.*[\\\/\\\\]parser[\\\/\\\\].*\\.hpp$")
 endif()
 
 # make library
 add_library(${PROJECT_NAME} ${${PROJECT_LIBRARY_TYPE}} ${${PROJECT_HEADERS}} ${${PROJECT_SOURCES}})
+
+# set library alias
+set(PROJECT_NAMESPACE ${PROJECT_NAME}::)
+set(PROJECT_ALIAS ${PROJECT_NAMESPACE}${PROJECT_NAME})
+add_library(${PROJECT_ALIAS} ALIAS ${PROJECT_NAME})
 
 if (GLSL_STRUCT_ENABLE_CLANG_TIDY)
     if(GLSL_STRUCT_ENABLE_CXX20)
@@ -36,19 +49,15 @@ if (GLSL_STRUCT_ENABLE_CLANG_TIDY)
     )
 endif()
 
-# set library alias
-set(PROJECT_NAMESPACE ${PROJECT_NAME}::)
-set(PROJECT_ALIAS ${PROJECT_NAMESPACE}${PROJECT_NAME})
-add_library(${PROJECT_ALIAS} ALIAS ${PROJECT_NAME})
-
 target_compile_features(${PROJECT_NAME} PUBLIC $<IF:$<BOOL:${GLSL_STRUCT_ENABLE_CXX20}>,cxx_std_20,cxx_std_17>)
 
 # set headers folder
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
                                            PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-target_link_libraries(${PROJECT_NAME} PUBLIC    $<$<NOT:$<BOOL:${GLSL_STRUCT_DISABLE_GLM}>>:glm>
+target_link_libraries(${PROJECT_NAME} PUBLIC    glm
                                                 mstd
+                                                $<$<NOT:$<BOOL:${GLSL_STRUCT_DISABLE_PARSER}>>:pcre2cpp>
 )
 
 # Konfiguracja PCH
@@ -71,13 +80,13 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE  $<$<BOOL:${GLSL_STRUCT_ENABL
                                                     $<$<BOOL:${GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE}>:GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE>
                                                     $<$<BOOL:${GLSL_STRUCT_DISABLE_TYPES}>:GLSL_STRUCT_DISABLE_TYPES>
                                                     $<$<BOOL:${GLSL_STRUCT_ENABLE_TYPE_CHECKS}>:GLSL_STRUCT_ENABLE_TYPE_CHECKS>
-                                                    $<$<BOOL:${GLSL_STRUCT_DISABLE_GLM}>:GLSL_STRUCT_DISABLE_GLM>
+                                                    $<$<BOOL:${GLSL_STRUCT_DISABLE_PARSER}>:GLSL_STRUCT_DISABLE_PARSER>
 )
 target_compile_definitions(${PROJECT_NAME} INTERFACE    $<$<BOOL:${GLSL_STRUCT_ENABLE_CXX20}>:GLSL_STRUCT_ENABLE_CXX20>
                                                         $<$<BOOL:${GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE}>:GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE>
                                                         $<$<BOOL:${GLSL_STRUCT_DISABLE_TYPES}>:GLSL_STRUCT_DISABLE_TYPES>
                                                         $<$<BOOL:${GLSL_STRUCT_ENABLE_TYPE_CHECKS}>:GLSL_STRUCT_ENABLE_TYPE_CHECKS>
-                                                        $<$<BOOL:${GLSL_STRUCT_DISABLE_GLM}>:GLSL_STRUCT_DISABLE_GLM>
+                                                        $<$<BOOL:${GLSL_STRUCT_DISABLE_PARSER}>:GLSL_STRUCT_DISABLE_PARSER>
 )
 
 # Optimizations
@@ -110,7 +119,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE
         -fno-strict-aliasing
     >
     $<$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:GNU>>:
-        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:
+        $<$<BOOL:${GLSL_STRUCT_BUILD_COVERAGE}>:
             --coverage
             -fcoverage-mcdc
             -fprofile-instr-generate
@@ -131,7 +140,7 @@ target_link_options(${PROJECT_NAME} PRIVATE
         -static
     >
     $<$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:GNU>>:
-        $<$<BOOL:${BUILD_GLSL_STRUCT_COVERAGE}>:
+        $<$<BOOL:${GLSL_STRUCT_BUILD_COVERAGE}>:
             --coverage
             -fprofile-instr-generate
         >

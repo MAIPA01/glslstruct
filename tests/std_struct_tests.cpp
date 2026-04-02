@@ -124,12 +124,38 @@ TEST(std430_struct, writer) {
 	glsl_opengl_writer glWriter;
 	glWriter.append_struct("SubTest", *test.get_type<struct_type>("struct"));
 	glWriter.append_shader_storage_buffer(0, "Test", test);
-	//std::cout << "OPENGL: \n" << glWriter.to_string() << std::endl << std::endl << std::endl;
+	// std::cout << "OPENGL: \n" << glWriter.to_string() << std::endl << std::endl << std::endl;
 
 	glsl_vulkan_writer vkWriter;
 	vkWriter.append_struct("SubTest", *test.get_type<struct_type>("struct"));
 	vkWriter.append_shader_storage_buffer(0, 0, "Test", "ssbo", test, "readonly");
-	//std::cout << "VULKAN: \n" << vkWriter.to_string() << std::endl;
+	// std::cout << "VULKAN: \n" << vkWriter.to_string() << std::endl;
+}
+
+TEST(std430_struct, parser) {
+	std::unordered_map<std::string, std430_layout> definedStructs;
+	process_structs<std430_struct>("struct SubTest { bool g; }; struct Test { float a; int c; dvec2 b; bmat3 z; imat2x4 d; SubTest h; };", definedStructs);
+
+	std430_struct test = std430_struct(definedStructs.at("Test"));
+
+	//std430_struct test = create_struct<std430_struct>("float a; int c; dvec2 b; bmat3 z; imat2x4 d");
+	// add_variables(test,	"float a;"
+	// 							"int c;"
+	// 							"dvec2 b; bmat3 z;"
+	// 							"imat2x4 d");
+	// add_variable(test, "float", "a");
+	// add_variable(test, "int c");
+	//
+	// add_variable(test, "dvec2 b");
+	// add_variable(test, "bmat3 z");
+	// add_variable(test, "imat2x4 d");
+	//
+	// add_variable(test, "Test t", { std::make_pair("Test", test.get_layout()) });
+
+	glsl_opengl_writer glWriter;
+	glWriter.append_struct("SubTest", *test.get_type<struct_type>("h"));
+	glWriter.append_shader_storage_buffer(0, "Test", test);
+	std::cout << glWriter.to_string() << std::endl;
 }
 
 TEST(std430_struct, copy_test) {
