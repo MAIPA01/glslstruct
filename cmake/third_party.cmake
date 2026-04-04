@@ -27,7 +27,7 @@ if(NOT ${GLSL_STRUCT_USE_EXTERNAL_MSTD})
             URI "gh:maipa01/mstd#v1.5.0"
             OPTIONS "MSTD_ENABLE_CXX20 ${GLSL_STRUCT_ENABLE_CXX20}"
                     "MSTD_ENABLE_ENUMS_MACROS ON"
-                    "MSTD_DISABLE_ASSERT_ON_RELEASE ${MSTD_DISABLE_ASSERT_ON_RELEASE}"
+                    "MSTD_DISABLE_ASSERT_ON_RELEASE ${GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE}"
     )
 else()
     set(MSTD_ENABLE_CXX20 ${GLSL_STRUCT_ENABLE_CXX20})
@@ -37,7 +37,7 @@ endif()
 if(NOT ${GLSL_STRUCT_DISABLE_PARSER})
     if(NOT ${GLSL_STRUCT_USE_EXTERNAL_PCRE2CPP})
         CPMAddPackage(
-                URI "gh:maipa01/pcre2cpp#v1.2.1"
+                URI "gh:maipa01/pcre2cpp#v1.2.2"
                 OPTIONS "PCRE2CPP_ENABLE_CXX20 ${GLSL_STRUCT_ENABLE_CXX20}"
                         "PCRE2CPP_DISABLE_ASSERT_ON_RELEASE ${GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE}"
                         "PCRE2CPP_USE_EXTERNAL_MSTD ON"
