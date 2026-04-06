@@ -2,7 +2,6 @@
 
 - create struct and layout from glsl string
 - add value from glsl string
-- add variable with array
 - create struct from uniform buffer and from shader storage buffer (check layout type std140, std430, scalar)
 - create struct with name from structs in string
 - create only structs with names (in array)

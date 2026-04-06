@@ -134,9 +134,11 @@ TEST(std430_struct, writer) {
 
 TEST(std430_struct, parser) {
 	std::unordered_map<std::string, std430_layout> definedStructs;
-	process_structs<std430_struct>("struct SubTest { bool g; }; struct Test { float a; int c; dvec2 b; bmat3 z; imat2x4 d; SubTest h; };", definedStructs);
+	//process_structs<std430_struct>("struct SubTest { bool g; }; struct Test { float a; int c; dvec2 b; bmat3 z; imat2x4 d; SubTest h; };", definedStructs);
 
-	std430_struct test = std430_struct(definedStructs.at("Test"));
+	std430_struct test; //= std430_struct(definedStructs.at("Test"));
+
+	test.add<std::vector<bool>>("A", 2);
 
 	//std430_struct test = create_struct<std430_struct>("float a; int c; dvec2 b; bmat3 z; imat2x4 d");
 	// add_variables(test,	"float a;"
@@ -146,20 +148,20 @@ TEST(std430_struct, parser) {
 	// add_variable(test, "float", "a");
 	// add_variable(test, "int c");
 	//
-	// add_variable(test, "dvec2 b");
-	// add_variable(test, "bmat3 z");
-	// add_variable(test, "imat2x4 d");
+	add_variable(test, "dvec2 b");
+	add_variable(test, "bmat3 z;");
+	add_variable(test, "imat2x4 d");
 	//
 	// add_variable(test, "Test t", { std::make_pair("Test", test.get_layout()) });
 
 	glsl_opengl_writer glWriter;
-	glWriter.append_struct("SubTest", *test.get_type<struct_type>("h"));
+	//glWriter.append_struct("SubTest", *test.get_type<struct_type>("h"));
 	glWriter.append_shader_storage_buffer(0, "Test", test);
 	std::cout << glWriter.to_string() << std::endl;
 }
 
 TEST(std430_struct, copy_test) {
-	const std430_struct test { glsl_value<int, 3>("test", { 2, 3, 4 }) };
+	std430_struct test { glsl_value<int, 3>("test", { 2, 3, 4 }) };
 	int value = test.get<int>("test[1]");
 	EXPECT_EQ(value, 3);
 	size_t ret = test.get_offset("test");

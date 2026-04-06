@@ -73,7 +73,7 @@ namespace glslstruct::utils {
 	 * @tparam N array size
 	 */
 	template<class T, size_t N>
-	struct array_traits<T (&)[N]> {
+	struct array_traits<T[N]> {
 		/// @brief value type
 		using value_type = T;
 
@@ -82,6 +82,24 @@ namespace glslstruct::utils {
 
 		/// @brief c-style array size
 		static _GLSL_STRUCT_CONSTEXPR17 size_t size(const T (&)[N]) { return N; }
+	};
+
+	/**
+	 * @brief Array Traits overload for pointer to c-style array
+	 * @ingroup utils
+	 * @tparam T value type
+	 * @tparam N array size
+	 */
+	template<class T, size_t N>
+	struct array_traits<T(*)[N]> {
+		/// @brief value type
+		using value_type = T;
+
+		/// @brief pointer to c-style array data
+		static _GLSL_STRUCT_CONSTEXPR17 const T* data(const T (*array)[N]) { return *array; }
+
+		/// @brief c-style array size
+		static _GLSL_STRUCT_CONSTEXPR17 size_t size(const T (*)[N]) { return N; }
 	};
 
 		#if _GLSL_STRUCT_HAS_CXX20

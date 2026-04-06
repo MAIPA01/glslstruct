@@ -811,8 +811,14 @@ namespace glslstruct {
 		_GLSL_STRUCT_CONSTEXPR20 std::vector<size_t> add(const std::string_view name,
 		  const size_t count) _GLSL_STRUCT_REQUIRES(std::is_default_constructible_v<utils::array_value_type_t<SA> >) {
 			using S = utils::array_value_type_t<SA>;
-			const std::vector<S> values(count, S());
-			return _add_scalar_array(name, values.data(), values.size());
+			if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<bool, S>) {
+				const std::vector<uint8_t> values(count, S());
+				return _add_scalar_array<bool>(name, reinterpret_cast<const bool*>(values.data()), values.size());
+			}
+			else {
+				const std::vector<S> values(count, S());
+				return _add_scalar_array(name, values.data(), values.size());
+			}
 		}
 
 		/// @brief adds array of scalars
