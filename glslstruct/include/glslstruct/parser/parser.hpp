@@ -204,7 +204,7 @@ namespace glslstruct {
 	static inline S& add_variables(S& structRef, const std::string_view varsStr,
 	  const std::unordered_map<std::string, typename S::layout_type>& definedStructs = {}) {
 		static pcre2cpp::regex multiVariablesPattern(
-		  R"((?<=^|;)\h*(?<var>[_a-zA-Z][_a-zA-Z0-9]*\s+[_a-zA-Z][_a-zA-Z0-9]*\s*(?:\[\s*[0-9]*\s*\])*)(?=\s*(?:;|$)))",
+		  R"((?>(?:^|;))\h*+(?<var>[a-zA-Z_]\w*+\s++[a-zA-Z_]\w*+(?>(?:\s*+\[\s*+\d*+\s*+\])*+))\h*+(?=;|$))",
 		  pcre2cpp::compile_options_bits::Multiline
 		);
 
@@ -228,7 +228,7 @@ namespace glslstruct {
 
 	template<class S>
 	static inline std::unordered_map<std::string, std::string> get_structs_bodies(const std::string_view structsStr) {
-		static pcre2cpp::regex structPattern("struct\\s+(?<name>[_a-zA-Z][_a-zA-Z0-9]*)\\s+{(?<body>[^}]*)}\\s*;",
+		static pcre2cpp::regex structPattern(R"(struct\s++(?<name>[a-zA-Z_]\w*+)\s*+\{(?<body>[^}]*+)\}\s*+;)",
 		  pcre2cpp::compile_options_bits::Multiline);
 
 		std::vector<pcre2cpp::match_result> results;
@@ -245,13 +245,17 @@ namespace glslstruct {
 
 	// Don't allow any other than std140 layout
 	static pcre2cpp::regex uboPattern(
-	  "layout\\s*\\((?:(?:std140|set\\s*=\\s*[0-9]+)\\s*,)?\\s*binding\\s*=\\s*[0-9]+\\s*\\)\\s+" "uniform\\s+(?<" "name>[_" "a-" "zA-" "Z][" "_a-" "zA-Z0-9]*)\\s+{(?<body>[^}]*)}\\s*(?:[_a-zA-Z][_" "a-zA-Z0-9]+\\s*)?;",
+	  R"(layout\s*\((?:(?:std140|set\s*=\s*[0-9]+)\s*,)?\s*binding\s*=\s*[0-9]+\s*\)\s+
+				uniform\s+(?<name>[_a-zA-Z][_a-zA-Z0-9]*)\s+
+				{(?<body>[^}]*)}\s*(?:[_a-zA-Z][_a-zA-Z0-9]+\s*)?;)",
 	  pcre2cpp::compile_options_bits::Multiline
 	);
 
 	// Allow std140, std430, scalar layouts
 	static pcre2cpp::regex ssboPattern(
-	  "layout\\s*\\((?:std(?:140|430)(?:\\s*,\\s*set\\s*=\\s*[0-9]+)?|scalar\\s*,\\s*set\\s*=" "\\s*[0-9]+)\\s*" "," "\\s*" "bind" "i" "ng" "\\" "s" "*=" "\\" "s*" "[0" "-" "9]" "+\\s*" "\\)" "\\s+(" "?:[a-" "zA-" "Z]+\\s*)?buffer\\s+(?" "<name>" "[_a-zA-Z][_" "a-zA-Z0-9]*)" "\\s+{(?<" "body>[^}]*)}" "\\s*(?:[_a-" "zA-Z][_a-zA-" "Z0-9]+\\s*)?" ";",
+	  R"(layout\s*\((?:std(?:140|430)(?:\s*,\s*set\s*=\s*[0-9]+)?|scalar\s*,\s*set\s*=\s*[0-9]+)\s*,\s*
+				binding\s*=\s*[0-9]+\s*\)\s+(?:[a-zA-Z]+\s*)?buffer\s+(?<name>[_a-zA-Z][_a-zA-Z0-9]*)\s+
+				{(?<body>[^}]*)}\s*(?:[_a-zA-Z][_a-zA-Z0-9]+\\s*)?;)",
 	  pcre2cpp::compile_options_bits::Multiline
 	);
 
