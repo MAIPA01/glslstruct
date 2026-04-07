@@ -138,8 +138,6 @@ TEST(std430_struct, parser) {
 
 	std430_struct test; //= std430_struct(definedStructs.at("Test"));
 
-	test.add<std::vector<bool>>("A", 2);
-
 	//std430_struct test = create_struct<std430_struct>("float a; int c; dvec2 b; bmat3 z; imat2x4 d");
 	// add_variables(test,	"float a;"
 	// 							"int c;"
@@ -148,6 +146,7 @@ TEST(std430_struct, parser) {
 	// add_variable(test, "float", "a");
 	// add_variable(test, "int c");
 	//
+	add_variable(test, "bool A[2]");
 	add_variable(test, "dvec2 b");
 	add_variable(test, "bmat3 z;");
 	add_variable(test, "imat2x4 d");

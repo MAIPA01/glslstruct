@@ -41,7 +41,7 @@ namespace glslstruct {
 
 	template<class T, class S>
 	static inline _GLSL_STRUCT_CONSTEXPR17 S& add_variable(S& structRef, const std::string_view name, const size_t count) {
-			if (count != 0) { structRef.template add<std::vector<T>>(name, count); }
+			if (count != 0) { structRef.template add<std::vector<T> >(name, count); }
 			else { structRef.template add<T>(name); }
 		return structRef;
 	}
@@ -50,11 +50,12 @@ namespace glslstruct {
 	static inline _GLSL_STRUCT_CONSTEXPR17 S& add_scalar_variable(S& structRef, const ValueType type, const std::string_view name,
 	  const size_t count) {
 			switch (type) {
-			case ValueType::Bool:																		   return add_variable<bool>(structRef, name, count); [[unlikely]] default:
-			case ValueType::Int:																		   return add_variable<int>(structRef, name, count);
-			case ValueType::Uint:																		   return add_variable<unsigned int>(structRef, name, count);
-			case ValueType::Float:																		   return add_variable<float>(structRef, name, count);
-			case ValueType::Double:																		   return add_variable<double>(structRef, name, count);
+			case ValueType::Bool:	return add_variable<bool>(structRef, name, count);
+			default:
+			case ValueType::Int:	return add_variable<int>(structRef, name, count);
+			case ValueType::Uint:	return add_variable<unsigned int>(structRef, name, count);
+			case ValueType::Float:	return add_variable<float>(structRef, name, count);
+			case ValueType::Double: return add_variable<double>(structRef, name, count);
 			}
 	}
 
@@ -62,10 +63,10 @@ namespace glslstruct {
 	static inline _GLSL_STRUCT_CONSTEXPR17 S& add_vec_variable(S& structRef, const size_t length, const std::string_view name,
 	  const size_t count) {
 			switch (length) {
-			[[unlikely]] default:
-			case 2:				  return add_variable<glm::vec<2, T> >(structRef, name, count);
-			case 3:				  return add_variable<glm::vec<3, T> >(structRef, name, count);
-			case 4:				  return add_variable<glm::vec<4, T> >(structRef, name, count);
+			default:
+			case 2:	 return add_variable<glm::vec<2, T> >(structRef, name, count);
+			case 3:	 return add_variable<glm::vec<3, T> >(structRef, name, count);
+			case 4:	 return add_variable<glm::vec<4, T> >(structRef, name, count);
 			}
 	}
 
@@ -73,36 +74,12 @@ namespace glslstruct {
 	static inline _GLSL_STRUCT_CONSTEXPR17 S& add_vec_variable(S& structRef, const ValueType type, const size_t length,
 	  const std::string_view name, const size_t count) {
 			switch (type) {
-			case ValueType::Bool:																					   return add_vec_variable<bool>(structRef, length, name, count); [[unlikely]] default:
-			case ValueType::Int:																					   return add_vec_variable<int>(structRef, length, name, count);
-			case ValueType::Uint:																					   return add_vec_variable<unsigned int>(structRef, length, name, count);
-			case ValueType::Float:																					   return add_vec_variable<float>(structRef, length, name, count);
-			case ValueType::Double:																					   return add_vec_variable<double>(structRef, length, name, count);
-			}
-	}
-
-	template<class T, class S>
-	static inline _GLSL_STRUCT_CONSTEXPR17 S& add_mat_variable(S& structRef, const size_t size, const std::string_view name,
-	  const size_t count) {
-			switch (size) {
-			[[unlikely]] default:
-			case 2:				  return add_variable<glm::mat<2, 2, T> >(structRef, name, count);
-			case 3:				  return add_variable<glm::mat<3, 3, T> >(structRef, name, count);
-			case 4:				  return add_variable<glm::mat<3, 3, T> >(structRef, name, count);
-			}
-
-		return structRef;
-	}
-
-	template<class S>
-	static inline _GLSL_STRUCT_CONSTEXPR17 S& add_mat_variable(S& structRef, const ValueType type, const size_t size,
-	  const std::string_view name, const size_t count) {
-			switch (type) {
-			case ValueType::Bool:																					 return add_mat_variable<bool>(structRef, size, name, count); [[unlikely]] default:
-			case ValueType::Int:																					 return add_mat_variable<int>(structRef, size, name, count);
-			case ValueType::Uint:																					 return add_mat_variable<unsigned int>(structRef, size, name, count);
-			case ValueType::Float:																					 return add_mat_variable<float>(structRef, size, name, count);
-			case ValueType::Double:																					 return add_mat_variable<double>(structRef, size, name, count);
+			case ValueType::Bool:	return add_vec_variable<bool>(structRef, length, name, count);
+			default:
+			case ValueType::Int:	return add_vec_variable<int>(structRef, length, name, count);
+			case ValueType::Uint:	return add_vec_variable<unsigned int>(structRef, length, name, count);
+			case ValueType::Float:	return add_vec_variable<float>(structRef, length, name, count);
+			case ValueType::Double: return add_vec_variable<double>(structRef, length, name, count);
 			}
 	}
 
@@ -110,10 +87,10 @@ namespace glslstruct {
 	static inline _GLSL_STRUCT_CONSTEXPR17 S& add_mat_variable(S& structRef, const size_t rows, const std::string_view name,
 	  const size_t count) {
 			switch (rows) {
-			[[unlikely]] default:
-			case 2:				  add_variable<glm::mat<cols, 2, T> >(structRef, name, count);
-			case 3:				  add_variable<glm::mat<cols, 3, T> >(structRef, name, count);
-			case 4:				  add_variable<glm::mat<cols, 4, T> >(structRef, name, count);
+			default:
+			case 2:	 add_variable<glm::mat<cols, 2, T> >(structRef, name, count);
+			case 3:	 add_variable<glm::mat<cols, 3, T> >(structRef, name, count);
+			case 4:	 add_variable<glm::mat<cols, 4, T> >(structRef, name, count);
 			}
 
 		return structRef;
@@ -123,10 +100,10 @@ namespace glslstruct {
 	static inline _GLSL_STRUCT_CONSTEXPR17 S& add_mat_variable(S& structRef, const size_t cols, const size_t rows,
 	  const std::string_view name, const size_t count) {
 			switch (cols) {
-			[[unlikely]] default:
-			case 2:				  return add_mat_variable<T, 2>(structRef, rows, name, count);
-			case 3:				  return add_mat_variable<T, 3>(structRef, rows, name, count);
-			case 4:				  return add_mat_variable<T, 3>(structRef, rows, name, count);
+			default:
+			case 2:	 return add_mat_variable<T, 2>(structRef, rows, name, count);
+			case 3:	 return add_mat_variable<T, 3>(structRef, rows, name, count);
+			case 4:	 return add_mat_variable<T, 3>(structRef, rows, name, count);
 			}
 	}
 
@@ -147,11 +124,9 @@ namespace glslstruct {
 	template<class S>
 	static inline S& add_variable(S& structRef, const std::string_view type, const std::string_view name, const size_t count = 0,
 	  const std::unordered_map<std::string, typename S::layout_type>& definedStructs = {}) {
-		// ^(?>bool|double|float|u?int)$
-
-		static pcre2cpp::regex scalarsPattern("^(?:float|int|uint|double|bool)$");
-		static pcre2cpp::regex vecPattern("^(?<scalar>[idbuf])?vec(?<length>[2-4])$");
-		static pcre2cpp::regex matPattern("^(?<scalar>[idbuf])?mat(?:(?<size>[2-4])|(?<cols>[2-4])x(?<rows>[2-4]))$");
+		static pcre2cpp::regex scalarsPattern(R"(^(?>bool|double|float|u?int)$)");
+		static pcre2cpp::regex vecPattern(R"(^(?>(?<scalar>[idbuf])?vec(?<length>[2-4]))$)");
+		static pcre2cpp::regex matPattern(R"(^(?>(?<scalar>[idbuf])?mat(?<cols>[2-4])(?>(?:x(?<rows>[2-4]))?))$)");
 
 		pcre2cpp::match_result result;
 
@@ -173,15 +148,10 @@ namespace glslstruct {
 			if (matPattern.match_at(type, result)) {
 				const ValueType valueType = get_value_type_from_string(result.get_sub_result_value("scalar"));
 
-					if (result.has_sub_value("size")) {
-						size_t size;
-						mstd::strtounum(result.get_sub_result_value("size"), size);
-
-						return add_mat_variable(structRef, valueType, size, name, count);
-					}
-
 				size_t cols;
 				mstd::strtounum(result.get_sub_result_value("cols"), cols);
+
+					if (!result.has_sub_value("rows")) { return add_mat_variable(structRef, valueType, cols, cols, name, count); }
 
 				size_t rows;
 				mstd::strtounum(result.get_sub_result_value("rows"), rows);
@@ -213,7 +183,7 @@ namespace glslstruct {
 	static inline S& add_variable(S& structRef, const std::string_view varStr,
 	  const std::unordered_map<std::string, typename S::layout_type>& definedStructs = {}) {
 		static pcre2cpp::regex variablePattern(
-		  "^\\h*(?<type>[_a-zA-Z][_a-zA-Z0-9]+)\\s+(?<name>[_a-zA-Z][_a-zA-Z0-9]*)\\s*(?<" "array>\\[\\s*(?<count>[0-9]+)?" "\\s*" "\\]" ")?(?:\\s*;)?\\h*$"
+		  R"(^\h*(?>(?<type>[a-zA-Z_]\w*+))\s++(?>(?<name>[a-zA-Z_]\w*+))\s*+(?>(?<array>\[\s*+(?<count>\d+)?\s*+\]))?\s*+(?>;?)\h*$)"
 		);
 
 		pcre2cpp::match_result result;
@@ -234,7 +204,7 @@ namespace glslstruct {
 	static inline S& add_variables(S& structRef, const std::string_view varsStr,
 	  const std::unordered_map<std::string, typename S::layout_type>& definedStructs = {}) {
 		static pcre2cpp::regex multiVariablesPattern(
-		  "(?<=^|;)\\h*(?<var>[_a-zA-Z][_a-zA-Z0-9]*\\s+[_a-zA-Z][_a-zA-Z0-9]*\\s*(?:\\[\\s*[0-9]*\\s*\\])*)(?=\\s*(?:;|$))",
+		  R"((?<=^|;)\h*(?<var>[_a-zA-Z][_a-zA-Z0-9]*\s+[_a-zA-Z][_a-zA-Z0-9]*\s*(?:\[\s*[0-9]*\s*\])*)(?=\s*(?:;|$)))",
 		  pcre2cpp::compile_options_bits::Multiline
 		);
 
