@@ -32,17 +32,20 @@ std::string glslstruct::utils::get_glsl_var_type_string(const base_type_handle& 
 	return varTypeGetter.get_result();
 }
 
+glsl_array_count_getter::glsl_array_count_getter(const bool canBeVariableSize) noexcept : _canBeVariableSize(canBeVariableSize) {}
+
 const std::string& glsl_array_count_getter::get_result() const noexcept { return _result; }
 
-std::string glslstruct::utils::get_glsl_array_count_string(const base_type_handle& varType) {
-	glsl_array_count_getter arrayCountGetter;
+std::string glslstruct::utils::get_glsl_array_count_string(const base_type_handle& varType, const bool canBeVariableSize) {
+	glsl_array_count_getter arrayCountGetter(canBeVariableSize);
 	varType->accept(arrayCountGetter);
 	return arrayCountGetter.get_result();
 }
 
 std::string glslstruct::utils::get_glsl_variable_string(const std::string_view name, const base_type_handle& varType,
-  const mstd::ordered_map<struct_type, std::string>& structsNames) {
-	return fmt::format("{} {}{}", get_glsl_var_type_string(varType, structsNames), name, get_glsl_array_count_string(varType));
+  const bool canBeVariableSize, const mstd::ordered_map<struct_type, std::string>& structsNames) {
+	return fmt::format("{} {}{}", get_glsl_var_type_string(varType, structsNames), name,
+	  get_glsl_array_count_string(varType, canBeVariableSize));
 }
 
 #endif

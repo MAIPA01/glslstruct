@@ -21,243 +21,462 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater and when parser
 
 namespace glslstruct {
 
-	// Add variable (layout/struct, var string, structs_map) -> ref to struct/layout
-	// Read structs <layout>(structs string) -> structs_map
+	template<class Layout, std::enable_if_t<utils::is_glsl_layout_v<Layout>, bool> = true>
+	class base_parser {
+	private:
+		using _layout_type									  = Layout;
+		using _struct_type									  = base_struct<Layout>;
 
-	static inline _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type_from_string(const std::string_view type) noexcept {
-			// Option for vec and mat
-			if (type.empty() || type[0] == 'f') { return ValueType::Float; }
+		#pragma region PATTERNS
+		static _GLSL_STRUCT_CONSTEXPR17 bool _has_ubo_pattern = std::is_same_v<Layout, std140_layout>;
+		static _GLSL_STRUCT_CONSTEXPR17 bool _has_ssbo_pattern =
+		  mstd::is_same_type_in_v<Layout, std140_layout, std430_layout, scalar_layout>;
 
-			if (type[0] == 'i') { return ValueType::Int; }
+		static _GLSL_STRUCT_CONSTEXPR17 std::string_view _get_ubo_pattern_string() noexcept {
+				if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<Layout, std140_layout>) {
+					return R"(^\s*+layout\s*+\((?>(?:(?:std140|set\s*+=\s*+\d++)\s*+,\s*+)?)\s*+binding\s*+=\s*+\d++\s*+\)\s*+uniform\s*+(?<name>[a-zA-Z_]\w*+)\s*+\{(?<body>[^}]*+)\}\s*+(?>(?:[a-zA-Z_]\w*+)?)\s*+;\s*+$)";
+				}
+				else { return ""; }
+		}
 
-			if (type[0] == 'u') { return ValueType::Uint; }
+		static _GLSL_STRUCT_CONSTEXPR17 std::string_view _get_ssbo_patter_string() noexcept {
+				if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<Layout, std140_layout>) {
+					return R"(^\s*+layout\s*+\((?>std140(?>\s*+,\s*+set\s*+=\s*+\d++)?)\s*+,\s*+binding\s*+=\s*+\d++\s*+\)\s*+(?>(?:[a-zA-Z]++\s++)?buffer)\s++(?<name>[a-zA-Z_]\w*+)\s*+\{(?<body>[^}]*+)\}\s*+(?>(?:[a-zA-Z_]\w*+)?)\s*+;\s*+$)";
+				}
+				else if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<Layout, std430_layout>) {
+					return R"(^\s*+layout\s*+\((?>std430(?>\s*+,\s*+set\s*+=\s*+\d++)?)\s*+,\s*+binding\s*+=\s*+\d++\s*+\)\s*+(?>(?:[a-zA-Z]++\s++)?buffer)\s++(?<name>[a-zA-Z_]\w*+)\s*+\{(?<body>[^}]*+)\}\s*+(?>(?:[a-zA-Z_]\w*+)?)\s*+;\s*+$)";
+				}
+				else if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<Layout, scalar_layout>) {
+					return R"(^\s*+layout\s*+\(scalar(?>\s*+,\s*+set\s*+=\s*+\d++)?)\s*+,\s*+binding\s*+=\s*+\d++\s*+\)\s*+(?>(?:[a-zA-Z]++\s++)?buffer)\s++(?<name>[a-zA-Z_]\w*+)\s*+\{(?<body>[^}]*+)\}\s*+(?>(?:[a-zA-Z_]\w*+)?)\s*+;\s*+$)";
+				}
+				else { return ""; }
+		}
 
-			if (type[0] == 'd') { return ValueType::Double; }
+		static inline const auto _scalarsPattern = pcre2cpp::regex(R"(^(?>bool|double|float|u?int)$)");
+		static inline const auto _vecPattern	 = pcre2cpp::regex(R"(^(?>(?<scalar>[idbuf])?vec(?<length>[2-4]))$)");
+		static inline const auto _matPattern =
+		  pcre2cpp::regex(R"(^(?>(?<scalar>[idbuf])?mat(?<cols>[2-4])(?>(?:x(?<rows>[2-4]))?))$)");
+		static inline const auto _variablePattern = pcre2cpp::regex(
+		  R"(^\s*(?>(?<type>[a-zA-Z_]\w*+))\s++(?>(?<name>[a-zA-Z_]\w*+))\s*+(?>(?<array>\[\s*+(?<count>\d+)?\s*+\]))?\s*+(?>;?)\s*$)"
+		);
+		static inline const auto _multiVariablesPattern =
+		  pcre2cpp::regex(R"((?>(?<=^|;))\s*+(?<var>[a-zA-Z_]\w*+\s++[a-zA-Z_]\w*+(?>(?:\s*+\[\s*+\d*+\s*+\])*+))\s*+(?:;|$))",
+			pcre2cpp::compile_options_bits::Multiline);
+		#pragma endregion
 
-			if (type[0] == 'b') { return ValueType::Bool; }
+		#pragma region GENERAL_VARIABLE_FUNCTIONS
 
-		[[unlikely]] return ValueType::Int;
-	}
+		static _GLSL_STRUCT_CONSTEXPR17 ValueType _get_value_type_from_string(const std::string_view type) noexcept {
+				// Option for vec and mat
+				if (type.empty() || type[0] == 'f') { return ValueType::Float; }
 
-	template<class T, class S>
-	static inline _GLSL_STRUCT_CONSTEXPR17 S& add_variable(S& structRef, const std::string_view name, const size_t count) {
-			if (count != 0) { structRef.template add<std::vector<T> >(name, count); }
-			else { structRef.template add<T>(name); }
-		return structRef;
-	}
+				if (type[0] == 'i') { return ValueType::Int; }
 
-	template<class S>
-	static inline _GLSL_STRUCT_CONSTEXPR17 S& add_scalar_variable(S& structRef, const ValueType type, const std::string_view name,
-	  const size_t count) {
-			switch (type) {
-			case ValueType::Bool:	return add_variable<bool>(structRef, name, count);
-			default:
-			case ValueType::Int:	return add_variable<int>(structRef, name, count);
-			case ValueType::Uint:	return add_variable<unsigned int>(structRef, name, count);
-			case ValueType::Float:	return add_variable<float>(structRef, name, count);
-			case ValueType::Double: return add_variable<double>(structRef, name, count);
-			}
-	}
+				if (type[0] == 'u') { return ValueType::Uint; }
 
-	template<class T, class S>
-	static inline _GLSL_STRUCT_CONSTEXPR17 S& add_vec_variable(S& structRef, const size_t length, const std::string_view name,
-	  const size_t count) {
-			switch (length) {
-			default:
-			case 2:	 return add_variable<glm::vec<2, T> >(structRef, name, count);
-			case 3:	 return add_variable<glm::vec<3, T> >(structRef, name, count);
-			case 4:	 return add_variable<glm::vec<4, T> >(structRef, name, count);
-			}
-	}
+				if (type[0] == 'd') { return ValueType::Double; }
 
-	template<class S>
-	static inline _GLSL_STRUCT_CONSTEXPR17 S& add_vec_variable(S& structRef, const ValueType type, const size_t length,
-	  const std::string_view name, const size_t count) {
-			switch (type) {
-			case ValueType::Bool:	return add_vec_variable<bool>(structRef, length, name, count);
-			default:
-			case ValueType::Int:	return add_vec_variable<int>(structRef, length, name, count);
-			case ValueType::Uint:	return add_vec_variable<unsigned int>(structRef, length, name, count);
-			case ValueType::Float:	return add_vec_variable<float>(structRef, length, name, count);
-			case ValueType::Double: return add_vec_variable<double>(structRef, length, name, count);
-			}
-	}
+				if (type[0] == 'b') { return ValueType::Bool; }
 
-	template<class T, size_t cols, class S>
-	static inline _GLSL_STRUCT_CONSTEXPR17 S& add_mat_variable(S& structRef, const size_t rows, const std::string_view name,
-	  const size_t count) {
-			switch (rows) {
-			default:
-			case 2:	 add_variable<glm::mat<cols, 2, T> >(structRef, name, count);
-			case 3:	 add_variable<glm::mat<cols, 3, T> >(structRef, name, count);
-			case 4:	 add_variable<glm::mat<cols, 4, T> >(structRef, name, count);
-			}
+			[[unlikely]] return ValueType::Int;
+		}
 
-		return structRef;
-	}
+		template<class T, class S>
+		static _GLSL_STRUCT_CONSTEXPR17 S& _add_variable(S& ref, const std::string_view name, const size_t count) {
+				if (count != 0) {
+						if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<S, _struct_type>) {
+							ref.template add<std::vector<T> >(name, count);
+						}
+						else if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<S, _layout_type>) { ref.template add<T>(name, count); }
+				}
+				else {
+						if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<S, _layout_type> || std::is_same_v<S, _struct_type>) {
+							ref.template add<T>(name);
+						}
+				}
+			return ref;
+		}
 
-	template<class T, class S>
-	static inline _GLSL_STRUCT_CONSTEXPR17 S& add_mat_variable(S& structRef, const size_t cols, const size_t rows,
-	  const std::string_view name, const size_t count) {
-			switch (cols) {
-			default:
-			case 2:	 return add_mat_variable<T, 2>(structRef, rows, name, count);
-			case 3:	 return add_mat_variable<T, 3>(structRef, rows, name, count);
-			case 4:	 return add_mat_variable<T, 3>(structRef, rows, name, count);
-			}
-	}
+		#pragma endregion
 
-	template<class S>
-	static inline _GLSL_STRUCT_CONSTEXPR17 S& add_mat_variable(S& structRef, const ValueType type, const size_t cols,
-	  const size_t rows, const std::string_view name, const size_t count) {
-			switch (type) {
-			case ValueType::Bool:	return add_mat_variable<bool>(structRef, cols, rows, name, count);
-			default:
-			case ValueType::Int:	return add_mat_variable<int>(structRef, cols, rows, name, count);
-			case ValueType::Uint:	return add_mat_variable<unsigned int>(structRef, cols, rows, name, count);
-			case ValueType::Float:	return add_mat_variable<float>(structRef, cols, rows, name, count);
-			case ValueType::Double: return add_mat_variable<double>(structRef, cols, rows, name, count);
-			}
-	}
+		#pragma region SCALAR_VARIABLE
 
-	// count == 0 -> scalar, count > 0 -> array
-	template<class S>
-	static inline S& add_variable(S& structRef, const std::string_view type, const std::string_view name, const size_t count = 0,
-	  const std::unordered_map<std::string, typename S::layout_type>& definedStructs = {}) {
-		static pcre2cpp::regex scalarsPattern(R"(^(?>bool|double|float|u?int)$)");
-		static pcre2cpp::regex vecPattern(R"(^(?>(?<scalar>[idbuf])?vec(?<length>[2-4]))$)");
-		static pcre2cpp::regex matPattern(R"(^(?>(?<scalar>[idbuf])?mat(?<cols>[2-4])(?>(?:x(?<rows>[2-4]))?))$)");
+		template<class S>
+		static _GLSL_STRUCT_CONSTEXPR17 S& _add_scalar_variable(S& ref, const ValueType type, const std::string_view name,
+		  const size_t count) {
+				switch (type) {
+				case ValueType::Bool:	return _add_variable<bool>(ref, name, count);
+				default:
+				case ValueType::Int:	return _add_variable<int>(ref, name, count);
+				case ValueType::Uint:	return _add_variable<unsigned int>(ref, name, count);
+				case ValueType::Float:	return _add_variable<float>(ref, name, count);
+				case ValueType::Double: return _add_variable<double>(ref, name, count);
+				}
+		}
 
-		pcre2cpp::match_result result;
+		#pragma endregion
 
-			// Check if scalar type
-			if (scalarsPattern.match_at(type)) {
-				return add_scalar_variable(structRef, get_value_type_from_string(type), name, count);
-			}
+		#pragma region VEC_VARIABLE
 
-			// Check if vec type
-			if (vecPattern.match_at(type, result)) {
-				size_t length;
-				mstd::strtounum(result.get_sub_result_value("length"), length);
+		template<class T, class S>
+		static _GLSL_STRUCT_CONSTEXPR17 S& _add_vec_variable(S& ref, const size_t length, const std::string_view name,
+		  const size_t count) {
+				switch (length) {
+				default:
+				case 2:	 return _add_variable<glm::vec<2, T> >(ref, name, count);
+				case 3:	 return _add_variable<glm::vec<3, T> >(ref, name, count);
+				case 4:	 return _add_variable<glm::vec<4, T> >(ref, name, count);
+				}
+		}
 
-				return add_vec_variable(structRef, get_value_type_from_string(result.get_sub_result_value("scalar")), length,
-				  name, count);
-			}
+		template<class S>
+		static _GLSL_STRUCT_CONSTEXPR17 S& _add_vec_variable(S& ref, const ValueType type, const size_t length,
+		  const std::string_view name, const size_t count) {
+				switch (type) {
+				case ValueType::Bool:	return _add_vec_variable<bool>(ref, length, name, count);
+				default:
+				case ValueType::Int:	return _add_vec_variable<int>(ref, length, name, count);
+				case ValueType::Uint:	return _add_vec_variable<unsigned int>(ref, length, name, count);
+				case ValueType::Float:	return _add_vec_variable<float>(ref, length, name, count);
+				case ValueType::Double: return _add_vec_variable<double>(ref, length, name, count);
+				}
+		}
 
-			// Check if mat type
-			if (matPattern.match_at(type, result)) {
-				const ValueType valueType = get_value_type_from_string(result.get_sub_result_value("scalar"));
+		#pragma endregion
 
-				size_t cols;
-				mstd::strtounum(result.get_sub_result_value("cols"), cols);
+		#pragma region MAT_VARIABLE
 
-					if (!result.has_sub_value("rows")) { return add_mat_variable(structRef, valueType, cols, cols, name, count); }
+		template<class T, size_t cols, class S>
+		static _GLSL_STRUCT_CONSTEXPR17 S& _add_mat_variable(S& ref, const size_t rows, const std::string_view name,
+		  const size_t count) {
+				switch (rows) {
+				default:
+				case 2:	 return _add_variable<glm::mat<cols, 2, T> >(ref, name, count);
+				case 3:	 return _add_variable<glm::mat<cols, 3, T> >(ref, name, count);
+				case 4:	 return _add_variable<glm::mat<cols, 4, T> >(ref, name, count);
+				}
+		}
 
-				size_t rows;
-				mstd::strtounum(result.get_sub_result_value("rows"), rows);
+		template<class T, class S>
+		static _GLSL_STRUCT_CONSTEXPR17 S& _add_mat_variable(S& ref, const size_t cols, const size_t rows,
+		  const std::string_view name, const size_t count) {
+				switch (cols) {
+				default:
+				case 2:	 return _add_mat_variable<T, 2>(ref, rows, name, count);
+				case 3:	 return _add_mat_variable<T, 3>(ref, rows, name, count);
+				case 4:	 return _add_mat_variable<T, 3>(ref, rows, name, count);
+				}
+		}
 
-				return add_mat_variable(structRef, valueType, cols, rows, name, count);
-			}
+		template<class S>
+		static _GLSL_STRUCT_CONSTEXPR17 S& _add_mat_variable(S& ref, const ValueType type, const size_t cols, const size_t rows,
+		  const std::string_view name, const size_t count) {
+				switch (type) {
+				case ValueType::Bool:	return _add_mat_variable<bool>(ref, cols, rows, name, count);
+				default:
+				case ValueType::Int:	return _add_mat_variable<int>(ref, cols, rows, name, count);
+				case ValueType::Uint:	return _add_mat_variable<unsigned int>(ref, cols, rows, name, count);
+				case ValueType::Float:	return _add_mat_variable<float>(ref, cols, rows, name, count);
+				case ValueType::Double: return _add_mat_variable<double>(ref, cols, rows, name, count);
+				}
+		}
 
-		// Check if struct type
+		#pragma endregion
+
+		#pragma region EXTRACT_STRUCTS
+
+		inline std::pair<std::string, std::string> _extract_struct_data(const std::string_view structStr) {
+			static pcre2cpp::regex structPattern(R"(^\s*+struct\s++(?<name>[a-zA-Z_]\w*+)\s*+\{(?<body>[^}]*+)\}\s*+;\s*+$)");
+
+			pcre2cpp::match_result result;
+				if (structPattern.match(structStr, result)) {
+					return std::make_pair(result.get_sub_result_value("name"), result.get_sub_result_value("body"));
+				}
+
+				if _GLSL_STRUCT_CONSTEXPR17 (_has_ubo_pattern) {
+					static pcre2cpp::regex uboPattern(_get_ubo_pattern_string());
+
+						if (uboPattern.match(structStr, result)) {
+							return std::make_pair(result.get_sub_result_value("name"), result.get_sub_result_value("body"));
+						}
+				}
+
+				if _GLSL_STRUCT_CONSTEXPR17 (_has_ssbo_pattern) {
+					static pcre2cpp::regex ssboPattern(_get_ssbo_patter_string());
+
+						if (ssboPattern.match(structStr, result)) {
+							return std::make_pair(result.get_sub_result_value("name"), result.get_sub_result_value("body"));
+						}
+				}
+
+			glsl_struct_assert(false, "Provided string '{}' was not a struct definition", structStr);
+			return std::make_pair(std::string(), std::string());
+		}
+
+		inline std::vector<std::string> _extract_structs(const std::string_view structsStr) {
+			static pcre2cpp::regex multiStructsPattern(
+			  R"(\s*+(?<struct>(?>struct|layout\s*+\([^)]*+\)\s*+(?>uniform|(?:\w++\s++)?buffer))\s++(?>(?:[a-zA-Z_]\w*+))\s*+\{(?>[^}]*+)\}\s*+(?>(?:\w*+\s*+));\s*+))",
+			  pcre2cpp::compile_options_bits::Multiline
+			);
+
+			std::vector<pcre2cpp::match_result> results;
+				if (!multiStructsPattern.match_all(structsStr, results)) {
+					glsl_struct_assert(false, "Provided structs string '{}' didn't have any struct definition", structsStr);
+					return {};
+				}
+
+			std::vector<std::string> structs;
+			structs.reserve(results.size());
+				for (const auto& result : results) { structs.push_back(result.get_sub_result_value("struct")); }
+			return structs;
+		}
+
+		#pragma endregion
+
+		#pragma region LAYOUT
+
+		inline _layout_type _create_layout(const std::string_view varsStr) {
+			_layout_type layout;
+			return _add_variables(layout, varsStr);
+		}
+
+		inline bool _load_layout(const std::string_view structName) {
+				if (!_contains_struct_layout(structName) && _contains_struct_body(structName)) {
+					_structsLayouts.emplace(structName.data(), _create_layout(_structsBodies.at(structName.data())));
+					_structsBodies.erase(structName.data());
+				}
+
+			return _contains_struct_layout(structName);
+		}
+
+		#pragma endregion
+
+		#pragma region CONTAINS
+
+		inline bool _contains_struct_body(const std::string_view name) {
 		#if _GLSL_STRUCT_HAS_CXX20
-			if (definedStructs.contains(type.data())) {
+			return _structsBodies.contains(name.data());
 		#else
-			if (definedStructs.find(type.data()) != definedStructs.end()) {
+			return _structsBodies.find(name.data()) != _structsBodies.end();
 		#endif
-				structRef.add(name, definedStructs.at(type.data()));
-				return structRef;
-			}
+		}
 
-		glsl_struct_assert(false, "Provided type str '{}' was not a correct variable type", type);
-		return structRef;
-	}
+		inline bool _contains_struct_layout(const std::string_view name) {
+		#if _GLSL_STRUCT_HAS_CXX20
+			return _structsLayouts.contains(name.data());
+		#else
+			return _structsLayouts.find(name.data()) != _structsLayouts.end();
+		#endif
+		}
 
-	template<class S>
-	static inline S& add_variable(S& structRef, const std::string_view type, const std::string_view name,
-	  const std::unordered_map<std::string, typename S::layout_type>& definedStructs = {}) {
-		return add_variable(structRef, type, name, 0, definedStructs);
-	}
+		#pragma endregion
 
-	template<class S>
-	static inline S& add_variable(S& structRef, const std::string_view varStr,
-	  const std::unordered_map<std::string, typename S::layout_type>& definedStructs = {}) {
-		static pcre2cpp::regex variablePattern(
-		  R"(^\h*(?>(?<type>[a-zA-Z_]\w*+))\s++(?>(?<name>[a-zA-Z_]\w*+))\s*+(?>(?<array>\[\s*+(?<count>\d+)?\s*+\]))?\s*+(?>;?)\h*$)"
-		);
+		#pragma region PARSE_AND_ADD_VARIABLES
 
-		pcre2cpp::match_result result;
-			if (!variablePattern.match_at(varStr, result)) {
-				glsl_struct_assert(false, "Provided var str '{}' was not a correct variable", varStr);
-				return structRef;
-			}
+		// count == 0 -> scalar, count > 0 -> array
+		template<class S>
+		inline S& _add_variable(S& ref, const std::string_view type, const std::string_view name, const size_t count = 0) {
+			pcre2cpp::match_result result;
 
-		size_t count = 0;
-			if (result.has_sub_value("count")) { mstd::strtounum(result.get_sub_result_value("count"), count); }
-			else if (result.has_sub_value("array")) { count = 1; }
+				// Check if scalar type
+				if (_scalarsPattern.match_at(type)) {
+					return _add_scalar_variable(ref, _get_value_type_from_string(type), name, count);
+				}
 
-		return add_variable(structRef, result.get_sub_result_value("type"), result.get_sub_result_value("name"), count,
-		  definedStructs);
-	}
+				// Check if vec type
+				if (_vecPattern.match_at(type, result)) {
+					size_t length;
+					mstd::strtounum(result.get_sub_result_value("length"), length);
 
-	template<class S>
-	static inline S& add_variables(S& structRef, const std::string_view varsStr,
-	  const std::unordered_map<std::string, typename S::layout_type>& definedStructs = {}) {
-		static pcre2cpp::regex multiVariablesPattern(
-		  R"((?>(?:^|;))\h*+(?<var>[a-zA-Z_]\w*+\s++[a-zA-Z_]\w*+(?>(?:\s*+\[\s*+\d*+\s*+\])*+))\h*+(?=;|$))",
-		  pcre2cpp::compile_options_bits::Multiline
-		);
+					return _add_vec_variable(ref, _get_value_type_from_string(result.get_sub_result_value("scalar")), length,
+					  name, count);
+				}
 
-		std::vector<pcre2cpp::match_result> results;
-			if (!multiVariablesPattern.match_all(varsStr, results)) {
-				glsl_struct_assert(false, "Provided vars str '{}' was not a correct variables list", varsStr);
-				return structRef;
-			}
+				// Check if mat type
+				if (_matPattern.match_at(type, result)) {
+					const ValueType valueType = _get_value_type_from_string(result.get_sub_result_value("scalar"));
 
-			for (const auto& result : results) { add_variable(structRef, result.get_sub_result_value("var"), definedStructs); }
+					size_t cols;
+					mstd::strtounum(result.get_sub_result_value("cols"), cols);
 
-		return structRef;
-	}
+						if (!result.has_sub_value("rows")) { return _add_mat_variable(ref, valueType, cols, cols, name, count); }
 
-	template<class S>
-	static inline S create_struct(const std::string_view varsStr,
-	  const std::unordered_map<std::string, typename S::layout_type>& definedStructs = {}) {
-		S structValue;
-		return add_variables(structValue, varsStr, definedStructs);
-	}
+					size_t rows;
+					mstd::strtounum(result.get_sub_result_value("rows"), rows);
 
-	template<class S>
-	static inline std::unordered_map<std::string, std::string> get_structs_bodies(const std::string_view structsStr) {
-		static pcre2cpp::regex structPattern(R"(struct\s++(?<name>[a-zA-Z_]\w*+)\s*+\{(?<body>[^}]*+)\}\s*+;)",
-		  pcre2cpp::compile_options_bits::Multiline);
+					return _add_mat_variable(ref, valueType, cols, rows, name, count);
+				}
 
-		std::vector<pcre2cpp::match_result> results;
-			if (!structPattern.match_all(structsStr, results)) { return {}; }
+				// Check if struct type
+				if (_load_layout(type.data())) {
+					ref.add(name, _structsLayouts.at(type.data()));
+					return ref;
+				}
 
-		std::unordered_map<std::string, std::string> structs;
-		structs.reserve(results.size());
-			for (const auto& result : results) {
-				structs.emplace(result.get_sub_result_value("name"), result.get_sub_result_value("body"));
-			}
+			glsl_struct_assert(false, "Provided type str '{}' was not a correct variable type", type);
+			return ref;
+		}
 
-		return structs;
-	}
+		template<class S>
+		inline S& _add_variable(S& ref, const std::string_view varStr) {
+			pcre2cpp::match_result result;
+				if (!_variablePattern.match_at(varStr, result)) {
+					glsl_struct_assert(false, "Provided var str '{}' was not a correct variable", varStr);
+					return ref;
+				}
 
-	// Don't allow any other than std140 layout
-	static pcre2cpp::regex uboPattern(
-	  R"(layout\s*\((?:(?:std140|set\s*=\s*[0-9]+)\s*,)?\s*binding\s*=\s*[0-9]+\s*\)\s+
-				uniform\s+(?<name>[_a-zA-Z][_a-zA-Z0-9]*)\s+
-				{(?<body>[^}]*)}\s*(?:[_a-zA-Z][_a-zA-Z0-9]+\s*)?;)",
-	  pcre2cpp::compile_options_bits::Multiline
-	);
+			size_t count = 0;
+				if (result.has_sub_value("count")) { mstd::strtounum(result.get_sub_result_value("count"), count); }
+				else if (result.has_sub_value("array")) { count = 1; }
 
-	// Allow std140, std430, scalar layouts
-	static pcre2cpp::regex ssboPattern(
-	  R"(layout\s*\((?:std(?:140|430)(?:\s*,\s*set\s*=\s*[0-9]+)?|scalar\s*,\s*set\s*=\s*[0-9]+)\s*,\s*
-				binding\s*=\s*[0-9]+\s*\)\s+(?:[a-zA-Z]+\s*)?buffer\s+(?<name>[_a-zA-Z][_a-zA-Z0-9]*)\s+
-				{(?<body>[^}]*)}\s*(?:[_a-zA-Z][_a-zA-Z0-9]+\\s*)?;)",
-	  pcre2cpp::compile_options_bits::Multiline
-	);
+			return _add_variable(ref, result.get_sub_result_value("type"), result.get_sub_result_value("name"), count);
+		}
+
+		template<class S>
+		inline S& _add_variables(S& ref, const std::string_view varsStr) {
+			std::vector<pcre2cpp::match_result> results;
+				if (!_multiVariablesPattern.match_all(varsStr, results)) {
+					glsl_struct_assert(false, "Provided vars str '{}' was not a correct variables list", varsStr);
+					return ref;
+				}
+
+				for (const auto& result : results) { _add_variable(ref, result.get_sub_result_value("var")); }
+
+			return ref;
+		}
+
+		#pragma endregion
+
+		std::unordered_map<std::string, std::string> _structsBodies	  = {};
+		std::unordered_map<std::string, _layout_type> _structsLayouts = {};
+
+	public:
+		base_parser()  = default;
+		~base_parser() = default;
+
+		#pragma region VARIABLE_PARSER
+
+		inline _layout_type& add_variable(_layout_type& layoutRef, const std::string_view type, const std::string_view name,
+		  const size_t count) {
+			return _add_variable(layoutRef, type, name, count);
+		}
+
+		inline _struct_type& add_variable(_struct_type& structRef, const std::string_view type, const std::string_view name,
+		  const size_t count) {
+			return _add_variable(structRef, type, name, count);
+		}
+
+		inline _layout_type& add_variable(_layout_type& layoutRef, const std::string_view type, const std::string_view name) {
+			return add_variable(layoutRef, type, name, 0);
+		}
+
+		inline _struct_type& add_variable(_struct_type& structRef, const std::string_view type, const std::string_view name) {
+			return add_variable(structRef, type, name, 0);
+		}
+
+		inline _layout_type& add_variable(_layout_type& layoutRef, const std::string_view varStr) {
+			return _add_variable(layoutRef, varStr);
+		}
+
+		inline _struct_type& add_variable(_struct_type& structRef, const std::string_view varStr) {
+			return _add_variable(structRef, varStr);
+		}
+
+		inline _layout_type& add_variables(_layout_type& layoutRef, const std::string_view varsStr) {
+			return _add_variables(layoutRef, varsStr);
+		}
+
+		inline _struct_type& add_variables(_struct_type& structRef, const std::string_view varsStr) {
+			return _add_variables(structRef, varsStr);
+		}
+
+		#pragma endregion
+
+		#pragma region STRUCTS_PARSER
+
+		inline void add_struct_definition(const std::string_view name, const std::string_view varsStr) {
+			_structsBodies.emplace(name.data(), varsStr.data());
+		}
+
+		inline void add_struct_definition(const std::string_view structStr) {
+			const auto [name, body] = _extract_struct_data(structStr);
+			add_struct_definition(name, body);
+		}
+
+		inline void add_structs_definitions(const std::string_view structsStr) {
+				for (const auto& structStr : _extract_structs(structsStr)) { add_struct_definition(structStr); }
+		}
+
+		inline _layout_type create_struct_layout(const std::string_view varsStr) {
+			_layout_type layoutValue;
+			return add_variables(layoutValue, varsStr);
+		}
+
+		inline _struct_type create_struct(const std::string_view varsStr) { return _struct_type(create_struct_layout(varsStr)); }
+
+		inline _layout_type get_struct_layout(const std::string_view structName) {
+				if (!_load_layout(structName)) {
+					glsl_struct_assert(false, "Couldn't find definition for struct with name '{}'", structName);
+					return {};
+				}
+
+			return _structsLayouts.at(structName.data());
+		}
+
+		inline _struct_type get_struct(const std::string_view structName) { return _struct_type(get_struct_layout(structName)); }
+
+		inline std::vector<_layout_type> create_structs_layouts(const std::vector<std::string>& structs) {
+			std::vector<_layout_type> structLayouts;
+			structLayouts.reserve(structs.size());
+				for (const auto& structStr : structs) {
+					const auto [name, body] = _extract_struct_data(structStr);
+					structLayouts.push_back(create_struct_layout(body));
+				}
+			return structLayouts;
+		}
+
+		inline std::vector<_layout_type> create_structs_layouts(const std::string_view structsStr) {
+			return create_structs_layouts(_extract_structs(structsStr));
+		}
+
+		inline std::vector<_struct_type> create_structs(const std::vector<std::string>& structsStrs) {
+			const auto layouts = create_structs_layouts(structsStrs);
+			std::vector<_struct_type> structs;
+			structs.reserve(layouts.size());
+
+				for (const auto& layout : layouts) { structs.push_back(_struct_type(layout)); }
+
+			return structs;
+		}
+
+		inline std::vector<_struct_type> create_structs(const std::string_view structsStr) {
+			return create_structs(_extract_structs(structsStr));
+		}
+
+		inline std::vector<_layout_type> get_structs_layouts(const std::vector<std::string>& structsNames) {
+			std::vector<_layout_type> structLayouts;
+			structLayouts.reserve(structsNames.size());
+
+				for (const auto& structName : structsNames) { structLayouts.push_back(get_struct_layout(structName)); }
+
+			return structLayouts;
+		}
+
+		inline std::vector<_struct_type> get_structs(const std::vector<std::string_view>& structsNames) {
+			std::vector<_struct_type> structs;
+			structs.reserve(structsNames.size());
+
+				for (const auto& structName : structsNames) { structs.push_back(get_struct(structName)); }
+
+			return structs;
+		}
+
+		#pragma endregion
+	};
+
+	using std140_parser = base_parser<std140_layout>;
+	using std430_parser = base_parser<std430_layout>;
+	using scalar_parser = base_parser<scalar_layout>;
 
 } // namespace glslstruct
 

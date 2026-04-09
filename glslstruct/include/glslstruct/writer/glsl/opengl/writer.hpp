@@ -72,12 +72,12 @@ namespace glslstruct {
 		void _append_struct_body(std::string_view structBody);
 
 		/// @brief returns struct body string
-		[[nodiscard]] std::string _get_struct_body(std::string_view type, std::string_view name,
+		[[nodiscard]] std::string _get_struct_body(std::string_view type, std::string_view name, bool canHaveVariableSizeArray,
 		  const mstd::ordered_map<std::string, var_data>& variables);
 
 		/// @brief appends buffer body to result
 		void _append_buffer_body(size_t binding, std::string_view name, std::string_view stdType, std::string_view bufferType,
-		  const mstd::ordered_map<std::string, var_data>& variables);
+		  bool canHaveVariableSizeArray, const mstd::ordered_map<std::string, var_data>& variables);
 
 		/// @brief appends shader storage buffer body (SSBO)
 		void _append_shader_storage_buffer_body(size_t binding, std::string_view name, std::string_view stdType,
@@ -91,8 +91,9 @@ namespace glslstruct {
 		glsl_opengl_writer();
 
 		/// @brief type visitor
-		void visit(auto&& varType) {
-			using T = std::decay_t<decltype(varType)>;
+		template<class Type>
+		void visit(Type&& varType) {
+			using T = std::decay_t<Type>;
 				if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, struct_type>) {
 						if (_uniqueStructs.contains(varType)) { return; }
 

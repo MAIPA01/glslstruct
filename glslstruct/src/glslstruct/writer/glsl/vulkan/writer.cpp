@@ -34,26 +34,31 @@ void glsl_vulkan_writer::_append_struct_body(const std::string_view structBody) 
 }
 
 std::string glsl_vulkan_writer::_get_struct_body(const std::string_view type, const std::string_view name,
-  const mstd::ordered_map<std::string, var_data>& variables) {
+  const bool canHaveVariableSizeArray, const mstd::ordered_map<std::string, var_data>& variables) {
 	std::string structBody = fmt::format("{} {} {{\n", type, name);
+	size_t i			   = 0;
 		for (const auto& [varName, varData] : variables) {
 			// Check substruct
 			varData.get_type()->accept(*this);
 			// Add variable
 			structBody = fmt::format("{}    {};\n", structBody,
-			  utils::get_glsl_variable_string(varName, varData.get_type(), _uniqueStructs));
+			  utils::get_glsl_variable_string(varName, varData.get_type(), canHaveVariableSizeArray && i == variables.size() - 1,
+				_uniqueStructs));
+
+			// Increment variable index
+			++i;
 		}
 	return fmt::format("{}}}", structBody);
 }
 
 void glsl_vulkan_writer::_append_buffer_body(const size_t set, const size_t binding, const std::string_view name,
-  const std::string_view varName, const std::string_view bufferType, const mstd::ordered_map<std::string, var_data>& variables,
-  const std::string_view stdType) {
+  const std::string_view varName, const std::string_view bufferType, const bool canHaveVariableSizeArray,
+  const mstd::ordered_map<std::string, var_data>& variables, const std::string_view stdType) {
 	glsl_struct_assert(!_contains_name(name), "Structure or SSBO or UBO with name: '{}' already exist", name);
 
 	// Add buffer definition
 	_append_struct_body(fmt::format("{} {} {};", _get_layout(set, binding, stdType),
-	  _get_struct_body(bufferType, name, variables), varName));
+	  _get_struct_body(bufferType, name, canHaveVariableSizeArray, variables), varName));
 
 	// Add name
 	_uniqueNames.insert(name.data());
@@ -64,7 +69,7 @@ void glsl_vulkan_writer::_append_shader_storage_buffer_body(const size_t set, co
   const std::string_view qualifiers) {
 	std::string bufferType = "buffer";
 		if (!qualifiers.empty()) { bufferType = fmt::format("{} {}", qualifiers, bufferType); }
-	_append_buffer_body(set, binding, name, varName, bufferType, variables, stdType);
+	_append_buffer_body(set, binding, name, varName, bufferType, true, variables, stdType);
 }
 
 bool glsl_vulkan_writer::_contains_name(const std::string_view name) {
@@ -82,7 +87,8 @@ void glsl_vulkan_writer::append_struct(const std::string_view name, const struct
 	glsl_struct_assert(!_uniqueStructs.contains(structType),
 	  "Structure with given layout already exists with different name: '{}' (yours: '{}')", _uniqueStructs.at(structType), name);
 
-	const std::string structBody = fmt::format("{};", _get_struct_body("struct", name, structType.get_top_level_variables()));
+	const std::string structBody =
+	  fmt::format("{};", _get_struct_body("struct", name, false, structType.get_top_level_variables()));
 
 	// Add struct
 	_uniqueStructs.emplace_back(structType, name.data());
@@ -107,7 +113,7 @@ void glsl_vulkan_writer::append_struct(const struct_type& structType) {
 
 void glsl_vulkan_writer::append_uniform_buffer(const size_t set, const size_t binding, const std::string_view name,
   const std::string_view varName, const std140_layout& layout) {
-	_append_buffer_body(set, binding, name, varName, "uniform", layout.get_top_level_variables());
+	_append_buffer_body(set, binding, name, varName, "uniform", false, layout.get_top_level_variables());
 }
 
 void glsl_vulkan_writer::append_uniform_buffer(const size_t set, const size_t binding, const std::string_view name,

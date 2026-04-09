@@ -46,13 +46,11 @@ target_compile_options(${PROJECT_NAME} PRIVATE
         -Werror
         -fno-strict-aliasing
     >
-    $<$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:GNU>>:
-        $<$<BOOL:${GLSL_STRUCT_BUILD_COVERAGE}>:
-            --coverage
-            -fcoverage-mcdc
-            -fprofile-instr-generate
-            -fcoverage-mapping
-        >
+    $<$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:GNU>,$<BOOL:${GLSL_STRUCT_BUILD_COVERAGE}>>:
+        --coverage
+        -fcoverage-mcdc
+        -fprofile-instr-generate
+        -fcoverage-mapping
     >
 )
 
@@ -67,10 +65,8 @@ target_link_options(${PROJECT_NAME} PRIVATE
         $<$<CONFIG:Release>:-flto>
         -static
     >
-    $<$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:GNU>>:
-        $<$<BOOL:${GLSL_STRUCT_BUILD_COVERAGE}>:
-            --coverage
-            -fprofile-instr-generate
-        >
+    $<$<AND:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_FRONTEND_VARIANT:GNU>,$<BOOL:${GLSL_STRUCT_BUILD_COVERAGE}>>:
+        --coverage
+        -fprofile-instr-generate
     >
 )

@@ -474,7 +474,7 @@ namespace glslstruct {
 		}
 
 		/// @brief sets struct
-		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 bool _set_struct(const std::string_view name, const layout_type& layout,
+		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 bool _set_struct(const std::string_view name, [[maybe_unused]] const layout_type& layout,
 		  const std::byte* data, const size_t bytesCount) {
 		#if _GLSL_STRUCT_HAS_TYPE_CHECKS
 			glsl_struct_assert(_struct_check(name, layout.get_variables()),
@@ -484,7 +484,7 @@ namespace glslstruct {
 		}
 
 		/// @brief sets struct array
-		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR20 bool _set_struct_array(const std::string_view name, const layout_type& layout,
+		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR20 bool _set_struct_array(const std::string_view name, [[maybe_unused]] const layout_type& layout,
 		  const std::vector<std::byte>* values, const size_t valuesCount) {
 		#if _GLSL_STRUCT_HAS_TYPE_CHECKS
 			glsl_struct_assert(_struct_array_check(name, layout.get_variables()),

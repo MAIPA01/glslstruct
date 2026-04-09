@@ -39,8 +39,9 @@ namespace glslstruct::utils {
 		explicit glsl_var_type_getter(const mstd::ordered_map<struct_type, std::string>& structsNames);
 
 		/// @brief type visitor
-		void visit(auto&& varType) {
-			using T = std::decay_t<decltype(varType)>;
+		template<class Type>
+		void visit(Type&& varType) {
+			using T = std::decay_t<Type>;
 				if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, array_type>) { varType.get_type()->accept(*this); }
 				else if _GLSL_STRUCT_CONSTEXPR17 (!std::is_same_v<T, struct_type>) { _result = varType.to_string(); }
 				else {
@@ -68,15 +69,24 @@ namespace glslstruct::utils {
 	 */
 	class glsl_array_count_getter {
 	private:
+		/// @brief check for variable size arrays
+		bool _canBeVariableSize;
 		/// @brief result
 		std::string _result = "";
 
 	public:
+		explicit glsl_array_count_getter(bool canBeVariableSize) noexcept;
+
 		/// @brief visitor function
-		void visit(auto&& varType) {
-			using T = std::decay_t<decltype(varType)>;
+		template<class Type>
+		void visit(Type&& varType) {
+			using T = std::decay_t<Type>;
 				if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, array_type>) {
-					_result = fmt::format("{}[{}]", _result, varType.get_count());
+						if (_canBeVariableSize) {
+							_result			   = fmt::format("{}[]", _result);
+							_canBeVariableSize = false;
+						}
+						else { _result = fmt::format("{}[{}]", _result, varType.get_count()); }
 				}
 		}
 
@@ -88,18 +98,20 @@ namespace glslstruct::utils {
 	 * @ingroup utils
 	 * @brief returns array counts string
 	 * @param varType variable for which we get array counts
+	 * @param canBeVariableSize check if array size can be variable size
 	 */
-	[[nodiscard]] std::string get_glsl_array_count_string(const base_type_handle& varType);
+	[[nodiscard]] std::string get_glsl_array_count_string(const base_type_handle& varType, bool canBeVariableSize);
 
 	/**
 	 * @ingroup utils
 	 * @brief returns variable line `type name[0][1]...`
 	 * @param name name of variable
 	 * @param varType type of variable
+	 * @param canBeVariableSize check if array size can be variable size
 	 * @param structsNames defined structs names
 	 */
 	[[nodiscard]] std::string get_glsl_variable_string(std::string_view name, const base_type_handle& varType,
-	  const mstd::ordered_map<struct_type, std::string>& structsNames);
+	  bool canBeVariableSize, const mstd::ordered_map<struct_type, std::string>& structsNames);
 } // namespace glslstruct::utils
 
 		#include <glslstruct/writer/glsl/opengl/writer.hpp>

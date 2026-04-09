@@ -98,6 +98,7 @@ TEST(std430_struct, set_get_test) {
 #pragma endregion
 }
 
+#if _GLSL_STRUCT_HAS_TYPES
 TEST(std430_struct, writer) {
 	// clang-format off
 	std430_struct subSubTest {
@@ -131,32 +132,82 @@ TEST(std430_struct, writer) {
 	vkWriter.append_shader_storage_buffer(0, 0, "Test", "ssbo", test, "readonly");
 	// std::cout << "VULKAN: \n" << vkWriter.to_string() << std::endl;
 }
+#endif
 
 TEST(std430_struct, parser) {
-	std::unordered_map<std::string, std430_layout> definedStructs;
-	//process_structs<std430_struct>("struct SubTest { bool g; }; struct Test { float a; int c; dvec2 b; bmat3 z; imat2x4 d; SubTest h; };", definedStructs);
+	std430_parser parser;
 
-	std430_struct test; //= std430_struct(definedStructs.at("Test"));
+	// Add variable test
+	std430_struct test;
+	parser.add_variable(test, "bool", "a", 2);
+	parser.add_variable(test, "dvec2", "b");
+	parser.add_variable(test, "int c");
+	parser.add_variable(test, "bmat3 d[];");
+	parser.add_variable(test, "imat2x4 e[2]");
 
-	//std430_struct test = create_struct<std430_struct>("float a; int c; dvec2 b; bmat3 z; imat2x4 d");
-	// add_variables(test,	"float a;"
-	// 							"int c;"
-	// 							"dvec2 b; bmat3 z;"
-	// 							"imat2x4 d");
-	// add_variable(test, "float", "a");
-	// add_variable(test, "int c");
-	//
-	add_variable(test, "bool A[2]");
-	add_variable(test, "dvec2 b");
-	add_variable(test, "bmat3 z;");
-	add_variable(test, "imat2x4 d");
-	//
-	// add_variable(test, "Test t", { std::make_pair("Test", test.get_layout()) });
+	ASSERT_TRUE(test.contains("a"));
+	ASSERT_TRUE(test.contains("a[0]"));
+	ASSERT_TRUE(test.contains("b"));
+	ASSERT_TRUE(test.contains("c"));
+	ASSERT_TRUE(test.contains("d"));
+	ASSERT_TRUE(test.contains("d[0]"));
+	ASSERT_TRUE(test.contains("e"));
+	ASSERT_TRUE(test.contains("e[0]"));
 
+	// Add variables test
+	parser.add_variables(test, "float f;" "int g;" "dvec2 h; bmat3 i;" "imat2x4 j");
+	ASSERT_TRUE(test.contains("f"));
+	ASSERT_TRUE(test.contains("g"));
+	ASSERT_TRUE(test.contains("h"));
+	ASSERT_TRUE(test.contains("i"));
+	ASSERT_TRUE(test.contains("j"));
+
+	// Create struct test
+	test = parser.create_struct("float a; int b; dvec2 c; bmat3 d; imat2x4 e");
+	ASSERT_TRUE(test.contains("a"));
+	ASSERT_TRUE(test.contains("b"));
+	ASSERT_TRUE(test.contains("c"));
+	ASSERT_TRUE(test.contains("d"));
+	ASSERT_TRUE(test.contains("e"));
+
+	// Add struct definition
+	parser.add_struct_definition("SubTest", "bool f");
+	parser.add_variable(test, "SubTest g");
+	ASSERT_TRUE(test.contains("g"));
+	ASSERT_TRUE(test.contains("g.f"));
+
+	// Add structs
+	parser.add_structs_definitions(
+	  "struct SubTest2 { bool g; }; struct Test { float a; int c; dvec2 b; bmat3 z; imat2x4 d; SubTest h; SubTest2 i; };"
+	);
+	test = parser.get_struct("Test");
+	ASSERT_TRUE(test.contains("a"));
+	ASSERT_TRUE(test.contains("c"));
+	ASSERT_TRUE(test.contains("b"));
+	ASSERT_TRUE(test.contains("z"));
+	ASSERT_TRUE(test.contains("d"));
+	ASSERT_TRUE(test.contains("h"));
+	ASSERT_TRUE(test.contains("h.f"));
+	ASSERT_TRUE(test.contains("i"));
+	ASSERT_TRUE(test.contains("i.g"));
+
+#if _GLSL_STRUCT_HAS_TYPES
+	// From writer to parser test
 	glsl_opengl_writer glWriter;
-	//glWriter.append_struct("SubTest", *test.get_type<struct_type>("h"));
-	glWriter.append_shader_storage_buffer(0, "Test", test);
-	std::cout << glWriter.to_string() << std::endl;
+	glWriter.append_shader_storage_buffer(0, "SSBO", test);
+
+	parser.add_structs_definitions(glWriter.to_string());
+	test = parser.get_struct("SSBO");
+	ASSERT_TRUE(test.contains("a"));
+	ASSERT_TRUE(test.contains("c"));
+	ASSERT_TRUE(test.contains("b"));
+	ASSERT_TRUE(test.contains("z"));
+	ASSERT_TRUE(test.contains("d"));
+	ASSERT_TRUE(test.contains("h"));
+	ASSERT_TRUE(test.contains("h.f"));
+	ASSERT_TRUE(test.contains("i"));
+	ASSERT_TRUE(test.contains("i.g"));
+#endif
 }
 
 TEST(std430_struct, copy_test) {
