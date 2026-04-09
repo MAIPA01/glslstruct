@@ -199,7 +199,7 @@ namespace glslstruct::utils {
 
 	template<class T>
 	struct is_static_size_array<T, std::void_t<std::enable_if_t<is_array_v<T> >,
-									 std::enable_if_t<std::is_same_v<size_t, decltype(array_traits<T>::static_size)> > > >
+									 std::enable_if_t<std::is_convertible_v<decltype(array_traits<T>::static_size), size_t> > > >
 		: std::true_type {};
 
 	template<class T>

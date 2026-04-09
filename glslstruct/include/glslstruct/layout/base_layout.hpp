@@ -1091,8 +1091,7 @@ namespace glslstruct {
 		template<class SA, std::enable_if_t<utils::is_glsl_scalars_static_size_array_v<SA>, bool> = true>
 		#endif
 		std::vector<size_t> add(const std::string_view name) {
-			using S = utils::array_value_type_t<SA>;
-			return add<S>(name, utils::array_static_size_v<SA>);
+			return add<SA>(name, utils::array_static_size_v<SA>);
 		}
 
 		#pragma endregion
@@ -1144,8 +1143,7 @@ namespace glslstruct {
 		template<class VA, std::enable_if_t<utils::is_glsl_vecs_static_size_array_v<VA>, bool> = true>
 		#endif
 		std::vector<size_t> add(const std::string_view name) {
-			using V = utils::array_value_type_t<VA>;
-			return add<V>(name, utils::array_static_size_v<VA>);
+			return add<VA>(name, utils::array_static_size_v<VA>);
 		}
 
 		#pragma endregion
@@ -1199,8 +1197,7 @@ namespace glslstruct {
 		template<class MA, std::enable_if_t<utils::is_glsl_mats_static_size_array_v<MA>, bool> = true>
 		#endif
 		std::vector<std::vector<size_t> > add(const std::string_view name) {
-			using M = utils::array_value_type_t<MA>;
-			return add<M>(name, utils::array_static_size_v<MA>);
+			return add<MA>(name, utils::array_static_size_v<MA>);
 		}
 
 		#pragma endregion
