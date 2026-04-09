@@ -976,7 +976,7 @@ namespace glslstruct {
 			return get(name).get_type();
 		}
 
-				/// @brief returns type of variable with casting to given type (dynamic casting occures)
+				/// @brief returns type of variable with casting to given type (dynamic casting occurs)
 			#if _GLSL_STRUCT_HAS_CXX20
 		template<utils::glsl_type Type>
 			#else
