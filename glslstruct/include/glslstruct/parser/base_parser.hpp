@@ -266,17 +266,14 @@ namespace glslstruct {
 		/// @brief adds variable of type T to struct or layout (if count != 0 then it adds array of variables of type T)
 		template<class T, class S>
 		static _GLSL_STRUCT_CONSTEXPR17 S& _add_variable(S& ref, const std::string_view name, const size_t count) {
+			if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<S, _layout_type> || std::is_same_v<S, _struct_type>) {
 				if (count != 0) {
-						if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<S, _struct_type>) {
-							ref.template add<std::vector<T> >(name, count);
-						}
-						else if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<S, _layout_type>) { ref.template add<T>(name, count); }
+					ref.template add<std::vector<T> >(name, count);
 				}
 				else {
-						if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<S, _layout_type> || std::is_same_v<S, _struct_type>) {
-							ref.template add<T>(name);
-						}
+					ref.template add<T>(name);
 				}
+			}
 			return ref;
 		}
 

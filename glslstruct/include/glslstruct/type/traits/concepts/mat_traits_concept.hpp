@@ -74,7 +74,7 @@ namespace glslstruct {
 		};
 
 		template<class T>
-		static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_mat_v = glsl_mat<T>;
+		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_mat_v = glsl_mat<T>;
 
 		template<typename T>
 		struct is_glsl_mat : std::bool_constant<is_glsl_mat_v<T> > {};
@@ -93,18 +93,26 @@ namespace glslstruct {
 			: std::true_type {};
 
 		template<class T>
-		static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_mat_v = is_glsl_mat<T>::value;
+		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_mat_v = is_glsl_mat<T>::value;
 		#endif
 		#pragma endregion
 
-		#pragma region IS_MATS_VECTOR
+		#pragma region IS_MATS_ARRAY
 		/**
 		 * @brief Bool value which is true if type V is array of types that passes is_glsl_mat test
 		 * @ingroup utils
 		 * @tparam V type that is checked
 		 */
 		template<class V>
-		static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_mats_array_v = is_array_of_v<is_glsl_mat, V>;
+		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_mats_array_v = is_array_of_v<is_glsl_mat, V>;
+
+		/**
+		 * @brief Bool value which is true if type V is static size array of types that passes is_glsl_mat test
+		 * @ingroup utils
+		 * @tparam V type that is checked
+		 */
+		template<class V>
+		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_mats_static_size_array_v = is_static_size_array_of_v<is_glsl_mat, V>;
 
 		#if _GLSL_STRUCT_HAS_CXX20
 		/**
@@ -113,6 +121,13 @@ namespace glslstruct {
 		 * @tparam V type that is checked
 		 */
 		template<class V> concept glsl_mats_array = is_glsl_mats_array_v<V>;
+
+		/**
+		 * @brief Concept which is true if type V is static size array of types that passes is_glsl_mat test
+		 * @ingroup utils
+		 * @tparam V type that is checked
+		 */
+		template<class V> concept glsl_mats_static_size_array = is_glsl_mats_static_size_array_v<V>;
 		#endif
 		#pragma endregion
 		#pragma endregion

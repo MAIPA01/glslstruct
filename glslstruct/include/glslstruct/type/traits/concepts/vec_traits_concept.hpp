@@ -94,7 +94,7 @@ namespace glslstruct {
 		#endif
 		#pragma endregion
 
-		#pragma region IS_VECS_VECTOR
+		#pragma region IS_VECS_ARRAY
 		/**
 		 * @brief Bool value which is true if type V is array of types that passes is_glsl_vec test
 		 * @ingroup utils
@@ -103,13 +103,28 @@ namespace glslstruct {
 		template<class V>
 		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_vecs_array_v = is_array_of_v<is_glsl_vec, V>;
 
+		/**
+		 * @brief Bool value which is true if type V is static size array of types that passes is_glsl_vec test
+		 * @ingroup utils
+		 * @tparam V type that is checked
+		 */
+		template<class V>
+		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_vecs_static_size_array_v = is_static_size_array_of_v<is_glsl_vec, V>;
+
 		#if _GLSL_STRUCT_HAS_CXX20
 		/**
 		 * @brief Concept which is true if type V is array of types that passes is_glsl_vec test
 		 * @ingroup utils
 		 * @tparam V type that is checked
 		 */
-		template<class V> concept glsl_vecs_array = is_glsl_vecs_array_v<V>;
+		template<class V> concept glsl_vecs_array			  = is_glsl_vecs_array_v<V>;
+
+		/**
+		 * @brief Concept which is true if type V is static size array of types that passes is_glsl_vec test
+		 * @ingroup utils
+		 * @tparam V type that is checked
+		 */
+		template<class V> concept glsl_vecs_static_size_array = is_glsl_vecs_static_size_array_v<V>;
 		#endif
 		#pragma endregion
 		#pragma endregion

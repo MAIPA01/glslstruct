@@ -102,7 +102,7 @@ namespace glslstruct {
 		/// @brief variables data
 		mstd::ordered_map<std::string, var_data> _variables = {};
 		/// @brief current offset
-		size_t _currentOffset								 = 0;
+		size_t _currentOffset								= 0;
 
 		#pragma region VARIABLE_SET
 		/// @brief sets variable data
@@ -907,9 +907,7 @@ namespace glslstruct {
 		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 size_t bad_offset() noexcept { return std::numeric_limits<size_t>::max(); }
 
 		/// @brief returns true if layout contains variable with given name
-		[[nodiscard]] bool contains(const std::string_view name) const noexcept {
-			return _variables.contains(name.data());
-		}
+		[[nodiscard]] bool contains(const std::string_view name) const noexcept { return _variables.contains(name.data()); }
 
 		/// @brief returns variable data
 		[[nodiscard]] const var_data& get(const std::string_view name) const noexcept {
@@ -1051,24 +1049,50 @@ namespace glslstruct {
 		#pragma region ADD_SCALAR
 		/// @brief adds scalar
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_scalar T>
+		template<utils::glsl_scalar S>
 		#else
-		template<class T, std::enable_if_t<utils::is_glsl_scalar_v<T>, bool> = true>
+		template<class S, std::enable_if_t<utils::is_glsl_scalar_v<S>, bool> = true>
 		#endif
 		size_t add(const std::string_view name) {
-			static ValueType valueType = get_scalar_value_type<T>();
+			static ValueType valueType = get_scalar_value_type<S>();
 			return _add_scalar(name, valueType);
+		}
+
+		#pragma endregion
+
+		#pragma region ADD_SCALARS_ARRAY
+
+		/// @brief adds array of scalars
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<utils::glsl_scalar S>
+		#else
+		template<class S, std::enable_if_t<utils::is_glsl_scalar_v<S>, bool> = true>
+		#endif
+		std::vector<size_t> add(const std::string_view name, const size_t count) {
+			static ValueType valueType = get_scalar_value_type<S>();
+			return _add_scalar_array(name, valueType, count);
 		}
 
 		/// @brief adds array of scalars
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_scalar T>
+		template<utils::glsl_scalars_array SA>
 		#else
-		template<class T, std::enable_if_t<utils::is_glsl_scalar_v<T>, bool> = true>
+		template<class SA, std::enable_if_t<utils::is_glsl_scalars_array_v<SA>, bool> = true>
 		#endif
 		std::vector<size_t> add(const std::string_view name, const size_t count) {
-			static ValueType valueType = get_scalar_value_type<T>();
-			return _add_scalar_array(name, valueType, count);
+			using S = utils::array_value_type_t<SA>;
+			return add<S>(name, count);
+		}
+
+		/// @brief adds array of scalars
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<utils::glsl_scalars_static_size_array SA>
+		#else
+		template<class SA, std::enable_if_t<utils::is_glsl_scalars_static_size_array_v<SA>, bool> = true>
+		#endif
+		std::vector<size_t> add(const std::string_view name) {
+			using S = utils::array_value_type_t<SA>;
+			return add<S>(name, utils::array_static_size_v<SA>);
 		}
 
 		#pragma endregion
@@ -1086,6 +1110,10 @@ namespace glslstruct {
 			return _add_vec(name, length, valueType);
 		}
 
+		#pragma endregion
+
+		#pragma region ADD_VECS_ARRAY
+
 		/// @brief adds array of vecs
 		#if _GLSL_STRUCT_HAS_CXX20
 		template<utils::glsl_vec V>
@@ -1096,6 +1124,28 @@ namespace glslstruct {
 			static ValueType valueType = get_vec_value_type<V>();
 			static size_t length	   = get_vec_length<V>();
 			return _add_vec_array(name, length, valueType, count);
+		}
+
+		/// @brief adds array of vecs
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<utils::glsl_vecs_array VA>
+		#else
+		template<class VA, std::enable_if_t<utils::is_glsl_vecs_array_v<VA>, bool> = true>
+		#endif
+		std::vector<size_t> add(const std::string_view name, const size_t count) {
+			using V = utils::array_value_type_t<VA>;
+			return add<V>(name, count);
+		}
+
+		/// @brief adds array of vecs
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<utils::glsl_vecs_static_size_array VA>
+		#else
+		template<class VA, std::enable_if_t<utils::is_glsl_vecs_static_size_array_v<VA>, bool> = true>
+		#endif
+		std::vector<size_t> add(const std::string_view name) {
+			using V = utils::array_value_type_t<VA>;
+			return add<V>(name, utils::array_static_size_v<VA>);
 		}
 
 		#pragma endregion
@@ -1114,6 +1164,10 @@ namespace glslstruct {
 			return _add_mat(name, columns, rows, valueType);
 		}
 
+		#pragma endregion
+
+		#pragma region ADD_MATS_ARRAY
+
 		/// @brief adds array of mats
 		#if _GLSL_STRUCT_HAS_CXX20
 		template<utils::glsl_mat M>
@@ -1127,6 +1181,28 @@ namespace glslstruct {
 			return _add_mat_array(name, columns, rows, valueType, count);
 		}
 
+		/// @brief adds array of mats
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<utils::glsl_mats_array MA>
+		#else
+		template<class MA, std::enable_if_t<utils::is_glsl_mats_array_v<MA>, bool> = true>
+		#endif
+		std::vector<std::vector<size_t> > add(const std::string_view name, const size_t count) {
+			using M = utils::array_value_type_t<MA>;
+			return add<M>(name, count);
+		}
+
+		/// @brief adds array of mats
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<utils::glsl_mats_static_size_array MA>
+		#else
+		template<class MA, std::enable_if_t<utils::is_glsl_mats_static_size_array_v<MA>, bool> = true>
+		#endif
+		std::vector<std::vector<size_t> > add(const std::string_view name) {
+			using M = utils::array_value_type_t<MA>;
+			return add<M>(name, utils::array_static_size_v<MA>);
+		}
+
 		#pragma endregion
 
 		#pragma region ADD_STRUCT
@@ -1135,6 +1211,10 @@ namespace glslstruct {
 		size_t add(const std::string_view name, const base_layout& layout) {
 			return _add_struct(name, layout.base_alignment(), layout._currentOffset, layout._variables);
 		}
+
+		#pragma endregion
+
+		#pragma region ADD_STRUCTS_ARRAY
 
 		/// @brief adds array of structs with given layout
 		std::vector<size_t> add(const std::string_view name, const base_layout& layout, const size_t count) {

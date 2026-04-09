@@ -23,6 +23,8 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 		#include <glslstruct/libs.hpp>
 
 namespace glslstruct::utils {
+		#pragma region ARRAY_TRAITS
+
 	/**
 	 * @brief Array Traits
 	 * @ingroup utils
@@ -57,7 +59,10 @@ namespace glslstruct::utils {
 	template<class T, size_t N>
 	struct array_traits<std::array<T, N> > {
 		/// @brief value type
-		using value_type = T;
+		using value_type								   = T;
+
+		/// @brief static size of array
+		static _GLSL_STRUCT_CONSTEXPR17 size_t static_size = N;
 
 		/// @brief pointer to array data
 		static _GLSL_STRUCT_CONSTEXPR17 const T* data(const std::array<T, N>& array) { return array.data(); }
@@ -75,7 +80,10 @@ namespace glslstruct::utils {
 	template<class T, size_t N>
 	struct array_traits<T[N]> {
 		/// @brief value type
-		using value_type = T;
+		using value_type								   = T;
+
+		/// @brief static size of array
+		static _GLSL_STRUCT_CONSTEXPR17 size_t static_size = N;
 
 		/// @brief pointer to c-style array data
 		static _GLSL_STRUCT_CONSTEXPR17 const T* data(const T (&array)[N]) { return array; }
@@ -91,9 +99,12 @@ namespace glslstruct::utils {
 	 * @tparam N array size
 	 */
 	template<class T, size_t N>
-	struct array_traits<T(*)[N]> {
+	struct array_traits<T (*)[N]> {
 		/// @brief value type
-		using value_type = T;
+		using value_type								   = T;
+
+		/// @brief static size of array
+		static _GLSL_STRUCT_CONSTEXPR17 size_t static_size = N;
 
 		/// @brief pointer to c-style array data
 		static _GLSL_STRUCT_CONSTEXPR17 const T* data(const T (*array)[N]) { return *array; }
@@ -120,12 +131,20 @@ namespace glslstruct::utils {
 		static _GLSL_STRUCT_CONSTEXPR17 size_t size(const std::span<const T> span) { return span.size(); }
 	};
 		#endif
+		#pragma endregion
 
-	/**
-	 * @var bool is_array_v
-	 * @brief checks if T has array traits defined
-	 * @ingroup utils
-	 */
+		#pragma region ARRAY_CHECKS
+		/**
+		 * @var bool is_array_v
+		 * @brief checks if T has array traits defined
+		 * @ingroup utils
+		 */
+
+		/**
+		 * @var bool is_static_size_array_v
+		 * @brief checks if T has array traits defined and additional static_size member of type size_t
+		 * @ingroup utils
+		 */
 
 		#if _GLSL_STRUCT_HAS_CXX20
 	/**
@@ -139,8 +158,20 @@ namespace glslstruct::utils {
 		{ array_traits<T>::size(value) } -> std::same_as<size_t>;
 	};
 
+	/**
+	 * @brief Static size array concept
+	 * @ingroup utils
+	 */
+	template<class T>
+	concept static_size_array = array<T> && requires {
+		{ array_traits<T>::static_size } -> std::convertible_to<size_t>;
+	};
+
 	template<class T>
 	static _GLSL_STRUCT_CONSTEXPR17 bool is_array_v = array<T>;
+
+	template<class T>
+	static _GLSL_STRUCT_CONSTEXPR17 bool is_static_size_array_v = static_size_array<T>;
 		#else
 	/**
 	 * @brief Is Array Test Struct
@@ -158,44 +189,76 @@ namespace glslstruct::utils {
 
 	template<class T>
 	static _GLSL_STRUCT_CONSTEXPR17 bool is_array_v = is_array<T>::value;
-		#endif
 
 	/**
-	 * @brief get value_type of array
+	 * @brief Is Static Size Array Test Struct
 	 * @ingroup utils
 	 */
-	#if _GLSL_STRUCT_HAS_CXX20
+	template<class T, class = void>
+	struct is_static_size_array : std::false_type {};
+
+	template<class T>
+	struct is_static_size_array<T, std::void_t<std::enable_if_t<is_array_v<T> >,
+									 std::enable_if_t<std::is_same_v<size_t, decltype(array_traits<T>::static_size)> > > >
+		: std::true_type {};
+
+	template<class T>
+	static _GLSL_STRUCT_CONSTEXPR17 bool is_static_size_array_v = is_static_size_array<T>::value;
+		#endif
+		#pragma endregion
+
+		#pragma region ARRAY_TRAITS_VALUES
+		/**
+		 * @brief get value_type of array
+		 * @ingroup utils
+		 */
+		#if _GLSL_STRUCT_HAS_CXX20
 	template<array T>
-	#else
+		#else
 	template<class T, std::enable_if_t<is_array_v<T>, bool> = true>
-	#endif
+		#endif
 	using array_value_type_t = typename array_traits<T>::value_type;
 
-	/**
-	 * @brief get pointer to data of array
-	 * @ingroup utils
-	 */
-	#if _GLSL_STRUCT_HAS_CXX20
+		/**
+		 * @brief get static_size of static size array
+		 * @ingroup utils
+		 */
+		#if _GLSL_STRUCT_HAS_CXX20
+	template<static_size_array T>
+		#else
+	template<class T, std::enable_if_t<is_static_size_array_v<T>, bool> = true>
+		#endif
+	static _GLSL_STRUCT_CONSTEXPR17 size_t array_static_size_v = array_traits<T>::static_size;
+
+		/**
+		 * @brief get pointer to data of array
+		 * @ingroup utils
+		 */
+		#if _GLSL_STRUCT_HAS_CXX20
 	template<array T>
-	#else
+		#else
 	template<class T, std::enable_if_t<is_array_v<T>, bool> = true>
-	#endif
-	[[nodiscard]] static inline _GLSL_STRUCT_CONSTEXPR17 const array_value_type_t<T>* get_array_data(const T& value) {
+		#endif
+	[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 const array_value_type_t<T>* get_array_data(const T& value) {
 		return array_traits<T>::data(value);
 	}
 
-	/**
-	 * @brief get size of array
-	 * @ingroup utils
-	 */
-	#if _GLSL_STRUCT_HAS_CXX20
+		/**
+		 * @brief get size of array
+		 * @ingroup utils
+		 */
+		#if _GLSL_STRUCT_HAS_CXX20
 	template<array T>
-	#else
+		#else
 	template<class T, std::enable_if_t<is_array_v<T>, bool> = true>
-	#endif
-	[[nodiscard]] static inline _GLSL_STRUCT_CONSTEXPR17 size_t get_array_size(const T& value) {
+		#endif
+	[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 size_t get_array_size(const T& value) {
 		return array_traits<T>::size(value);
 	}
+
+		#pragma endregion
+
+		#pragma region IS_ARRAY_OF
 
 	/**
 	 * @brief helper struct for is_array_of_v check
@@ -216,6 +279,38 @@ namespace glslstruct::utils {
 	 */
 	template<template<class, class...> class Test, class T, class... Args>
 	static _GLSL_STRUCT_CONSTEXPR17 bool is_array_of_v = is_array_of<Test, T, is_array_v<T>, Args...>::value;
+
+	/**
+	 * @brief helper struct for is_static_size_array_of_v check
+	 * @ingroup utils
+	 * @tparam Test test template struct with static value bool
+	 * @tparam T type to checks
+	 * @tparam isArray check if T is array type
+	 * @tparam Args aditional Test arguments
+	 */
+	template<template<class, class...> class Test, class T, bool isArray = false, class... Args>
+	struct is_static_size_array_of_impl : std::false_type {};
+
+	template<template<class, class...> class Test, class T, class... Args>
+	struct is_static_size_array_of_impl<Test, T, true, Args...> : Test<array_value_type_t<T>, Args...> {};
+
+	/**
+	 * @brief checks if value type is array of type and if type passes given test template struct
+	 * @tparam Test test template struct with static value bool
+	 * @tparam T type to checks
+	 * @tparam Args aditional Test arguments
+	 * @ingroup utils
+	 */
+	template<template<class, class...> class Test, class T, class... Args>
+	struct is_static_size_array_of : is_static_size_array_of_impl<Test, T, is_array_v<T>, Args...> {};
+
+	/**
+	 * @brief checks if value type is array of type
+	 * @ingroup utils
+	 */
+	template<template<class, class...> class Test, class T, class... Args>
+	static _GLSL_STRUCT_CONSTEXPR17 bool is_static_size_array_of_v = is_static_size_array_of<Test, T, Args...>::value;
+		#pragma endregion
 } // namespace glslstruct::utils
 
 	#endif

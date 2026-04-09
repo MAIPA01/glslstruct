@@ -474,8 +474,8 @@ namespace glslstruct {
 		}
 
 		/// @brief sets struct
-		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 bool _set_struct(const std::string_view name, [[maybe_unused]] const layout_type& layout,
-		  const std::byte* data, const size_t bytesCount) {
+		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 bool _set_struct(const std::string_view name,
+		  [[maybe_unused]] const layout_type& layout, const std::byte* data, const size_t bytesCount) {
 		#if _GLSL_STRUCT_HAS_TYPE_CHECKS
 			glsl_struct_assert(_struct_check(name, layout.get_variables()),
 			  "Type mismatch! (If you don't want to see this error disable type checks)");
@@ -484,8 +484,8 @@ namespace glslstruct {
 		}
 
 		/// @brief sets struct array
-		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR20 bool _set_struct_array(const std::string_view name, [[maybe_unused]] const layout_type& layout,
-		  const std::vector<std::byte>* values, const size_t valuesCount) {
+		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR20 bool _set_struct_array(const std::string_view name,
+		  [[maybe_unused]] const layout_type& layout, const std::vector<std::byte>* values, const size_t valuesCount) {
 		#if _GLSL_STRUCT_HAS_TYPE_CHECKS
 			glsl_struct_assert(_struct_array_check(name, layout.get_variables()),
 			  "Type mismatch! (If you don't want to see this error disable type checks)");
@@ -811,14 +811,28 @@ namespace glslstruct {
 		_GLSL_STRUCT_CONSTEXPR20 std::vector<size_t> add(const std::string_view name,
 		  const size_t count) _GLSL_STRUCT_REQUIRES(std::is_default_constructible_v<utils::array_value_type_t<SA> >) {
 			using S = utils::array_value_type_t<SA>;
-			if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<bool, S>) {
-				const std::vector<uint8_t> values(count, S());
-				return _add_scalar_array<bool>(name, reinterpret_cast<const bool*>(values.data()), values.size());
-			}
-			else {
-				const std::vector<S> values(count, S());
-				return _add_scalar_array(name, values.data(), values.size());
-			}
+				if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<bool, S>) {
+					const std::vector<uint8_t> values(count, S());
+					return _add_scalar_array<bool>(name, reinterpret_cast<const bool*>(values.data()), values.size());
+				}
+				else {
+					const std::vector<S> values(count, S());
+					return _add_scalar_array(name, values.data(), values.size());
+				}
+		}
+
+		/// @brief adds array of scalars
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<utils::glsl_scalars_static_size_array SA>
+		#else
+		template<class SA, std::enable_if_t<utils::is_glsl_scalars_static_size_array_v<SA> &&
+											  std::is_default_constructible_v<utils::array_value_type_t<SA> >,
+							 bool> = true>
+		#endif
+		_GLSL_STRUCT_CONSTEXPR20 std::vector<size_t> add(
+		  const std::string_view name
+		) _GLSL_STRUCT_REQUIRES(std::is_default_constructible_v<utils::array_value_type_t<SA> >) {
+			return add<SA>(name, utils::array_static_size_v<SA>);
 		}
 
 		/// @brief adds array of scalars
@@ -884,6 +898,20 @@ namespace glslstruct {
 			return _add_vec_array(name, values.data(), values.size());
 		}
 
+		/// @brief adds array of default vecs
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<utils::glsl_vecs_static_size_array VA>
+		#else
+		template<class VA, std::enable_if_t<utils::is_glsl_vecs_static_size_array_v<VA> &&
+											  std::is_default_constructible_v<utils::array_value_type_t<VA> >,
+							 bool> = true>
+		#endif
+		_GLSL_STRUCT_CONSTEXPR20 std::vector<size_t> add(
+		  const std::string_view name
+		) _GLSL_STRUCT_REQUIRES(std::is_default_constructible_v<utils::array_value_type_t<VA> >) {
+			return add<VA>(name, utils::array_static_size_v<VA>);
+		}
+
 		/// @brief adds array of vecs
 		#if _GLSL_STRUCT_HAS_CXX20
 		template<utils::glsl_vecs_array VA>
@@ -945,6 +973,20 @@ namespace glslstruct {
 			using M = utils::array_value_type_t<MA>;
 			const std::vector<M> values(count, M());
 			return _add_mat_array(name, values.data(), values.size());
+		}
+
+		/// @brief adds array of default mats
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<utils::glsl_mats_static_size_array MA>
+		#else
+		template<class MA, std::enable_if_t<utils::is_glsl_mats_static_size_array_v<MA> &&
+											  std::is_default_constructible_v<utils::array_value_type_t<MA> >,
+							 bool> = true>
+		#endif
+		_GLSL_STRUCT_CONSTEXPR20 std::vector<size_t> add(
+		  const std::string_view name
+		) _GLSL_STRUCT_REQUIRES(std::is_default_constructible_v<utils::array_value_type_t<MA> >) {
+			return add<MA>(name, utils::array_static_size_v<MA>);
 		}
 
 		/// @brief adds array of mats
@@ -1061,6 +1103,20 @@ namespace glslstruct {
 			return _set_scalar_array(name, values.data(), values.size());
 		}
 
+		/// @brief sets scalar array value with array of default values
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<utils::glsl_scalars_static_size_array SA>
+		#else
+		template<class SA, std::enable_if_t<utils::is_glsl_scalars_static_size_array_v<SA> &&
+											  std::is_default_constructible_v<utils::array_value_type_t<SA> >,
+							 bool> = true>
+		#endif
+		_GLSL_STRUCT_CONSTEXPR20 bool set(
+		  const std::string_view name
+		) _GLSL_STRUCT_REQUIRES(std::is_default_constructible_v<utils::array_value_type_t<SA> >) {
+			return set<SA>(name, utils::array_static_size_v<SA>);
+		}
+
 		/// @brief sets scalar array value with array of values
 		#if _GLSL_STRUCT_HAS_CXX20
 		template<utils::glsl_scalars_array SA>
@@ -1122,6 +1178,20 @@ namespace glslstruct {
 			return _set_vec_array(name, values.data(), values.size());
 		}
 
+		/// @brief sets vec array value with array of default values
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<utils::glsl_vecs_static_size_array VA>
+		#else
+		template<class VA, std::enable_if_t<utils::is_glsl_vecs_static_size_array_v<VA> &&
+											  std::is_default_constructible_v<utils::array_value_type_t<VA> >,
+							 bool> = true>
+		#endif
+		_GLSL_STRUCT_CONSTEXPR20 bool set(
+		  const std::string_view name
+		) _GLSL_STRUCT_REQUIRES(std::is_default_constructible_v<utils::array_value_type_t<VA> >) {
+			return set<VA>(name, utils::array_static_size_v<VA>);
+		}
+
 		/// @brief sets vec array value with array of values
 		#if _GLSL_STRUCT_HAS_CXX20
 		template<utils::glsl_vecs_array VA>
@@ -1181,6 +1251,20 @@ namespace glslstruct {
 			using M = utils::array_value_type_t<MA>;
 			const std::vector<M> values(count, M());
 			return _set_mat_array(name, values.data(), values.size());
+		}
+
+		/// @brief sets mat array value with array of default values
+		#if _GLSL_STRUCT_HAS_CXX20
+		template<utils::glsl_mats_static_size_array MA>
+		#else
+		template<class MA, std::enable_if_t<utils::is_glsl_mats_static_size_array_v<MA> &&
+											  std::is_default_constructible_v<utils::array_value_type_t<MA> >,
+							 bool> = true>
+		#endif
+		_GLSL_STRUCT_CONSTEXPR20 bool set(
+		  const std::string_view name
+		) _GLSL_STRUCT_REQUIRES(std::is_default_constructible_v<utils::array_value_type_t<MA> >) {
+			return set<MA>(name, utils::array_static_size_v<MA>);
 		}
 
 		/// @brief sets mat array value with array of values

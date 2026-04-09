@@ -73,7 +73,7 @@ namespace glslstruct {
 		};
 
 		template<class T>
-		static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_scalar_v = glsl_scalar<T>;
+		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_scalar_v = glsl_scalar<T>;
 
 		template<class T>
 		struct is_glsl_scalar : std::bool_constant<is_glsl_scalar_v<T> > {};
@@ -89,18 +89,26 @@ namespace glslstruct {
 			: std::true_type {};
 
 		template<class T>
-		static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_scalar_v = is_glsl_scalar<T>::value;
+		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_scalar_v = is_glsl_scalar<T>::value;
 		#endif
 		#pragma endregion
 
-		#pragma region IS_SCALARS_VECTOR
+		#pragma region IS_SCALARS_ARRAY
 		/**
 		 * @brief Bool value which is true if type V is array of types that passes is_glsl_scalar test
 		 * @ingroup utils
 		 * @tparam V type that is checked
 		 */
 		template<class V>
-		static _GLSL_STRUCT_CONSTEXPR17 const bool is_glsl_scalars_array_v = is_array_of_v<is_glsl_scalar, V>;
+		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_scalars_array_v = is_array_of_v<is_glsl_scalar, V>;
+
+		/**
+		 * @brief Bool value which is true if type V is static size array of types that passes is_glsl_scalar test
+		 * @ingroup utils
+		 * @tparam V type that is checked
+		 */
+		template<class V>
+		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_scalars_static_size_array_v = is_static_size_array_of_v<is_glsl_scalar, V>;
 
 		#if _GLSL_STRUCT_HAS_CXX20
 		/**
@@ -108,7 +116,14 @@ namespace glslstruct {
 		 * @ingroup utils
 		 * @tparam V type that is checked
 		 */
-		template<class V> concept glsl_scalars_array = is_glsl_scalars_array_v<V>;
+		template<class V> concept glsl_scalars_array			 = is_glsl_scalars_array_v<V>;
+
+		/**
+		 * @brief Concept which is true if type V is static size array of types that passes is_glsl_scalar test
+		 * @ingroup utils
+		 * @tparam V type that is checked
+		 */
+		template<class V> concept glsl_scalars_static_size_array = is_glsl_scalars_static_size_array_v<V>;
 		#endif
 		#pragma endregion
 		#pragma endregion

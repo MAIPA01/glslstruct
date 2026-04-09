@@ -149,7 +149,7 @@ TEST(std140_layout, add_scalars_array) {
 
 #pragma region BOOL_ARRAY
 	results = { 0, 16 };
-	ret		= structLayout.add<bool>("Bools", 2);
+	ret		= structLayout.add<bool[2]>("Bools");
 	EXPECT_EQ(ret, results);
 
 	#if _GLSL_STRUCT_HAS_TYPES
@@ -174,7 +174,7 @@ TEST(std140_layout, add_scalars_array) {
 
 #pragma region INT_ARRAY
 	results = { 32, 48 };
-	ret		= structLayout.add<int>("Ints", 2);
+	ret		= structLayout.add<std::array<int, 2>>("Ints");
 	EXPECT_EQ(ret, results);
 
 	#if _GLSL_STRUCT_HAS_TYPES
@@ -224,7 +224,7 @@ TEST(std140_layout, add_scalars_array) {
 
 #pragma region FLOAT_ARRAY
 	results = { 96, 112 };
-	ret		= structLayout.add<float>("Floats", 2);
+	ret		= structLayout.add<std::vector<float>>("Floats", 2);
 	EXPECT_EQ(ret, results);
 
 	#if _GLSL_STRUCT_HAS_TYPES
