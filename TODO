@@ -1,6 +1,7 @@
 - add variable arrays (just add possibility to resize array if it is last variable)
 
 - add documentation to parser
+- check writers (too much repetition same code)
 
 // Final
 - make tests for every layout type
