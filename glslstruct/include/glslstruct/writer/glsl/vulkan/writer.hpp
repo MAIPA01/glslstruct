@@ -54,54 +54,15 @@ namespace glslstruct {
 	 * @brief struct to vulkan glsl writer
 	 */
 	class glsl_vulkan_writer {
-	private:
-		/// @brief result
-		std::string _result										   = "";
+		/// @brief glsl writer instance
+		utils::glsl_writer _writer;
 
-		/// @brief struct name generator idx
-		size_t _structIdx										   = 0;
-		/// @brief struct name generator idx
-		mstd::ordered_map<struct_type, std::string> _uniqueStructs = {};
-
-		/// @brief unique names of all strucs, UBOs and SSBOs
-		std::unordered_set<std::string> _uniqueNames			   = {};
-
-		/// @breif returns layout string
-		[[nodiscard]] static std::string _get_layout(size_t set, size_t binding, std::string_view stdType = "");
-
-		/// @brief appends struct body to result
-		void _append_struct_body(std::string_view structBody);
-
-		/// @brief returns struct body string
-		[[nodiscard]] std::string _get_struct_body(std::string_view type, std::string_view name, bool canHaveVariableSizeArray,
-		  const mstd::ordered_map<std::string, var_data>& variables);
-
-		/// @brief appends buffer body to result
-		void _append_buffer_body(size_t set, size_t binding, std::string_view name, std::string_view varName,
-		  std::string_view bufferType, bool canHaveVariableSizeArray, const mstd::ordered_map<std::string, var_data>& variables,
-		  std::string_view stdType = "");
-
-		/// @brief appends shader storage buffer body (SSBO)
-		void _append_shader_storage_buffer_body(size_t set, size_t binding, std::string_view name, std::string_view varName,
-		  std::string_view stdType, const mstd::ordered_map<std::string, var_data>& variables, std::string_view qualifiers = "");
-
-		/// @brief returns true if struct, UBO or SSBO with given name already was appended
-		[[nodiscard]] bool _contains_name(std::string_view name);
+		/// @brief returns layout data string
+		[[nodiscard]] static std::string _get_layout_data(size_t set, size_t binding, std::string_view stdType = "");
 
 	public:
 		/// @brief default constructor
 		glsl_vulkan_writer();
-
-		/// @brief type visitor
-		template<class Type>
-		void visit(Type&& varType) {
-			using T = std::decay_t<Type>;
-				if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, struct_type>) {
-						if (_uniqueStructs.contains(varType)) { return; }
-
-					append_struct(varType);
-				}
-		}
 
 		/// @brief appends struct with given name
 		void append_struct(std::string_view name, const struct_type& structType);

@@ -33,7 +33,7 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 		#endif
 
 		#if _GLSL_STRUCT_HAS_PARSER
-			#include <glslstruct/parser/parser.hpp>
+			#include <glslstruct/parser/base_parser.hpp>
 		#endif
 
 	#endif

@@ -112,6 +112,80 @@ namespace glslstruct::utils {
 	 */
 	[[nodiscard]] std::string get_glsl_variable_string(std::string_view name, const base_type_handle& varType,
 	  bool canBeVariableSize, const mstd::ordered_map<struct_type, std::string>& structsNames);
+
+	/**
+	 * @ingroup utils
+	 * @brief general glsl writer
+	 */
+	class glsl_writer {
+	private:
+		/// @brief result
+		std::string _result										   = "";
+
+		/// @brief struct name generator idx
+		size_t _structIdx										   = 0;
+		/// @brief struct name generator idx
+		mstd::ordered_map<struct_type, std::string> _uniqueStructs = {};
+
+		/// @brief unique names of all strucs, UBOs and SSBOs
+		std::unordered_set<std::string> _uniqueNames			   = {};
+
+		/// @breif returns layout string
+		[[nodiscard]] static std::string _get_layout(std::string_view layoutData);
+
+		/// @brief appends struct body to result
+		void _append_struct_body(std::string_view structBody);
+
+		/// @brief returns struct body string
+		[[nodiscard]] std::string _get_struct_body(std::string_view type, std::string_view name, bool canHaveVariableSizeArray,
+		  const mstd::ordered_map<std::string, var_data>& variables);
+
+		/// @brief appends buffer body to result
+		void _append_buffer_body(std::string_view layoutData, std::string_view name, std::string_view bufferType,
+		  bool canHaveVariableSizeArray, const mstd::ordered_map<std::string, var_data>& variables,
+		  std::string_view varName = "");
+
+		/// @brief appends shader storage buffer body (SSBO)
+		void _append_shader_storage_buffer_body(std::string_view layoutData, std::string_view name,
+		  const mstd::ordered_map<std::string, var_data>& variables, std::string_view varName = "",
+		  std::string_view qualifiers = "");
+
+		/// @brief returns true if struct, UBO or SSBO with given name already was appended
+		[[nodiscard]] bool _contains_name(std::string_view name);
+
+	public:
+		/// @brief default constructor
+		glsl_writer();
+
+		/// @brief type visitor
+		template<class Type>
+		void visit(Type&& varType) {
+			using T = std::decay_t<Type>;
+				if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, struct_type>) {
+						if (_uniqueStructs.contains(varType)) { return; }
+
+					append_struct(varType);
+				}
+		}
+
+		/// @brief appends struct with given name
+		void append_struct(std::string_view name, const struct_type& structType);
+
+		/// @brief appends struct with generated name
+		void append_struct(const struct_type& structType);
+
+		/// @brief appends uniform buffer
+		void append_uniform_buffer(std::string_view layoutData, std::string_view name,
+		  const mstd::ordered_map<std::string, var_data>& variables, std::string_view varName = "");
+
+		/// @brief appends shader storage buffer
+		void append_shader_storage_buffer(std::string_view layoutData, std::string_view name,
+		  const mstd::ordered_map<std::string, var_data>& variables, std::string_view varName = "",
+		  std::string_view qualifiers = "");
+
+		/// @brief returns result string
+		[[nodiscard]] const std::string& to_string() const noexcept;
+	};
 } // namespace glslstruct::utils
 
 		#include <glslstruct/writer/glsl/opengl/writer.hpp>
