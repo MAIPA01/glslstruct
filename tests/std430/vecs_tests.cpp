@@ -400,7 +400,7 @@ TEST(std430_layout, add_vectors_array) {
 	structLayout.clear();
 
 #pragma region BVEC2_ARRAY
-	results = { 0, 16 };
+	results = { 0, 8 };
 	ret		= structLayout.add<bvec2>("Bools", 2);
 	EXPECT_EQ(ret, results);
 
@@ -408,7 +408,7 @@ TEST(std430_layout, add_vectors_array) {
 	base = structLayout.get_type("Bools");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<array_type>(ValueType::Bool, 2, 8, 2, 24);
+	temp_type = std::make_shared<array_type>(ValueType::Bool, 2, 8, 2, 16);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
@@ -420,12 +420,12 @@ TEST(std430_layout, add_vectors_array) {
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
 #endif
 
-	EXPECT_EQ(structLayout.get_size("Bools"), 24);
+	EXPECT_EQ(structLayout.get_size("Bools"), 16);
 	EXPECT_EQ(structLayout.get_array_count("Bools"), 2);
 #pragma endregion
 
 #pragma region IVEC2_ARRAY
-	results = { 32, 48 };
+	results = { 16, 24 };
 	ret		= structLayout.add<ivec2>("Ints", 2);
 	EXPECT_EQ(ret, results);
 
@@ -433,7 +433,7 @@ TEST(std430_layout, add_vectors_array) {
 	base = structLayout.get_type("Ints");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<array_type>(ValueType::Int, 2, 8, 2, 24);
+	temp_type = std::make_shared<array_type>(ValueType::Int, 2, 8, 2, 16);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
@@ -445,12 +445,12 @@ TEST(std430_layout, add_vectors_array) {
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
 #endif
 
-	EXPECT_EQ(structLayout.get_size("Ints"), 24);
+	EXPECT_EQ(structLayout.get_size("Ints"), 16);
 	EXPECT_EQ(structLayout.get_array_count("Ints"), 2);
 #pragma endregion
 
 #pragma region UVEC2_ARRAY
-	results = { 64, 80 };
+	results = { 32, 40 };
 	ret		= structLayout.add<uvec2>("Uints", 2);
 	EXPECT_EQ(ret, results);
 
@@ -458,7 +458,7 @@ TEST(std430_layout, add_vectors_array) {
 	base = structLayout.get_type("Uints");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<array_type>(ValueType::Uint, 2, 8, 2, 24);
+	temp_type = std::make_shared<array_type>(ValueType::Uint, 2, 8, 2, 16);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
@@ -470,12 +470,12 @@ TEST(std430_layout, add_vectors_array) {
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
 #endif
 
-	EXPECT_EQ(structLayout.get_size("Uints"), 24);
+	EXPECT_EQ(structLayout.get_size("Uints"), 16);
 	EXPECT_EQ(structLayout.get_array_count("Uints"), 2);
 #pragma endregion
 
 #pragma region VEC2_ARRAY
-	results = { 96, 112 };
+	results = { 48, 56 };
 	ret		= structLayout.add<vec2>("Floats", 2);
 	EXPECT_EQ(ret, results);
 
@@ -483,7 +483,7 @@ TEST(std430_layout, add_vectors_array) {
 	base = structLayout.get_type("Floats");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<array_type>(ValueType::Float, 2, 8, 2, 24);
+	temp_type = std::make_shared<array_type>(ValueType::Float, 2, 8, 2, 16);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
@@ -495,12 +495,12 @@ TEST(std430_layout, add_vectors_array) {
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
 #endif
 
-	EXPECT_EQ(structLayout.get_size("Floats"), 24);
+	EXPECT_EQ(structLayout.get_size("Floats"), 16);
 	EXPECT_EQ(structLayout.get_array_count("Floats"), 2);
 #pragma endregion
 
 #pragma region DVEC2_ARRAY
-	results = { 128, 144 };
+	results = { 64, 80 };
 	ret		= structLayout.add<dvec2>("Doubles", 2);
 	EXPECT_EQ(ret, results);
 

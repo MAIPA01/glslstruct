@@ -148,7 +148,7 @@ TEST(std430_layout, add_scalars_array) {
 	#endif
 
 #pragma region BOOL_ARRAY
-	results = { 0, 16 };
+	results = { 0, 4 };
 	ret		= structLayout.add<bool[2]>("Bools");
 	EXPECT_EQ(ret, results);
 
@@ -156,7 +156,7 @@ TEST(std430_layout, add_scalars_array) {
 	base = structLayout.get_type("Bools");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<array_type>(ValueType::Bool, 4, 2, 20);
+	temp_type = std::make_shared<array_type>(ValueType::Bool, 4, 2, 8);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
@@ -168,12 +168,12 @@ TEST(std430_layout, add_scalars_array) {
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
 	#endif
 
-	EXPECT_EQ(structLayout.get_size("Bools"), 20);
+	EXPECT_EQ(structLayout.get_size("Bools"), 8);
 	EXPECT_EQ(structLayout.get_array_count("Bools"), 2);
 #pragma endregion
 
 #pragma region INT_ARRAY
-	results = { 32, 48 };
+	results = { 8, 12 };
 	ret		= structLayout.add<std::array<int, 2>>("Ints");
 	EXPECT_EQ(ret, results);
 
@@ -181,7 +181,7 @@ TEST(std430_layout, add_scalars_array) {
 	base = structLayout.get_type("Ints");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<array_type>(ValueType::Int, 4, 2, 20);
+	temp_type = std::make_shared<array_type>(ValueType::Int, 4, 2, 8);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
@@ -193,12 +193,12 @@ TEST(std430_layout, add_scalars_array) {
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
 	#endif
 
-	EXPECT_EQ(structLayout.get_size("Ints"), 20);
+	EXPECT_EQ(structLayout.get_size("Ints"), 8);
 	EXPECT_EQ(structLayout.get_array_count("Ints"), 2);
 #pragma endregion
 
 #pragma region UINT_ARRAY
-	results = { 64, 80 };
+	results = { 16, 20 };
 	ret		= structLayout.add<unsigned int>("Uints", 2);
 	EXPECT_EQ(ret, results);
 
@@ -206,7 +206,7 @@ TEST(std430_layout, add_scalars_array) {
 	base = structLayout.get_type("Uints");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<array_type>(ValueType::Uint, 4, 2, 20);
+	temp_type = std::make_shared<array_type>(ValueType::Uint, 4, 2, 8);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
@@ -218,12 +218,12 @@ TEST(std430_layout, add_scalars_array) {
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
 	#endif
 
-	EXPECT_EQ(structLayout.get_size("Uints"), 20);
+	EXPECT_EQ(structLayout.get_size("Uints"), 8);
 	EXPECT_EQ(structLayout.get_array_count("Uints"), 2);
 #pragma endregion
 
 #pragma region FLOAT_ARRAY
-	results = { 96, 112 };
+	results = { 24, 28 };
 	ret		= structLayout.add<std::vector<float>>("Floats", 2);
 	EXPECT_EQ(ret, results);
 
@@ -231,7 +231,7 @@ TEST(std430_layout, add_scalars_array) {
 	base = structLayout.get_type("Floats");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<array_type>(ValueType::Float, 4, 2, 20);
+	temp_type = std::make_shared<array_type>(ValueType::Float, 4, 2, 8);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
@@ -243,12 +243,12 @@ TEST(std430_layout, add_scalars_array) {
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
 	#endif
 
-	EXPECT_EQ(structLayout.get_size("Floats"), 20);
+	EXPECT_EQ(structLayout.get_size("Floats"), 8);
 	EXPECT_EQ(structLayout.get_array_count("Floats"), 2);
 #pragma endregion
 
 #pragma region DOUBLE_ARRAY
-	results = { 128, 144 };
+	results = { 32, 40 };
 	ret		= structLayout.add<double>("Doubles", 2);
 	EXPECT_EQ(ret, results);
 
@@ -256,7 +256,7 @@ TEST(std430_layout, add_scalars_array) {
 	base = structLayout.get_type("Doubles");
 	EXPECT_EQ(*base, *base);
 
-	temp_type = std::make_shared<array_type>(ValueType::Double, 8, 2, 24);
+	temp_type = std::make_shared<array_type>(ValueType::Double, 8, 2, 16);
 	EXPECT_EQ(*base, *temp_type);
 
 	casted_type = dynamic_type_cast<array_type>(base);
@@ -268,7 +268,7 @@ TEST(std430_layout, add_scalars_array) {
 	EXPECT_EQ(casted_type->get_size(), temp_type->get_size());
 	#endif
 
-	EXPECT_EQ(structLayout.get_size("Doubles"), 24);
+	EXPECT_EQ(structLayout.get_size("Doubles"), 16);
 	EXPECT_EQ(structLayout.get_array_count("Doubles"), 2);
 #pragma endregion
 }

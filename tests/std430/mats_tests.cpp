@@ -23,7 +23,7 @@ TEST(std430_layout, add_matrixes) {
 	base = structLayout.get_type("Bool");
 	EXPECT_EQ(*base, *base);
 
-	tempType = std::make_shared<mat_type>(ValueType::Bool, 2, 2, 24);
+	tempType = std::make_shared<mat_type>(ValueType::Bool, 2, 2, 16);
 	EXPECT_EQ(*base, *tempType);
 
 	castedType = dynamic_type_cast<mat_type>(base);
@@ -38,19 +38,19 @@ TEST(std430_layout, add_matrixes) {
 	EXPECT_EQ(castedType->get_size(), tempType->get_size());
 #endif
 
-	EXPECT_EQ(structLayout.get_size("Bool"), 24);
+	EXPECT_EQ(structLayout.get_size("Bool"), 16);
 	EXPECT_EQ(structLayout.get_array_count("Bool"), 2);
 #pragma endregion
 
 #pragma region IMAT2x2
 	ret = structLayout.add<imat2>("Int").front();
-	EXPECT_EQ(ret, 32);
+	EXPECT_EQ(ret, 16);
 
 #if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Int");
 	EXPECT_EQ(*base, *base);
 
-	tempType = std::make_shared<mat_type>(ValueType::Int, 2, 2, 24);
+	tempType = std::make_shared<mat_type>(ValueType::Int, 2, 2, 16);
 	EXPECT_EQ(*base, *tempType);
 
 	castedType = dynamic_type_cast<mat_type>(base);
@@ -65,19 +65,19 @@ TEST(std430_layout, add_matrixes) {
 	EXPECT_EQ(castedType->get_size(), tempType->get_size());
 #endif
 
-	EXPECT_EQ(structLayout.get_size("Int"), 24);
+	EXPECT_EQ(structLayout.get_size("Int"), 16);
 	EXPECT_EQ(structLayout.get_array_count("Int"), 2);
 #pragma endregion
 
 #pragma region UMAT2x2
 	ret = structLayout.add<umat2>("Uint").front();
-	EXPECT_EQ(ret, 64);
+	EXPECT_EQ(ret, 32);
 
 #if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Uint");
 	EXPECT_EQ(*base, *base);
 
-	tempType = std::make_shared<mat_type>(ValueType::Uint, 2, 2, 24);
+	tempType = std::make_shared<mat_type>(ValueType::Uint, 2, 2, 16);
 	EXPECT_EQ(*base, *tempType);
 
 	castedType = dynamic_type_cast<mat_type>(base);
@@ -92,19 +92,19 @@ TEST(std430_layout, add_matrixes) {
 	EXPECT_EQ(castedType->get_size(), tempType->get_size());
 #endif
 
-	EXPECT_EQ(structLayout.get_size("Uint"), 24);
+	EXPECT_EQ(structLayout.get_size("Uint"), 16);
 	EXPECT_EQ(structLayout.get_array_count("Uint"), 2);
 #pragma endregion
 
 #pragma region MAT2x2
 	ret = structLayout.add<fmat2>("Float").front();
-	EXPECT_EQ(ret, 96);
+	EXPECT_EQ(ret, 48);
 
 #if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Float");
 	EXPECT_EQ(*base, *base);
 
-	tempType = std::make_shared<mat_type>(ValueType::Float, 2, 2, 24);
+	tempType = std::make_shared<mat_type>(ValueType::Float, 2, 2, 16);
 	EXPECT_EQ(*base, *tempType);
 
 	castedType = dynamic_type_cast<mat_type>(base);
@@ -119,13 +119,13 @@ TEST(std430_layout, add_matrixes) {
 	EXPECT_EQ(castedType->get_size(), tempType->get_size());
 #endif
 
-	EXPECT_EQ(structLayout.get_size("Float"), 24);
+	EXPECT_EQ(structLayout.get_size("Float"), 16);
 	EXPECT_EQ(structLayout.get_array_count("Float"), 2);
 #pragma endregion
 
 #pragma region DMAT2x2
 	ret = structLayout.add<dmat2>("Double").front();
-	EXPECT_EQ(ret, 128);
+	EXPECT_EQ(ret, 64);
 
 #if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Double");
@@ -440,7 +440,7 @@ TEST(std430_layout, add_matrixes) {
 	base = structLayout.get_type("Uint");
 	EXPECT_EQ(*base, *base);
 
-	tempType = std::make_shared<mat_type>(ValueType::Uint, 3, 2, 40);
+	tempType = std::make_shared<mat_type>(ValueType::Uint, 3, 2, 24);
 	EXPECT_EQ(*base, *tempType);
 
 	castedType = dynamic_type_cast<mat_type>(base);
@@ -455,13 +455,13 @@ TEST(std430_layout, add_matrixes) {
 	EXPECT_EQ(castedType->get_size(), tempType->get_size());
 #endif
 
-	EXPECT_EQ(structLayout.get_size("Uint"), 40);
+	EXPECT_EQ(structLayout.get_size("Uint"), 24);
 	EXPECT_EQ(structLayout.get_array_count("Uint"), 3);
 #pragma endregion
 
 #pragma region DMAT3x2
 	ret = structLayout.add<dmat3x2>("Double").front();
-	EXPECT_EQ(ret, 48);
+	EXPECT_EQ(ret, 32);
 
 #if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Double");
@@ -614,7 +614,7 @@ TEST(std430_layout, add_matrixes) {
 	base = structLayout.get_type("Uint");
 	EXPECT_EQ(*base, *base);
 
-	tempType = std::make_shared<mat_type>(ValueType::Uint, 4, 2, 56);
+	tempType = std::make_shared<mat_type>(ValueType::Uint, 4, 2, 32);
 	EXPECT_EQ(*base, *tempType);
 
 	castedType = dynamic_type_cast<mat_type>(base);
@@ -629,13 +629,13 @@ TEST(std430_layout, add_matrixes) {
 	EXPECT_EQ(castedType->get_size(), tempType->get_size());
 #endif
 
-	EXPECT_EQ(structLayout.get_size("Uint"), 56);
+	EXPECT_EQ(structLayout.get_size("Uint"), 32);
 	EXPECT_EQ(structLayout.get_array_count("Uint"), 4);
 #pragma endregion
 
 #pragma region DMAT4x2
 	ret = structLayout.add<dmat4x2>("Double").front();
-	EXPECT_EQ(ret, 64);
+	EXPECT_EQ(ret, 32);
 
 #if _GLSL_STRUCT_HAS_TYPES
 	base = structLayout.get_type("Double");
@@ -793,7 +793,7 @@ TEST(std430_layout, add_marixes_array) {
 	structLayout.clear();
 
 #pragma region BMAT2x2_ARRAY
-	results = { 0, 32 };
+	results = { 0, 16 };
 	tempRet = structLayout.add<bmat2>("Bools", 2);
 
 	ret.clear();
@@ -805,7 +805,7 @@ TEST(std430_layout, add_marixes_array) {
 	base = structLayout.get_type("Bools");
 	EXPECT_EQ(*base, *base);
 
-	tempType = std::make_shared<array_type>(ValueType::Bool, 2, 2, 24, 2, 56);
+	tempType = std::make_shared<array_type>(ValueType::Bool, 2, 2, 16, 2, 32);
 	EXPECT_EQ(*base, *tempType);
 
 	castedType = dynamic_type_cast<array_type>(base);
@@ -817,12 +817,12 @@ TEST(std430_layout, add_marixes_array) {
 	EXPECT_EQ(castedType->get_size(), tempType->get_size());
 #endif
 
-	EXPECT_EQ(structLayout.get_size("Bools"), 56);
+	EXPECT_EQ(structLayout.get_size("Bools"), 32);
 	EXPECT_EQ(structLayout.get_array_count("Bools"), 2);
 #pragma endregion
 
 #pragma region IMAT2x2_ARRAY
-	results = { 64, 96 };
+	results = { 32, 48 };
 	tempRet = structLayout.add<imat2>("Ints", 2);
 
 	ret.clear();
@@ -834,7 +834,7 @@ TEST(std430_layout, add_marixes_array) {
 	base = structLayout.get_type("Ints");
 	EXPECT_EQ(*base, *base);
 
-	tempType = std::make_shared<array_type>(ValueType::Int, 2, 2, 24, 2, 56);
+	tempType = std::make_shared<array_type>(ValueType::Int, 2, 2, 16, 2, 32);
 	EXPECT_EQ(*base, *tempType);
 
 	castedType = dynamic_type_cast<array_type>(base);
@@ -846,12 +846,12 @@ TEST(std430_layout, add_marixes_array) {
 	EXPECT_EQ(castedType->get_size(), tempType->get_size());
 #endif
 
-	EXPECT_EQ(structLayout.get_size("Ints"), 56);
+	EXPECT_EQ(structLayout.get_size("Ints"), 32);
 	EXPECT_EQ(structLayout.get_array_count("Ints"), 2);
 #pragma endregion
 
 #pragma region UMAT2x2_ARRAY
-	results = { 128, 160 };
+	results = { 64, 80 };
 	tempRet = structLayout.add<umat2>("Uints", 2);
 
 	ret.clear();
@@ -863,7 +863,7 @@ TEST(std430_layout, add_marixes_array) {
 	base = structLayout.get_type("Uints");
 	EXPECT_EQ(*base, *base);
 
-	tempType = std::make_shared<array_type>(ValueType::Uint, 2, 2, 24, 2, 56);
+	tempType = std::make_shared<array_type>(ValueType::Uint, 2, 2, 16, 2, 32);
 	EXPECT_EQ(*base, *tempType);
 
 	castedType = dynamic_type_cast<array_type>(base);
@@ -875,12 +875,12 @@ TEST(std430_layout, add_marixes_array) {
 	EXPECT_EQ(castedType->get_size(), tempType->get_size());
 #endif
 
-	EXPECT_EQ(structLayout.get_size("Uints"), 56);
+	EXPECT_EQ(structLayout.get_size("Uints"), 32);
 	EXPECT_EQ(structLayout.get_array_count("Uints"), 2);
 #pragma endregion
 
 #pragma region MAT2x2_ARRAY
-	results = { 192, 224 };
+	results = { 96, 112 };
 	tempRet = structLayout.add<fmat2>("Floats", 2);
 
 	ret.clear();
@@ -892,7 +892,7 @@ TEST(std430_layout, add_marixes_array) {
 	base = structLayout.get_type("Floats");
 	EXPECT_EQ(*base, *base);
 
-	tempType = std::make_shared<array_type>(ValueType::Float, 2, 2, 24, 2, 56);
+	tempType = std::make_shared<array_type>(ValueType::Float, 2, 2, 16, 2, 32);
 	EXPECT_EQ(*base, *tempType);
 
 	castedType = dynamic_type_cast<array_type>(base);
@@ -904,12 +904,12 @@ TEST(std430_layout, add_marixes_array) {
 	EXPECT_EQ(castedType->get_size(), tempType->get_size());
 #endif
 
-	EXPECT_EQ(structLayout.get_size("Floats"), 56);
+	EXPECT_EQ(structLayout.get_size("Floats"), 32);
 	EXPECT_EQ(structLayout.get_array_count("Floats"), 2);
 #pragma endregion
 
 #pragma region DMAT2x2_ARRAY
-	results = { 256, 288 };
+	results = { 128, 160 };
 	tempRet = structLayout.add<dmat2>("Doubles", 2);
 
 	ret.clear();
@@ -1240,7 +1240,7 @@ TEST(std430_layout, add_marixes_array) {
 	structLayout.clear();
 
 #pragma region UMAT3x2_ARRAY
-	results = { 0, 48 };
+	results = { 0, 24 };
 	tempRet = structLayout.add<umat3x2>("Uints", 2);
 
 	ret.clear();
@@ -1252,7 +1252,7 @@ TEST(std430_layout, add_marixes_array) {
 	base = structLayout.get_type("Uints");
 	EXPECT_EQ(*base, *base);
 
-	tempType = std::make_shared<array_type>(ValueType::Uint, 3, 2, 40, 2, 88);
+	tempType = std::make_shared<array_type>(ValueType::Uint, 3, 2, 24, 2, 48);
 	EXPECT_EQ(*base, *tempType);
 
 	castedType = dynamic_type_cast<array_type>(base);
@@ -1264,12 +1264,12 @@ TEST(std430_layout, add_marixes_array) {
 	EXPECT_EQ(castedType->get_size(), tempType->get_size());
 #endif
 
-	EXPECT_EQ(structLayout.get_size("Uints"), 88);
+	EXPECT_EQ(structLayout.get_size("Uints"), 48);
 	EXPECT_EQ(structLayout.get_array_count("Uints"), 2);
 #pragma endregion
 
 #pragma region DMAT3x2_ARRAY
-	results = { 96, 144 };
+	results = { 48, 96 };
 	tempRet = structLayout.add<dmat3x2>("Doubles", 2);
 
 	ret.clear();
@@ -1426,7 +1426,7 @@ TEST(std430_layout, add_marixes_array) {
 	structLayout.clear();
 
 #pragma region UMAT4x2_ARRAY
-	results = { 0, 64 };
+	results = { 0, 32 };
 	tempRet = structLayout.add<umat4x2>("Uints", 2);
 
 	ret.clear();
@@ -1438,7 +1438,7 @@ TEST(std430_layout, add_marixes_array) {
 	base = structLayout.get_type("Uints");
 	EXPECT_EQ(*base, *base);
 
-	tempType = std::make_shared<array_type>(ValueType::Uint, 4, 2, 56, 2, 120);
+	tempType = std::make_shared<array_type>(ValueType::Uint, 4, 2, 32, 2, 64);
 	EXPECT_EQ(*base, *tempType);
 
 	castedType = dynamic_type_cast<array_type>(base);
@@ -1450,12 +1450,12 @@ TEST(std430_layout, add_marixes_array) {
 	EXPECT_EQ(castedType->get_size(), tempType->get_size());
 #endif
 
-	EXPECT_EQ(structLayout.get_size("Uints"), 120);
+	EXPECT_EQ(structLayout.get_size("Uints"), 64);
 	EXPECT_EQ(structLayout.get_array_count("Uints"), 2);
 #pragma endregion
 
 #pragma region DMAT4x2_ARRAY
-	results = { 128, 192 };
+	results = { 64, 128 };
 	tempRet = structLayout.add<dmat4x2>("Doubles", 2);
 
 	ret.clear();

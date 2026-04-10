@@ -307,43 +307,48 @@ TEST(scalar_struct, constructor_and_get) {
 	EXPECT_EQ(ret, 64);
 
 	ret = uiElement.get_offset("sprite");
-	EXPECT_EQ(ret, 80);
+	EXPECT_EQ(ret, 72);
 
 	// SPRITE sub Values
 	ret = uiElement.get_offset("sprite.offset");
-	EXPECT_EQ(ret, 80);
+	EXPECT_EQ(ret, 72);
 	ret = uiElement.get_offset("sprite.size");
-	EXPECT_EQ(ret, 88);
+	EXPECT_EQ(ret, 80);
 	ret = uiElement.get_offset("sprite.isActive");
-	EXPECT_EQ(ret, 96);
+	EXPECT_EQ(ret, 88);
 
 	ret = uiElement.get_offset("fill");
-	EXPECT_EQ(ret, 104);
+	EXPECT_EQ(ret, 92);
 
 	// FILL sub Values
 	ret = uiElement.get_offset("fill.type");
-	EXPECT_EQ(ret, 104);
+	EXPECT_EQ(ret, 92);
 	ret = uiElement.get_offset("fill.subType");
-	EXPECT_EQ(ret, 108);
+	EXPECT_EQ(ret, 96);
 	ret = uiElement.get_offset("fill.offset");
-	EXPECT_EQ(ret, 112);
+	EXPECT_EQ(ret, 100);
 	ret = uiElement.get_offset("fill.progress");
-	EXPECT_EQ(ret, 116);
+	EXPECT_EQ(ret, 104);
 	ret = uiElement.get_offset("fill.rotation");
-	EXPECT_EQ(ret, 120);
+	EXPECT_EQ(ret, 108);
 	ret = uiElement.get_offset("fill.isActive");
-	EXPECT_EQ(ret, 124);
+	EXPECT_EQ(ret, 112);
 
 	ret = uiElement.get_offset("color");
-	EXPECT_EQ(ret, 128);
+	EXPECT_EQ(ret, 116);
 	ret = uiElement.get_offset("isText");
-	EXPECT_EQ(ret, 144);
+	EXPECT_EQ(ret, 132);
 	ret = uiElement.size();
-	EXPECT_EQ(ret, 148);
+	EXPECT_EQ(ret, 136);
 #pragma endregion
 
 #pragma region TEXTURE
-	scalar_struct texture { glsl_value<uvec2>("size"), glsl_value<bool>("isActive") };
+	// clang-format off
+	scalar_struct texture {
+		glsl_value<uvec2>("size"),
+		glsl_value<bool>("isActive")
+	};
+	// clang-format on
 	ret = texture.get_offset("size");
 	EXPECT_EQ(ret, 0);
 	ret = texture.get_offset("isActive");
@@ -353,9 +358,14 @@ TEST(scalar_struct, constructor_and_get) {
 #pragma endregion
 
 #pragma region SSBO
-	scalar_struct ssbo { glsl_value<scalar_struct, 8>("uiElements", uiElement.get_layout()),
-		glsl_value<scalar_struct>("elementTexture", texture), glsl_value<int>("elementLayer") };
-	std::vector<size_t> resultVec { 0, 160, 320, 480, 640, 800, 960, 1120 };
+	// clang-format off
+	scalar_struct ssbo {
+		glsl_value<scalar_struct, 8>("uiElements", uiElement.get_layout()),
+		glsl_value<scalar_struct>("elementTexture", texture),
+		glsl_value<int>("elementLayer")
+	};
+	// clang-format on
+	std::vector<size_t> resultVec { 0, 136, 272, 408, 544, 680, 816, 952 };
 	retVec = ssbo.get_array_offsets("uiElements");
 	EXPECT_EQ(retVec, resultVec);
 
@@ -370,50 +380,50 @@ TEST(scalar_struct, constructor_and_get) {
 	EXPECT_EQ(ret, 64);
 
 	ret = ssbo.get_offset("uiElements[0].sprite");
-	EXPECT_EQ(ret, 80);
+	EXPECT_EQ(ret, 72);
 
 	// SPRITE sub Values
 	ret = ssbo.get_offset("uiElements[0].sprite.offset");
-	EXPECT_EQ(ret, 80);
+	EXPECT_EQ(ret, 72);
 	ret = ssbo.get_offset("uiElements[0].sprite.size");
-	EXPECT_EQ(ret, 88);
+	EXPECT_EQ(ret, 80);
 	ret = ssbo.get_offset("uiElements[0].sprite.isActive");
-	EXPECT_EQ(ret, 96);
+	EXPECT_EQ(ret, 88);
 
 	ret = ssbo.get_offset("uiElements[0].fill");
-	EXPECT_EQ(ret, 104);
+	EXPECT_EQ(ret, 92);
 
 	// FILL sub Values
 	ret = ssbo.get_offset("uiElements[0].fill.type");
-	EXPECT_EQ(ret, 104);
+	EXPECT_EQ(ret, 92);
 	ret = ssbo.get_offset("uiElements[0].fill.subType");
-	EXPECT_EQ(ret, 108);
+	EXPECT_EQ(ret, 96);
 	ret = ssbo.get_offset("uiElements[0].fill.offset");
-	EXPECT_EQ(ret, 112);
+	EXPECT_EQ(ret, 100);
 	ret = ssbo.get_offset("uiElements[0].fill.progress");
-	EXPECT_EQ(ret, 116);
+	EXPECT_EQ(ret, 104);
 	ret = ssbo.get_offset("uiElements[0].fill.rotation");
-	EXPECT_EQ(ret, 120);
+	EXPECT_EQ(ret, 108);
 	ret = ssbo.get_offset("uiElements[0].fill.isActive");
-	EXPECT_EQ(ret, 124);
+	EXPECT_EQ(ret, 112);
 
 	ret = ssbo.get_offset("uiElements[0].color");
-	EXPECT_EQ(ret, 128);
+	EXPECT_EQ(ret, 116);
 	ret = ssbo.get_offset("uiElements[0].isText");
-	EXPECT_EQ(ret, 144);
+	EXPECT_EQ(ret, 132);
 
 	ret = ssbo.get_offset("elementTexture");
-	EXPECT_EQ(ret, 1280);
+	EXPECT_EQ(ret, 1088);
 
 	// TEXTURE SUB VALUES
 	ret = ssbo.get_offset("elementTexture.size");
-	EXPECT_EQ(ret, 1280);
+	EXPECT_EQ(ret, 1088);
 	ret = ssbo.get_offset("elementTexture.isActive");
-	EXPECT_EQ(ret, 1288);
+	EXPECT_EQ(ret, 1096);
 
 	ret = ssbo.get_offset("elementLayer");
-	EXPECT_EQ(ret, 1296);
+	EXPECT_EQ(ret, 1100);
 	ret = ssbo.size();
-	EXPECT_EQ(ret, 1300);
+	EXPECT_EQ(ret, 1104);
 #pragma endregion
 }

@@ -125,12 +125,12 @@ TEST(std140_struct, writer) {
 	glsl_opengl_writer glWriter;
 	glWriter.append_struct("SubTest", *test.get_type<struct_type>("struct"));
 	glWriter.append_shader_storage_buffer(0, "Test", test);
-	//std::cout << "OPENGL: \n" << glWriter.to_string() << std::endl << std::endl << std::endl;
+	// std::cout << "OPENGL: \n" << glWriter.to_string() << std::endl << std::endl << std::endl;
 
 	glsl_vulkan_writer vkWriter;
 	vkWriter.append_struct("SubTest", *test.get_type<struct_type>("struct"));
 	vkWriter.append_shader_storage_buffer(0, 0, "Test", "ssbo", test, "readonly");
-	//std::cout << "VULKAN: \n" << vkWriter.to_string() << std::endl;
+	// std::cout << "VULKAN: \n" << vkWriter.to_string() << std::endl;
 }
 #endif
 
@@ -208,7 +208,7 @@ TEST(std140_struct, parser) {
 	ASSERT_TRUE(test.contains("i"));
 	ASSERT_TRUE(test.contains("i.g"));
 
-	//std::cout << glWriter.to_string() << std::endl;
+	// std::cout << glWriter.to_string() << std::endl;
 #endif
 }
 
@@ -231,7 +231,12 @@ TEST(std140_struct, constructor_and_get) {
 	std::vector<size_t> retVec;
 
 #pragma region RECT
-	std140_struct rect { glsl_value<mat4>("transform", mat4(1.f)), glsl_value<vec2>("size") };
+	// clang-format off
+	std140_struct rect {
+		glsl_value<mat4>("transform", mat4(1.f)),
+		glsl_value<vec2>("size")
+	};
+	// clang-format on
 	auto transform = rect.get<mat4>("transform");
 	EXPECT_EQ(transform, mat4(1.f));
 	ret = rect.get_offset("transform");
@@ -243,7 +248,13 @@ TEST(std140_struct, constructor_and_get) {
 #pragma endregion
 
 #pragma region SPRITE
-	std140_struct sprite { glsl_value<uvec2>("offset"), glsl_value<uvec2>("size"), glsl_value<bool>("isActive") };
+	// clang-format off
+	std140_struct sprite {
+		glsl_value<uvec2>("offset"),
+		glsl_value<uvec2>("size"),
+		glsl_value<bool>("isActive")
+	};
+	// clang-format on
 	ret = sprite.get_offset("offset");
 	EXPECT_EQ(ret, 0);
 	ret = sprite.get_offset("size");
@@ -255,8 +266,16 @@ TEST(std140_struct, constructor_and_get) {
 #pragma endregion
 
 #pragma region FILL
-	std140_struct fill { glsl_value<unsigned int>("type"), glsl_value<unsigned int>("subType"), glsl_value<float>("offset"),
-		glsl_value<float>("progress"), glsl_value<float>("rotation"), glsl_value<bool>("isActive") };
+	// clang-format off
+	std140_struct fill {
+		glsl_value<unsigned int>("type"),
+		glsl_value<unsigned int>("subType"),
+		glsl_value<float>("offset"),
+		glsl_value<float>("progress"),
+		glsl_value<float>("rotation"),
+		glsl_value<bool>("isActive")
+	};
+	// clang-format on
 	ret = fill.get_offset("type");
 	EXPECT_EQ(ret, 0);
 	ret = fill.get_offset("subType");
@@ -274,8 +293,15 @@ TEST(std140_struct, constructor_and_get) {
 #pragma endregion
 
 #pragma region UIElement
-	std140_struct uiElement { glsl_value<std140_struct>("rect", rect), glsl_value<std140_struct>("sprite", sprite),
-		glsl_value<std140_struct>("fill", fill), glsl_value<vec4>("color"), glsl_value<bool>("isText") };
+	// clang-format off
+	std140_struct uiElement {
+		glsl_value<std140_struct>("rect", rect),
+		glsl_value<std140_struct>("sprite", sprite),
+		glsl_value<std140_struct>("fill", fill),
+		glsl_value<vec4>("color"),
+		glsl_value<bool>("isText")
+	};
+	// clang-format on
 	ret = uiElement.get_offset("rect");
 	EXPECT_EQ(ret, 0);
 
@@ -297,32 +323,37 @@ TEST(std140_struct, constructor_and_get) {
 	EXPECT_EQ(ret, 96);
 
 	ret = uiElement.get_offset("fill");
-	EXPECT_EQ(ret, 104);
+	EXPECT_EQ(ret, 112);
 
 	// FILL sub Values
 	ret = uiElement.get_offset("fill.type");
-	EXPECT_EQ(ret, 104);
-	ret = uiElement.get_offset("fill.subType");
-	EXPECT_EQ(ret, 108);
-	ret = uiElement.get_offset("fill.offset");
 	EXPECT_EQ(ret, 112);
-	ret = uiElement.get_offset("fill.progress");
+	ret = uiElement.get_offset("fill.subType");
 	EXPECT_EQ(ret, 116);
-	ret = uiElement.get_offset("fill.rotation");
+	ret = uiElement.get_offset("fill.offset");
 	EXPECT_EQ(ret, 120);
-	ret = uiElement.get_offset("fill.isActive");
+	ret = uiElement.get_offset("fill.progress");
 	EXPECT_EQ(ret, 124);
+	ret = uiElement.get_offset("fill.rotation");
+	EXPECT_EQ(ret, 128);
+	ret = uiElement.get_offset("fill.isActive");
+	EXPECT_EQ(ret, 132);
 
 	ret = uiElement.get_offset("color");
-	EXPECT_EQ(ret, 128);
-	ret = uiElement.get_offset("isText");
 	EXPECT_EQ(ret, 144);
+	ret = uiElement.get_offset("isText");
+	EXPECT_EQ(ret, 160);
 	ret = uiElement.size();
-	EXPECT_EQ(ret, 148);
+	EXPECT_EQ(ret, 164);
 #pragma endregion
 
 #pragma region TEXTURE
-	std140_struct texture { glsl_value<uvec2>("size"), glsl_value<bool>("isActive") };
+	// clang-format off
+	std140_struct texture {
+		glsl_value<uvec2>("size"),
+		glsl_value<bool>("isActive")
+	};
+	// clang-format on
 	ret = texture.get_offset("size");
 	EXPECT_EQ(ret, 0);
 	ret = texture.get_offset("isActive");
@@ -332,9 +363,14 @@ TEST(std140_struct, constructor_and_get) {
 #pragma endregion
 
 #pragma region SSBO
-	std140_struct ssbo { glsl_value<std140_struct, 8>("uiElements", uiElement.get_layout()),
-		glsl_value<std140_struct>("elementTexture", texture), glsl_value<int>("elementLayer") };
-	std::vector<size_t> resultVec { 0, 160, 320, 480, 640, 800, 960, 1120 };
+	// clang-format off
+	std140_struct ssbo {
+		glsl_value<std140_struct, 8>("uiElements", uiElement.get_layout()),
+		glsl_value<std140_struct>("elementTexture", texture),
+		glsl_value<int>("elementLayer")
+	};
+	// clang-format on
+	std::vector<size_t> resultVec { 0, 176, 352, 528, 704, 880, 1056, 1232 };
 	retVec = ssbo.get_array_offsets("uiElements");
 	EXPECT_EQ(retVec, resultVec);
 
@@ -360,39 +396,39 @@ TEST(std140_struct, constructor_and_get) {
 	EXPECT_EQ(ret, 96);
 
 	ret = ssbo.get_offset("uiElements[0].fill");
-	EXPECT_EQ(ret, 104);
+	EXPECT_EQ(ret, 112);
 
 	// FILL sub Values
 	ret = ssbo.get_offset("uiElements[0].fill.type");
-	EXPECT_EQ(ret, 104);
-	ret = ssbo.get_offset("uiElements[0].fill.subType");
-	EXPECT_EQ(ret, 108);
-	ret = ssbo.get_offset("uiElements[0].fill.offset");
 	EXPECT_EQ(ret, 112);
-	ret = ssbo.get_offset("uiElements[0].fill.progress");
+	ret = ssbo.get_offset("uiElements[0].fill.subType");
 	EXPECT_EQ(ret, 116);
-	ret = ssbo.get_offset("uiElements[0].fill.rotation");
+	ret = ssbo.get_offset("uiElements[0].fill.offset");
 	EXPECT_EQ(ret, 120);
-	ret = ssbo.get_offset("uiElements[0].fill.isActive");
+	ret = ssbo.get_offset("uiElements[0].fill.progress");
 	EXPECT_EQ(ret, 124);
+	ret = ssbo.get_offset("uiElements[0].fill.rotation");
+	EXPECT_EQ(ret, 128);
+	ret = ssbo.get_offset("uiElements[0].fill.isActive");
+	EXPECT_EQ(ret, 132);
 
 	ret = ssbo.get_offset("uiElements[0].color");
-	EXPECT_EQ(ret, 128);
-	ret = ssbo.get_offset("uiElements[0].isText");
 	EXPECT_EQ(ret, 144);
+	ret = ssbo.get_offset("uiElements[0].isText");
+	EXPECT_EQ(ret, 160);
 
 	ret = ssbo.get_offset("elementTexture");
-	EXPECT_EQ(ret, 1280);
+	EXPECT_EQ(ret, 1408);
 
 	// TEXTURE SUB VALUES
 	ret = ssbo.get_offset("elementTexture.size");
-	EXPECT_EQ(ret, 1280);
+	EXPECT_EQ(ret, 1408);
 	ret = ssbo.get_offset("elementTexture.isActive");
-	EXPECT_EQ(ret, 1288);
+	EXPECT_EQ(ret, 1416);
 
 	ret = ssbo.get_offset("elementLayer");
-	EXPECT_EQ(ret, 1296);
+	EXPECT_EQ(ret, 1424);
 	ret = ssbo.size();
-	EXPECT_EQ(ret, 1300);
+	EXPECT_EQ(ret, 1428);
 #pragma endregion
 }
