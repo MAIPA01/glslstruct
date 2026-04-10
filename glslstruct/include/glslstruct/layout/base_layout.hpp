@@ -346,7 +346,7 @@ namespace glslstruct {
 			const size_t arrayPadding				   = _calculate_padding(_currentOffset, arrayBaseAlignment);
 
 			// APPLY PADDING TO CURRENT OFFSET
-			glsl_struct_assert(_move_current_offset(_currentOffset, alignmentOffsets.back(), arrayBaseAlignment),
+			glsl_struct_assert(_move_current_offset(_currentOffset, alignmentOffsets.back() + baseOffset, arrayPadding),
 			  "Data overflow!");
 
 				// ADD VARIABLE DATA
@@ -472,7 +472,7 @@ namespace glslstruct {
 			const size_t arrayPadding				   = _calculate_padding(_currentOffset, arrayBaseAlignment);
 
 			// APPLY PADDING TO CURRENT OFFSET
-			glsl_struct_assert(_move_current_offset(_currentOffset, alignmentOffsets.back(), arrayBaseAlignment),
+			glsl_struct_assert(_move_current_offset(_currentOffset, alignmentOffsets.back() + baseOffset, arrayPadding),
 			  "Data overflow!");
 
 		// ADD VARIABLE DATA
@@ -534,7 +534,6 @@ namespace glslstruct {
 				}
 				else { matBaseAlignment = traits_type::get_array_alignment(traits_type::get_vec_alignment(valueType, rows)); }
 
-
 			// GET ALIGNMENT OFFSETS
 			const std::vector<size_t> alignmentOffsets = _add_array(_currentOffset, matBaseAlignment, vecBaseOffset, columns);
 
@@ -545,7 +544,8 @@ namespace glslstruct {
 			const size_t matPadding					   = _calculate_padding(_currentOffset, matBaseAlignment);
 
 			// APPLY PADDING TO CURRENT OFFSET
-			glsl_struct_assert(_move_current_offset(_currentOffset, alignmentOffsets.back(), matBaseAlignment), "Data overflow!");
+			glsl_struct_assert(_move_current_offset(_currentOffset, alignmentOffsets.back() + vecBaseOffset, matPadding),
+			  "Data overflow!");
 
 		// ADD VARIABLE DATA
 		#if _GLSL_STRUCT_HAS_TYPES
@@ -630,7 +630,7 @@ namespace glslstruct {
 					matPadding		 = _calculate_padding(_currentOffset, matBaseAlignment);
 
 					// APPLY PADDING TO CURRENT OFFSET
-					glsl_struct_assert(_move_current_offset(_currentOffset, alignmentOffsets.back(), matBaseAlignment),
+					glsl_struct_assert(_move_current_offset(_currentOffset, alignmentOffsets.back() + vecBaseOffset, matPadding),
 					  "Data overflow!");
 
 		// ADD VARIABLE DATA
@@ -653,7 +653,7 @@ namespace glslstruct {
 			const size_t arraySize = matsOffsets.back() + matSize - matsOffsets.front();
 
 			// APPLY PADDING TO CURRENT OFFSET
-			glsl_struct_assert(_move_current_offset(_currentOffset, matsOffsets.back(), matSize + matPadding), "Data overflow!");
+			glsl_struct_assert(_move_current_offset(_currentOffset, matsOffsets.back() + matSize, matPadding), "Data overflow!");
 
 		// ADD VARIABLE DATA
 		#if _GLSL_STRUCT_HAS_TYPES
