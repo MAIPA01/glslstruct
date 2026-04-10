@@ -41,7 +41,7 @@ namespace glslstruct {
 
 		/// @brief check if type is simple glsl type or struct with given layout
 		template<class T>
-		struct _is_glsl_simple_or_layout_struct : std::bool_constant<utils::is_glsl_simple_or_layout_struct_v<T, layout_type> > {
+		struct is_glsl_simple_or_layout_struct : std::bool_constant<utils::is_glsl_simple_or_layout_struct_v<T, layout_type> > {
 		};
 
 		/// @brief struct layout
@@ -319,16 +319,16 @@ namespace glslstruct {
 		}
 
 		/// @brief adds multiple values
-		template<class T, class... Ts, size_t num, size_t... nums>
-		_GLSL_STRUCT_CONSTEXPR17 void _add_values(const glsl_value<T, num>& value, const glsl_value<Ts, nums>&... values) {
+		template<class T, class... Ts, size_t Num, size_t... Nums>
+		_GLSL_STRUCT_CONSTEXPR17 void _add_values(const glsl_value<T, Num>& value, const glsl_value<Ts, Nums>&... values) {
 				if _GLSL_STRUCT_CONSTEXPR17 (value.is_array) {
-						if _GLSL_STRUCT_CONSTEXPR17 (value.is_struct) { add(value.var_name, value.layout, value.value); }
-						else { add(value.var_name, value.value); }
+						if _GLSL_STRUCT_CONSTEXPR17 (value.is_struct) { add(value.varName, value.layout, value.value); }
+						else { add(value.varName, value.value); }
 				}
-				else { add(value.var_name, value.value); }
+				else { add(value.varName, value.value); }
 
 
-				if _GLSL_STRUCT_CONSTEXPR17 (sizeof...(Ts) > 0 && sizeof...(nums) > 0) { _add_values(values...); }
+				if _GLSL_STRUCT_CONSTEXPR17 (sizeof...(Ts) > 0 && sizeof...(Nums) > 0) { _add_values(values...); }
 		}
 
 		#pragma endregion
@@ -695,7 +695,7 @@ namespace glslstruct {
 		template<class T = layout_type, std::enable_if_t<std::is_same_v<T, layout_type> && layout_type::has_context, bool> = true>
 		#endif
 		explicit _GLSL_STRUCT_CONSTEXPR20 base_struct(
-		  const typename layout_type::context_type& ctx
+		  const _GLSL_STRUCT_TYPENAME17 layout_type::context_type& ctx
 		) noexcept _GLSL_STRUCT_REQUIRES(layout_type::has_context)
 			: _layout(ctx) {
 		}
@@ -712,28 +712,28 @@ namespace glslstruct {
 
 		/// @brief constructor with multiple values
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_simple_or_layout_struct<layout_type>... Args, size_t... nums,
+		template<utils::glsl_simple_or_layout_struct<layout_type>... Args, size_t... Nums,
 		  std::enable_if_t<std::is_default_constructible_v<layout_type>, bool> = true>
 		#else
-		template<class... Args, size_t... nums,
-		  std::enable_if_t<mstd::all_check_v<_is_glsl_simple_or_layout_struct, Args...>, bool> = true>
+		template<class... Args, size_t... Nums,
+		  std::enable_if_t<mstd::all_check_v<is_glsl_simple_or_layout_struct, Args...>, bool> = true>
 		#endif
 		explicit _GLSL_STRUCT_CONSTEXPR20 base_struct(
-		  const glsl_value<Args, nums>&... values
+		  const glsl_value<Args, Nums>&... values
 		) noexcept _GLSL_STRUCT_REQUIRES(std::is_default_constructible_v<layout_type>) {
 			_add_values(values...);
 		}
 
 		/// @brief constructor with multiple values and context
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_simple_or_layout_struct<layout_type>... Args, size_t... nums,
+		template<utils::glsl_simple_or_layout_struct<layout_type>... Args, size_t... Nums,
 		  std::enable_if_t<layout_type::has_context, bool> = true>
 		#else
-		template<class... Args, size_t... nums,
-		  std::enable_if_t<mstd::all_check_v<_is_glsl_simple_or_layout_struct, Args...>, bool> = true>
+		template<class... Args, size_t... Nums,
+		  std::enable_if_t<mstd::all_check_v<is_glsl_simple_or_layout_struct, Args...>, bool> = true>
 		#endif
-		explicit _GLSL_STRUCT_CONSTEXPR20 base_struct(const glsl_value<Args, nums>&... values,
-		  const typename layout_type::context_type& ctx) noexcept _GLSL_STRUCT_REQUIRES(layout_type::has_context)
+		explicit _GLSL_STRUCT_CONSTEXPR20 base_struct(const glsl_value<Args, Nums>&... values,
+		  const _GLSL_STRUCT_TYPENAME17 layout_type::context_type& ctx) noexcept _GLSL_STRUCT_REQUIRES(layout_type::has_context)
 			: _layout(ctx) {
 			_add_values(values...);
 		}

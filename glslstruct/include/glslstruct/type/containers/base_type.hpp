@@ -41,10 +41,10 @@ namespace glslstruct {
 
 	protected:
 		/// @brief accept function for type visitors
-		virtual void _accept(const mstd::function_view<void(const scalar_type&)> scalar_visit,
-		  const mstd::function_view<void(const vec_type&)> vec_visit, const mstd::function_view<void(const mat_type&)> mat_visit,
-		  const mstd::function_view<void(const struct_type&)> struct_visit,
-		  const mstd::function_view<void(const array_type&)> array_visit) const = 0;
+		virtual void _accept(mstd::function_view<void(const scalar_type&)> scalarVisit,
+		  mstd::function_view<void(const vec_type&)> vecVisit, mstd::function_view<void(const mat_type&)> matVisit,
+		  mstd::function_view<void(const struct_type&)> structVisit,
+		  mstd::function_view<void(const array_type&)> arrayVisit) const = 0;
 
 	public:
 		/// @brief constructor with type size

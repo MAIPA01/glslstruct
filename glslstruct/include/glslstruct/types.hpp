@@ -24,16 +24,16 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 
 namespace glslstruct {
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_simple_or_layout T, size_t num = 0>
+	template<utils::glsl_simple_or_layout T, size_t Num = 0>
 		#else
-	template<class T, size_t num = 0, std::enable_if_t<utils::is_glsl_simple_or_layout_v<T>, bool> = true>
+	template<class T, size_t Num = 0, std::enable_if_t<utils::is_glsl_simple_or_layout_v<T>, bool> = true>
 		#endif
 	struct glsl_variable;
 
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_simple_or_struct T, size_t num = 0>
+	template<utils::glsl_simple_or_struct T, size_t Num = 0>
 		#else
-	template<class T, size_t num = 0, std::enable_if_t<utils::is_glsl_simple_or_struct_v<T>, bool> = true>
+	template<class T, size_t Num = 0, std::enable_if_t<utils::is_glsl_simple_or_struct_v<T>, bool> = true>
 		#endif
 	struct glsl_value;
 } // namespace glslstruct

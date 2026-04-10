@@ -32,7 +32,7 @@ namespace glslstruct::utils {
 		/// @brief result
 		std::string _result;
 		/// @brief defined structs names
-		mstd::ordered_map<struct_type, std::string> _structsNames = {};
+		mstd::ordered_map<struct_type, std::string> _structsNames;
 
 	public:
 		/// @brief constructor with defined structs names
@@ -72,7 +72,7 @@ namespace glslstruct::utils {
 		/// @brief check for variable size arrays
 		bool _canBeVariableSize;
 		/// @brief result
-		std::string _result = "";
+		std::string _result;
 
 	public:
 		explicit glsl_array_count_getter(bool canBeVariableSize) noexcept;
@@ -120,15 +120,15 @@ namespace glslstruct::utils {
 	class glsl_writer {
 	private:
 		/// @brief result
-		std::string _result										   = "";
+		std::string _result;
 
 		/// @brief struct name generator idx
 		size_t _structIdx										   = 0;
 		/// @brief struct name generator idx
-		mstd::ordered_map<struct_type, std::string> _uniqueStructs = {};
+		mstd::ordered_map<struct_type, std::string> _uniqueStructs;
 
 		/// @brief unique names of all strucs, UBOs and SSBOs
-		std::unordered_set<std::string> _uniqueNames			   = {};
+		std::unordered_set<std::string> _uniqueNames			  ;
 
 		/// @breif returns layout string
 		[[nodiscard]] static std::string _get_layout(std::string_view layoutData);

@@ -217,7 +217,7 @@ namespace glslstruct::utils {
 		#else
 	template<class T, std::enable_if_t<is_array_v<T>, bool> = true>
 		#endif
-	using array_value_type_t = typename array_traits<T>::value_type;
+	using array_value_type_t = _GLSL_STRUCT_TYPENAME17 array_traits<T>::value_type;
 
 		/**
 		 * @brief get static_size of static size array
@@ -267,7 +267,7 @@ namespace glslstruct::utils {
 	 * @tparam isArray check if T is array type
 	 * @tparam Args aditional Test arguments
 	 */
-	template<template<class, class...> class Test, class T, bool isArray = false, class... Args>
+	template<template<class, class...> class Test, class T, bool IsArray = false, class... Args>
 	struct is_array_of : std::false_type {};
 
 	template<template<class, class...> class Test, class T, class... Args>
@@ -288,7 +288,7 @@ namespace glslstruct::utils {
 	 * @tparam isArray check if T is array type
 	 * @tparam Args aditional Test arguments
 	 */
-	template<template<class, class...> class Test, class T, bool isArray = false, class... Args>
+	template<template<class, class...> class Test, class T, bool IsArray = false, class... Args>
 	struct is_static_size_array_of_impl : std::false_type {};
 
 	template<template<class, class...> class Test, class T, class... Args>

@@ -36,15 +36,15 @@ namespace glslstruct {
 
 	protected:
 		/// @brief accept function overload
-		void _accept(const mstd::function_view<void(const scalar_type&)> scalar_visit,
-		  const mstd::function_view<void(const vec_type&)> vec_visit, const mstd::function_view<void(const mat_type&)> mat_visit,
-		  const mstd::function_view<void(const struct_type&)> struct_visit,
-		  const mstd::function_view<void(const array_type&)> array_visit) const override {
-				if _MSTD_CONSTEXPR17 (std::is_same_v<Derived, scalar_type>) { scalar_visit(_get_derived()); }
-				else if _MSTD_CONSTEXPR17 (std::is_same_v<Derived, vec_type>) { vec_visit(_get_derived()); }
-				else if _MSTD_CONSTEXPR17 (std::is_same_v<Derived, mat_type>) { mat_visit(_get_derived()); }
-				else if _MSTD_CONSTEXPR17 (std::is_same_v<Derived, struct_type>) { struct_visit(_get_derived()); }
-				else if _MSTD_CONSTEXPR17 (std::is_same_v<Derived, array_type>) { array_visit(_get_derived()); }
+		void _accept(const mstd::function_view<void(const scalar_type&)> scalarVisit,
+		  const mstd::function_view<void(const vec_type&)> vecVisit, const mstd::function_view<void(const mat_type&)> matVisit,
+		  const mstd::function_view<void(const struct_type&)> structVisit,
+		  const mstd::function_view<void(const array_type&)> arrayVisit) const override {
+				if _MSTD_CONSTEXPR17 (std::is_same_v<Derived, scalar_type>) { scalarVisit(_get_derived()); }
+				else if _MSTD_CONSTEXPR17 (std::is_same_v<Derived, vec_type>) { vecVisit(_get_derived()); }
+				else if _MSTD_CONSTEXPR17 (std::is_same_v<Derived, mat_type>) { matVisit(_get_derived()); }
+				else if _MSTD_CONSTEXPR17 (std::is_same_v<Derived, struct_type>) { structVisit(_get_derived()); }
+				else if _MSTD_CONSTEXPR17 (std::is_same_v<Derived, array_type>) { arrayVisit(_get_derived()); }
 		}
 
 	public:

@@ -49,9 +49,9 @@ namespace glslstruct {
 		 * @tparam num number of elements in array (default is 0. if it is 0 then it is not array but a single value)
 		 */
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_simple_or_layout T, size_t num>
+	template<utils::glsl_simple_or_layout T, size_t Num>
 		#else
-	template<class T, size_t num, std::enable_if_t<utils::is_glsl_simple_or_layout_v<T>, bool> >
+	template<class T, size_t Num, std::enable_if_t<utils::is_glsl_simple_or_layout_v<T>, bool> >
 		#endif
 	struct glsl_variable
 		: public std::conditional_t<utils::is_glsl_layout_v<T>, utils::layout_variable<T>, utils::standard_variable> {
@@ -59,7 +59,7 @@ namespace glslstruct {
 		/// @brief var type
 		using var_type									  = T;
 		/// @brief size of array
-		static _GLSL_STRUCT_CONSTEXPR17 size_t array_size = num;
+		static _GLSL_STRUCT_CONSTEXPR17 size_t array_size = Num;
 		/// @brief value indicating if it is array or not
 		static _GLSL_STRUCT_CONSTEXPR17 bool is_array	  = array_size > 0;
 		/// @brief value indicating if it is layout variable or not
@@ -67,7 +67,7 @@ namespace glslstruct {
 
 		#pragma region VARIABLES
 		/// @brief variable name
-		const std::string var_name;
+		const std::string varName;
 		#pragma endregion
 
 		#pragma region NORMAL_CONSTRUCTOR
@@ -79,7 +79,7 @@ namespace glslstruct {
 		explicit _GLSL_STRUCT_CONSTEXPR20 glsl_variable(
 		  const std::string_view name
 		) noexcept _GLSL_STRUCT_REQUIRES(utils::is_glsl_simple_v<T>)
-			: var_name(name) {
+			: varName(name) {
 		}
 
 		#pragma endregion
@@ -92,7 +92,7 @@ namespace glslstruct {
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 glsl_variable(const std::string_view name,
 		  const T& layout) noexcept _GLSL_STRUCT_REQUIRES(utils::is_glsl_layout_v<T>)
-			: utils::layout_variable<T>(layout), var_name(name) {
+			: utils::layout_variable<T>(layout), varName(name) {
 		}
 
 		#pragma endregion

@@ -45,7 +45,7 @@ namespace glslstruct {
 				}
 				else {
 					const auto* valuesPtr = reinterpret_cast<const std::byte*>(values.data());
-					return { valuesPtr, valuesPtr + sizeof(T) * N };
+					return { valuesPtr, valuesPtr + (sizeof(T) * N) };
 				}
 		}
 

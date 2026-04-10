@@ -44,7 +44,7 @@ namespace glslstruct {
 		template<class Traits>
 		struct layout_with_context {
 			/// @brief context type
-			using context_type = typename Traits::context_type;
+			using context_type = _GLSL_STRUCT_TYPENAME17 Traits::context_type;
 
 		protected:
 			/// @brief context value
@@ -100,9 +100,9 @@ namespace glslstruct {
 		  std::conditional_t<has_context, utils::layout_with_context<traits_type>, utils::layout_without_context>;
 
 		/// @brief variables data
-		mstd::ordered_map<std::string, var_data> _variables = {};
+		mstd::ordered_map<std::string, var_data> _variables;
 		/// @brief current offset
-		size_t _currentOffset								= 0;
+		size_t _currentOffset = 0;
 
 		#pragma region VARIABLE_SET
 		/// @brief sets variable data
@@ -252,33 +252,71 @@ namespace glslstruct {
 
 		#pragma endregion
 
-		#pragma region SPECIALIZED_ADD
+		#pragma region BEFORE_ADD_EVENTS
 
-		/// @brief adds scalar
-		[[nodiscard]] size_t _add_scalar(const std::string_view name, const ValueType valueType) {
-				// BEFORE ADD SCALAR
+		void _before_add() {
+				if _GLSL_STRUCT_CONSTEXPR17 (has_context) { traits_type::before_add(_currentOffset, base_struct::_context); }
+				else { traits_type::before_add(_currentOffset); }
+		}
+
+		void _before_add_scalar() {
 				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_before_add_scalar_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
 							traits_type::before_add_scalar(_currentOffset, base_struct::_context);
 						}
 						else { traits_type::before_add_scalar(_currentOffset); }
 				}
-				else if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_before_add_v<traits_type>) {
-						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::before_add(_currentOffset, base_struct::_context);
-						}
-						else { traits_type::before_add(_currentOffset); }
+				else if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_before_add_v<traits_type>) { _before_add(); }
+		}
+
+		#pragma endregion
+
+		#pragma region AFTER_ADD_EVENTS
+
+		void _after_add(const size_t baseOffset, const size_t baseAlignment) {
+				if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
+					traits_type::after_add(_currentOffset, baseOffset, baseAlignment, base_struct::_context);
 				}
+				else { traits_type::after_add(_currentOffset, baseOffset, baseAlignment); }
+		}
+
+		void _after_add_scalar(const size_t baseOffset, const size_t baseAlignment) {
+				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_after_add_scalar_v<traits_type>) {
+						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
+							traits_type::after_add_scalar(_currentOffset, baseOffset, baseAlignment, base_struct::_context);
+						}
+						else { traits_type::after_add_scalar(_currentOffset, baseOffset, baseAlignment); }
+				}
+				else if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_after_add_v<traits_type>) {
+					_after_add(baseOffset, baseAlignment);
+				}
+		}
+
+		#pragma endregion
+
+		#pragma region GET_ALIGNMENT
+
+		[[nodiscard]] size_t _get_scalar_alignment(const ValueType valueType) {
+				if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
+					return traits_type::get_scalar_alignment(valueType, base_struct::_context);
+				}
+				else { return traits_type::get_scalar_alignment(valueType); }
+		}
+
+		#pragma endregion
+
+		#pragma region SPECIALIZED_ADD
+
+		/// @brief adds scalar
+		[[nodiscard]] size_t _add_scalar(const std::string_view name, const ValueType valueType) {
+			// BEFORE ADD SCALAR
+			_before_add_scalar();
 
 			// GET BASE OFFSET
-			const size_t baseOffset = get_value_type_size(valueType);
+			const size_t baseOffset		 = get_value_type_size(valueType);
 
 			// GET BASE ALIGNMENT
-			size_t baseAlignment	= 0;
-				if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-					baseAlignment = traits_type::get_scalar_alignment(valueType, base_struct::_context);
-				}
-				else { baseAlignment = traits_type::get_scalar_alignment(valueType); }
+			const size_t baseAlignment		 = _get_scalar_alignment(valueType);
 
 			// GET ALIGNMENT OFFSET
 			const size_t alignmentOffset = _add(_currentOffset, baseAlignment, baseOffset);
@@ -290,19 +328,8 @@ namespace glslstruct {
 			_add_variable(name, alignmentOffset, true, baseOffset);
 		#endif
 
-				// AFTER ADD SCALAR
-				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_after_add_scalar_v<traits_type>) {
-						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::after_add_scalar(_currentOffset, baseOffset, baseAlignment, base_struct::_context);
-						}
-						else { traits_type::after_add_scalar(_currentOffset, baseOffset, baseAlignment); }
-				}
-				else if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_after_add_v<traits_type>) {
-						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
-							traits_type::after_add(_currentOffset, baseOffset, baseAlignment, base_struct::_context);
-						}
-						else { traits_type::after_add(_currentOffset, baseOffset, baseAlignment); }
-				}
+			// AFTER ADD SCALAR
+			_after_add_scalar(baseOffset, baseAlignment);
 
 			return alignmentOffset;
 		}
@@ -819,18 +846,18 @@ namespace glslstruct {
 		}
 
 		/// @brief adds multiple variables
-		template<class T, class... Ts, size_t num, size_t... nums>
-		_GLSL_STRUCT_CONSTEXPR17 void _add_variables(const glsl_variable<T, num>& var,
-		  const glsl_variable<Ts, nums>&... vars) noexcept {
+		template<class T, class... Ts, size_t Num, size_t... Nums>
+		_GLSL_STRUCT_CONSTEXPR17 void _add_variables(const glsl_variable<T, Num>& var,
+		  const glsl_variable<Ts, Nums>&... vars) noexcept {
 				if _GLSL_STRUCT_CONSTEXPR17 (var.is_layout) {
-						if _GLSL_STRUCT_CONSTEXPR17 (var.is_array) { add(var.var_name, var.layout, num); }
-						else { add(var.var_name, var.layout); }
+						if _GLSL_STRUCT_CONSTEXPR17 (var.is_array) { add(var.varName, var.layout, Num); }
+						else { add(var.varName, var.layout); }
 				}
 				else {
-						if _GLSL_STRUCT_CONSTEXPR17 (var.is_array) { add<T>(var.var_name, num); }
-						else { add<T>(var.var_name); }
+						if _GLSL_STRUCT_CONSTEXPR17 (var.is_array) { add<T>(var.varName, Num); }
+						else { add<T>(var.varName); }
 				}
-				if _GLSL_STRUCT_CONSTEXPR17 (sizeof...(Ts) > 0 && sizeof...(nums) > 0) { _add_variables(vars...); }
+				if _GLSL_STRUCT_CONSTEXPR17 (sizeof...(Ts) > 0 && sizeof...(Nums) > 0) { _add_variables(vars...); }
 		}
 
 		#pragma endregion
@@ -851,13 +878,13 @@ namespace glslstruct {
 
 		/// @brief constructor for multiple variables
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<class... Ts, size_t... nums>
+		template<class... Ts, size_t... Nums>
 		#else
-		template<class... Ts, size_t... nums,
+		template<class... Ts, size_t... Nums,
 		  std::enable_if_t<!has_context || (has_context && std::is_default_constructible_v<base_struct>), bool> = true>
 		#endif
 		explicit base_layout(
-		  const glsl_variable<Ts, nums>&... vars
+		  const glsl_variable<Ts, Nums>&... vars
 		) noexcept _GLSL_STRUCT_REQUIRES(!has_context || (has_context && std::is_default_constructible_v<base_struct>))
 			: base_struct() {
 			_add_variables(vars...);
@@ -870,18 +897,20 @@ namespace glslstruct {
 		#if !_GLSL_STRUCT_HAS_CXX20
 		template<class T = traits_type, std::enable_if_t<has_context && std::is_same_v<T, traits_type>, bool> = true>
 		#endif
-		explicit base_layout(const typename base_struct::context_type& ctx) noexcept _GLSL_STRUCT_REQUIRES(has_context)
+		explicit base_layout(const _GLSL_STRUCT_TYPENAME17 base_struct::context_type& ctx) noexcept _GLSL_STRUCT_REQUIRES(
+		  has_context
+		)
 			: base_struct(ctx) {
 		}
 
 		/// @brief constructor for multiple variables and with provided context
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<class... Ts, size_t... nums>
+		template<class... Ts, size_t... Nums>
 		#else
-		template<class... Ts, size_t... nums, std::enable_if_t<has_context, bool> = true>
+		template<class... Ts, size_t... Nums, std::enable_if_t<has_context, bool> = true>
 		#endif
-		explicit base_layout(const glsl_variable<Ts, nums>&... vars,
-		  const typename base_struct::context_type& ctx) noexcept _GLSL_STRUCT_REQUIRES(has_context)
+		explicit base_layout(const glsl_variable<Ts, Nums>&... vars,
+		  const _GLSL_STRUCT_TYPENAME17 base_struct::context_type& ctx) noexcept _GLSL_STRUCT_REQUIRES(has_context)
 			: base_struct(ctx) {
 			_add_variables(vars...);
 		}

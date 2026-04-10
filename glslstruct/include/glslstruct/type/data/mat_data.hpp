@@ -42,7 +42,7 @@ namespace glslstruct {
 		[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR20 std::vector<vec_data> _get_data(const mstd::mat<C, R, T>& value) {
 			static_assert(std::is_trivially_copyable_v<T>, "T must be trivially copyable to be treated as raw bytes!!");
 
-			using column_type = typename mstd::mat<C, R, T>::column_type;
+			using column_type = _GLSL_STRUCT_TYPENAME17 mstd::mat<C, R, T>::column_type;
 
 			std::vector<vec_data> data;
 				for (size_t c = 0; c < C; ++c) { data.emplace_back(column_type(value[c])); }

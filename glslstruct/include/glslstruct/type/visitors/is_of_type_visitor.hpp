@@ -82,7 +82,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] inline _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const base_type_handle& type) {
+	[[nodiscard]] _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const base_type_handle& type) {
 		is_of_type_visitor<T> visitor;
 		type->accept(visitor);
 		return visitor.result();
@@ -97,7 +97,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] inline _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const std::shared_ptr<T>&) {
+	[[nodiscard]] _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const std::shared_ptr<T>&) {
 		return true;
 	}
 
@@ -119,7 +119,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] inline _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const std::shared_ptr<T>&, const BaseType baseType) {
+	[[nodiscard]] _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const std::shared_ptr<T>&, const BaseType baseType) {
 			switch (baseType) {
 			case BaseType::Scalar: return std::is_same_v<T, scalar_type>;
 			case BaseType::Vec:	   return std::is_same_v<T, vec_type>;
@@ -174,7 +174,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] inline _GLSL_STRUCT_CONSTEXPR20 std::shared_ptr<T> static_type_cast(const base_type_handle& type) {
+	[[nodiscard]] _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 std::shared_ptr<T> static_type_cast(const base_type_handle& type) {
 		std::shared_ptr<T> result = dynamic_type_cast<T>(type);
 		glsl_struct_assert(result != nullptr, "Cannot convert type to desired type!");
 		return result;

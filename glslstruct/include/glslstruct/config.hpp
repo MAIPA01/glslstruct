@@ -224,9 +224,18 @@
 	#if _GLSL_STRUCT_HAS_CXX20
 		#define _GLSL_STRUCT_CONSTEXPR20		 constexpr
 		#define _GLSL_STRUCT_REQUIRES(condition) requires (condition)
+#define _GLSL_STRUCT_INLINE17
+#define _GLSL_STRUCT_TYPENAME17
 	#else
 		#define _GLSL_STRUCT_CONSTEXPR20
 		#define _GLSL_STRUCT_REQUIRES(condition)
+#if _GLSL_STRUCT_HAS_CXX17
+#define _GLSL_STRUCT_INLINE17 inline
+#define _GLSL_STRUCT_TYPENAME17 typename
+#else
+#define _GLSL_STRUCT_INLINE17
+#define _GLSL_STRUCT_TYPENAME17
+#endif
 	#endif
 	#pragma endregion
 

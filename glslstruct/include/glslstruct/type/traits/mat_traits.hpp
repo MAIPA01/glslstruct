@@ -91,7 +91,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
 		#endif
-	static inline _GLSL_STRUCT_CONSTEXPR17 size_t get_mat_columns() noexcept {
+	static _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR17 size_t get_mat_columns() noexcept {
 		return mat_traits<T>::get_columns();
 	}
 
@@ -101,7 +101,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
 		#endif
-	static inline _GLSL_STRUCT_CONSTEXPR17 size_t get_mat_rows() noexcept {
+	static _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR17 size_t get_mat_rows() noexcept {
 		return mat_traits<T>::get_rows();
 	}
 
@@ -111,7 +111,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
 		#endif
-	static inline _GLSL_STRUCT_CONSTEXPR17 ValueType get_mat_value_type() noexcept {
+	static _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR17 ValueType get_mat_value_type() noexcept {
 		return mat_traits<T>::get_value_type();
 	}
 

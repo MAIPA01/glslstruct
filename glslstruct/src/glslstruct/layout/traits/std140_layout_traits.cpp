@@ -29,11 +29,13 @@ size_t std140_layout_traits::get_vec_alignment(const ValueType valueType, const 
 }
 
 size_t std140_layout_traits::get_array_alignment(const size_t elemBaseAlignment, context_type&) noexcept {
-	return ceil_to_nearest_multiple(elemBaseAlignment, 16);
+	static _GLSL_STRUCT_CONSTEXPR17 size_t alignment_multiple = 16;
+	return ceil_to_nearest_multiple(elemBaseAlignment, alignment_multiple);
 }
 
 size_t std140_layout_traits::get_struct_alignment(const context_type& ctx) noexcept {
-	return ceil_to_nearest_multiple(ctx.maxAlignment, 16);
+	static _GLSL_STRUCT_CONSTEXPR17 size_t alignment_multiple = 16;
+	return ceil_to_nearest_multiple(ctx.maxAlignment, alignment_multiple);
 }
 
 void std140_layout_traits::before_add(size_t& currentOffset, context_type& ctx) noexcept {

@@ -236,12 +236,12 @@ namespace glslstruct {
 		using _ssbo_pattern											  = utils::ssbo_parser_pattern<_layout_type>;
 
 		/// @brief returns true if given layout can be used by ubo
-		static _GLSL_STRUCT_CONSTEXPR17 bool _has_ubo_pattern		  = utils::has_ubo_pattern_v<_layout_type>;
+		static _GLSL_STRUCT_CONSTEXPR17 bool has_ubo_pattern		  = utils::has_ubo_pattern_v<_layout_type>;
 		/// @brief returns true if given layout can be used by ssbo
-		static _GLSL_STRUCT_CONSTEXPR17 bool _has_ssbo_pattern		  = utils::has_ssbo_pattern_v<_layout_type>;
+		static _GLSL_STRUCT_CONSTEXPR17 bool has_ssbo_pattern		  = utils::has_ssbo_pattern_v<_layout_type>;
 
 		/// @brief loaded and not converted to layouts structs bodies
-		std::unordered_map<std::string, std::string> _structsBodies	  = {};
+		std::unordered_map<std::string, std::string> _structsBodies;
 		/// @brief loaded and converted to layouts structs
 		std::unordered_map<std::string, _layout_type> _structsLayouts = {};
 
@@ -330,14 +330,14 @@ namespace glslstruct {
 		#pragma region MAT_VARIABLE
 
 		/// @brief adds mat with name and with provided rows to struct or layout
-		template<class T, size_t cols, class S>
+		template<class T, size_t Cols, class S>
 		static _GLSL_STRUCT_CONSTEXPR17 S& _add_mat_variable(S& ref, const size_t rows, const std::string_view name,
 		  const size_t count) {
 				switch (rows) {
 				default:
-				case 2:	 return _add_variable<glm::mat<cols, 2, T> >(ref, name, count);
-				case 3:	 return _add_variable<glm::mat<cols, 3, T> >(ref, name, count);
-				case 4:	 return _add_variable<glm::mat<cols, 4, T> >(ref, name, count);
+				case 2:	 return _add_variable<glm::mat<Cols, 2, T> >(ref, name, count);
+				case 3:	 return _add_variable<glm::mat<Cols, 3, T> >(ref, name, count);
+				case 4:	 return _add_variable<glm::mat<Cols, 4, T> >(ref, name, count);
 				}
 		}
 
@@ -378,13 +378,13 @@ namespace glslstruct {
 					return std::make_pair(result.get_sub_result_value("name"), result.get_sub_result_value("body"));
 				}
 
-				if _GLSL_STRUCT_CONSTEXPR17 (_has_ubo_pattern) {
+				if _GLSL_STRUCT_CONSTEXPR17 (has_ubo_pattern) {
 						if (_ubo_pattern::pattern.match(structStr, result)) {
 							return std::make_pair(result.get_sub_result_value("name"), result.get_sub_result_value("body"));
 						}
 				}
 
-				if _GLSL_STRUCT_CONSTEXPR17 (_has_ssbo_pattern) {
+				if _GLSL_STRUCT_CONSTEXPR17 (has_ssbo_pattern) {
 						if (_ssbo_pattern::pattern.match(structStr, result)) {
 							return std::make_pair(result.get_sub_result_value("name"), result.get_sub_result_value("body"));
 						}
