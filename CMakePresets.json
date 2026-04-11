@@ -18,18 +18,13 @@
       }
     },
     {
-      "name": "windows-base",
-      "description": "System Windows ze środowiskiem programistycznym programu Visual Studio jako element docelowy.",
+      "name": "base",
+      "description": "Dowolne środowisko programistyczne",
       "inherits": "cpp-base",
       "hidden": true,
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/${presetName}",
-      "installDir": "${sourceDir}/install/${presetName}",
-      "condition": {
-        "type": "equals",
-        "lhs": "${hostSystemName}",
-        "rhs": "Windows"
-      }
+      "installDir": "${sourceDir}/install/${presetName}"
     },
     {
       "name": "cpp17",
@@ -80,49 +75,49 @@
     {
       "name": "x64-debug-cpp20",
       "displayName": "x64 Debug C++20",
-      "description": "Docelowy system Windows (64-bitowy) ze środowiskiem programistycznym programu Visual Studio. (Debug)",
-      "inherits": ["windows-base", "cpp20", "x64", "debug"]
+      "description": "Docelowy system (64-bitowy) ze środowiskiem programistycznym. (c++20 Debug)",
+      "inherits": ["base", "cpp20", "x64", "debug"]
     },
     {
       "name": "x64-debug-cpp17",
       "displayName": "x64 Debug C++17",
-      "description": "Docelowy system Windows (64-bitowy) ze środowiskiem programistycznym programu Visual Studio. (Debug)",
-      "inherits": ["windows-base", "cpp17", "x64", "debug"]
+      "description": "Docelowy system (64-bitowy) ze środowiskiem programistycznym. (c++17 Debug)",
+      "inherits": ["base", "cpp17", "x64", "debug"]
     },
     {
       "name": "x64-release-cpp20",
       "displayName": "x64 Release C++20",
-      "description": "Docelowy system Windows (64-bitowy) ze środowiskiem programistycznym programu Visual Studio. (RelWithDebInfo)",
+      "description": "Docelowy system (64-bitowy) ze środowiskiem programistycznym. (c++20 RelWithDebInfo)",
       "inherits": ["x64-debug-cpp20", "release"]
     },
     {
       "name": "x64-release-cpp17",
       "displayName": "x64 Release C++17",
-      "description": "Docelowy system Windows (64-bitowy) ze środowiskiem programistycznym programu Visual Studio. (RelWithDebInfo)",
+      "description": "Docelowy system (64-bitowy) ze środowiskiem programistycznym. (c++17 RelWithDebInfo)",
       "inherits": ["x64-debug-cpp17", "release"]
     },
     {
       "name": "x86-debug-cpp20",
       "displayName": "x86 Debug C++20",
-      "description": "Docelowy system Windows (32-bitowy) ze środowiskiem programistycznym programu Visual Studio. (Debug)",
-      "inherits": ["windows-base", "x86", "cpp20", "debug"]
+      "description": "Docelowy system (32-bitowy) ze środowiskiem programistycznym. (c++20 Debug)",
+      "inherits": ["base", "x86", "cpp20", "debug"]
     },
     {
       "name": "x86-debug-cpp17",
       "displayName": "x86 Debug C++17",
-      "description": "Docelowy system Windows (32-bitowy) ze środowiskiem programistycznym programu Visual Studio. (Debug)",
-      "inherits": ["windows-base", "x86", "cpp17", "debug"]
+      "description": "Docelowy system (32-bitowy) ze środowiskiem programistycznym. (c++17 Debug)",
+      "inherits": ["base", "x86", "cpp17", "debug"]
     },
     {
       "name": "x86-release-cpp20",
       "displayName": "x86 Release C++20",
-      "description": "Docelowy systemu Windows (32-bitowy) ze środowiskiem programistycznym programu Visual Studio. (RelWithDebInfo)",
+      "description": "Docelowy systemu (32-bitowy) ze środowiskiem programistycznym. (c++20 RelWithDebInfo)",
       "inherits": ["x86-debug-cpp20", "release"]
     },
     {
       "name": "x86-release-cpp17",
       "displayName": "x86 Release C++17",
-      "description": "Docelowy systemu Windows (32-bitowy) ze środowiskiem programistycznym programu Visual Studio. (RelWithDebInfo)",
+      "description": "Docelowy systemu (32-bitowy) ze środowiskiem programistycznym. (c++17 RelWithDebInfo)",
       "inherits": ["x86-debug-cpp17", "release"]
     }
   ]
