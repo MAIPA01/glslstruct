@@ -321,8 +321,8 @@ namespace glslstruct {
 		/// @brief adds multiple values
 		template<class T, class... Ts, size_t Num, size_t... Nums>
 		_GLSL_STRUCT_CONSTEXPR17 void _add_values(const glsl_value<T, Num>& value, const glsl_value<Ts, Nums>&... values) {
-				if _GLSL_STRUCT_CONSTEXPR17 (value.is_array) {
-						if _GLSL_STRUCT_CONSTEXPR17 (value.is_struct) { add(value.varName, value.layout, value.value); }
+				if _GLSL_STRUCT_CONSTEXPR17 (glsl_value<T, Num>::is_array) {
+						if _GLSL_STRUCT_CONSTEXPR17 (glsl_value<T, Num>::is_struct) { add(value.varName, value.layout, value.value); }
 						else { add(value.varName, value.value); }
 				}
 				else { add(value.varName, value.value); }

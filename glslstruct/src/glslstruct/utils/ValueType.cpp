@@ -17,7 +17,7 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 
 using namespace glslstruct;
 
-[[nodiscard]] static size_t glslstruct::get_value_type_size(const ValueType type) {
+size_t glslstruct::get_value_type_size(const ValueType type) {
 	_GLSL_STRUCT_CONSTEXPR17 size_t int_size	   = 4;
 	_GLSL_STRUCT_CONSTEXPR17 size_t double_size = 8;
 
