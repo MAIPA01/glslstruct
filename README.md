@@ -18,11 +18,15 @@ It allows you to define structures once and retrieve their precise size and fiel
 ---
 
 ## Options
-GLSL_STRUCT_ENABLE_CXX20 				"Enables C++20 features" 											OFF
-GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE 	"Disables assert on release builds" 								OFF
-GLSL_STRUCT_DISABLE_TYPES 				"Disables type classes" 											OFF
-GLSL_STRUCT_ENABLE_TYPE_CHECKS 			"Enables type checking (GLSL_STRUCT_DISABLE_TYPES should be OFF)"	OFF
-GLSL_STRUCT_DISABLE_PARSER 				"Disables parsers functions"										OFF
+Options can be enabled in c++ by `#define option_name` or by enabling cmake option `set(option_name CACHE ON)`
+
+| Cmake Option/C++ Define                 | Description                                          | Default |
+|:----------------------------------------|:-----------------------------------------------------|:-------:|
+| `GLSL_STRUCT_ENABLE_CXX20`              | Enables C++20 features                               |   OFF   |
+| `GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE` | Disables assert on release builds                    |   OFF   |
+| `GLSL_STRUCT_DISABLE_TYPES`             | Disables type classes                                |   OFF   |
+| `GLSL_STRUCT_ENABLE_TYPE_CHECKS`        | Enables type checking only if types are not disabled |   OFF   |
+| `GLSL_STRUCT_DISABLE_PARSER`            | Disables parsers functions                           |   OFF   |
 
 ---
 
@@ -114,6 +118,8 @@ layout(std140, binding = 0) uniform SceneSettingsUBO
 };
 ```
 
+You can also use `std140_parser` class to get structure layout from this glsl code or use `glsl_opengl_writer` class to generate glsl code like this from structure defined in code
+
 # 📝 Operations On Types
 In structures there are five diffrent type handlers:
 - `scalar_type`
@@ -135,7 +141,9 @@ Each type has implemented `accept` function which as a input accepts all types w
 #include <glslstruct/glslstruct.hpp>
 #include <iostream>
 #include <string>
+#include <string_view>
 #include <glm/glm.hpp>
+#include <fmt/fmt.h>
 
 using namespace glslstruct;
 
@@ -147,55 +155,70 @@ std140_struct SceneSettings {
 };
 
 // Visitor Definition
-class zero_values_visitor {
+class draw_visitor {
 private:
-    std::string _valueName;
+    std::string _varName;
 
 public:
-    zero_values_visitor() = default;
-    ~zero_values_visitor() = default;
-
-    void setValueName(const std::string& name) {
-        _valueName = name;
+    void setVarName(const std::string_view name) {
+        _varName = name;
     }
 
     void visit(const scalar_type& type) {
         switch(type.get_type()) {
         case ValueType::Int:
-            SceneSettings.set(_valueName, 0);
+            // Some simple GUI draw function
+            draw_int(_varName, SceneSettings.get<int>(_varName));
             break;
         case ValueType::Float:
-            SceneSettings.set(_valueName, 0.f);
+            // Some simple GUI draw function
+            draw_float(_varName, SceneSettings.get<float>(_varName));
             break;
         }
     }
     void visit(const vec_type& type) {
         if (type.get_type() == ValueType::Float && 
             type.get_length() == 3) {
-            SceneSettings.set(_valueName, glm::vec3{ 0.f, 0.f, 0.f });
+            // Some simple GUI draw function
+            draw_vec3(_valueName, SceneSettings.get<glm::vec3>(_varName));
         }
     }
     void visit(const mat_type& type) {
         if (type.get_type() == ValueType::Float && 
             type.get_cols() == 4 && 
             type.get_rows() == 4) {
-            SceneSettings.set(_valueName, glm::mat4(0.f));
+            // Some simple GUI draw function
+            draw_mat4(_valueName, SceneSettings.get<glm::mat4>(_varName));
         }
     }
     void visit(const struct_type& type) {
-
+        const std::string structName = _valueName;
+    
+        draw_begin_sub_menu(structName);
+        for (const auto& [name, varData] : type->get_top_level_variables()) {
+            _valueName = fmt::format("{}.{}", structName, name);
+            varData.get_type()->accept(*this);
+        }
+        draw_end_sub_menu();
     }
     void visit(const array_type& type) {
-
+        const std::string arrayName = _valueName;
+    
+        draw_begin_list(arrayName);
+        for (size_t i = 0; i < type.get_count(); ++i) {
+            _valueName = fmt::format("{}[{}]", arrayName, i);
+            type.get_type()->accept(*this);
+        }
+        draw_end_list();
     }
 }
 
 int main() {
 
-    zero_values_visitor visitor{};
-    for (const auto& name : SceneSettings.get_names()) {
+    draw_visitor visitor{};
+    for (const auto& [name, varData] : SceneSettings.get_top_level_variables()) {
         visitor.setValueName(name);
-        SceneSettings.get_type(name)->accept(visitor);
+        varData.get_type()->accept(visitor);
     }
 
     return 0;
