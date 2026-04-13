@@ -41,8 +41,7 @@ namespace glslstruct {
 
 		/// @brief check if type is simple glsl type or struct with given layout
 		template<class T>
-		struct is_glsl_simple_or_layout_struct : std::bool_constant<utils::is_glsl_simple_or_layout_struct_v<T, layout_type> > {
-		};
+		struct is_glsl_simple_or_layout_struct : std::bool_constant<utils::is_glsl_simple_or_layout_struct_v<T, layout_type> > {};
 
 		/// @brief struct layout
 		layout_type _layout;
@@ -321,8 +320,10 @@ namespace glslstruct {
 		/// @brief adds multiple values
 		template<class T, class... Ts, size_t Num, size_t... Nums>
 		_GLSL_STRUCT_CONSTEXPR17 void _add_values(const glsl_value<T, Num>& value, const glsl_value<Ts, Nums>&... values) {
-				if _GLSL_STRUCT_CONSTEXPR17 (glsl_value<T, Num>::is_array) {
-						if _GLSL_STRUCT_CONSTEXPR17 (glsl_value<T, Num>::is_struct) { add(value.varName, value.layout, value.value); }
+			using ValueType = glsl_value<T, Num>;
+
+				if _GLSL_STRUCT_CONSTEXPR17 (ValueType::is_array) {
+						if _GLSL_STRUCT_CONSTEXPR17 (ValueType::is_struct) { add(value.varName, value.layout, value.value); }
 						else { add(value.varName, value.value); }
 				}
 				else { add(value.varName, value.value); }

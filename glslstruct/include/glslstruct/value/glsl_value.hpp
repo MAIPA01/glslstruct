@@ -33,7 +33,7 @@ namespace glslstruct {
 
 		/// @brief default constructor
 		#if !_GLSL_STRUCT_HAS_CXX20
-			template<class type = T, std::enable_if_t<std::is_default_constructible_v<T> && std::is_same_v<type, T>, bool> = true>
+			template<class Type = T, std::enable_if_t<std::is_default_constructible_v<Type> && std::is_same_v<Type, T>, bool> = true>
 		#endif
 			single_value() _GLSL_STRUCT_REQUIRES(std::is_default_constructible_v<T>) : value() {
 			}
@@ -87,7 +87,7 @@ namespace glslstruct {
 
 		/// @brief default constructor
 		#if !_GLSL_STRUCT_HAS_CXX20
-			template<class type = T, std::enable_if_t<std::is_default_constructible_v<T> && std::is_same_v<type, T>, bool> = true>
+			template<class Type = T, std::enable_if_t<std::is_default_constructible_v<Type> && std::is_same_v<Type, T>, bool> = true>
 		#endif
 			array_value() _GLSL_STRUCT_REQUIRES(std::is_default_constructible_v<T>) : value() {
 			}

@@ -70,6 +70,11 @@ namespace glslstruct {
 		/// @brief returns result
 		[[nodiscard]] bool result() const noexcept { return _result; }
 	};
+} // namespace glslstruct
+
+		#include <glslstruct/type/containers/base_type.hpp>
+
+namespace glslstruct {
 
 		#pragma region IS_OF_TYPE
 
@@ -119,7 +124,8 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const std::shared_ptr<T>&, const BaseType baseType) {
+	[[nodiscard]] _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const std::shared_ptr<T>&,
+	  const BaseType baseType) {
 			switch (baseType) {
 			case BaseType::Scalar: return std::is_same_v<T, scalar_type>;
 			case BaseType::Vec:	   return std::is_same_v<T, vec_type>;
@@ -174,7 +180,9 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 std::shared_ptr<T> static_type_cast(const base_type_handle& type) {
+	[[nodiscard]] _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 std::shared_ptr<T> static_type_cast(
+	  const base_type_handle& type
+	) {
 		std::shared_ptr<T> result = dynamic_type_cast<T>(type);
 		glsl_struct_assert(result != nullptr, "Cannot convert type to desired type!");
 		return result;

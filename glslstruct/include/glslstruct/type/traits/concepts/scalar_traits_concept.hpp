@@ -11,9 +11,6 @@
 #ifndef _GLSL_STRUCT_SCALAR_TRAITS_CONCEPT_HPP_
 	#define _GLSL_STRUCT_SCALAR_TRAITS_CONCEPT_HPP_
 
-	#include "../scalar_traits.hpp"
-
-
 	#include <glslstruct/config.hpp>
 
 	#if !_GLSL_STRUCT_HAS_CXX17

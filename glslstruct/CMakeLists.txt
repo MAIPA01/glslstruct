@@ -17,6 +17,7 @@ file(GLOB_RECURSE ${PROJECT_HEADERS} CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DI
 
 if (GLSL_STRUCT_DISABLE_TYPES)
     list(FILTER ${PROJECT_HEADERS} EXCLUDE REGEX "^.*[\\\/\\\\]type[\\\/\\\\](containers|visitors)[\\\/\\\\].*\\.hpp$")
+    list(FILTER ${PROJECT_HEADERS} EXCLUDE REGEX "^.*[\\\/\\\\]type[\\\/\\\\]checks[\\\/\\\\]type_checks\\.hpp$")
     list(FILTER ${PROJECT_HEADERS} EXCLUDE REGEX "^.*[\\\/\\\\]writer[\\\/\\\\].*\\.hpp$")
 endif()
 

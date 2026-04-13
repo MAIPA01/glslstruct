@@ -73,8 +73,8 @@ namespace glslstruct {
 		#pragma region NORMAL_CONSTRUCTOR
 		/// @brief standard constructor with variable name
 		#if !_GLSL_STRUCT_HAS_CXX20
-		template<class type																		  = var_type,
-		  std::enable_if_t<utils::is_glsl_simple_v<type> && std::is_same_v<type, var_type>, bool> = true>
+		template<class Type																		  = var_type,
+		  std::enable_if_t<utils::is_glsl_simple_v<Type> && std::is_same_v<Type, var_type>, bool> = true>
 		#endif
 		explicit _GLSL_STRUCT_CONSTEXPR20 glsl_variable(
 		  const std::string_view name
@@ -87,8 +87,8 @@ namespace glslstruct {
 		#pragma region LAYOUT_CONSTRUCTOR
 		/// @brief standard constructor with variable name and layout
 		#if !_GLSL_STRUCT_HAS_CXX20
-		template<class type																		  = var_type,
-		  std::enable_if_t<utils::is_glsl_layout_v<type> && std::is_same_v<type, var_type>, bool> = true>
+		template<class Type																		  = var_type,
+		  std::enable_if_t<utils::is_glsl_layout_v<Type> && std::is_same_v<Type, var_type>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 glsl_variable(const std::string_view name,
 		  const T& layout) noexcept _GLSL_STRUCT_REQUIRES(utils::is_glsl_layout_v<T>)
