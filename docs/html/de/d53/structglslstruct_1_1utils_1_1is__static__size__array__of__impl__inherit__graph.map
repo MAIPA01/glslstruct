@@ -1,0 +1,11 @@
+<map id="glslstruct::utils::is_static_size_array_of_impl&lt; Test, T, IsArray, Args &gt;" name="glslstruct::utils::is_static_size_array_of_impl&lt; Test, T, IsArray, Args &gt;">
+<area shape="rect" id="Node000001" title="helper struct for is_static_size_array_of_v check" alt="" coords="162,77,335,152"/>
+<area shape="rect" id="Node000003" href="$de/d5d/structglslstruct_1_1utils_1_1is__static__size__array__of__impl.html" title=" " alt="" coords="529,5,690,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="350,92,532,58,527,59,351,97"/>
+<area shape="rect" id="Node000005" href="$dc/d00/structglslstruct_1_1utils_1_1is__static__size__array__of__impl_3_01_test_00_01_t_00_01true_00_01_args_8_8_8_01_4.html" title=" " alt="" coords="532,104,687,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="351,120,535,135,530,136,351,125"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,101,113,128"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,112,164,114,159,115,128,117"/>
+<area shape="rect" id="Node000004" href="$d0/d9f/structglslstruct_1_1utils_1_1is__static__size__array__of.html" title="checks if value type is array of type and if type passes given test template struct" alt="" coords="739,13,876,72"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="705,40,741,42,736,43,705,45"/>
+</map>

@@ -1,0 +1,13 @@
+<map id="glslstruct::var_data" name="glslstruct::var_data">
+<area shape="rect" id="Node000001" title="container for all variable data" alt="" coords="140,339,272,365"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,203,154,245"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,255,163,313,192,339,187,338,159,317,105,260"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="10,104,149,131"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="80,143,82,202,77,202,79,149"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="60,5,99,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="80,45,82,104,77,103,79,50"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="178,211,234,237"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="208,251,209,339,204,337,204,254"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="274,211,320,237"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="295,251,287,285,270,316,255,330,238,341,236,336,252,326,265,313,282,283,291,254"/>
+</map>

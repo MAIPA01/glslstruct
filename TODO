@@ -1,0 +1,3 @@
+- add variable arrays (just add possibility to resize array if it is last variable)
+- add varData contains sequence, map or none using variant
+- make getting variables like a[0] or a.b using regex and checking if varData is seq or map like in yamlcpp

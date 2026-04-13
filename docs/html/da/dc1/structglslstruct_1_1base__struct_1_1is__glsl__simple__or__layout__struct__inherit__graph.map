@@ -1,0 +1,5 @@
+<map id="glslstruct::base_struct&lt; Layout &gt;::is_glsl_simple_or_layout_struct&lt; T &gt;" name="glslstruct::base_struct&lt; Layout &gt;::is_glsl_simple_or_layout_struct&lt; T &gt;">
+<area shape="rect" id="Node000001" title="check if type is simple glsl type or struct with given layout" alt="" coords="5,128,180,187"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="14,5,171,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,93,95,128,90,127,91,97"/>
+</map>

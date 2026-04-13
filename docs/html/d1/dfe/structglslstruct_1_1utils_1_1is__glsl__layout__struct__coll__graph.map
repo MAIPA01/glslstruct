@@ -1,0 +1,5 @@
+<map id="glslstruct::utils::is_glsl_layout_struct&lt; S, Layout &gt;" name="glslstruct::utils::is_glsl_layout_struct&lt; S, Layout &gt;">
+<area shape="rect" id="Node000001" title="helper struct to check if type is glsl struct with required layout" alt="" coords="5,80,146,139"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="22,5,129,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,46,78,80,73,79,74,50"/>
+</map>

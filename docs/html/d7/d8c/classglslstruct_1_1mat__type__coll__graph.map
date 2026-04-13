@@ -1,0 +1,15 @@
+<map id="glslstruct::mat_type" name="glslstruct::mat_type">
+<area shape="rect" id="Node000001" title="mat type container" alt="" coords="52,412,188,439"/>
+<area shape="rect" id="Node000002" href="$d4/db0/classglslstruct_1_1type.html" title=" " alt="" coords="50,297,191,340"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,354,123,412,118,410,118,357"/>
+<area shape="rect" id="Node000003" href="$d6/df9/classglslstruct_1_1base__type.html" title="base class for all glsl type containers" alt="" coords="49,104,191,131"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="122,144,123,297,118,297,118,148"/>
+<area shape="rect" id="Node000005" href="$d4/db0/classglslstruct_1_1type.html" title="intermediate glsl type containers" alt="" coords="143,189,319,216"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="149,137,217,188,212,190,149,143"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,5,62,32"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="24,49,19,80,15,116,15,320,17,335,22,349,42,374,67,394,94,411,89,412,64,399,38,378,18,352,12,337,10,320,10,116,13,79,25,44"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="55,41,112,103,107,105,55,47"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="206,229,142,299,138,295,210,226"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="216,305,297,332"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="231,342,138,414,135,409,225,341"/>
+</map>

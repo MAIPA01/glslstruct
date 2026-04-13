@@ -1,0 +1,10 @@
+<map id="glslstruct::utils::has_layout_traits_context&lt; T, std::void_t&lt; typename T::context_type &gt; &gt;" name="glslstruct::utils::has_layout_traits_context&lt; T, std::void_t&lt; typename T::context_type &gt; &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="544,32,722,106"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,22,113,49"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,21,208,11,307,4,414,5,468,10,521,18,557,31,552,31,520,24,468,15,414,10,307,9,208,16,129,26"/>
+<area shape="rect" id="Node000004" href="$d8/db4/structglslstruct_1_1utils_1_1has__layout__traits__context.html" title="Checks if a type T provides a nested &#39;context_type&#39;." alt="" coords="162,40,332,98"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="128,45,164,53,159,55,128,50"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="196,122,298,149"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="313,122,541,84,547,84,314,127"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="347,66,546,68,541,70,348,72"/>
+</map>

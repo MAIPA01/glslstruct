@@ -1,0 +1,30 @@
+<map id="glslstruct::base_type" name="glslstruct::base_type">
+<area shape="rect" id="Node000001" title="base class for all glsl type containers" alt="" coords="5,247,148,273"/>
+<area shape="rect" id="Node000002" href="$d4/db0/classglslstruct_1_1type.html" title=" " alt="" coords="523,107,672,149"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,234,153,193,223,142,306,94,351,73,397,57,447,48,470,50,497,57,540,78,576,106,570,106,537,83,495,63,469,55,447,53,398,63,353,78,309,98,226,147,156,197,106,238"/>
+<area shape="rect" id="Node000004" href="$d4/db0/classglslstruct_1_1type.html" title=" " alt="" coords="527,5,668,48"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="88,232,129,163,160,126,195,94,235,70,277,52,321,39,366,29,452,20,529,20,524,23,453,25,367,34,322,44,279,57,237,75,199,98,163,129,134,166,93,234"/>
+<area shape="rect" id="Node000006" href="$d4/db0/classglslstruct_1_1type.html" title=" " alt="" coords="520,275,675,317"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="112,279,173,310,234,331,283,343,398,357,448,364,469,363,495,357,536,339,569,319,574,317,538,344,497,363,470,369,447,369,397,363,282,348,232,336,171,314,111,284"/>
+<area shape="rect" id="Node000008" href="$d4/db0/classglslstruct_1_1type.html" title=" " alt="" coords="521,387,674,429"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="100,283,143,325,169,344,198,360,239,376,281,388,368,403,450,409,523,412,518,412,450,415,367,408,280,393,237,381,196,365,166,349,139,329,98,288"/>
+<area shape="rect" id="Node000010" href="$d4/db0/classglslstruct_1_1type.html" title=" " alt="" coords="527,185,668,228"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="153,274,227,285,314,291,406,288,451,282,495,271,527,254,565,230,570,227,530,258,497,276,452,287,406,293,314,297,227,290,154,279"/>
+<area shape="rect" id="Node000012" href="$d4/db0/classglslstruct_1_1type.html" title="intermediate glsl type containers" alt="" coords="197,197,373,224"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="150,240,228,223,224,226,152,245"/>
+<area shape="rect" id="Node000003" href="$db/d57/classglslstruct_1_1array__type.html" title="array type container" alt="" coords="727,115,870,141"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="687,125,730,127,724,129,688,131"/>
+<area shape="rect" id="Node000005" href="$d1/d48/classglslstruct_1_1mat__type.html" title="mat type container" alt="" coords="730,13,867,40"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="683,24,733,26,727,27,685,29"/>
+<area shape="rect" id="Node000007" href="$d1/d86/classglslstruct_1_1scalar__type.html" title="scalar type container" alt="" coords="724,283,873,309"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="690,293,726,296,721,296,690,299"/>
+<area shape="rect" id="Node000009" href="$df/dfe/classglslstruct_1_1struct__type.html" title="struct type container" alt="" coords="725,395,872,421"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="689,405,727,408,722,408,689,411"/>
+<area shape="rect" id="Node000011" href="$d7/d86/classglslstruct_1_1vec__type.html" title="vec type container" alt="" coords="731,193,866,220"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="683,204,734,206,728,207,684,209"/>
+<area shape="poly" id="edge12_Node000012_Node000002" title=" " alt="" coords="347,190,397,176,525,145,520,147,398,181,349,195"/>
+<area shape="poly" id="edge13_Node000012_Node000004" title=" " alt="" coords="312,185,351,154,396,122,472,80,546,47,542,50,474,84,399,126,354,158,315,189"/>
+<area shape="poly" id="edge14_Node000012_Node000006" title=" " alt="" coords="352,226,522,274,517,276,352,231"/>
+<area shape="poly" id="edge15_Node000012_Node000008" title=" " alt="" coords="315,232,399,295,480,344,555,386,550,386,477,349,396,300,313,237"/>
+<area shape="poly" id="edge16_Node000012_Node000010" title=" " alt="" coords="389,207,530,207,525,209,390,212"/>
+</map>

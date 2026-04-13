@@ -1,0 +1,25 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$d6/df9/classglslstruct_1_1base__type.html" title="base class for all glsl type containers" alt="" coords="5,180,148,207"/>
+<area shape="rect" id="Node000001" href="$d4/db0/classglslstruct_1_1type.html" title=" " alt="" coords="210,5,358,48"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="93,166,135,112,163,83,194,58,217,47,214,50,197,62,167,87,139,115,97,169"/>
+<area shape="rect" id="Node000003" href="$d4/db0/classglslstruct_1_1type.html" title=" " alt="" coords="213,72,354,115"/>
+<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="111,170,194,124,224,114,220,117,197,129,114,174"/>
+<area shape="rect" id="Node000005" href="$d4/db0/classglslstruct_1_1type.html" title=" " alt="" coords="207,139,361,181"/>
+<area shape="poly" id="edge5_Node000000_Node000005" title=" " alt="" coords="162,177,209,171,204,174,164,182"/>
+<area shape="rect" id="Node000007" href="$d4/db0/classglslstruct_1_1type.html" title=" " alt="" coords="208,205,360,248"/>
+<area shape="poly" id="edge7_Node000000_Node000007" title=" " alt="" coords="163,205,209,213,205,215,164,210"/>
+<area shape="rect" id="Node000009" href="$d4/db0/classglslstruct_1_1type.html" title=" " alt="" coords="214,272,354,315"/>
+<area shape="poly" id="edge9_Node000000_Node000009" title=" " alt="" coords="113,212,197,258,224,271,219,272,194,262,112,217"/>
+<area shape="rect" id="Node000011" href="$d4/db0/classglslstruct_1_1type.html" title="intermediate glsl type containers" alt="" coords="196,339,372,365"/>
+<area shape="poly" id="edge11_Node000000_Node000011" title=" " alt="" coords="95,217,138,272,166,300,197,324,222,338,216,338,194,329,162,304,134,276,93,222"/>
+<area shape="rect" id="Node000002" href="$db/d57/classglslstruct_1_1array__type.html" title="array type container" alt="" coords="423,13,566,40"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="373,24,425,26,420,28,375,29"/>
+<area shape="rect" id="Node000004" href="$d1/d48/classglslstruct_1_1mat__type.html" title="mat type container" alt="" coords="426,80,563,107"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="370,91,429,92,424,94,371,96"/>
+<area shape="rect" id="Node000006" href="$d1/d86/classglslstruct_1_1scalar__type.html" title="scalar type container" alt="" coords="420,147,569,173"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="376,157,422,159,417,161,377,163"/>
+<area shape="rect" id="Node000008" href="$df/dfe/classglslstruct_1_1struct__type.html" title="struct type container" alt="" coords="421,213,568,240"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="375,224,423,226,418,227,376,229"/>
+<area shape="rect" id="Node000010" href="$d7/d86/classglslstruct_1_1vec__type.html" title="vec type container" alt="" coords="427,280,562,307"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="369,291,429,293,424,294,370,296"/>
+</map>

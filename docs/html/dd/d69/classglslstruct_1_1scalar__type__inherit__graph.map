@@ -1,0 +1,10 @@
+<map id="glslstruct::scalar_type" name="glslstruct::scalar_type">
+<area shape="rect" id="Node000001" title="scalar type container" alt="" coords="8,272,157,299"/>
+<area shape="rect" id="Node000002" href="$d4/db0/classglslstruct_1_1type.html" title=" " alt="" coords="5,180,160,223"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,236,85,272,80,271,81,240"/>
+<area shape="rect" id="Node000003" href="$d6/df9/classglslstruct_1_1base__type.html" title="base class for all glsl type containers" alt="" coords="6,5,148,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="80,46,85,180,79,179,76,49"/>
+<area shape="rect" id="Node000004" href="$d4/db0/classglslstruct_1_1type.html" title="intermediate glsl type containers" alt="" coords="98,81,275,108"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="108,38,170,80,165,82,108,43"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="162,121,105,181,101,178,165,117"/>
+</map>

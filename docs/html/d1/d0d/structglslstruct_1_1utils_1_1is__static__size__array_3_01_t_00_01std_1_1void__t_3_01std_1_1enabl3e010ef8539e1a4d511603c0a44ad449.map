@@ -1,0 +1,10 @@
+<map id="glslstruct::utils::is_static_size_array&lt; T, std::void_t&lt; std::enable_if_t&lt; is_array_v&lt; T &gt; &gt;, std::enable_if_t&lt; std::is_convertible_v&lt; decltype(array_traits&lt; T &gt;::static_size), size_t &gt; &gt; &gt; &gt;" name="glslstruct::utils::is_static_size_array&lt; T, std::void_t&lt; std::enable_if_t&lt; is_array_v&lt; T &gt; &gt;, std::enable_if_t&lt; std::is_convertible_v&lt; decltype(array_traits&lt; T &gt;::static_size), size_t &gt; &gt; &gt; &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="18,319,217,457"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,113,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="61,45,71,140,87,233,104,318,99,318,81,234,66,140,60,50"/>
+<area shape="rect" id="Node000004" href="$dc/d5e/structglslstruct_1_1utils_1_1is__static__size__array.html" title="Is Static Size Array Test Struct." alt="" coords="81,81,218,140"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="82,40,123,80,118,82,83,46"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="300,97,402,124"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="357,137,362,173,362,215,354,257,335,296,311,322,282,342,251,358,219,370,217,365,249,353,279,338,307,318,330,293,349,256,356,214,357,174,355,142"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="124,152,122,165,114,203,110,243,112,319,107,318,105,243,109,203,117,163,122,157"/>
+</map>

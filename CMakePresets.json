@@ -5,16 +5,14 @@
       "name": "cpp-base",
       "hidden": true,
       "cacheVariables": {
-        "CMAKE_C_COMPILER": "clang.exe",
-        "CMAKE_CXX_COMPILER": "clang++.exe",
+        "CMAKE_CXX_COMPILER": "clang++",
         "CMAKE_CXX_STANDARD_REQUIRED": "ON",
         "CMAKE_CXX_EXTENSIONS": "OFF",
         "BUILD_SHARED_LIBS": "OFF",
         "GLSL_STRUCT_BUILD_TESTS": "ON",
         "GLSL_STRUCT_BUILD_COVERAGE": "ON",
         "GLSL_STRUCT_BUILD_DOCUMENTATION": "ON",
-        "GLSL_STRUCT_DISABLE_TYPES": "OFF",
-        "GLSL_STRUCT_ENABLE_TYPE_CHECKS": "ON"
+        "GLSL_STRUCT_ENABLE_CLANG_TIDY": "ON"
       }
     },
     {
@@ -73,52 +71,106 @@
       }
     },
     {
+      "name": "types",
+      "hidden": true,
+      "cacheVariables": {
+        "GLSL_STRUCT_DISABLE_TYPES": "OFF"
+      }
+    },
+    {
+      "name": "no-types",
+      "hidden": true,
+      "cacheVariables": {
+        "GLSL_STRUCT_DISABLE_TYPES": "ON"
+      }
+    },
+    {
+      "name": "type-checks",
+      "hidden": true,
+      "inherits": "types",
+      "cacheVariables": {
+        "GLSL_STRUCT_ENABLE_TYPE_CHECKS": "ON"
+      }
+    },
+    {
+      "name": "no-type-checks",
+      "hidden": true,
+      "inherits": "types",
+      "cacheVariables": {
+        "GLSL_STRUCT_ENABLE_TYPE_CHECKS": "OFF"
+      }
+    },
+    {
       "name": "x64-debug-cpp20",
       "displayName": "x64 Debug C++20",
       "description": "Docelowy system (64-bitowy) ze środowiskiem programistycznym. (c++20 Debug)",
-      "inherits": ["base", "cpp20", "x64", "debug"]
+      "inherits": ["base", "cpp20", "x64", "debug", "type-checks"]
+    },
+    {
+      "name": "x64-debug-cpp20-no-type-checks",
+      "displayName": "x64 Debug C++20 No Type Checks",
+      "description": "Docelowy system (64-bitowy) ze środowiskiem programistycznym. (c++20 Debug without type checks)",
+      "inherits": ["no-type-checks", "x64-debug-cpp20"]
+    },
+    {
+      "name": "x64-debug-cpp20-no-types",
+      "displayName": "x64 Debug C++20 No Types",
+      "description": "Docelowy system (64-bitowy) ze środowiskiem programistycznym. (c++20 Debug without types)",
+      "inherits": ["no-types", "x64-debug-cpp20"]
     },
     {
       "name": "x64-debug-cpp17",
       "displayName": "x64 Debug C++17",
       "description": "Docelowy system (64-bitowy) ze środowiskiem programistycznym. (c++17 Debug)",
-      "inherits": ["base", "cpp17", "x64", "debug"]
+      "inherits": ["base", "cpp17", "x64", "debug", "type-checks"]
+    },
+    {
+      "name": "x64-debug-cpp17-no-type-checks",
+      "displayName": "x64 Debug C++17 No Type Checks",
+      "description": "Docelowy system (64-bitowy) ze środowiskiem programistycznym. (c++17 Debug without type checks)",
+      "inherits": ["no-type-checks", "x64-debug-cpp17"]
+    },
+    {
+      "name": "x64-debug-cpp17-no-types",
+      "displayName": "x64 Debug C++17 No Types",
+      "description": "Docelowy system (64-bitowy) ze środowiskiem programistycznym. (c++17 Debug without types)",
+      "inherits": ["no-types", "x64-debug-cpp17"]
     },
     {
       "name": "x64-release-cpp20",
       "displayName": "x64 Release C++20",
-      "description": "Docelowy system (64-bitowy) ze środowiskiem programistycznym. (c++20 RelWithDebInfo)",
-      "inherits": ["x64-debug-cpp20", "release"]
+      "description": "Docelowy system (64-bitowy) z środowiskiem programistycznym. (c++20 RelWithDebInfo)",
+      "inherits": ["release", "x64-debug-cpp20"]
     },
     {
       "name": "x64-release-cpp17",
       "displayName": "x64 Release C++17",
       "description": "Docelowy system (64-bitowy) ze środowiskiem programistycznym. (c++17 RelWithDebInfo)",
-      "inherits": ["x64-debug-cpp17", "release"]
+      "inherits": ["release", "x64-debug-cpp17"]
     },
     {
       "name": "x86-debug-cpp20",
       "displayName": "x86 Debug C++20",
       "description": "Docelowy system (32-bitowy) ze środowiskiem programistycznym. (c++20 Debug)",
-      "inherits": ["base", "x86", "cpp20", "debug"]
+      "inherits": ["base", "x86", "cpp20", "debug", "type-checks"]
     },
     {
       "name": "x86-debug-cpp17",
       "displayName": "x86 Debug C++17",
       "description": "Docelowy system (32-bitowy) ze środowiskiem programistycznym. (c++17 Debug)",
-      "inherits": ["base", "x86", "cpp17", "debug"]
+      "inherits": ["base", "x86", "cpp17", "debug", "type-checks"]
     },
     {
       "name": "x86-release-cpp20",
       "displayName": "x86 Release C++20",
-      "description": "Docelowy systemu (32-bitowy) ze środowiskiem programistycznym. (c++20 RelWithDebInfo)",
-      "inherits": ["x86-debug-cpp20", "release"]
+       "description": "Docelowy systemu (32-bitowy) ze środowiskiem programistycznym. (c++20 RelWithDebInfo)",
+      "inherits": ["release", "x86-debug-cpp20"]
     },
     {
       "name": "x86-release-cpp17",
       "displayName": "x86 Release C++17",
       "description": "Docelowy systemu (32-bitowy) ze środowiskiem programistycznym. (c++17 RelWithDebInfo)",
-      "inherits": ["x86-debug-cpp17", "release"]
+      "inherits": ["release", "x86-debug-cpp17"]
     }
   ]
 }

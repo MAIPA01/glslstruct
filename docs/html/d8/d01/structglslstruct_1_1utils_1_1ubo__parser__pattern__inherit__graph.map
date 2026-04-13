@@ -1,0 +1,7 @@
+<map id="glslstruct::utils::ubo_parser_pattern&lt; Layout &gt;" name="glslstruct::utils::ubo_parser_pattern&lt; Layout &gt;">
+<area shape="rect" id="Node000001" title="container for ubo parser pattern" alt="" coords="5,47,146,105"/>
+<area shape="rect" id="Node000002" href="$d3/dd8/structglslstruct_1_1utils_1_1ubo__parser__pattern.html" title=" " alt="" coords="307,5,447,64"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,62,308,42,304,46,162,67"/>
+<area shape="rect" id="Node000003" href="$d6/dc6/structglslstruct_1_1utils_1_1ubo__parser__pattern_3_01std140__layout_01_4.html" title="template overload of container for ubo parser pattern for std140 layout" alt="" coords="307,88,447,147"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="161,88,170,89,309,108,304,111,169,95,162,93"/>
+</map>

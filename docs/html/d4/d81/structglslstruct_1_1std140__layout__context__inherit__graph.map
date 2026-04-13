@@ -1,0 +1,7 @@
+<map id="glslstruct::std140_layout_context" name="glslstruct::std140_layout_context">
+<area shape="rect" id="Node000001" title="Std140 Layout additional context." alt="" coords="123,96,244,139"/>
+<area shape="rect" id="Node000002" href="$d9/de7/structglslstruct_1_1max__alignment__layout__context.html" title="layout context which contains max alignment of all variables" alt="" coords="5,5,176,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="124,56,165,95,160,96,122,61"/>
+<area shape="rect" id="Node000003" href="$d3/d2a/structglslstruct_1_1struct__added__layout__context.html" title="layout context which contains alignment of last added struct" alt="" coords="200,5,355,48"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="247,58,207,98,204,93,242,60"/>
+</map>

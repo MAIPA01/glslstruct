@@ -1,0 +1,5 @@
+<map id="glslstruct::utils::has_layout_traits_context&lt; T, class &gt;" name="glslstruct::utils::has_layout_traits_context&lt; T, class &gt;">
+<area shape="rect" id="Node000001" title="Checks if a type T provides a nested &#39;context_type&#39;." alt="" coords="5,80,176,139"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="37,5,144,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,46,93,80,88,79,89,50"/>
+</map>

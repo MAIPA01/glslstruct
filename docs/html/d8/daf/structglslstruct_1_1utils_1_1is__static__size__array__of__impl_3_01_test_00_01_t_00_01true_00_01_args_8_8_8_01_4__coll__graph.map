@@ -1,0 +1,10 @@
+<map id="glslstruct::utils::is_static_size_array_of_impl&lt; Test, T, true, Args... &gt;" name="glslstruct::utils::is_static_size_array_of_impl&lt; Test, T, true, Args... &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="529,23,684,98"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,10,113,37"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,12,162,9,259,4,335,4,410,11,506,29,532,37,527,37,505,34,410,17,335,9,259,9,162,14,129,17"/>
+<area shape="rect" id="Node000004" href="$de/d5d/structglslstruct_1_1utils_1_1is__static__size__array__of__impl.html" title="helper struct for is_static_size_array_of_v check" alt="" coords="162,23,335,98"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="127,34,164,42,159,45,128,39"/>
+<area shape="rect" id="Node000003" href="$d1/d9b/class_test.html" title=" " alt="" coords="170,122,327,165"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="342,119,527,79,532,78,343,124"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="351,58,532,60,526,61,351,63"/>
+</map>

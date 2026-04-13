@@ -8,20 +8,34 @@
  */
 
 #pragma once
-#include <glslstruct/config.hpp>
+#ifndef _GLSL_STRUCT_ASSERT_HPP_
+	#define _GLSL_STRUCT_ASSERT_HPP_
 
-#if !_GLSL_STRUCT_HAS_CXX17
+	#include <glslstruct/config.hpp>
+
+	#if !_GLSL_STRUCT_HAS_CXX17
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
-#else
+	#else
 
-#include <mstd/mstd.hpp>
+		#include <mstd/mstd.hpp>
 
-#if _DEBUG
-#define glsl_struct_assert(expression, ...) mstd_stop_assert_base(expression, [](const std::string_view&) -> void {} __VA_OPT__(, ) __VA_ARGS__)
-#elif !defined(GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE)
-#define glsl_struct_assert(expression, ...) mstd_log_assert_base(expression, [](const std::string_view&) -> void {} __VA_OPT__(, ) __VA_ARGS__)
-#else
-#define glsl_struct_assert(expression, ...) mstd_empty_assert_base(expression, [](const std::string_view&) -> void {} __VA_OPT__(, ) __VA_ARGS__)
-#endif
+	/**
+	 * @def glsl_struct_assert(expression, ...)
+	 * @brief glslstruct assert
+	 * @ingroup utils
+	 */
 
+	// NOLINTBEGIN
+		#if _DEBUG
+			#define glsl_struct_assert(expression, ...)                                                             \
+				MSTD_STOP_ASSERT_BASE(expression, [](const std::string_view) -> void {} __VA_OPT__(, ) __VA_ARGS__)
+		#elif !defined(GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE)
+			#define glsl_struct_assert(expression, ...)                                                            \
+				MSTD_LOG_ASSERT_BASE(expression, [](const std::string_view) -> void {} __VA_OPT__(, ) __VA_ARGS__)
+		#else
+			#define glsl_struct_assert(expression, ...)                                                              \
+				MSTD_EMPTY_ASSERT_BASE(expression, [](const std::string_view) -> void {} __VA_OPT__(, ) __VA_ARGS__)
+		#endif
+	// NOLINTEND
+	#endif
 #endif
