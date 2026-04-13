@@ -1,5 +1,18 @@
 var searchData=
 [
-  ['writer_2ecpp_0',['writer.cpp',['../dc/d18/opengl_2writer_8cpp.html',1,'(Global Namespace)'],['../d5/de1/vulkan_2writer_8cpp.html',1,'(Global Namespace)'],['../d0/d44/writer_8cpp.html',1,'(Global Namespace)']]],
-  ['writer_2ehpp_1',['writer.hpp',['../d2/daa/opengl_2writer_8hpp.html',1,'(Global Namespace)'],['../df/d35/vulkan_2writer_8hpp.html',1,'(Global Namespace)'],['../de/d11/writer_8hpp.html',1,'(Global Namespace)']]]
+  ['test_0',['Test',['../d1/d9b/class_test.html',1,'']]],
+  ['to_5fstring_1',['to_string',['../db/d57/classglslstruct_1_1array__type.html#aacb5bebc4bcb5c58d1338b95c9676a0d',1,'glslstruct::array_type::to_string()'],['../d1/d48/classglslstruct_1_1mat__type.html#ad74cea5ace98df0b54b1de265ffdbce7',1,'glslstruct::mat_type::to_string()'],['../d1/d86/classglslstruct_1_1scalar__type.html#ae0b919291f72b5e70efa62077ca7e1e7',1,'glslstruct::scalar_type::to_string()'],['../d7/d86/classglslstruct_1_1vec__type.html#ab57339d3a3fdeeaf953bed22108f1494',1,'glslstruct::vec_type::to_string()'],['../d6/df9/classglslstruct_1_1base__type.html#ade355590bfe37c213b396737a173f1e0',1,'glslstruct::base_type::to_string()'],['../df/dfe/classglslstruct_1_1struct__type.html#a0c46b1ddab4cce11c3af730bbd230fad',1,'glslstruct::struct_type::to_string()'],['../d3/d25/classglslstruct_1_1glsl__opengl__writer.html#a98e4158dd8bbdfab4c086575a7ccc93e',1,'glslstruct::glsl_opengl_writer::to_string()'],['../df/dd1/classglslstruct_1_1glsl__vulkan__writer.html#afbaea7b86b2023358272e029b1ec2325',1,'glslstruct::glsl_vulkan_writer::to_string()'],['../d8/de9/classglslstruct_1_1utils_1_1glsl__writer.html#a97f12cc790bbeeb24e317060d2d30989',1,'glslstruct::utils::glsl_writer::to_string()'],['../db/d98/group__glsl__types.html#gaa8bc9d78cf9fd5877e92d046b586fa6b',1,'glslstruct::to_string(const base_type_handle &amp;type) noexcept'],['../db/d98/group__glsl__types.html#ga2afd3b88ccec9faa7e044ffec413edc2',1,'glslstruct::to_string(const std::shared_ptr&lt; T &gt; &amp;type) noexcept']]],
+  ['traits_2',['Layout Traits',['../d6/d7d/group__layout__traits.html',1,'']]],
+  ['traits_5ftype_3',['traits_type',['../da/d71/classglslstruct_1_1base__layout.html#a58d1db33c64e492b2411d600a7bfd212',1,'glslstruct::base_layout']]],
+  ['type_4',['type',['../d4/db0/classglslstruct_1_1type.html',1,'glslstruct::type&lt; Derived &gt;'],['../d4/db0/classglslstruct_1_1type.html#affe826820cd3198ba98c39de7cd2bcf1',1,'glslstruct::type::type(const size_t size) noexcept'],['../d4/db0/classglslstruct_1_1type.html#a25cd5cc63470249066874edcc58d6ded',1,'glslstruct::type::type(const type &amp;other) noexcept=default'],['../d4/db0/classglslstruct_1_1type.html#a2c4fe1fe21100aea5839b80ba4ffcff2',1,'glslstruct::type::type(type &amp;&amp;other) noexcept=default']]],
+  ['type_20containers_5',['Glsl type containers',['../db/d98/group__glsl__types.html',1,'']]],
+  ['type_20visitors_6',['Glsl type visitors',['../d3/d4e/group__type__visitors.html',1,'']]],
+  ['type_3c_20array_5ftype_20_3e_7',['type&lt; array_type &gt;',['../d4/db0/classglslstruct_1_1type.html',1,'glslstruct']]],
+  ['type_3c_20mat_5ftype_20_3e_8',['type&lt; mat_type &gt;',['../d4/db0/classglslstruct_1_1type.html',1,'glslstruct']]],
+  ['type_3c_20scalar_5ftype_20_3e_9',['type&lt; scalar_type &gt;',['../d4/db0/classglslstruct_1_1type.html',1,'glslstruct']]],
+  ['type_3c_20struct_5ftype_20_3e_10',['type&lt; struct_type &gt;',['../d4/db0/classglslstruct_1_1type.html',1,'glslstruct']]],
+  ['type_3c_20vec_5ftype_20_3e_11',['type&lt; vec_type &gt;',['../d4/db0/classglslstruct_1_1type.html',1,'glslstruct']]],
+  ['type_5fhandle_12',['type_handle',['../d2/d5d/group__glslstruct.html#ga0f818e8f0ce213461601978ab2483e66',1,'glslstruct']]],
+  ['type_5fhash_5fvisitor_13',['type_hash_visitor',['../de/d88/classglslstruct_1_1type__hash__visitor.html',1,'glslstruct::type_hash_visitor'],['../de/d88/classglslstruct_1_1type__hash__visitor.html#a9a46410e012f8cd3c72f031011e221e2',1,'glslstruct::type_hash_visitor::type_hash_visitor()']]],
+  ['type_5fvisitor_14',['type_visitor',['../de/d3f/conceptglslstruct_1_1type__visitor.html',1,'glslstruct']]]
 ];

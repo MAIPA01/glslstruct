@@ -1,0 +1,9 @@
+<map id="glslstruct::utils::glsl_var_type_getter" name="glslstruct::utils::glsl_var_type_getter">
+<area shape="rect" id="Node000001" title="type visitor which returns variable type" alt="" coords="110,212,248,255"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="28,105,108,132"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,141,161,211,156,212,90,146"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,5,131,48"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="69,61,71,105,65,105,67,66"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="131,97,304,140"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="208,153,188,213,184,210,203,156"/>
+</map>

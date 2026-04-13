@@ -1,0 +1,10 @@
+<map id="glslstruct::utils::is_layout_traits_opt_after_add_mat_valid&lt; T, std::void_t&lt; std::enable_if_t&lt; std::is_same_v&lt; void, decltype(T::after_add_mat(std::declval&lt; size_t &amp; &gt;(), std::declval&lt; const size_t &gt;(), std::declval&lt; const size_t &gt;(), std::declval&lt; Args &amp; &gt;()...))&gt; &gt; &gt;, Args... &gt;" name="glslstruct::utils::is_layout_traits_opt_after_add_mat_valid&lt; T, std::void_t&lt; std::enable_if_t&lt; std::is_same_v&lt; void, decltype(T::after_add_mat(std::declval&lt; size_t &amp; &gt;(), std::declval&lt; const size_t &gt;(), std::declval&lt; const size_t &gt;(), std::declval&lt; Args &amp; &gt;()...))&gt; &gt; &gt;, Args... &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="552,121,755,308"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,68,113,94"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,59,189,31,241,18,297,8,356,3,416,5,474,16,530,37,554,53,576,73,611,121,606,120,572,77,551,57,527,42,473,21,415,11,357,9,298,13,242,23,190,36,108,64"/>
+<area shape="rect" id="Node000004" href="$d1/d98/structglslstruct_1_1utils_1_1is__layout__traits__opt__after__add__mat__valid.html" title=" " alt="" coords="162,102,307,177"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="115,97,164,114,159,117,116,102"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="184,245,285,272"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="301,254,408,249,528,237,549,236,555,236,529,242,408,254,301,259"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="285,184,309,200,332,211,387,224,444,230,500,231,555,230,549,230,500,236,444,236,386,229,330,216,306,204,285,190"/>
+</map>

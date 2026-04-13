@@ -1,0 +1,10 @@
+<map id="glslstruct::utils::is_array&lt; T, std::void_t&lt; typename array_traits&lt; T &gt;::value_type, std::enable_if_t&lt; std::is_same_v&lt; decltype(array_traits&lt; T &gt;::data(std::declval&lt; const T &amp; &gt;())), const typename array_traits&lt; T &gt;::value_type * &gt; &gt;, std::enable_if_t&lt; std::is_same_v&lt; decltype(array_traits&lt; T &gt;::size(std::declval&lt; const T &amp; &gt;())), size_t &gt; &gt; &gt; &gt;" name="glslstruct::utils::is_array&lt; T, std::void_t&lt; typename array_traits&lt; T &gt;::value_type, std::enable_if_t&lt; std::is_same_v&lt; decltype(array_traits&lt; T &gt;::data(std::declval&lt; const T &amp; &gt;())), const typename array_traits&lt; T &gt;::value_type * &gt; &gt;, std::enable_if_t&lt; std::is_same_v&lt; decltype(array_traits&lt; T &gt;::size(std::declval&lt; const T &amp; &gt;())), size_t &gt; &gt; &gt; &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,388,348,559"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="64,5,172,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,44,130,124,141,244,156,364,161,388,155,387,151,364,136,245,125,124,120,50"/>
+<area shape="rect" id="Node000004" href="$d9/d09/structglslstruct_1_1utils_1_1is__array.html" title="Is Array Test Struct." alt="" coords="139,81,275,124"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="142,40,187,80,182,82,143,45"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="420,89,522,116"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="479,129,488,179,491,241,489,273,482,306,471,337,455,366,433,390,407,410,349,441,347,436,404,406,429,386,450,362,466,335,477,305,483,273,486,241,483,180,477,134"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="184,135,181,149,168,210,163,272,163,333,167,388,162,387,158,333,157,272,163,209,176,147,182,140"/>
+</map>

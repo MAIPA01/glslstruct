@@ -1,0 +1,11 @@
+<map id="glslstruct::base_struct&lt; Layout &gt;" name="glslstruct::base_struct&lt; Layout &gt;">
+<area shape="rect" id="Node000001" title="base class for glsl struct representation" alt="" coords="5,301,156,344"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="10,203,71,229"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="52,242,75,300,70,301,49,246"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="95,203,253,229"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="155,240,101,303,97,299,150,242"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="117,104,231,131"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="175,144,176,203,171,202,172,149"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="155,5,193,32"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="175,45,176,104,171,103,173,50"/>
+</map>

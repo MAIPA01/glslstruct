@@ -1,0 +1,10 @@
+<map id="glslstruct::utils::has_layout_traits_opt_before_add_vec&lt; T, std::void_t&lt; decltype(T::before_add_vec)&gt; &gt;" name="glslstruct::utils::has_layout_traits_opt_before_add_vec&lt; T, std::void_t&lt; decltype(T::before_add_vec)&gt; &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="555,24,736,115"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,23,113,49"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,22,210,11,311,4,422,5,478,10,532,19,557,27,552,27,531,24,477,15,422,10,311,9,210,16,129,27"/>
+<area shape="rect" id="Node000004" href="$d6/daa/structglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__vec.html" title=" " alt="" coords="162,40,351,99"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="128,45,164,52,159,54,128,50"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="206,123,307,149"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="322,122,552,85,558,85,323,127"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="367,67,558,69,552,70,367,72"/>
+</map>

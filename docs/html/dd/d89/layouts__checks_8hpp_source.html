@@ -17,6 +17,7 @@
 <link href="../../search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../search/searchdata.js"></script>
 <script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript" src="../../darkmode_toggle.js"></script>
 <link href="../../doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -92,88 +93,119 @@ $(function(){initNavTree('dd/d89/layouts__checks_8hpp_source.html','../../','');
   <div class="headertitle"><div class="title">layouts_checks.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="../../dd/d89/layouts__checks_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * glslstruct - a C++ library designed to easily represent GLSL&#39;s Uniform Buffer Objects (UBOs) and Shader Storage Buffer Objects (SSBOs) in C++.</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * Licensed under the BSD 3-Clause License with Attribution Requirement.</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * See the LICENSE file for details: https://github.com/MAIPA01/glslstruct/blob/main/LICENSE</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Copyright (c) 2025, Patryk Antosik (MAIPA01)</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> */</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*</span></div>
+<div class="line"><span class="lineno">    2</span><span class="comment"> * glslstruct - a C++ library designed to easily represent GLSL&#39;s Uniform Buffer Objects (UBOs) and Shader Storage Buffer Objects (SSBOs) in C++.</span></div>
+<div class="line"><span class="lineno">    3</span><span class="comment"> *</span></div>
+<div class="line"><span class="lineno">    4</span><span class="comment"> * Licensed under the BSD 3-Clause License with Attribution Requirement.</span></div>
+<div class="line"><span class="lineno">    5</span><span class="comment"> * See the LICENSE file for details: https://github.com/MAIPA01/glslstruct/blob/main/LICENSE</span></div>
+<div class="line"><span class="lineno">    6</span><span class="comment"> *</span></div>
+<div class="line"><span class="lineno">    7</span><span class="comment"> * Copyright (c) 2025, Patryk Antosik (MAIPA01)</span></div>
+<div class="line"><span class="lineno">    8</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#ifndef _GLSL_STRUCT_LAYOUT_CHECKS_HPP_</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="../../dd/d89/layouts__checks_8hpp.html#ae9e5deadd6bc5963ffde147c2f804f82">   12</a></span><span class="preprocessor">    #define _GLSL_STRUCT_LAYOUT_CHECKS_HPP_</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">once</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#</span><span class="preprocessor">ifndef</span> <span class="preprocessor">_GLSL_STRUCT_LAYOUT_CHECKS_HPP_</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">_GLSL_STRUCT_LAYOUT_CHECKS_HPP_</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">    #include &lt;<a class="code" href="../../d8/dfd/config_8hpp.html">glslstruct/config.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">glslstruct</span><span class="preprocessor">/</span><span class="preprocessor">config</span><span class="preprocessor">.</span><span class="preprocessor">hpp</span><span class="preprocessor">&gt;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">    #if !_GLSL_STRUCT_HAS_CXX17</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="../../dd/d89/layouts__checks_8hpp.html#a82796e0221c1a46ae5c0ed65b0e2dac7">   17</a></span><a class="code hl_define" href="../../db/d81/group__utils.html#ga88375ac928085b68a087f7435ef1f1a5">_GLSL_STRUCT_ERROR</a>(<span class="stringliteral">&quot;This is only available for c++17 and greater!&quot;</span>);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">    #else</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="preprocessor">#</span><span class="preprocessor">if</span> <span class="preprocessor">!</span><a class="code hl_define" href="../../db/d81/group__utils.html#ga71def23842e22dd24f970e88ad7cbcb9">_GLSL_STRUCT_HAS_CXX17</a></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>_GLSL_STRUCT_ERROR(<span class="stringliteral">&quot;This is only available for c++17 and greater!&quot;</span>);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="preprocessor">#</span><span class="preprocessor">else</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">        #include &lt;<a class="code" href="../../d2/dce/layout__traits__concept_8hpp.html">glslstruct/layout/traits/layout_traits_concept.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">        #include &lt;<a class="code" href="../../de/dc4/scalar__layout__traits_8hpp.html">glslstruct/layout/traits/scalar_layout_traits.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">        #include &lt;<a class="code" href="../../d7/dea/std140__layout__traits_8hpp.html">glslstruct/layout/traits/std140_layout_traits.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">        #include &lt;<a class="code" href="../../d1/d42/std430__layout__traits_8hpp.html">glslstruct/layout/traits/std430_layout_traits.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">        #include &lt;<a class="code" href="../../d5/db6/simple__checks_8hpp.html">glslstruct/type/checks/simple_checks.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">glslstruct</span><span class="preprocessor">/</span><span class="preprocessor">layout</span><span class="preprocessor">/</span><span class="preprocessor">traits</span><span class="preprocessor">/</span><span class="preprocessor">layout_traits_concept</span><span class="preprocessor">.</span><span class="preprocessor">hpp</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">glslstruct</span><span class="preprocessor">/</span><span class="preprocessor">layout</span><span class="preprocessor">/</span><span class="preprocessor">traits</span><span class="preprocessor">/</span><span class="preprocessor">scalar_layout_traits</span><span class="preprocessor">.</span><span class="preprocessor">hpp</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">glslstruct</span><span class="preprocessor">/</span><span class="preprocessor">layout</span><span class="preprocessor">/</span><span class="preprocessor">traits</span><span class="preprocessor">/</span><span class="preprocessor">std140_layout_traits</span><span class="preprocessor">.</span><span class="preprocessor">hpp</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">glslstruct</span><span class="preprocessor">/</span><span class="preprocessor">layout</span><span class="preprocessor">/</span><span class="preprocessor">traits</span><span class="preprocessor">/</span><span class="preprocessor">std430_layout_traits</span><span class="preprocessor">.</span><span class="preprocessor">hpp</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">glslstruct</span><span class="preprocessor">/</span><span class="preprocessor">type</span><span class="preprocessor">/</span><span class="preprocessor">checks</span><span class="preprocessor">/</span><span class="preprocessor">simple_checks</span><span class="preprocessor">.</span><span class="preprocessor">hpp</span><span class="preprocessor">&gt;</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../db/de6/namespaceglslstruct.html">glslstruct</a> {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">        #if _GLSL_STRUCT_HAS_CXX20</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">namespace</span> glslstruct {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="preprocessor">#</span><span class="preprocessor">if</span> <a class="code hl_define" href="../../db/d81/group__utils.html#ga4096a3b64d500cf3a960cc82b077452e">_GLSL_STRUCT_HAS_CXX20</a></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">template</span>&lt;layout_traits T&gt;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">        #else</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T, std::enable_if_t&lt;is_layout_traits_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt; = true&gt;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">        #endif</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">class </span>base_layout;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">using </span>std140_layout = base_layout&lt;std140_layout_traits&gt;;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">using </span>std430_layout = base_layout&lt;std430_layout_traits&gt;;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">using </span>scalar_layout = base_layout&lt;scalar_layout_traits&gt;;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="preprocessor">#</span><span class="preprocessor">else</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T, std::enable_if_t&lt;is_layout_traits_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt; = <span class="keyword">true</span>&gt;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">class</span> base_layout;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">   35</span><span class="comment">     * @brief std140 layout representation</span></div>
+<div class="line"><span class="lineno">   36</span><span class="comment">     * @ingroup glslstruct</span></div>
+<div class="line"><span class="lineno">   37</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="../../d2/d5d/group__glslstruct.html#ga90a8386c53a3bf713ba8084b86a261c1">   38</a></span>    <span class="keyword">using</span> std140_layout = base_layout&lt;std140_layout_traits&gt;;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">   40</span><span class="comment">     * @brief std430 layout representation</span></div>
+<div class="line"><span class="lineno">   41</span><span class="comment">     * @ingroup glslstruct</span></div>
+<div class="line"><span class="lineno">   42</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="../../d2/d5d/group__glslstruct.html#ga404c2a461a4f5adb63e404632c848cd1">   43</a></span>    <span class="keyword">using</span> std430_layout = base_layout&lt;std430_layout_traits&gt;;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">   45</span><span class="comment">     * @brief scalar layout representation</span></div>
+<div class="line"><span class="lineno">   46</span><span class="comment">     * @ingroup glslstruct</span></div>
+<div class="line"><span class="lineno">   47</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="../../d2/d5d/group__glslstruct.html#ga8ac4d2ec293265db3594bee4f215a243">   48</a></span>    <span class="keyword">using</span> scalar_layout = base_layout&lt;scalar_layout_traits&gt;;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">namespace </span>utils {</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">        #pragma region IS_LAYOUT</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">namespace</span> utils {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">region</span> <span class="preprocessor">IS_LAYOUT</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">   54</span><span class="comment">         * @brief helper struct to check if type is glsl layout</span></div>
+<div class="line"><span class="lineno">   55</span><span class="comment">         * @ingroup utils</span></div>
+<div class="line"><span class="lineno">   56</span><span class="comment">         * @tparam T type which is glsl layout type</span></div>
+<div class="line"><span class="lineno">   57</span><span class="comment">         */</span></div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keyword">struct </span>is_glsl_layout : std::false_type {};</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="../../db/d32/structglslstruct_1_1utils_1_1is__glsl__layout.html">   59</a></span>        <span class="keyword">struct</span> is_glsl_layout : std::false_type {};</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keyword">struct </span>is_glsl_layout&lt;base_layout&lt;T&gt; &gt; : std::true_type {};</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="../../d9/da9/structglslstruct_1_1utils_1_1is__glsl__layout_3_01base__layout_3_01_t_01_4_01_4.html">   62</a></span>        <span class="keyword">struct</span> is_glsl_layout&lt;base_layout&lt;T&gt; &gt; : std::true_type {};</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">   65</span><span class="comment">         * @brief check if type is glsl layout</span></div>
+<div class="line"><span class="lineno">   66</span><span class="comment">         * @ingroup utils</span></div>
+<div class="line"><span class="lineno">   67</span><span class="comment">         * @tparam T type which is glsl layout type</span></div>
+<div class="line"><span class="lineno">   68</span><span class="comment">         */</span></div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keyword">static</span> <a class="code hl_define" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> <span class="keywordtype">bool</span> is_glsl_layout_v = is_glsl_layout&lt;T&gt;::value;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="../../db/d81/group__utils.html#gabdd6ee674d2e91d9ec1bbc500da931bd">   70</a></span>        <span class="keyword">static</span> <a class="code hl_define" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> <span class="keywordtype">bool</span> is_glsl_layout_v = is_glsl_layout&lt;T&gt;::value;</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor">        #if _GLSL_STRUCT_HAS_CXX20</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt; <span class="keyword">concept </span>glsl_layout = is_glsl_layout_v&lt;T&gt;;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="preprocessor">        #endif</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="preprocessor">        #pragma endregion</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="preprocessor">#</span><span class="preprocessor">if</span> <a class="code hl_define" href="../../db/d81/group__utils.html#ga4096a3b64d500cf3a960cc82b077452e">_GLSL_STRUCT_HAS_CXX20</a></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">   74</span><span class="comment">         * @brief check if type is glsl layout</span></div>
+<div class="line"><span class="lineno">   75</span><span class="comment">         * @ingroup utils</span></div>
+<div class="line"><span class="lineno">   76</span><span class="comment">         * @tparam T type which is glsl layout type</span></div>
+<div class="line"><span class="lineno">   77</span><span class="comment">         */</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="../../dd/d91/conceptglslstruct_1_1utils_1_1glsl__layout.html">   78</a></span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt; concept glsl_layout = is_glsl_layout_v&lt;T&gt;;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">endregion</span></div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="preprocessor">        #pragma region IS_SIMPLE_OR_LAYOUT</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">region</span> <span class="preprocessor">IS_SIMPLE_OR_LAYOUT</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">   84</span><span class="comment">         * @brief check if type is glsl layout or glsl simple</span></div>
+<div class="line"><span class="lineno">   85</span><span class="comment">         * @ingroup utils</span></div>
+<div class="line"><span class="lineno">   86</span><span class="comment">         * @tparam T type which is glsl layout or simple type</span></div>
+<div class="line"><span class="lineno">   87</span><span class="comment">         */</span></div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keyword">static</span> <a class="code hl_define" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> <span class="keywordtype">bool</span> is_glsl_simple_or_layout_v = is_glsl_simple_v&lt;T&gt; || is_glsl_layout_v&lt;T&gt;;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="../../db/d81/group__utils.html#gaa8c2e1b7c79e58e2029e5e143207de05">   89</a></span>        <span class="keyword">static</span> <a class="code hl_define" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> <span class="keywordtype">bool</span> is_glsl_simple_or_layout_v = is_glsl_simple_v&lt;T&gt; || is_glsl_layout_v&lt;T&gt;;</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="preprocessor">        #if _GLSL_STRUCT_HAS_CXX20</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt; <span class="keyword">concept </span>glsl_simple_or_layout = is_glsl_simple_or_layout_v&lt;T&gt;;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="preprocessor">        #endif</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="preprocessor">        #pragma endregion</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="preprocessor">#</span><span class="preprocessor">if</span> <a class="code hl_define" href="../../db/d81/group__utils.html#ga4096a3b64d500cf3a960cc82b077452e">_GLSL_STRUCT_HAS_CXX20</a></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">   93</span><span class="comment">         * @brief check if type is glsl layout or glsl simple</span></div>
+<div class="line"><span class="lineno">   94</span><span class="comment">         * @ingroup utils</span></div>
+<div class="line"><span class="lineno">   95</span><span class="comment">         * @tparam T type which is glsl layout or simple type</span></div>
+<div class="line"><span class="lineno">   96</span><span class="comment">         */</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="../../dc/d69/conceptglslstruct_1_1utils_1_1glsl__simple__or__layout.html">   97</a></span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt; concept glsl_simple_or_layout = is_glsl_simple_or_layout_v&lt;T&gt;;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">endregion</span></div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    } <span class="comment">// namespace utils</span></div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>} <span class="comment">// namespace glslstruct</span></div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aconfig_8hpp_html"><div class="ttname"><a href="../../d8/dfd/config_8hpp.html">config.hpp</a></div></div>
-<div class="ttc" id="agroup__utils_html_ga88375ac928085b68a087f7435ef1f1a5"><div class="ttname"><a href="../../db/d81/group__utils.html#ga88375ac928085b68a087f7435ef1f1a5">_GLSL_STRUCT_ERROR</a></div><div class="ttdeci">#define _GLSL_STRUCT_ERROR(MESSAGE)</div><div class="ttdoc">compiler error</div><div class="ttdef"><b>Definition</b> config.hpp:258</div></div>
-<div class="ttc" id="agroup__utils_html_gaf59f43ea5d6f10a9c887c5e90a74dc11"><div class="ttname"><a href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a></div><div class="ttdeci">#define _GLSL_STRUCT_CONSTEXPR17</div><div class="ttdoc">constexpr for c++17 and higher</div><div class="ttdef"><b>Definition</b> config.hpp:210</div></div>
-<div class="ttc" id="alayout__traits__concept_8hpp_html"><div class="ttname"><a href="../../d2/dce/layout__traits__concept_8hpp.html">layout_traits_concept.hpp</a></div></div>
-<div class="ttc" id="anamespaceglslstruct_html"><div class="ttname"><a href="../../db/de6/namespaceglslstruct.html">glslstruct</a></div><div class="ttdoc">Main namespace of glslstruct library.</div></div>
-<div class="ttc" id="ascalar__layout__traits_8hpp_html"><div class="ttname"><a href="../../de/dc4/scalar__layout__traits_8hpp.html">scalar_layout_traits.hpp</a></div></div>
-<div class="ttc" id="asimple__checks_8hpp_html"><div class="ttname"><a href="../../d5/db6/simple__checks_8hpp.html">simple_checks.hpp</a></div></div>
-<div class="ttc" id="astd140__layout__traits_8hpp_html"><div class="ttname"><a href="../../d7/dea/std140__layout__traits_8hpp.html">std140_layout_traits.hpp</a></div></div>
-<div class="ttc" id="astd430__layout__traits_8hpp_html"><div class="ttname"><a href="../../d1/d42/std430__layout__traits_8hpp.html">std430_layout_traits.hpp</a></div></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="ttc" id="agroup__utils_html_ga4096a3b64d500cf3a960cc82b077452e"><div class="ttname"><a href="../../db/d81/group__utils.html#ga4096a3b64d500cf3a960cc82b077452e">_GLSL_STRUCT_HAS_CXX20</a></div><div class="ttdeci">#define _GLSL_STRUCT_HAS_CXX20</div><div class="ttdoc">check if compiler has c++ version greater or equal to c++20 and if user enabled c++20 features using ...</div><div class="ttdef"><b>Definition</b> config.hpp:142</div></div>
+<div class="ttc" id="agroup__utils_html_ga71def23842e22dd24f970e88ad7cbcb9"><div class="ttname"><a href="../../db/d81/group__utils.html#ga71def23842e22dd24f970e88ad7cbcb9">_GLSL_STRUCT_HAS_CXX17</a></div><div class="ttdeci">#define _GLSL_STRUCT_HAS_CXX17</div><div class="ttdoc">check if compiler has c++ version greater or equal to c++17</div><div class="ttdef"><b>Definition</b> config.hpp:130</div></div>
+<div class="ttc" id="agroup__utils_html_gaf59f43ea5d6f10a9c887c5e90a74dc11"><div class="ttname"><a href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a></div><div class="ttdeci">#define _GLSL_STRUCT_CONSTEXPR17</div><div class="ttdoc">constexpr for c++17 and higher</div><div class="ttdef"><b>Definition</b> config.hpp:196</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="../../dir_149b349f432f061c09a218340f083178.html">glslstruct</a></li><li class="navelem"><a href="../../dir_730ab1105a0c42acb30823db91570c87.html">include</a></li><li class="navelem"><a href="../../dir_4a78655b4ef241accdbb8fea4b13eb2f.html">glslstruct</a></li><li class="navelem"><a href="../../dir_43ce702379ef5f45ad9e29ae2b3033c5.html">type</a></li><li class="navelem"><a href="../../dir_ef387b6cb6d85fa36504a1a1c45b6720.html">checks</a></li><li class="navelem"><a href="../../dd/d89/layouts__checks_8hpp.html">layouts_checks.hpp</a></li>
+    <li class="navelem"><a href="../../dir_149b349f432f061c09a218340f083178.html">glslstruct</a></li><li class="navelem"><a href="../../dir_730ab1105a0c42acb30823db91570c87.html">include</a></li><li class="navelem"><a href="../../dir_4a78655b4ef241accdbb8fea4b13eb2f.html">glslstruct</a></li><li class="navelem"><a href="../../dir_43ce702379ef5f45ad9e29ae2b3033c5.html">type</a></li><li class="navelem"><a href="../../dir_ef387b6cb6d85fa36504a1a1c45b6720.html">checks</a></li><li class="navelem"><b>layouts_checks.hpp</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

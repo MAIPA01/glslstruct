@@ -17,6 +17,7 @@
 <link href="../../search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../search/searchdata.js"></script>
 <script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript" src="../../darkmode_toggle.js"></script>
 <link href="../../doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -92,103 +93,153 @@ $(function(){initNavTree('db/d46/vec__traits__concept_8hpp_source.html','../../'
   <div class="headertitle"><div class="title">vec_traits_concept.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="../../db/d46/vec__traits__concept_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * glslstruct - a C++ library designed to easily represent GLSL&#39;s Uniform Buffer Objects (UBOs) and Shader Storage Buffer Objects (SSBOs) in C++.</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * Licensed under the BSD 3-Clause License with Attribution Requirement.</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * See the LICENSE file for details: https://github.com/MAIPA01/glslstruct/blob/main/LICENSE</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Copyright (c) 2025, Patryk Antosik (MAIPA01)</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> */</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*</span></div>
+<div class="line"><span class="lineno">    2</span><span class="comment"> * glslstruct - a C++ library designed to easily represent GLSL&#39;s Uniform Buffer Objects (UBOs) and Shader Storage Buffer Objects (SSBOs) in C++.</span></div>
+<div class="line"><span class="lineno">    3</span><span class="comment"> *</span></div>
+<div class="line"><span class="lineno">    4</span><span class="comment"> * Licensed under the BSD 3-Clause License with Attribution Requirement.</span></div>
+<div class="line"><span class="lineno">    5</span><span class="comment"> * See the LICENSE file for details: https://github.com/MAIPA01/glslstruct/blob/main/LICENSE</span></div>
+<div class="line"><span class="lineno">    6</span><span class="comment"> *</span></div>
+<div class="line"><span class="lineno">    7</span><span class="comment"> * Copyright (c) 2025, Patryk Antosik (MAIPA01)</span></div>
+<div class="line"><span class="lineno">    8</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#ifndef _GLSL_STRUCT_VEC_TRAITS_CONCEPT_HPP</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="../../db/d46/vec__traits__concept_8hpp.html#a16be642452873299b75b793888190c8e">   12</a></span><span class="preprocessor">    #define _GLSL_STRUCT_VEC_TRAITS_CONCEPT_HPP</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">once</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#</span><span class="preprocessor">ifndef</span> <span class="preprocessor">_GLSL_STRUCT_VEC_TRAITS_CONCEPT_HPP</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">_GLSL_STRUCT_VEC_TRAITS_CONCEPT_HPP</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">    #include &lt;<a class="code" href="../../d8/dfd/config_8hpp.html">glslstruct/config.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">glslstruct</span><span class="preprocessor">/</span><span class="preprocessor">config</span><span class="preprocessor">.</span><span class="preprocessor">hpp</span><span class="preprocessor">&gt;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">    #if !_GLSL_STRUCT_HAS_CXX17</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="../../db/d46/vec__traits__concept_8hpp.html#a82796e0221c1a46ae5c0ed65b0e2dac7">   17</a></span><a class="code hl_define" href="../../db/d81/group__utils.html#ga88375ac928085b68a087f7435ef1f1a5">_GLSL_STRUCT_ERROR</a>(<span class="stringliteral">&quot;This is only available for c++17 and greater!&quot;</span>);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">    #else</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="preprocessor">#</span><span class="preprocessor">if</span> <span class="preprocessor">!</span><a class="code hl_define" href="../../db/d81/group__utils.html#ga71def23842e22dd24f970e88ad7cbcb9">_GLSL_STRUCT_HAS_CXX17</a></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>_GLSL_STRUCT_ERROR(<span class="stringliteral">&quot;This is only available for c++17 and greater!&quot;</span>);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="preprocessor">#</span><span class="preprocessor">else</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">        #include &lt;<a class="code" href="../../dd/d74/array__traits_8hpp.html">glslstruct/utils/array_traits.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">        #include &lt;<a class="code" href="../../db/ddb/_value_type_8hpp.html">glslstruct/utils/ValueType.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">glslstruct</span><span class="preprocessor">/</span><span class="preprocessor">utils</span><span class="preprocessor">/</span><span class="preprocessor">array_traits</span><span class="preprocessor">.</span><span class="preprocessor">hpp</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">glslstruct</span><span class="preprocessor">/</span><span class="preprocessor">utils</span><span class="preprocessor">/</span><span class="preprocessor">ValueType</span><span class="preprocessor">.</span><span class="preprocessor">hpp</span><span class="preprocessor">&gt;</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../db/de6/namespaceglslstruct.html">glslstruct</a> {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">class </span>vec_data;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">namespace</span> glslstruct {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">class</span> vec_data;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">   27</span><span class="comment">     * @brief Contains all static functions needed for layout and struct classes to interpret given vec type as glsl vec value.</span></div>
+<div class="line"><span class="lineno">   28</span><span class="comment">     * @ingroup glslstruct</span></div>
+<div class="line"><span class="lineno">   29</span><span class="comment">     * @tparam T vec type for which user want to define own glsl converter</span></div>
+<div class="line"><span class="lineno">   30</span><span class="comment">     * @details static functions that need to be declared:</span></div>
+<div class="line"><span class="lineno">   31</span><span class="comment">     * @code{.cpp}</span></div>
+<div class="line"><span class="lineno">   32</span><span class="comment">     *  size_t get_length();            // -&gt; returns length of vector</span></div>
+<div class="line"><span class="lineno">   33</span><span class="comment">     *  ValueType get_value_type();     // -&gt; returns scalar type of vector</span></div>
+<div class="line"><span class="lineno">   34</span><span class="comment">     *  vec_data get_data(const T&amp;);    // -&gt; returns bytes data in vec_data container</span></div>
+<div class="line"><span class="lineno">   35</span><span class="comment">     *                                  //    (preferable is to use already declared type conversions</span></div>
+<div class="line"><span class="lineno">   36</span><span class="comment">     *                                  //     glm::vec or mstd::vec)</span></div>
+<div class="line"><span class="lineno">   37</span><span class="comment">     *  T get_value(const vec_data&amp;);   // -&gt; returns value read from vec_data container</span></div>
+<div class="line"><span class="lineno">   38</span><span class="comment">     * @endcode</span></div>
+<div class="line"><span class="lineno">   39</span><span class="comment">     */</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">struct </span>vec_traits {};</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="../../dc/d36/structglslstruct_1_1vec__traits.html">   41</a></span>    <span class="keyword">struct</span> vec_traits {};</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">namespace </span>utils {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">        #pragma region CHECKS</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">        #pragma region IS_VEC</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">namespace</span> utils {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">region</span> <span class="preprocessor">CHECKS</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">region</span> <span class="preprocessor">IS_VEC</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">   47</span><span class="comment">             * @var is_glsl_vec_v</span></div>
+<div class="line"><span class="lineno">   48</span><span class="comment">             * @brief Bool value which is true if type can be converted to glsl vec type</span></div>
+<div class="line"><span class="lineno">   49</span><span class="comment">             * @ingroup utils</span></div>
+<div class="line"><span class="lineno">   50</span><span class="comment">             * @tparam T type for which converter to glsl vec type should be defined</span></div>
+<div class="line"><span class="lineno">   51</span><span class="comment">             */</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">   54</span><span class="comment">             * @struct is_glsl_vec</span></div>
+<div class="line"><span class="lineno">   55</span><span class="comment">             * @brief struct with bool_constant which is true if type can be converted to glsl vec type</span></div>
+<div class="line"><span class="lineno">   56</span><span class="comment">             * @ingroup utils</span></div>
+<div class="line"><span class="lineno">   57</span><span class="comment">             * @tparam T type for which converter to glsl vec type should be defined</span></div>
+<div class="line"><span class="lineno">   58</span><span class="comment">             */</span></div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">        #if _GLSL_STRUCT_HAS_CXX20</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="preprocessor">#</span><span class="preprocessor">if</span> <a class="code hl_define" href="../../db/d81/group__utils.html#ga4096a3b64d500cf3a960cc82b077452e">_GLSL_STRUCT_HAS_CXX20</a></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">   62</span><span class="comment">         * @brief Concept defining which type can be converted to glsl vec type</span></div>
+<div class="line"><span class="lineno">   63</span><span class="comment">         * @ingroup utils</span></div>
+<div class="line"><span class="lineno">   64</span><span class="comment">         * @tparam T type for which converter to glsl vec type should be defined</span></div>
+<div class="line"><span class="lineno">   65</span><span class="comment">         */</span></div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keyword">concept </span>glsl_vec = <span class="keyword">requires</span> {</div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="../../d8/db3/conceptglslstruct_1_1utils_1_1glsl__vec.html">   67</a></span>        concept glsl_vec = requires {</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            { vec_traits&lt;T&gt;::get_length() } -&gt; std::same_as&lt;size_t&gt;;</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            { vec_traits&lt;T&gt;::get_value_type() } -&gt; std::same_as&lt;ValueType&gt;;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            { vec_traits&lt;T&gt;::get_data(std::declval&lt;const T&amp;&gt;()) } -&gt; std::same_as&lt;vec_data&gt;;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            { vec_traits&lt;T&gt;::get_value(std::declval&lt;const vec_data&amp;&gt;()) } -&gt; std::same_as&lt;T&gt;;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            { vec_traits&lt;T&gt;::get_data(std::declval&lt;<span class="keyword">const</span> T&amp;&gt;()) } -&gt; std::same_as&lt;vec_data&gt;;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            { vec_traits&lt;T&gt;::get_value(std::declval&lt;<span class="keyword">const</span> vec_data&amp;&gt;()) } -&gt; std::same_as&lt;T&gt;;</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        };</div>
+</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keyword">static</span> <a class="code hl_define" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> <span class="keywordtype">bool</span> is_glsl_vec_v = glsl_vec&lt;T&gt;;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="../../db/d81/group__utils.html#ga40708f3c66b8c61fc602791877cafe57">   75</a></span>        <span class="keyword">static</span> _GLSL_STRUCT_CONSTEXPR17 <span class="keywordtype">bool</span> is_glsl_vec_v = glsl_vec&lt;T&gt;;</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keyword">struct </span>is_glsl_vec : std::bool_constant&lt;is_glsl_vec_v&lt;T&gt; &gt; {};</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="../../d4/d61/structglslstruct_1_1utils_1_1is__glsl__vec.html">   78</a></span>        <span class="keyword">struct</span> is_glsl_vec : std::bool_constant&lt;is_glsl_vec_v&lt;T&gt; &gt; {};</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="preprocessor">        #else</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="preprocessor">#</span><span class="preprocessor">else</span></div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> = <span class="keywordtype">void</span>&gt;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keyword">struct </span>is_glsl_vec : std::false_type {};</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keyword">struct</span> is_glsl_vec : std::false_type {};</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keyword">struct </span>is_glsl_vec&lt;T,</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>          std::void_t&lt;std::enable_if_t&lt;std::is_same_v&lt;size_t, decltype(vec_traits&lt;T&gt;::get_length())&gt; &gt;,</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            std::enable_if_t&lt;std::is_same_v&lt;ValueType, decltype(vec_traits&lt;T&gt;::get_value_type())&gt; &gt;,</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            std::enable_if_t&lt;std::is_same_v&lt;vec_data, decltype(vec_traits&lt;T&gt;::get_data(std::declval&lt;const T&amp;&gt;()))&gt; &gt;,</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            std::enable_if_t&lt;std::is_same_v&lt;T, decltype(vec_traits&lt;T&gt;::get_value(std::declval&lt;const vec_data&amp;&gt;()))&gt; &gt; &gt; &gt;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keyword">struct</span> is_glsl_vec&lt;T,</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>          std::void_t&lt;std::enable_if_t&lt;std::is_same_v&lt;size_t, <span class="keyword">decltype</span>(vec_traits&lt;T&gt;::get_length())&gt; &gt;,</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            std::enable_if_t&lt;std::is_same_v&lt;ValueType, <span class="keyword">decltype</span>(vec_traits&lt;T&gt;::get_value_type())&gt; &gt;,</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            std::enable_if_t&lt;std::is_same_v&lt;vec_data, <span class="keyword">decltype</span>(vec_traits&lt;T&gt;::get_data(std::declval&lt;<span class="keyword">const</span> T&amp;&gt;()))&gt; &gt;,</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            std::enable_if_t&lt;std::is_same_v&lt;T, <span class="keyword">decltype</span>(vec_traits&lt;T&gt;::get_value(std::declval&lt;<span class="keyword">const</span> vec_data&amp;&gt;()))&gt; &gt; &gt; &gt;</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            : std::true_type {};</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keyword">static</span> <a class="code hl_define" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> <span class="keywordtype">bool</span> is_glsl_vec_v = is_glsl_vec&lt;T&gt;::value;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="preprocessor">        #endif</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="preprocessor">        #pragma endregion</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">endregion</span></div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="preprocessor">        #pragma region IS_VECS_ARRAY</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">region</span> <span class="preprocessor">IS_VECS_ARRAY</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">   99</span><span class="comment">         * @brief Bool value which is true if type V is array of types that passes is_glsl_vec test</span></div>
+<div class="line"><span class="lineno">  100</span><span class="comment">         * @ingroup utils</span></div>
+<div class="line"><span class="lineno">  101</span><span class="comment">         * @tparam V type that is checked</span></div>
+<div class="line"><span class="lineno">  102</span><span class="comment">         */</span></div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> V&gt;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keyword">static</span> <a class="code hl_define" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> <span class="keywordtype">bool</span> is_glsl_vecs_array_v = is_array_of_v&lt;is_glsl_vec, V&gt;;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="../../db/d81/group__utils.html#ga53555a946038fbd9fcfd7b796281832a">  104</a></span>        <span class="keyword">static</span> <a class="code hl_define" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> <span class="keywordtype">bool</span> is_glsl_vecs_array_v = is_array_of_v&lt;is_glsl_vec, V&gt;;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">  107</span><span class="comment">         * @brief Bool value which is true if type V is static size array of types that passes is_glsl_vec test</span></div>
+<div class="line"><span class="lineno">  108</span><span class="comment">         * @ingroup utils</span></div>
+<div class="line"><span class="lineno">  109</span><span class="comment">         * @tparam V type that is checked</span></div>
+<div class="line"><span class="lineno">  110</span><span class="comment">         */</span></div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> V&gt;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keyword">static</span> <a class="code hl_define" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> <span class="keywordtype">bool</span> is_glsl_vecs_static_size_array_v = is_static_size_array_of_v&lt;is_glsl_vec, V&gt;;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="../../db/d81/group__utils.html#gac594c8b525ae0e75f497db4d7de9c334">  112</a></span>        <span class="keyword">static</span> <a class="code hl_define" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> <span class="keywordtype">bool</span> is_glsl_vecs_static_size_array_v = is_static_size_array_of_v&lt;is_glsl_vec, V&gt;;</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="preprocessor">        #if _GLSL_STRUCT_HAS_CXX20</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> V&gt; <span class="keyword">concept </span>glsl_vecs_array             = is_glsl_vecs_array_v&lt;V&gt;;</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span></div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> V&gt; <span class="keyword">concept </span>glsl_vecs_static_size_array = is_glsl_vecs_static_size_array_v&lt;V&gt;;</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="preprocessor">        #endif</span></div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="preprocessor">        #pragma endregion</span></div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="preprocessor">        #pragma endregion</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="preprocessor">#</span><span class="preprocessor">if</span> <a class="code hl_define" href="../../db/d81/group__utils.html#ga4096a3b64d500cf3a960cc82b077452e">_GLSL_STRUCT_HAS_CXX20</a></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">  116</span><span class="comment">         * @brief Concept which is true if type V is array of types that passes is_glsl_vec test</span></div>
+<div class="line"><span class="lineno">  117</span><span class="comment">         * @ingroup utils</span></div>
+<div class="line"><span class="lineno">  118</span><span class="comment">         * @tparam V type that is checked</span></div>
+<div class="line"><span class="lineno">  119</span><span class="comment">         */</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="../../d7/d48/conceptglslstruct_1_1utils_1_1glsl__vecs__array.html">  120</a></span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> V&gt; concept glsl_vecs_array             = is_glsl_vecs_array_v&lt;V&gt;;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">  123</span><span class="comment">         * @brief Concept which is true if type V is static size array of types that passes is_glsl_vec test</span></div>
+<div class="line"><span class="lineno">  124</span><span class="comment">         * @ingroup utils</span></div>
+<div class="line"><span class="lineno">  125</span><span class="comment">         * @tparam V type that is checked</span></div>
+<div class="line"><span class="lineno">  126</span><span class="comment">         */</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="../../db/d2e/conceptglslstruct_1_1utils_1_1glsl__vecs__static__size__array.html">  127</a></span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> V&gt; concept glsl_vecs_static_size_array = is_glsl_vecs_static_size_array_v&lt;V&gt;;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">endregion</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">endregion</span></div>
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    } <span class="comment">// namespace utils</span></div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>} <span class="comment">// namespace glslstruct</span></div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="a_value_type_8hpp_html"><div class="ttname"><a href="../../db/ddb/_value_type_8hpp.html">ValueType.hpp</a></div></div>
-<div class="ttc" id="aarray__traits_8hpp_html"><div class="ttname"><a href="../../dd/d74/array__traits_8hpp.html">array_traits.hpp</a></div></div>
-<div class="ttc" id="aconfig_8hpp_html"><div class="ttname"><a href="../../d8/dfd/config_8hpp.html">config.hpp</a></div></div>
-<div class="ttc" id="agroup__utils_html_ga88375ac928085b68a087f7435ef1f1a5"><div class="ttname"><a href="../../db/d81/group__utils.html#ga88375ac928085b68a087f7435ef1f1a5">_GLSL_STRUCT_ERROR</a></div><div class="ttdeci">#define _GLSL_STRUCT_ERROR(MESSAGE)</div><div class="ttdoc">compiler error</div><div class="ttdef"><b>Definition</b> config.hpp:258</div></div>
-<div class="ttc" id="agroup__utils_html_gaf59f43ea5d6f10a9c887c5e90a74dc11"><div class="ttname"><a href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a></div><div class="ttdeci">#define _GLSL_STRUCT_CONSTEXPR17</div><div class="ttdoc">constexpr for c++17 and higher</div><div class="ttdef"><b>Definition</b> config.hpp:210</div></div>
-<div class="ttc" id="anamespaceglslstruct_html"><div class="ttname"><a href="../../db/de6/namespaceglslstruct.html">glslstruct</a></div><div class="ttdoc">Main namespace of glslstruct library.</div></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="ttc" id="agroup__utils_html_ga4096a3b64d500cf3a960cc82b077452e"><div class="ttname"><a href="../../db/d81/group__utils.html#ga4096a3b64d500cf3a960cc82b077452e">_GLSL_STRUCT_HAS_CXX20</a></div><div class="ttdeci">#define _GLSL_STRUCT_HAS_CXX20</div><div class="ttdoc">check if compiler has c++ version greater or equal to c++20 and if user enabled c++20 features using ...</div><div class="ttdef"><b>Definition</b> config.hpp:142</div></div>
+<div class="ttc" id="agroup__utils_html_ga71def23842e22dd24f970e88ad7cbcb9"><div class="ttname"><a href="../../db/d81/group__utils.html#ga71def23842e22dd24f970e88ad7cbcb9">_GLSL_STRUCT_HAS_CXX17</a></div><div class="ttdeci">#define _GLSL_STRUCT_HAS_CXX17</div><div class="ttdoc">check if compiler has c++ version greater or equal to c++17</div><div class="ttdef"><b>Definition</b> config.hpp:130</div></div>
+<div class="ttc" id="agroup__utils_html_gaf59f43ea5d6f10a9c887c5e90a74dc11"><div class="ttname"><a href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a></div><div class="ttdeci">#define _GLSL_STRUCT_CONSTEXPR17</div><div class="ttdoc">constexpr for c++17 and higher</div><div class="ttdef"><b>Definition</b> config.hpp:196</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="../../dir_149b349f432f061c09a218340f083178.html">glslstruct</a></li><li class="navelem"><a href="../../dir_730ab1105a0c42acb30823db91570c87.html">include</a></li><li class="navelem"><a href="../../dir_4a78655b4ef241accdbb8fea4b13eb2f.html">glslstruct</a></li><li class="navelem"><a href="../../dir_43ce702379ef5f45ad9e29ae2b3033c5.html">type</a></li><li class="navelem"><a href="../../dir_9f04c07f89427d51e7c39e53ebf7e183.html">traits</a></li><li class="navelem"><a href="../../dir_10de31d72a0d2b34b59271a4c7c4ba8d.html">concepts</a></li><li class="navelem"><a href="../../db/d46/vec__traits__concept_8hpp.html">vec_traits_concept.hpp</a></li>
+    <li class="navelem"><a href="../../dir_149b349f432f061c09a218340f083178.html">glslstruct</a></li><li class="navelem"><a href="../../dir_730ab1105a0c42acb30823db91570c87.html">include</a></li><li class="navelem"><a href="../../dir_4a78655b4ef241accdbb8fea4b13eb2f.html">glslstruct</a></li><li class="navelem"><a href="../../dir_43ce702379ef5f45ad9e29ae2b3033c5.html">type</a></li><li class="navelem"><a href="../../dir_9f04c07f89427d51e7c39e53ebf7e183.html">traits</a></li><li class="navelem"><a href="../../dir_10de31d72a0d2b34b59271a4c7c4ba8d.html">concepts</a></li><li class="navelem"><b>vec_traits_concept.hpp</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

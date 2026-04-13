@@ -17,6 +17,7 @@
 <link href="../../search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../search/searchdata.js"></script>
 <script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript" src="../../darkmode_toggle.js"></script>
 <link href="../../doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -92,43 +93,47 @@ $(function(){initNavTree('d1/d0d/_major_type_8hpp_source.html','../../',''); });
   <div class="headertitle"><div class="title">MajorType.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="../../d1/d0d/_major_type_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * glslstruct - a C++ library designed to easily represent GLSL&#39;s Uniform Buffer Objects (UBOs) and Shader Storage Buffer Objects (SSBOs) in C++.</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * Licensed under the BSD 3-Clause License with Attribution Requirement.</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * See the LICENSE file for details: https://github.com/MAIPA01/glslstruct/blob/main/LICENSE</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Copyright (c) 2025, Patryk Antosik (MAIPA01)</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> */</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*</span></div>
+<div class="line"><span class="lineno">    2</span><span class="comment"> * glslstruct - a C++ library designed to easily represent GLSL&#39;s Uniform Buffer Objects (UBOs) and Shader Storage Buffer Objects (SSBOs) in C++.</span></div>
+<div class="line"><span class="lineno">    3</span><span class="comment"> *</span></div>
+<div class="line"><span class="lineno">    4</span><span class="comment"> * Licensed under the BSD 3-Clause License with Attribution Requirement.</span></div>
+<div class="line"><span class="lineno">    5</span><span class="comment"> * See the LICENSE file for details: https://github.com/MAIPA01/glslstruct/blob/main/LICENSE</span></div>
+<div class="line"><span class="lineno">    6</span><span class="comment"> *</span></div>
+<div class="line"><span class="lineno">    7</span><span class="comment"> * Copyright (c) 2025, Patryk Antosik (MAIPA01)</span></div>
+<div class="line"><span class="lineno">    8</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#ifndef _GLSL_STRUCT_MAJOR_TYPE_HPP_</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="../../d1/d0d/_major_type_8hpp.html#ab7666f4018d522c49af635d1cfd2cfbc">   12</a></span><span class="preprocessor">    #define _GLSL_STRUCT_MAJOR_TYPE_HPP_</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">once</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#</span><span class="preprocessor">ifndef</span> <span class="preprocessor">_GLSL_STRUCT_MAJOR_TYPE_HPP_</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">_GLSL_STRUCT_MAJOR_TYPE_HPP_</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">    #include &lt;<a class="code" href="../../d8/dfd/config_8hpp.html">glslstruct/config.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">glslstruct</span><span class="preprocessor">/</span><span class="preprocessor">config</span><span class="preprocessor">.</span><span class="preprocessor">hpp</span><span class="preprocessor">&gt;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">    #if !_GLSL_STRUCT_HAS_CXX17</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="../../d1/d0d/_major_type_8hpp.html#a82796e0221c1a46ae5c0ed65b0e2dac7">   17</a></span><a class="code hl_define" href="../../db/d81/group__utils.html#ga88375ac928085b68a087f7435ef1f1a5">_GLSL_STRUCT_ERROR</a>(<span class="stringliteral">&quot;This is only available for c++17 and greater!&quot;</span>);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">    #else</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="preprocessor">#</span><span class="preprocessor">if</span> <span class="preprocessor">!</span><a class="code hl_define" href="../../db/d81/group__utils.html#ga71def23842e22dd24f970e88ad7cbcb9">_GLSL_STRUCT_HAS_CXX17</a></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>_GLSL_STRUCT_ERROR(<span class="stringliteral">&quot;This is only available for c++17 and greater!&quot;</span>);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="preprocessor">#</span><span class="preprocessor">else</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../db/de6/namespaceglslstruct.html">glslstruct</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace</span> <a class="code hl_namespace" href="../../db/de6/namespaceglslstruct.html">glslstruct</a> {</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="comment">// clang-format off</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    ENUM_CLASS_BASE(MajorType, uint8_t, (Column), (Row))</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">   23</span><span class="comment">     * @brief Major Type Enum for matrices (for now not used)</span></div>
+<div class="line"><span class="lineno">   24</span><span class="comment">     * @ingroup glslstruct</span></div>
+<div class="line"><span class="lineno">   25</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_function" href="../../d2/d5d/group__glslstruct.html#gab0c8004e65314ed65adc5813a59db436">ENUM_CLASS_BASE</a>(<a class="code hl_namespace" href="../../db/de6/namespaceglslstruct.html">MajorType</a>, <a class="code hl_namespace" href="../../db/de6/namespaceglslstruct.html">uint8_t</a>, (<a class="code hl_namespace" href="../../db/de6/namespaceglslstruct.html">Column</a>), (<a class="code hl_namespace" href="../../db/de6/namespaceglslstruct.html">Row</a>))</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="comment">// clang-format on</span></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>} <span class="comment">// namespace glslstruct</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aconfig_8hpp_html"><div class="ttname"><a href="../../d8/dfd/config_8hpp.html">config.hpp</a></div></div>
-<div class="ttc" id="agroup__utils_html_ga88375ac928085b68a087f7435ef1f1a5"><div class="ttname"><a href="../../db/d81/group__utils.html#ga88375ac928085b68a087f7435ef1f1a5">_GLSL_STRUCT_ERROR</a></div><div class="ttdeci">#define _GLSL_STRUCT_ERROR(MESSAGE)</div><div class="ttdoc">compiler error</div><div class="ttdef"><b>Definition</b> config.hpp:258</div></div>
-<div class="ttc" id="anamespaceglslstruct_html"><div class="ttname"><a href="../../db/de6/namespaceglslstruct.html">glslstruct</a></div><div class="ttdoc">Main namespace of glslstruct library.</div></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="ttc" id="agroup__glslstruct_html_gab0c8004e65314ed65adc5813a59db436"><div class="ttname"><a href="../../d2/d5d/group__glslstruct.html#gab0c8004e65314ed65adc5813a59db436">glslstruct::ENUM_CLASS_BASE</a></div><div class="ttdeci">ENUM_CLASS_BASE(ValueType, uint8_t,(Bool),(Int),(Uint),(Float),(Double)) template&lt; class T &gt; static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept _GLSL_STRUCT_REQUIRES((mstd</div><div class="ttdoc">Value Type Enum.</div><div class="ttdef"><b>Definition</b> ValueType.hpp:26</div></div>
+<div class="ttc" id="agroup__utils_html_ga71def23842e22dd24f970e88ad7cbcb9"><div class="ttname"><a href="../../db/d81/group__utils.html#ga71def23842e22dd24f970e88ad7cbcb9">_GLSL_STRUCT_HAS_CXX17</a></div><div class="ttdeci">#define _GLSL_STRUCT_HAS_CXX17</div><div class="ttdoc">check if compiler has c++ version greater or equal to c++17</div><div class="ttdef"><b>Definition</b> config.hpp:130</div></div>
+<div class="ttc" id="anamespaceglslstruct_html"><div class="ttname"><a href="../../db/de6/namespaceglslstruct.html">glslstruct</a></div><div class="ttdoc">Main namespace of glslstruct library.</div><div class="ttdef"><b>Definition</b> scalar_layout_traits.hpp:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="../../dir_149b349f432f061c09a218340f083178.html">glslstruct</a></li><li class="navelem"><a href="../../dir_730ab1105a0c42acb30823db91570c87.html">include</a></li><li class="navelem"><a href="../../dir_4a78655b4ef241accdbb8fea4b13eb2f.html">glslstruct</a></li><li class="navelem"><a href="../../dir_362094e099e66961a884b30d295b2338.html">utils</a></li><li class="navelem"><a href="../../d1/d0d/_major_type_8hpp.html">MajorType.hpp</a></li>
+    <li class="navelem"><a href="../../dir_149b349f432f061c09a218340f083178.html">glslstruct</a></li><li class="navelem"><a href="../../dir_730ab1105a0c42acb30823db91570c87.html">include</a></li><li class="navelem"><a href="../../dir_4a78655b4ef241accdbb8fea4b13eb2f.html">glslstruct</a></li><li class="navelem"><a href="../../dir_362094e099e66961a884b30d295b2338.html">utils</a></li><li class="navelem"><b>MajorType.hpp</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

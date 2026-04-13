@@ -17,6 +17,7 @@
 <link href="../../search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../search/searchdata.js"></script>
 <script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript" src="../../darkmode_toggle.js"></script>
 <link href="../../doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -92,91 +93,123 @@ $(function(){initNavTree('da/d4a/struct__type_8hpp_source.html','../../',''); })
   <div class="headertitle"><div class="title">struct_type.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="../../da/d4a/struct__type_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"> * glslstruct - a C++ library designed to easily represent GLSL&#39;s Uniform Buffer Objects (UBOs) and Shader Storage Buffer Objects (SSBOs) in C++.</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * Licensed under the BSD 3-Clause License with Attribution Requirement.</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * See the LICENSE file for details: https://github.com/MAIPA01/glslstruct/blob/main/LICENSE</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> * Copyright (c) 2025, Patryk Antosik (MAIPA01)</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> */</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/*</span></div>
+<div class="line"><span class="lineno">    2</span><span class="comment"> * glslstruct - a C++ library designed to easily represent GLSL&#39;s Uniform Buffer Objects (UBOs) and Shader Storage Buffer Objects (SSBOs) in C++.</span></div>
+<div class="line"><span class="lineno">    3</span><span class="comment"> *</span></div>
+<div class="line"><span class="lineno">    4</span><span class="comment"> * Licensed under the BSD 3-Clause License with Attribution Requirement.</span></div>
+<div class="line"><span class="lineno">    5</span><span class="comment"> * See the LICENSE file for details: https://github.com/MAIPA01/glslstruct/blob/main/LICENSE</span></div>
+<div class="line"><span class="lineno">    6</span><span class="comment"> *</span></div>
+<div class="line"><span class="lineno">    7</span><span class="comment"> * Copyright (c) 2025, Patryk Antosik (MAIPA01)</span></div>
+<div class="line"><span class="lineno">    8</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#ifndef _GLSL_STRUCT_STRUCT_TYPE_HPP_</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="../../da/d4a/struct__type_8hpp.html#a7fd3412e0bb5f754417f0cf1bbb0560d">   12</a></span><span class="preprocessor">    #define _GLSL_STRUCT_STRUCT_TYPE_HPP_</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">once</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#</span><span class="preprocessor">ifndef</span> <span class="preprocessor">_GLSL_STRUCT_STRUCT_TYPE_HPP_</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">_GLSL_STRUCT_STRUCT_TYPE_HPP_</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">    #include &lt;<a class="code" href="../../d8/dfd/config_8hpp.html">glslstruct/config.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">glslstruct</span><span class="preprocessor">/</span><span class="preprocessor">config</span><span class="preprocessor">.</span><span class="preprocessor">hpp</span><span class="preprocessor">&gt;</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">    #if !_GLSL_STRUCT_HAS_TYPES</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="../../da/d4a/struct__type_8hpp.html#afb0f5e71d1b163fcac05e1b7c84bb9b5">   17</a></span><a class="code hl_define" href="../../db/d81/group__utils.html#ga88375ac928085b68a087f7435ef1f1a5">_GLSL_STRUCT_ERROR</a>(</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="preprocessor">#</span><span class="preprocessor">if</span> <span class="preprocessor">!</span><a class="code hl_define" href="../../db/d81/group__utils.html#gac67930ddbdd08f5c11560ce0ecb4bc0f">_GLSL_STRUCT_HAS_TYPES</a></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>_GLSL_STRUCT_ERROR(</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  <span class="stringliteral">&quot;This is only available for c++17 and greater and when types are not disabled with defined GLSL_STRUCT_DISABLE_TYPES!&quot;</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>);</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">    #else</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="preprocessor">#</span><span class="preprocessor">else</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">        #include &lt;<a class="code" href="../../da/d72/type_8hpp.html">glslstruct/type/containers/type.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">        #include &lt;<a class="code" href="../../d7/d62/var__data_8hpp.html">glslstruct/var_data/var_data.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">glslstruct</span><span class="preprocessor">/</span><span class="preprocessor">type</span><span class="preprocessor">/</span><span class="preprocessor">containers</span><span class="preprocessor">/</span><span class="preprocessor">type</span><span class="preprocessor">.</span><span class="preprocessor">hpp</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">glslstruct</span><span class="preprocessor">/</span><span class="preprocessor">var_data</span><span class="preprocessor">/</span><span class="preprocessor">var_data</span><span class="preprocessor">.</span><span class="preprocessor">hpp</span><span class="preprocessor">&gt;</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../db/de6/namespaceglslstruct.html">glslstruct</a> {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">class </span>struct_type : <span class="keyword">public</span> type&lt;struct_type&gt; {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">namespace</span> <a class="code hl_namespace" href="../../db/de6/namespaceglslstruct.html">glslstruct</a> {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">   27</span><span class="comment">     * @brief struct type container</span></div>
+<div class="line"><span class="lineno">   28</span><span class="comment">     * @ingroup glsl_types</span></div>
+<div class="line"><span class="lineno">   29</span><span class="comment">     */</span></div>
+<div class="foldopen" id="foldopen00030" data-start="{" data-end="};">
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="../../df/dfe/classglslstruct_1_1struct__type.html">   30</a></span>    <span class="keyword">class</span> struct_type : <span class="keyword">public</span> type&lt;struct_type&gt; {</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keyword">friend</span> <span class="keyword">struct </span>std::hash&lt;struct_type&gt;;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keyword">friend</span> <span class="keyword">struct</span> std::hash&lt;struct_type&gt;;</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keyword">using </span>base_type = type;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        mstd::ordered_map&lt;std::string, var_data&gt; _variables;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="../../df/dfe/classglslstruct_1_1struct__type.html#abc7d3409c92e1b85927d505ba48994fc">   34</a></span>        <span class="keyword">using</span> base_type = type;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="comment">/// @brief map with all values of struct</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="../../df/dfe/classglslstruct_1_1struct__type.html#a9a0ddb75bb5ad785e0acfa3f0cb237bc">   37</a></span>        mstd::ordered_map&lt;std::string, var_data&gt; _variables;</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        struct_type(<span class="keyword">const</span> mstd::ordered_map&lt;std::string, var_data&gt;&amp; values, <span class="keywordtype">size_t</span> size) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        struct_type(<span class="keyword">const</span> struct_type&amp; other) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        struct_type(struct_type&amp;&amp; other) <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        ~struct_type() noexcept override;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        struct_type&amp; operator=(const struct_type&amp; other) noexcept;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        struct_type&amp; operator=(struct_type&amp;&amp; other) noexcept;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="preprocessor">#if _GLSL_STRUCT_HAS_CXX20</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="comment">/// @brief constructor with struct values and type size</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        struct_type(<span class="keyword">const</span> mstd::ordered_map&lt;std::string, var_data&gt;&amp; values, size_t size) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="comment">/// @brief default copy constructor</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="../../df/dfe/classglslstruct_1_1struct__type.html#a19c4cbf57ad72619b32d396874599159">   43</a></span>        struct_type(<span class="keyword">const</span> struct_type&amp; other) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="comment">/// @brief default move constructor</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="../../df/dfe/classglslstruct_1_1struct__type.html#a9a6044e7d6629c1e24c2b7e7cc2fa72d">   45</a></span>        struct_type(struct_type&amp;&amp; other) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="comment">/// @brief default destructor</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="../../df/dfe/classglslstruct_1_1struct__type.html#a295bba776be25846a8661d472640e36c">   47</a></span>        ~struct_type() <span class="keyword">noexcept</span> override;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="comment">/// @brief default copy assign operator</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="../../df/dfe/classglslstruct_1_1struct__type.html#ae09b3f845acdef7fb19fa3c455625e74">   50</a></span>        struct_type&amp; operator=(<span class="keyword">const</span> struct_type&amp; other) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="comment">/// @brief default move assign operator</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="../../df/dfe/classglslstruct_1_1struct__type.html#a07e0e799be7ed3c4c611820a1c7ee2f6">   52</a></span>        struct_type&amp; operator=(struct_type&amp;&amp; other) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="comment">/// @brief accept function for type visitors</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="preprocessor">#</span><span class="preprocessor">if</span> <a class="code hl_define" href="../../db/d81/group__utils.html#ga4096a3b64d500cf3a960cc82b077452e">_GLSL_STRUCT_HAS_CXX20</a></div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keyword">template</span>&lt;type_visitor T&gt;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">        #else</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T, std::enable_if_t&lt;is_type_visitor_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt; = true&gt;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">        #endif</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordtype">void</span> accept(T&amp; visitor)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="preprocessor">#</span><span class="preprocessor">else</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T, std::enable_if_t&lt;is_type_visitor_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt; = <span class="keyword">true</span>&gt;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="foldopen" id="foldopen00060" data-start="{" data-end="}">
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="../../df/dfe/classglslstruct_1_1struct__type.html#acaf01b55efd911ba693ac046ae196fc0">   60</a></span>        <span class="keywordtype">void</span> accept(T&amp; visitor) <span class="keyword">const</span> {</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            visitor.visit(*<span class="keyword">this</span>);</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        }</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span></div>
+</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="comment">/// @brief returns true if struct type contains variable of given name</span></div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        [[nodiscard]] <span class="keywordtype">bool</span> contains(std::string_view name) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        [[nodiscard]] <span class="keyword">const</span> mstd::ordered_map&lt;std::string, var_data&gt;&amp; get_variables() const noexcept;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        [[nodiscard]] mstd::ordered_map&lt;std::<span class="keywordtype">string</span>, var_data&gt; get_top_level_variables() const noexcept;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        [[nodiscard]] std::<span class="keywordtype">string</span> to_string() const noexcept override;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="comment">/// @brief returns map with all values</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        [[nodiscard]] <span class="keyword">const</span> mstd::ordered_map&lt;std::string, var_data&gt;&amp; get_variables() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="comment">/// @brief returns map with all top level values</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        [[nodiscard]] mstd::ordered_map&lt;std::string, var_data&gt; get_top_level_variables() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="comment">/// @brief converts type to string</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        [[nodiscard]] std::string to_string() <span class="keyword">const</span> <span class="keyword">noexcept</span> override;</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        friend <span class="keywordtype">bool</span> operator==(const struct_type&amp; lhs, const struct_type&amp; rhs) noexcept;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        friend <span class="keywordtype">bool</span> operator!=(const struct_type&amp; lhs, const struct_type&amp; rhs) noexcept;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="../../df/dfe/classglslstruct_1_1struct__type.html#aae8514b96e4ef2a3b01d0c7fdecde5ec">   76</a></span>        <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> struct_type&amp; lhs, <span class="keyword">const</span> struct_type&amp; rhs) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="../../df/dfe/classglslstruct_1_1struct__type.html#a454ac0127da910d64e3db4eb014f2163">   77</a></span>        <span class="keyword">friend</span> <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> struct_type&amp; lhs, <span class="keyword">const</span> struct_type&amp; rhs) <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    };</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    [[nodiscard]] <span class="keywordtype">bool</span> operator==(const struct_type&amp; lhs, const struct_type&amp; rhs) noexcept;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    [[nodiscard]] <span class="keywordtype">bool</span> operator!=(const struct_type&amp; lhs, const struct_type&amp; rhs) noexcept;</div>
+</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">   81</span><span class="comment">     * @brief checks if two struct types are equal</span></div>
+<div class="line"><span class="lineno">   82</span><span class="comment">     * @ingroup glsl_types</span></div>
+<div class="line"><span class="lineno">   83</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    [[<a class="code hl_namespace" href="../../db/de6/namespaceglslstruct.html">nodiscard</a>]] <span class="keywordtype">bool</span> operator==(<span class="keyword">const</span> struct_type&amp; lhs, <span class="keyword">const</span> struct_type&amp; rhs) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">   86</span><span class="comment">     * @brief checks if two struct types are not equal</span></div>
+<div class="line"><span class="lineno">   87</span><span class="comment">     * @ingroup glsl_types</span></div>
+<div class="line"><span class="lineno">   88</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="../../df/dfe/classglslstruct_1_1struct__type.html#a869b2df6d86bfa3009111012e556fe52">   89</a></span>    [[<a class="code hl_namespace" href="../../db/de6/namespaceglslstruct.html">nodiscard</a>]] <span class="keywordtype">bool</span> operator!=(<span class="keyword">const</span> struct_type&amp; lhs, <span class="keyword">const</span> struct_type&amp; rhs) <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>} <span class="comment">// namespace glslstruct</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span></div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>template&lt;&gt;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>struct std::hash&lt;glslstruct::struct_type&gt; {</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    [[nodiscard]] <span class="keywordtype">size_t</span> operator()(<span class="keyword">const</span> glslstruct::struct_type&amp; type) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">/**</span></div>
+<div class="line"><span class="lineno">   93</span><span class="comment"> * @brief std::hash overload for struct_type</span></div>
+<div class="line"><span class="lineno">   94</span><span class="comment"> * @ingroup glsl_types</span></div>
+<div class="line"><span class="lineno">   95</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="keyword">template</span>&lt;&gt;</div>
+<div class="foldopen" id="foldopen00097" data-start="{" data-end="};">
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="../../d2/d26/structstd_1_1hash_3_01glslstruct_1_1struct__type_01_4.html">   97</a></span><span class="keyword">struct</span> std::hash&lt;<a class="code hl_namespace" href="../../db/de6/namespaceglslstruct.html">glslstruct</a>::struct_type&gt; {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="../../d2/d26/structstd_1_1hash_3_01glslstruct_1_1struct__type_01_4.html#ae8e3f92b67a32fcd73e516f6fd9f8f0c">   98</a></span>    [[nodiscard]] size_t operator()(<span class="keyword">const</span> <a class="code hl_namespace" href="../../db/de6/namespaceglslstruct.html">glslstruct</a>::struct_type&amp; type) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>};</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="preprocessor">    #endif</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aconfig_8hpp_html"><div class="ttname"><a href="../../d8/dfd/config_8hpp.html">config.hpp</a></div></div>
-<div class="ttc" id="agroup__utils_html_ga88375ac928085b68a087f7435ef1f1a5"><div class="ttname"><a href="../../db/d81/group__utils.html#ga88375ac928085b68a087f7435ef1f1a5">_GLSL_STRUCT_ERROR</a></div><div class="ttdeci">#define _GLSL_STRUCT_ERROR(MESSAGE)</div><div class="ttdoc">compiler error</div><div class="ttdef"><b>Definition</b> config.hpp:258</div></div>
-<div class="ttc" id="anamespaceglslstruct_html"><div class="ttname"><a href="../../db/de6/namespaceglslstruct.html">glslstruct</a></div><div class="ttdoc">Main namespace of glslstruct library.</div></div>
-<div class="ttc" id="atype_8hpp_html"><div class="ttname"><a href="../../da/d72/type_8hpp.html">type.hpp</a></div></div>
-<div class="ttc" id="avar__data_8hpp_html"><div class="ttname"><a href="../../d7/d62/var__data_8hpp.html">var_data.hpp</a></div></div>
+</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="ttc" id="agroup__utils_html_ga4096a3b64d500cf3a960cc82b077452e"><div class="ttname"><a href="../../db/d81/group__utils.html#ga4096a3b64d500cf3a960cc82b077452e">_GLSL_STRUCT_HAS_CXX20</a></div><div class="ttdeci">#define _GLSL_STRUCT_HAS_CXX20</div><div class="ttdoc">check if compiler has c++ version greater or equal to c++20 and if user enabled c++20 features using ...</div><div class="ttdef"><b>Definition</b> config.hpp:142</div></div>
+<div class="ttc" id="agroup__utils_html_gac67930ddbdd08f5c11560ce0ecb4bc0f"><div class="ttname"><a href="../../db/d81/group__utils.html#gac67930ddbdd08f5c11560ce0ecb4bc0f">_GLSL_STRUCT_HAS_TYPES</a></div><div class="ttdeci">#define _GLSL_STRUCT_HAS_TYPES</div><div class="ttdoc">check if user not disabled type containers using GLSL_STRUCT_DISABLE_TYPES</div><div class="ttdef"><b>Definition</b> config.hpp:162</div></div>
+<div class="ttc" id="anamespaceglslstruct_html"><div class="ttname"><a href="../../db/de6/namespaceglslstruct.html">glslstruct</a></div><div class="ttdoc">Main namespace of glslstruct library.</div><div class="ttdef"><b>Definition</b> scalar_layout_traits.hpp:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="../../dir_149b349f432f061c09a218340f083178.html">glslstruct</a></li><li class="navelem"><a href="../../dir_730ab1105a0c42acb30823db91570c87.html">include</a></li><li class="navelem"><a href="../../dir_4a78655b4ef241accdbb8fea4b13eb2f.html">glslstruct</a></li><li class="navelem"><a href="../../dir_43ce702379ef5f45ad9e29ae2b3033c5.html">type</a></li><li class="navelem"><a href="../../dir_7fbe2487d9db197d4024346d1073bd58.html">containers</a></li><li class="navelem"><a href="../../da/d4a/struct__type_8hpp.html">struct_type.hpp</a></li>
+    <li class="navelem"><a href="../../dir_149b349f432f061c09a218340f083178.html">glslstruct</a></li><li class="navelem"><a href="../../dir_730ab1105a0c42acb30823db91570c87.html">include</a></li><li class="navelem"><a href="../../dir_4a78655b4ef241accdbb8fea4b13eb2f.html">glslstruct</a></li><li class="navelem"><a href="../../dir_43ce702379ef5f45ad9e29ae2b3033c5.html">type</a></li><li class="navelem"><a href="../../dir_7fbe2487d9db197d4024346d1073bd58.html">containers</a></li><li class="navelem"><b>struct_type.hpp</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

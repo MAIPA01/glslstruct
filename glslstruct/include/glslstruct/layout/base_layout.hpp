@@ -498,7 +498,7 @@ namespace glslstruct {
 				}
 		}
 
-		/// @bfrief calls after add struct event
+		/// @brief calls after add struct event
 		_GLSL_STRUCT_CONSTEXPR17 void _after_add_struct(const size_t baseOffset, const size_t baseAlignment) {
 				if _GLSL_STRUCT_CONSTEXPR17 (utils::has_layout_traits_after_add_struct_v<traits_type>) {
 						if _GLSL_STRUCT_CONSTEXPR17 (has_context) {
@@ -1063,7 +1063,7 @@ namespace glslstruct {
 			return _variables.at(name.data());
 		}
 
-		/// @breif returns array count (if single value then returns 1 else if value doesn't exist returns 0 else array count)
+		/// @brief returns array count (if single value then returns 1 else if value doesn't exist returns 0 else array count)
 		[[nodiscard]]
 		#if _GLSL_STRUCT_HAS_TYPES || _GLSL_STRUCT_HAS_CXX20
 		_GLSL_STRUCT_CONSTEXPR17

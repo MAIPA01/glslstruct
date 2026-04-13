@@ -1,0 +1,15 @@
+<map id="glslstruct::vec_type" name="glslstruct::vec_type">
+<area shape="rect" id="Node000001" title="vec type container" alt="" coords="52,393,188,420"/>
+<area shape="rect" id="Node000002" href="$d4/db0/classglslstruct_1_1type.html" title=" " alt="" coords="50,279,190,321"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,335,123,394,118,392,118,339"/>
+<area shape="rect" id="Node000003" href="$d6/df9/classglslstruct_1_1base__type.html" title="base class for all glsl type containers" alt="" coords="49,104,191,131"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="122,144,123,279,118,278,118,148"/>
+<area shape="rect" id="Node000005" href="$d4/db0/classglslstruct_1_1type.html" title="intermediate glsl type containers" alt="" coords="147,180,323,207"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="152,136,218,179,213,180,152,142"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,5,62,32"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="24,49,19,80,15,116,15,301,17,317,22,331,42,356,67,376,94,392,89,393,64,380,38,359,18,333,12,318,10,302,10,116,13,79,25,44"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="55,41,112,103,107,105,55,47"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="208,219,145,280,141,276,212,215"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="214,287,296,313"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="230,323,138,395,135,390,224,323"/>
+</map>

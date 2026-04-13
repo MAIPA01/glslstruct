@@ -1,0 +1,10 @@
+<map id="glslstruct::utils::has_ssbo_pattern&lt; Layout, std::void_t&lt; std::enable_if_t&lt; std::is_convertible_v&lt; decltype(ssbo_parser_pattern&lt; Layout &gt;::pattern), pcre2cpp::regex &gt; &gt; &gt; &gt;" name="glslstruct::utils::has_ssbo_pattern&lt; Layout, std::void_t&lt; std::enable_if_t&lt; std::is_convertible_v&lt; decltype(ssbo_parser_pattern&lt; Layout &gt;::pattern), pcre2cpp::regex &gt; &gt; &gt; &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="567,106,786,229"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,53,113,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,45,199,23,308,6,368,3,428,5,487,15,544,33,570,47,594,64,634,106,629,105,590,68,567,51,542,38,486,20,428,11,368,8,309,11,200,28,115,50"/>
+<area shape="rect" id="Node000004" href="$d7/de7/structglslstruct_1_1utils_1_1has__ssbo__pattern.html" title="struct checking if layout can be used as ssbo" alt="" coords="162,85,341,144"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="127,81,164,91,159,93,128,86"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="201,198,302,225"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="317,207,423,201,543,190,564,190,569,189,544,196,424,207,318,212"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="319,148,366,164,416,172,468,176,569,178,564,178,468,182,416,177,365,169,319,153"/>
+</map>

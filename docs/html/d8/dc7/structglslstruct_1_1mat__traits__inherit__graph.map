@@ -1,0 +1,7 @@
+<map id="glslstruct::mat_traits&lt; T &gt;" name="glslstruct::mat_traits&lt; T &gt;">
+<area shape="rect" id="Node000001" title="Contains all static functions needed for layout and struct classes to interpret given mat type as gls..." alt="" coords="5,63,177,90"/>
+<area shape="rect" id="Node000002" href="$de/d58/structglslstruct_1_1mat__traits_3_01glm_1_1mat_3_01_c_00_01_r_00_01_t_00_01_q_01_4_01_4.html" title="mat_traits for glm::mat values" alt="" coords="354,17,534,59"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="191,63,355,47,351,50,192,68"/>
+<area shape="rect" id="Node000003" href="$d6/d8a/structglslstruct_1_1mat__traits_3_01mstd_1_1mat_3_01_c_00_01_r_00_01_t_01_4_01_4.html" title="mat_traits for mstd::mat values" alt="" coords="358,93,530,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="140,93,201,110,281,118,361,120,355,120,281,123,200,115,139,99"/>
+</map>

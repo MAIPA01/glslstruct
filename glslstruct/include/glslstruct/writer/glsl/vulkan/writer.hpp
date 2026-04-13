@@ -23,9 +23,9 @@ _GLSL_STRUCT_ERROR(
 		#include <glslstruct/writer/glsl/writer.hpp>
 
 /**
- * @defgroup opengl_writer Opengl Writer
+ * @defgroup vulkan_writer Vulkan Writer
  * @ingroup glslstruct
- * @brief Converts glsl struct and layout to glsl code compatible with opengl
+ * @brief Converts glsl struct and layout to glsl code compatible with vulkan
  * @details Example:
  * @code{.cpp}
  * // UBO

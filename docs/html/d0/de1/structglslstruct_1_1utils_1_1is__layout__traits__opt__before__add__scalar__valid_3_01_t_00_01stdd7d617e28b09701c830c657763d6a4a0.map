@@ -1,0 +1,10 @@
+<map id="glslstruct::utils::is_layout_traits_opt_before_add_scalar_valid&lt; T, std::void_t&lt; std::enable_if_t&lt; std::is_same_v&lt; void, decltype(T::before_add_scalar(std::declval&lt; size_t &amp; &gt;(), std::declval&lt; Args &amp; &gt;()...))&gt; &gt; &gt;, Args... &gt;" name="glslstruct::utils::is_layout_traits_opt_before_add_scalar_valid&lt; T, std::void_t&lt; std::enable_if_t&lt; std::is_same_v&lt; void, decltype(T::before_add_scalar(std::declval&lt; size_t &amp; &gt;(), std::declval&lt; Args &amp; &gt;()...))&gt; &gt; &gt;, Args... &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="549,118,801,257"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,57,113,83"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,49,193,25,299,7,356,3,414,5,472,14,526,32,556,48,583,68,629,118,624,117,580,72,553,52,524,37,470,19,414,10,356,8,299,12,194,31,113,54"/>
+<area shape="rect" id="Node000004" href="$d0/d62/structglslstruct_1_1utils_1_1is__layout__traits__opt__before__add__scalar__valid.html" title=" " alt="" coords="162,86,330,161"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="122,86,164,98,159,100,123,91"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="196,218,297,245"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="312,226,413,220,525,210,546,210,551,209,526,215,413,226,313,232"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="313,166,355,184,403,194,453,199,551,202,546,202,452,204,402,199,354,189,312,171"/>
+</map>

@@ -1,4 +1,9 @@
 <map id="GLSLStruct" name="GLSLStruct">
-<area shape="rect" id="Node000001" title="Main group." alt="" coords="5,5,95,32"/>
-<area shape="rect" id="Node000002" href="$db/d81/group__utils.html" title="group with utilities (not for end user to use)" alt="" coords="143,5,208,32"/>
+<area shape="rect" id="Node000002" href="$db/d98/group__glsl__types.html" title="type containers are for people that want to know of which type is value stored in struct" alt="" coords="143,5,280,32"/>
+<area shape="rect" id="Node000001" title="Main group." alt="" coords="5,132,95,159"/>
+<area shape="rect" id="Node000004" href="$d6/d7d/group__layout__traits.html" title="Traits for different layouts." alt="" coords="163,56,260,83"/>
+<area shape="rect" id="Node000005" href="$d0/daf/group__opengl__writer.html" title="Converts glsl struct and layout to glsl code compatible with opengl." alt="" coords="161,107,262,133"/>
+<area shape="rect" id="Node000003" href="$d3/d4e/group__type__visitors.html" title="glsl type visitors" alt="" coords="152,157,271,184"/>
+<area shape="rect" id="Node000006" href="$db/d81/group__utils.html" title="group with utilities (not for end user to use)" alt="" coords="179,208,244,235"/>
+<area shape="rect" id="Node000007" href="$d8/def/group__vulkan__writer.html" title="Converts glsl struct and layout to glsl code compatible with vulkan." alt="" coords="162,259,260,285"/>
 </map>

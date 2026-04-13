@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['_5fcanbevariablesize_0',['_canBeVariableSize',['../d3/dce/classglslstruct_1_1utils_1_1glsl__array__count__getter.html#a0c9855fe1d23c2991f6c7ee081ab9085',1,'glslstruct::utils::glsl_array_count_getter']]],
+  ['_5fcols_1',['_cols',['../d1/d48/classglslstruct_1_1mat__type.html#a7f2964dc42df50c739d21dfff61dadfd',1,'glslstruct::mat_type']]],
+  ['_5fcontext_2',['_context',['../db/dac/structglslstruct_1_1utils_1_1layout__with__context.html#a689228eaa0f2089cb6d27c16d70755af',1,'glslstruct::utils::layout_with_context']]],
+  ['_5fcount_3',['_count',['../db/d57/classglslstruct_1_1array__type.html#abcf7e1653dc8566b26b363a22108eb27',1,'glslstruct::array_type']]],
+  ['_5fcurrentoffset_4',['_currentOffset',['../da/d71/classglslstruct_1_1base__layout.html#ab56eb0c3a4b4fea458e8c92223e38ee8',1,'glslstruct::base_layout']]],
+  ['_5fdata_5',['_data',['../d4/d83/classglslstruct_1_1mat__data.html#a95a7c2850bb3ba872194abfa5bd13d95',1,'glslstruct::mat_data::_data'],['../d0/de5/classglslstruct_1_1scalar__data.html#a7f5dd15cf6dad34936ddd446dbd44778',1,'glslstruct::scalar_data::_data'],['../d6/ddd/classglslstruct_1_1vec__data.html#a37f0f2466e24094bb49e60544d7fd816',1,'glslstruct::vec_data::_data'],['../d6/db1/classglslstruct_1_1base__struct.html#ac2dfd3a0876b0f458eddb893d44e9939',1,'glslstruct::base_struct::_data']]],
+  ['_5fistoplevel_6',['_isTopLevel',['../d8/d13/classglslstruct_1_1var__data.html#a4dffd1c178540af316068c1d4731e109',1,'glslstruct::var_data']]],
+  ['_5flayout_7',['_layout',['../d6/db1/classglslstruct_1_1base__struct.html#aacd1448b42198aebf65e18cabbebd368',1,'glslstruct::base_struct']]],
+  ['_5flength_8',['_length',['../d7/d86/classglslstruct_1_1vec__type.html#ae2a8fe2bf4d73253837971f31a6e39af',1,'glslstruct::vec_type']]],
+  ['_5foffset_9',['_offset',['../d8/d13/classglslstruct_1_1var__data.html#af7aae8f67aaa272d6c7517dd831524fb',1,'glslstruct::var_data']]],
+  ['_5fpadding_10',['_padding',['../d8/d13/classglslstruct_1_1var__data.html#aa0926ec50711c59a81ba0d220b778f3b',1,'glslstruct::var_data']]],
+  ['_5fresult_11',['_result',['../de/d88/classglslstruct_1_1type__hash__visitor.html#a3d6325a68a73ac98e73aa3e4be9cda07',1,'glslstruct::type_hash_visitor::_result'],['../d9/d84/classglslstruct_1_1utils_1_1glsl__var__type__getter.html#ab670db5a7b47a603242b92edbeb3e127',1,'glslstruct::utils::glsl_var_type_getter::_result'],['../d3/dce/classglslstruct_1_1utils_1_1glsl__array__count__getter.html#a922e47832dd5d28bf26cc96136290fda',1,'glslstruct::utils::glsl_array_count_getter::_result'],['../d8/de9/classglslstruct_1_1utils_1_1glsl__writer.html#acc7c06e5502c34d3a3311e5e15d7da38',1,'glslstruct::utils::glsl_writer::_result'],['../de/d45/classglslstruct_1_1eq__type__visitor.html#a5f130475af6ff5c2d12f142283cd7d9b',1,'glslstruct::eq_type_visitor::_result']]],
+  ['_5frows_12',['_rows',['../d1/d48/classglslstruct_1_1mat__type.html#ac03a42829fbdd762ddc7053f34e376ee',1,'glslstruct::mat_type']]],
+  ['_5fsize_13',['_size',['../d6/df9/classglslstruct_1_1base__type.html#a04b305fb516889cdcc703907bd3a31d8',1,'glslstruct::base_type']]],
+  ['_5fstructidx_14',['_structIdx',['../d8/de9/classglslstruct_1_1utils_1_1glsl__writer.html#a8eaaf3571ac03b49d5403ed6f3dfd917',1,'glslstruct::utils::glsl_writer']]],
+  ['_5fstructsbodies_15',['_structsBodies',['../de/dd1/classglslstruct_1_1base__parser.html#a9eadafaaa8994d71df4482a185dfff97',1,'glslstruct::base_parser']]],
+  ['_5fstructslayouts_16',['_structsLayouts',['../de/dd1/classglslstruct_1_1base__parser.html#a3ece03138090aeb28347e9a838b9ba55',1,'glslstruct::base_parser']]],
+  ['_5fstructsnames_17',['_structsNames',['../d9/d84/classglslstruct_1_1utils_1_1glsl__var__type__getter.html#af6a29e8eb6ab0036a6a728cdcdf0fd3e',1,'glslstruct::utils::glsl_var_type_getter']]],
+  ['_5ftype_18',['_type',['../db/d57/classglslstruct_1_1array__type.html#ac808fe523a7d08a50aea9803f6b1bf13',1,'glslstruct::array_type::_type'],['../d1/d48/classglslstruct_1_1mat__type.html#a2ec8bee2f627f3747183fad446ed7664',1,'glslstruct::mat_type::_type'],['../d1/d86/classglslstruct_1_1scalar__type.html#af62f734fb2eabf11cd6b2850852ed48d',1,'glslstruct::scalar_type::_type'],['../d7/d86/classglslstruct_1_1vec__type.html#a1ba552cf2ad67c01d93e68001ba6c59c',1,'glslstruct::vec_type::_type'],['../d8/d13/classglslstruct_1_1var__data.html#a98519f3f23975143106ded6326be9724',1,'glslstruct::var_data::_type']]],
+  ['_5funiquenames_19',['_uniqueNames',['../d8/de9/classglslstruct_1_1utils_1_1glsl__writer.html#a05d34bb2c14a779f57a5f4cde66402fa',1,'glslstruct::utils::glsl_writer']]],
+  ['_5funiquestructs_20',['_uniqueStructs',['../d8/de9/classglslstruct_1_1utils_1_1glsl__writer.html#a080c27799a9a373f698684ab4206ebdf',1,'glslstruct::utils::glsl_writer']]],
+  ['_5fvalue_21',['_value',['../de/d45/classglslstruct_1_1eq__type__visitor.html#a3effd93b5c0ddc0d83e2394d9cafe35e',1,'glslstruct::eq_type_visitor']]],
+  ['_5fvariables_22',['_variables',['../df/dfe/classglslstruct_1_1struct__type.html#a9a0ddb75bb5ad785e0acfa3f0cb237bc',1,'glslstruct::struct_type::_variables'],['../da/d71/classglslstruct_1_1base__layout.html#a7c7feef9468bcfe0cce597fba548791e',1,'glslstruct::base_layout::_variables']]],
+  ['_5fwriter_23',['_writer',['../d3/d25/classglslstruct_1_1glsl__opengl__writer.html#a79af7a3b354d490ad7d62108799894bd',1,'glslstruct::glsl_opengl_writer::_writer'],['../df/dd1/classglslstruct_1_1glsl__vulkan__writer.html#a4d4f81262aa8bbeec6dcf0e19db3f910',1,'glslstruct::glsl_vulkan_writer::_writer']]]
+];

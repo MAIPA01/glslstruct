@@ -1,0 +1,14 @@
+<map id="glslstruct::mat_data" name="glslstruct::mat_data">
+<area shape="rect" id="Node000001" title="glsl mat data container" alt="" coords="11,515,148,541"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,400,154,443"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="82,457,82,515,77,513,77,460"/>
+<area shape="rect" id="Node000003" href="$d6/ddd/classglslstruct_1_1vec__data.html" title="glsl vec data container" alt="" coords="132,301,267,328"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="173,340,105,401,101,398,176,336"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="126,203,284,229"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="208,243,209,278,205,302,200,300,204,277,206,248"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="22,104,137,131"/>
+<area shape="poly" id="edge6_Node000002_Node000005" title=" " alt="" coords="73,148,66,196,57,254,57,294,62,334,76,399,71,400,56,335,52,294,52,253,60,195,74,143"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="108,138,191,201,186,203,108,143"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="60,5,99,32"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="80,45,82,104,77,104,79,50"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="glslstruct::utils::glsl_array_count_getter" name="glslstruct::utils::glsl_array_count_getter">
+<area shape="rect" id="Node000001" title="type visitor which gets array and sub arrays counts in format [0][1]..." alt="" coords="27,196,184,239"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,97,51,124"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="23,137,26,156,32,171,42,183,56,195,50,196,38,187,27,173,21,157,23,142"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="143,97,222,124"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="175,137,155,174,133,198,129,194,151,170,170,140"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="120,5,245,48"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="184,61,185,98,180,96,181,66"/>
+</map>

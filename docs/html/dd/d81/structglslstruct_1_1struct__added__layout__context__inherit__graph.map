@@ -1,0 +1,7 @@
+<map id="glslstruct::struct_added_layout_context" name="glslstruct::struct_added_layout_context">
+<area shape="rect" id="Node000001" title="layout context which contains alignment of last added struct" alt="" coords="60,5,216,48"/>
+<area shape="rect" id="Node000002" href="$d3/ddf/structglslstruct_1_1std140__layout__context.html" title="Std140 Layout additional context." alt="" coords="5,96,127,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,59,85,98,81,94,109,61"/>
+<area shape="rect" id="Node000003" href="$d3/dfe/structglslstruct_1_1std430__layout__context.html" title="Std430 Layout additional context." alt="" coords="151,96,272,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="166,58,197,96,192,95,164,63"/>
+</map>

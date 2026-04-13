@@ -130,7 +130,7 @@ namespace glslstruct::utils {
 		/// @brief unique names of all strucs, UBOs and SSBOs
 		std::unordered_set<std::string> _uniqueNames;
 
-		/// @breif returns layout string
+		/// @brief returns layout string
 		[[nodiscard]] static std::string _get_layout(std::string_view layoutData);
 
 		/// @brief appends struct body to result

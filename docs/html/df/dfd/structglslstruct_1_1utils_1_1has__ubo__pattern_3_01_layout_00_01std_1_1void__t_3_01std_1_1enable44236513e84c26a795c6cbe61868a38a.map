@@ -1,0 +1,10 @@
+<map id="glslstruct::utils::has_ubo_pattern&lt; Layout, std::void_t&lt; std::enable_if_t&lt; std::is_convertible_v&lt; decltype(ubo_parser_pattern&lt; Layout &gt;::pattern), pcre2cpp::regex &gt; &gt; &gt; &gt;" name="glslstruct::utils::has_ubo_pattern&lt; Layout, std::void_t&lt; std::enable_if_t&lt; std::is_convertible_v&lt; decltype(ubo_parser_pattern&lt; Layout &gt;::pattern), pcre2cpp::regex &gt; &gt; &gt; &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="43,319,254,441"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,113,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,45,64,91,71,139,96,234,126,318,121,319,91,236,66,141,59,91,59,50"/>
+<area shape="rect" id="Node000004" href="$d1/de6/structglslstruct_1_1utils_1_1has__ubo__pattern.html" title="struct checking if layout can be used as ubo" alt="" coords="81,81,253,140"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="85,39,135,80,130,82,86,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="296,97,398,124"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="353,137,358,173,357,214,349,257,331,296,315,314,297,330,256,353,253,348,294,325,311,310,326,293,344,255,352,214,353,173,351,142"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="153,152,153,164,146,244,147,319,141,318,141,244,148,164,151,157"/>
+</map>

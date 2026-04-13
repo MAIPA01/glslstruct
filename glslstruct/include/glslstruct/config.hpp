@@ -91,7 +91,7 @@
 	 * @brief glslstruct last update day
 	 * @ingroup glslstruct
 	 */
-	#define GLSL_STRUCT_LAST_UPDATE_DAY 13
+	#define GLSL_STRUCT_LAST_UPDATE_DAY 14
 	/**
 	 * @brief glslstruct last update month
 	 * @ingroup glslstruct
@@ -173,18 +173,6 @@
 		#define _GLSL_STRUCT_HAS_TYPE_CHECKS 0
 	#endif
 	#pragma endregion
-
-/**
- * @def _GLSL_STRUCT_HAS_GLM
- * @brief check if user enabled glm support
- * @ingroup utils
- */
-
-	#ifdef GLSL_STRUCT_DISABLE_GLM
-		#define _GLSL_STRUCT_HAS_GLM 0
-	#else
-		#define _GLSL_STRUCT_HAS_GLM 1
-	#endif
 
 /**
  * @def _GLSL_STRUCT_HAS_PARSER

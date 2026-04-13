@@ -1,0 +1,13 @@
+<map id="glslstruct::scalar_traits&lt; T &gt;" name="glslstruct::scalar_traits&lt; T &gt;">
+<area shape="rect" id="Node000001" title="Contains all static functions needed for layout and struct classes to interpret given scalar type as ..." alt="" coords="5,139,123,181"/>
+<area shape="rect" id="Node000002" href="$d5/ded/structglslstruct_1_1scalar__traits_3_01bool_01_4.html" title="scalar_traits for bool values" alt="" coords="290,5,407,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,125,115,100,145,78,181,61,218,48,291,32,287,36,220,53,183,66,148,82,119,104,94,128"/>
+<area shape="rect" id="Node000003" href="$de/d1a/structglslstruct_1_1scalar__traits_3_01double_01_4.html" title="scalar_traits for double values" alt="" coords="289,72,408,115"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="135,131,146,128,219,111,290,100,286,103,220,116,147,133,138,136"/>
+<area shape="rect" id="Node000004" href="$d5/db9/structglslstruct_1_1scalar__traits_3_01float_01_4.html" title="scalar_traits for float values" alt="" coords="290,139,407,181"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="137,157,291,158,288,162,138,163"/>
+<area shape="rect" id="Node000005" href="$d2/d33/structglslstruct_1_1scalar__traits_3_01int_01_4.html" title="scalar_traits for int values" alt="" coords="290,205,407,248"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="136,184,147,187,221,204,292,218,286,219,220,209,146,192,137,189"/>
+<area shape="rect" id="Node000006" href="$d1/d53/structglslstruct_1_1scalar__traits_3_01unsigned_01int_01_4.html" title="scalar_traits for unsigned int values" alt="" coords="273,272,424,315"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="92,191,119,216,148,238,210,264,275,283,269,283,208,269,145,242,115,220,91,196"/>
+</map>

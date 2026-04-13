@@ -1,0 +1,13 @@
+<map id="glslstruct::utils::array_traits&lt; T &gt;" name="glslstruct::utils::array_traits&lt; T &gt;">
+<area shape="rect" id="Node000001" title="Array Traits." alt="" coords="5,147,123,189"/>
+<area shape="rect" id="Node000002" href="$dd/d27/structglslstruct_1_1utils_1_1array__traits_3_01_t_07_5_08_0f_n_0e_4.html" title="Array Traits overload for pointer to c&#45;style array." alt="" coords="314,5,458,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,132,113,103,145,78,186,58,230,44,315,30,311,33,231,49,188,63,148,82,116,107,91,135"/>
+<area shape="rect" id="Node000003" href="$d6/d1a/structglslstruct_1_1utils_1_1array__traits_3_01_t_0f_n_0e_4.html" title="Array Traits overload for c&#45;style array." alt="" coords="320,72,452,115"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="135,139,146,136,236,115,322,101,318,104,237,120,147,141,139,144"/>
+<area shape="rect" id="Node000004" href="$d2/d07/structglslstruct_1_1utils_1_1array__traits_3_01std_1_1array_3_01_t_00_01_n_01_4_01_4.html" title="Array Traits overload for std::array." alt="" coords="309,139,462,197"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="138,165,311,166,307,170,139,171"/>
+<area shape="rect" id="Node000005" href="$d7/d8e/structglslstruct_1_1utils_1_1array__traits_3_01std_1_1span_3_01_t_01_4_01_4.html" title="Array Traits overload for std::span." alt="" coords="310,221,462,280"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="137,192,147,195,231,217,312,236,307,237,230,222,146,200,138,197"/>
+<area shape="rect" id="Node000006" href="$d5/dea/structglslstruct_1_1utils_1_1array__traits_3_01std_1_1vector_3_01_t_01_4_01_4.html" title="Array Traits overload for std::vector." alt="" coords="306,304,466,363"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="88,199,116,231,148,258,186,279,227,295,308,320,303,321,225,300,184,283,145,262,112,234,88,204"/>
+</map>
