@@ -328,7 +328,10 @@ namespace glslstruct {
 
 		/// @brief sets array of mats variable
 		var_data& _add_mat_array_variable(const std::string_view name, const std::vector<std::vector<size_t> >& alignmentOffsets,
-		  const bool isTopLevel, const size_t count, const ValueType valueType, const size_t columns, const size_t rows,
+		  const bool isTopLevel, const size_t count,
+		#if _GLSL_STRUCT_HAS_TYPES
+		  const ValueType valueType, const size_t columns, const size_t rows,
+		#endif
 		  const size_t vecBaseOffset, const size_t matBaseOffset, const size_t arrayBaseOffset, const size_t matPadding) {
 		#if _GLSL_STRUCT_HAS_TYPES
 			const auto vecType = std::make_shared<vec_type>(valueType, rows, vecBaseOffset);
@@ -832,8 +835,11 @@ namespace glslstruct {
 			_currentOffset = tempOffset;
 
 			// ADD VARIABLE DATA
-			_add_mat_array_variable(name, alignmentOffsetsPerMat, true, count, valueType, columns, rows, vecBaseOffset, matSize,
-			  arraySize, matPadding);
+			_add_mat_array_variable(name, alignmentOffsetsPerMat, true, count,
+		#if _GLSL_STRUCT_HAS_TYPES
+			  valueType, columns, rows,
+		#endif
+			  vecBaseOffset, matSize, arraySize, matPadding);
 
 			// AFTER ADD SCALAR ARRAY
 			_after_add_array(arraySize, matBaseAlignment);
