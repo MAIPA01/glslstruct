@@ -4,14 +4,25 @@
 
 **glslstruct** is a C++ library designed to easily represent GLSL's Uniform Buffer Objects (UBOs) and Shader Storage Buffer Objects (SSBOs) in C++.
 
-It allows you to define structures once and retrieve their precise size and field offsets according to GLSL packing rules, such as **`std140`** or **`std430`**, eliminating the need for manual padding and tedious calculations.
-
+It allows you to define structures once and retrieve their precise size and field offsets according to GLSL packing rules, such as **`std140`**, **`std430`** or **`scalar`**, eliminating the need for manual padding and tedious calculations.
+[DOCS](https://maipa01.github.io/glslstruct/docs/html)
 ---
 
 ## 🚀 Key Features
 
-* **GLSL Standard Compliance:** Built-in support for the most common GLSL packing rules (`std140`, `std430`).
+* **GLSL Standard Compliance:** Built-in support for the most common GLSL packing rules (`std140`, `std430`, `scalar`).
 * **User-Friendly Interface:** Easy-to-use interface for defining and using structures.
+* **Builtin Parser:** Parser which helps with constructing structures representation based on glsl code
+* **Builtin Writer:** Helps generate glsl code of structures for OpenGL and Vulkan
+
+---
+
+## Options
+GLSL_STRUCT_ENABLE_CXX20 				"Enables C++20 features" 											OFF
+GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE 	"Disables assert on release builds" 								OFF
+GLSL_STRUCT_DISABLE_TYPES 				"Disables type classes" 											OFF
+GLSL_STRUCT_ENABLE_TYPE_CHECKS 			"Enables type checking (GLSL_STRUCT_DISABLE_TYPES should be OFF)"	OFF
+GLSL_STRUCT_DISABLE_PARSER 				"Disables parsers functions"										OFF
 
 ---
 
@@ -28,7 +39,7 @@ It allows you to define structures once and retrieve their precise size and fiel
 
 1.  Clone the repository:
     ```bash
-    git clone [https://github.com/MAIPA01/glslstruct.git](https://github.com/MAIPA01/glslstruct.git)
+    git clone https://github.com/MAIPA01/glslstruct.git
     ```
 
 2.  In your project's `CMakeLists.txt`, add the library and link it:
