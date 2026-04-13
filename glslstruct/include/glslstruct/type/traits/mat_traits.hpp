@@ -85,7 +85,7 @@ namespace glslstruct {
 		#pragma endregion
 
 		#pragma region FUNCTIONS
-	/// @brief returns number of columns of T based on mat_traits
+		/// @brief returns number of columns of T based on mat_traits
 		#if _GLSL_STRUCT_HAS_CXX20
 	template<utils::glsl_mat T>
 		#else
@@ -95,7 +95,7 @@ namespace glslstruct {
 		return mat_traits<T>::get_columns();
 	}
 
-	/// @brief returns number of rows of T based on mat_traits
+		/// @brief returns number of rows of T based on mat_traits
 		#if _GLSL_STRUCT_HAS_CXX20
 	template<utils::glsl_mat T>
 		#else

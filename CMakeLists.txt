@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.30)
-project(glslstruct VERSION 1.3.3 LANGUAGES CXX)
+project(glslstruct VERSION 1.4.0 LANGUAGES CXX)
 
 # variable for building shared library
 option(BUILD_SHARED_LIBS 					"Build shared library" 			OFF)

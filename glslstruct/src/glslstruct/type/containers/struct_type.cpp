@@ -28,18 +28,16 @@ struct_type& struct_type::operator=(const struct_type& other) noexcept = default
 
 struct_type& struct_type::operator=(struct_type&& other) noexcept	   = default;
 
-bool struct_type::contains(const std::string_view name) const noexcept {
-	return _variables.contains(name.data());
-}
+bool struct_type::contains(const std::string_view name) const noexcept { return _variables.contains(name.data()); }
 
 const mstd::ordered_map<std::string, var_data>& struct_type::get_variables() const noexcept { return _variables; }
 
 mstd::ordered_map<std::string, var_data> struct_type::get_top_level_variables() const noexcept {
 	mstd::ordered_map<std::string, var_data> result;
-	for (const auto& [name, data] : _variables) {
-		if (!data.is_top_level()) continue;
-		result.emplace_back(name, data);
-	}
+		for (const auto& [name, data] : _variables) {
+				if (!data.is_top_level()) { continue; }
+			result.emplace_back(name, data);
+		}
 	return result;
 }
 

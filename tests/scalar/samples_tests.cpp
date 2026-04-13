@@ -7,7 +7,7 @@ TEST(scalar_layout, offset_calculation_1) {
 	size_t ret;
 	std::vector<size_t> retVec;
 
-	#pragma region Vertex
+#pragma region Vertex
 	scalar_layout vertexLayout;
 
 	// Add vec3 (size: 12, alignment: 4)
@@ -39,16 +39,16 @@ TEST(scalar_layout, offset_calculation_1) {
 	EXPECT_EQ(ret, 48);
 	ret = vertexLayout.size();
 	EXPECT_EQ(ret, 56);
-	#pragma endregion
+#pragma endregion
 
-	#pragma region Buffer
+#pragma region Buffer
 	scalar_layout bufferLayout;
 
 	// Add Vertex struct array (size: 56, alignment: 4, padding: 0, count: 4)
 	const std::vector<size_t> resultVec = { 0, 56, 112, 168 };
-	retVec = bufferLayout.add("vertices", vertexLayout, 4);
+	retVec								= bufferLayout.add("vertices", vertexLayout, 4);
 	EXPECT_EQ(retVec, resultVec);
 	ret = bufferLayout.size();
 	EXPECT_EQ(ret, 224);
-	#pragma endregion
+#pragma endregion
 }

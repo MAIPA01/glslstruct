@@ -227,18 +227,18 @@ namespace glslstruct {
 	class base_parser {
 	private:
 		/// @brief layout type
-		using _layout_type											  = Layout;
+		using _layout_type									  = Layout;
 		/// @brief structure type
-		using _struct_type											  = base_struct<Layout>;
+		using _struct_type									  = base_struct<Layout>;
 
-		using _base_patterns										  = utils::base_parser_patterns;
-		using _ubo_pattern											  = utils::ubo_parser_pattern<_layout_type>;
-		using _ssbo_pattern											  = utils::ssbo_parser_pattern<_layout_type>;
+		using _base_patterns								  = utils::base_parser_patterns;
+		using _ubo_pattern									  = utils::ubo_parser_pattern<_layout_type>;
+		using _ssbo_pattern									  = utils::ssbo_parser_pattern<_layout_type>;
 
 		/// @brief returns true if given layout can be used by ubo
-		static _GLSL_STRUCT_CONSTEXPR17 bool has_ubo_pattern		  = utils::has_ubo_pattern_v<_layout_type>;
+		static _GLSL_STRUCT_CONSTEXPR17 bool has_ubo_pattern  = utils::has_ubo_pattern_v<_layout_type>;
 		/// @brief returns true if given layout can be used by ssbo
-		static _GLSL_STRUCT_CONSTEXPR17 bool has_ssbo_pattern		  = utils::has_ssbo_pattern_v<_layout_type>;
+		static _GLSL_STRUCT_CONSTEXPR17 bool has_ssbo_pattern = utils::has_ssbo_pattern_v<_layout_type>;
 
 		/// @brief loaded and not converted to layouts structs bodies
 		std::unordered_map<std::string, std::string> _structsBodies;
@@ -266,14 +266,10 @@ namespace glslstruct {
 		/// @brief adds variable of type T to struct or layout (if count != 0 then it adds array of variables of type T)
 		template<class T, class S>
 		static _GLSL_STRUCT_CONSTEXPR17 S& _add_variable(S& ref, const std::string_view name, const size_t count) {
-			if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<S, _layout_type> || std::is_same_v<S, _struct_type>) {
-				if (count != 0) {
-					ref.template add<std::vector<T> >(name, count);
+				if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<S, _layout_type> || std::is_same_v<S, _struct_type>) {
+						if (count != 0) { ref.template add<std::vector<T> >(name, count); }
+						else { ref.template add<T>(name); }
 				}
-				else {
-					ref.template add<T>(name);
-				}
-			}
 			return ref;
 		}
 

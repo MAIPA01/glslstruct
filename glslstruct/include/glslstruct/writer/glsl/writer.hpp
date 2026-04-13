@@ -123,12 +123,12 @@ namespace glslstruct::utils {
 		std::string _result;
 
 		/// @brief struct name generator idx
-		size_t _structIdx										   = 0;
+		size_t _structIdx = 0;
 		/// @brief struct name generator idx
 		mstd::ordered_map<struct_type, std::string> _uniqueStructs;
 
 		/// @brief unique names of all strucs, UBOs and SSBOs
-		std::unordered_set<std::string> _uniqueNames			  ;
+		std::unordered_set<std::string> _uniqueNames;
 
 		/// @breif returns layout string
 		[[nodiscard]] static std::string _get_layout(std::string_view layoutData);

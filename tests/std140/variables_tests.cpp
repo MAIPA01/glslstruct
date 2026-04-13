@@ -8,7 +8,7 @@ TEST(std140_layout, constructor_and_get) {
 	std::vector<size_t> retVec;
 	std::vector<size_t> resultVec;
 
-	#pragma region FStruct
+#pragma region FStruct
 	std140_layout fStructLayout { glsl_variable<int>("d"), glsl_variable<bvec2>("e") };
 	ret = fStructLayout.get_offset("d");
 	EXPECT_EQ(ret, 0);
@@ -16,9 +16,9 @@ TEST(std140_layout, constructor_and_get) {
 	EXPECT_EQ(ret, 8);
 	ret = fStructLayout.size();
 	EXPECT_EQ(ret, 16);
-	#pragma endregion
+#pragma endregion
 
-	#pragma region OStruct
+#pragma region OStruct
 	std140_layout oStructLayout { glsl_variable<uvec3>("j"), glsl_variable<vec2>("k"), glsl_variable<float, 2>("l"),
 		glsl_variable<vec2>("m"), glsl_variable<mat3, 2>("n") };
 	ret = oStructLayout.get_offset("j");
@@ -35,9 +35,9 @@ TEST(std140_layout, constructor_and_get) {
 	EXPECT_EQ(retVec, resultVec);
 	ret = oStructLayout.size();
 	EXPECT_EQ(ret, 176);
-	#pragma endregion
+#pragma endregion
 
-	#pragma region UBO
+#pragma region UBO
 	std140_layout uboLayout { glsl_variable<float>("a"), glsl_variable<vec2>("b"), glsl_variable<vec3>("c"),
 		glsl_variable<std140_layout>("f", fStructLayout), glsl_variable<float>("g"), glsl_variable<float, 2>("h"),
 		glsl_variable<mat2x3>("i"), glsl_variable<std140_layout, 2>("o", oStructLayout) };
@@ -97,5 +97,5 @@ TEST(std140_layout, constructor_and_get) {
 
 	ret = uboLayout.size();
 	EXPECT_EQ(ret, 480);
-	#pragma endregion
+#pragma endregion
 }

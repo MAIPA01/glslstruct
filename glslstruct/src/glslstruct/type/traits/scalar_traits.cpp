@@ -84,15 +84,15 @@ double scalar_traits<double>::get_value(const scalar_data& data) {
 }
 
 std::string glslstruct::scalar_to_string(const ValueType valueType) {
-	switch (valueType) {
+		switch (valueType) {
 		[[unlikely]] default:
-		return "UNKNOWN";
-	case ValueType::Bool:	return "bool";
-	case ValueType::Int:	return "int";
-	case ValueType::Uint:	return "uint";
-	case ValueType::Float:	return "float";
-	case ValueType::Double: return "double";
-	}
+			return "UNKNOWN";
+		case ValueType::Bool:	return "bool";
+		case ValueType::Int:	return "int";
+		case ValueType::Uint:	return "uint";
+		case ValueType::Float:	return "float";
+		case ValueType::Double: return "double";
+		}
 }
 
 #endif

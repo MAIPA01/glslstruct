@@ -38,19 +38,19 @@ _GLSL_STRUCT_ERROR(
  */
 
 namespace glslstruct {
-	/**
-	 * @var is_type_visitor_v
-	 * @brief bool which is true if type T is type visitor
-	 * @ingroup type_visitors
-	 * @tparam T type to check if it is type visitor
-	 */
+		/**
+		 * @var is_type_visitor_v
+		 * @brief bool which is true if type T is type visitor
+		 * @ingroup type_visitors
+		 * @tparam T type to check if it is type visitor
+		 */
 
-	/**
-	 * @struct is_type_visitor
-	 * @brief struct with bool_constant which is true if type T is type visitor
-	 * @ingroup type_visitors
-	 * @tparam T type to check if it is type visitor
-	 */
+		/**
+		 * @struct is_type_visitor
+		 * @brief struct with bool_constant which is true if type T is type visitor
+		 * @ingroup type_visitors
+		 * @tparam T type to check if it is type visitor
+		 */
 
 		#if _GLSL_STRUCT_HAS_CXX20
 	/**

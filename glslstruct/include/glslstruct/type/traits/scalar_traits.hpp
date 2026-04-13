@@ -106,7 +106,7 @@ namespace glslstruct {
 		#pragma endregion
 
 		#pragma region FUNCTIONS
-	/// @brief returns ValueType of T based on scalar_traits
+		/// @brief returns ValueType of T based on scalar_traits
 		#if _GLSL_STRUCT_HAS_CXX20
 	template<utils::glsl_scalar T>
 		#else
@@ -116,7 +116,7 @@ namespace glslstruct {
 		return scalar_traits<T>::get_value_type();
 	}
 
-	/// @brief returns scalar_data of T based on scalar_traits
+		/// @brief returns scalar_data of T based on scalar_traits
 		#if _GLSL_STRUCT_HAS_CXX20
 	template<utils::glsl_scalar T>
 		#else
@@ -126,7 +126,7 @@ namespace glslstruct {
 		return scalar_traits<T>::get_data(value);
 	}
 
-	/// @brief returns value of type T from scalar_data based on scalar_traits
+		/// @brief returns value of type T from scalar_data based on scalar_traits
 		#if _GLSL_STRUCT_HAS_CXX20
 	template<utils::glsl_scalar T>
 		#else
@@ -139,7 +139,7 @@ namespace glslstruct {
 	/// @brief returns glsl scalar type string
 	std::string scalar_to_string(ValueType valueType);
 
-	/// @brief returns glsl scalar type string from type T based on scalar_traits
+		/// @brief returns glsl scalar type string from type T based on scalar_traits
 		#if _GLSL_STRUCT_HAS_CXX20
 	template<utils::glsl_scalar T>
 		#else

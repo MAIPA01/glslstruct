@@ -35,22 +35,22 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 			#include <glslstruct/type/visitors/type_visitor_concept.hpp>
 		#endif
 
-		#include <glslstruct/type/checks/struct_checks.hpp>
 		#include <glslstruct/type/checks/layouts_checks.hpp>
 		#include <glslstruct/type/checks/simple_checks.hpp>
+		#include <glslstruct/type/checks/struct_checks.hpp>
 		#if _GLSL_STRUCT_HAS_TYPES
 			#include <glslstruct/type/checks/type_checks.hpp>
 		#endif
 
-		#include <glslstruct/type/data/scalar_data.hpp>
 		#include <glslstruct/type/data/mat_data.hpp>
+		#include <glslstruct/type/data/scalar_data.hpp>
 		#include <glslstruct/type/data/vec_data.hpp>
 
 		#include <glslstruct/var_data/var_data.hpp>
 
-		#include <glslstruct/type/traits/vec_traits.hpp>
 		#include <glslstruct/type/traits/mat_traits.hpp>
 		#include <glslstruct/type/traits/scalar_traits.hpp>
+		#include <glslstruct/type/traits/vec_traits.hpp>
 
 	#endif
 #endif

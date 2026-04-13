@@ -1,8 +1,6 @@
 - add variable arrays (just add possibility to resize array if it is last variable)
 
 // Final
-- check clang-tidy
-- format all with clang-format
 - check coverage
 - check docs
 - update readme

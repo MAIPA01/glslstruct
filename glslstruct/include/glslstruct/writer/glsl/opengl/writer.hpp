@@ -20,7 +20,7 @@ _GLSL_STRUCT_ERROR(
 	#else
 
 		#include <glslstruct/struct/base_struct.hpp>
-#include <glslstruct/writer/glsl/writer.hpp>
+		#include <glslstruct/writer/glsl/writer.hpp>
 
 /**
  * @defgroup opengl_writer Opengl Writer

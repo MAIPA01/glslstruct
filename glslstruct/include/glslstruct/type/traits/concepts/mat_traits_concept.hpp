@@ -44,19 +44,19 @@ namespace glslstruct {
 	namespace utils {
 		#pragma region CHECKS
 		#pragma region IS_MAT
-		/**
+			/**
 			 * @var is_glsl_mat_v
 			 * @brief Bool value which is true if type can be converted to glsl mat type
 			 * @ingroup utils
 			 * @tparam T type for which converter to glsl mat type should be defined
 			 */
 
-		/**
-		 * @struct is_glsl_mat
-		 * @brief struct with bool_constant which is true if type can be converted to glsl mat type
-		 * @ingroup utils
-		 * @tparam T type for which converter to glsl mat type should be defined
-		 */
+			/**
+			 * @struct is_glsl_mat
+			 * @brief struct with bool_constant which is true if type can be converted to glsl mat type
+			 * @ingroup utils
+			 * @tparam T type for which converter to glsl mat type should be defined
+			 */
 
 		#if _GLSL_STRUCT_HAS_CXX20
 		/**
@@ -120,7 +120,7 @@ namespace glslstruct {
 		 * @ingroup utils
 		 * @tparam V type that is checked
 		 */
-		template<class V> concept glsl_mats_array = is_glsl_mats_array_v<V>;
+		template<class V> concept glsl_mats_array			  = is_glsl_mats_array_v<V>;
 
 		/**
 		 * @brief Concept which is true if type V is static size array of types that passes is_glsl_mat test

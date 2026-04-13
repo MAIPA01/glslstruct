@@ -46,8 +46,7 @@ namespace glslstruct {
 		/// @brief constructs mat array type
 		array_type(ValueType type, size_t cols, size_t rows, size_t matSize, size_t count, size_t size) noexcept;
 		/// @brief constructs struct array type
-		array_type(const mstd::ordered_map<std::string, var_data>& values, size_t structSize, size_t count,
-		  size_t size) noexcept;
+		array_type(const mstd::ordered_map<std::string, var_data>& values, size_t structSize, size_t count, size_t size) noexcept;
 		/// @brief constructs array with given elem type
 		array_type(const base_type_handle& type, size_t count, size_t size) noexcept;
 		/// @brief constructs array with given elem type

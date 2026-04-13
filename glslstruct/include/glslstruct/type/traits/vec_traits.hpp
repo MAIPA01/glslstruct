@@ -120,7 +120,7 @@ namespace glslstruct {
 		return vec_traits<T>::get_value_type();
 	}
 
-	/// @brief returns vec_data of T based on vec_traits
+		/// @brief returns vec_data of T based on vec_traits
 		#if _GLSL_STRUCT_HAS_CXX20
 	template<utils::glsl_vec T>
 		#else
@@ -130,7 +130,7 @@ namespace glslstruct {
 		return vec_traits<T>::get_data(value);
 	}
 
-	/// @brief returns vec value of type T from vec_data based on vec_traits
+		/// @brief returns vec value of type T from vec_data based on vec_traits
 		#if _GLSL_STRUCT_HAS_CXX20
 	template<utils::glsl_vec T>
 		#else

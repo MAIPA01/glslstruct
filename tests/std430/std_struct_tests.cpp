@@ -125,12 +125,12 @@ TEST(std430_struct, writer) {
 	glsl_opengl_writer glWriter;
 	glWriter.append_struct("SubTest", *test.get_type<struct_type>("struct"));
 	glWriter.append_shader_storage_buffer(0, "Test", test);
-	//std::cout << "OPENGL: \n" << glWriter.to_string() << std::endl << std::endl << std::endl;
+	// std::cout << "OPENGL: \n" << glWriter.to_string() << std::endl << std::endl << std::endl;
 
 	glsl_vulkan_writer vkWriter;
 	vkWriter.append_struct("SubTest", *test.get_type<struct_type>("struct"));
 	vkWriter.append_shader_storage_buffer(0, 0, "Test", "ssbo", test, "readonly");
-	//std::cout << "VULKAN: \n" << vkWriter.to_string() << std::endl;
+	// std::cout << "VULKAN: \n" << vkWriter.to_string() << std::endl;
 }
 #endif
 
@@ -208,7 +208,7 @@ TEST(std430_struct, parser) {
 	ASSERT_TRUE(test.contains("i"));
 	ASSERT_TRUE(test.contains("i.g"));
 
-	//std::cout << glWriter.to_string() << std::endl;
+	// std::cout << glWriter.to_string() << std::endl;
 #endif
 }
 

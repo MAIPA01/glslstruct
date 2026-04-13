@@ -42,12 +42,12 @@
 	 * @brief glslstruct version minor number
 	 * @ingroup glslstruct
 	 */
-	#define GLSL_STRUCT_VERSION_MINOR 3
+	#define GLSL_STRUCT_VERSION_MINOR 4
 	/**
 	 * @brief glslstruct version patch number
 	 * @ingroup glslstruct
 	 */
-	#define GLSL_STRUCT_VERSION_PATCH 3
+	#define GLSL_STRUCT_VERSION_PATCH 0
 
 	/**
 	 * @brief stringify helper
@@ -91,12 +91,12 @@
 	 * @brief glslstruct last update day
 	 * @ingroup glslstruct
 	 */
-	#define GLSL_STRUCT_LAST_UPDATE_DAY 30
+	#define GLSL_STRUCT_LAST_UPDATE_DAY 13
 	/**
 	 * @brief glslstruct last update month
 	 * @ingroup glslstruct
 	 */
-	#define GLSL_STRUCT_LAST_UPDATE_MONTH 03
+	#define GLSL_STRUCT_LAST_UPDATE_MONTH 04
 	/**
 	 * @brief glslstruct last update year
 	 * @ingroup glslstruct
@@ -224,18 +224,18 @@
 	#if _GLSL_STRUCT_HAS_CXX20
 		#define _GLSL_STRUCT_CONSTEXPR20		 constexpr
 		#define _GLSL_STRUCT_REQUIRES(condition) requires (condition)
-#define _GLSL_STRUCT_INLINE17
-#define _GLSL_STRUCT_TYPENAME17
+		#define _GLSL_STRUCT_INLINE17
+		#define _GLSL_STRUCT_TYPENAME17
 	#else
 		#define _GLSL_STRUCT_CONSTEXPR20
 		#define _GLSL_STRUCT_REQUIRES(condition)
-#if _GLSL_STRUCT_HAS_CXX17
-#define _GLSL_STRUCT_INLINE17 inline
-#define _GLSL_STRUCT_TYPENAME17 typename
-#else
-#define _GLSL_STRUCT_INLINE17
-#define _GLSL_STRUCT_TYPENAME17
-#endif
+		#if _GLSL_STRUCT_HAS_CXX17
+			#define _GLSL_STRUCT_INLINE17	inline
+			#define _GLSL_STRUCT_TYPENAME17 typename
+		#else
+			#define _GLSL_STRUCT_INLINE17
+			#define _GLSL_STRUCT_TYPENAME17
+		#endif
 	#endif
 	#pragma endregion
 

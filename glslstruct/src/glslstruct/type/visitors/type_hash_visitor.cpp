@@ -11,12 +11,12 @@
 
 #if _GLSL_STRUCT_HAS_TYPES
 
-	#include <glslstruct/type/visitors/type_hash_visitor.hpp>
 	#include <glslstruct/type/containers/array_type.hpp>
 	#include <glslstruct/type/containers/mat_type.hpp>
 	#include <glslstruct/type/containers/scalar_type.hpp>
 	#include <glslstruct/type/containers/struct_type.hpp>
 	#include <glslstruct/type/containers/vec_type.hpp>
+	#include <glslstruct/type/visitors/type_hash_visitor.hpp>
 	#include <pch.hpp>
 
 using namespace glslstruct;

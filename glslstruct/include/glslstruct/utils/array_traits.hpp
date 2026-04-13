@@ -264,8 +264,8 @@ namespace glslstruct::utils {
 	 * @brief helper struct for is_array_of_v check
 	 * @tparam Test test template struct with static value bool
 	 * @tparam T type to checks
-	 * @tparam isArray check if T is array type
-	 * @tparam Args aditional Test arguments
+	 * @tparam IsArray check if T is array type
+	 * @tparam Args additional Test arguments
 	 */
 	template<template<class, class...> class Test, class T, bool IsArray = false, class... Args>
 	struct is_array_of : std::false_type {};
@@ -285,8 +285,8 @@ namespace glslstruct::utils {
 	 * @ingroup utils
 	 * @tparam Test test template struct with static value bool
 	 * @tparam T type to checks
-	 * @tparam isArray check if T is array type
-	 * @tparam Args aditional Test arguments
+	 * @tparam IsArray check if T is array type
+	 * @tparam Args additional Test arguments
 	 */
 	template<template<class, class...> class Test, class T, bool IsArray = false, class... Args>
 	struct is_static_size_array_of_impl : std::false_type {};
@@ -298,7 +298,7 @@ namespace glslstruct::utils {
 	 * @brief checks if value type is array of type and if type passes given test template struct
 	 * @tparam Test test template struct with static value bool
 	 * @tparam T type to checks
-	 * @tparam Args aditional Test arguments
+	 * @tparam Args additional Test arguments
 	 * @ingroup utils
 	 */
 	template<template<class, class...> class Test, class T, class... Args>

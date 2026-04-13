@@ -1,4 +1,4 @@
-project(glslstruct-tests VERSION 1.3.0 LANGUAGES CXX)
+project(glslstruct-tests VERSION 1.4.0 LANGUAGES CXX)
 
 # source files
 set(PROJECT_TEST_SOURCES ${PROJECT_NAME}_TEST_SOURCES)

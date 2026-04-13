@@ -33,7 +33,8 @@ namespace glslstruct {
 
 		/// @brief default constructor
 		#if !_GLSL_STRUCT_HAS_CXX20
-			template<class Type = T, std::enable_if_t<std::is_default_constructible_v<Type> && std::is_same_v<Type, T>, bool> = true>
+			template<class Type																		   = T,
+			  std::enable_if_t<std::is_default_constructible_v<Type> && std::is_same_v<Type, T>, bool> = true>
 		#endif
 			single_value() _GLSL_STRUCT_REQUIRES(std::is_default_constructible_v<T>) : value() {
 			}
@@ -87,7 +88,8 @@ namespace glslstruct {
 
 		/// @brief default constructor
 		#if !_GLSL_STRUCT_HAS_CXX20
-			template<class Type = T, std::enable_if_t<std::is_default_constructible_v<Type> && std::is_same_v<Type, T>, bool> = true>
+			template<class Type																		   = T,
+			  std::enable_if_t<std::is_default_constructible_v<Type> && std::is_same_v<Type, T>, bool> = true>
 		#endif
 			array_value() _GLSL_STRUCT_REQUIRES(std::is_default_constructible_v<T>) : value() {
 			}
@@ -317,9 +319,10 @@ namespace glslstruct {
 		template<class Type																						  = value_type,
 		  std::enable_if_t<(utils::is_glsl_struct_v<Type> && std::is_same_v<Type, value_type> && is_array), bool> = true>
 		#endif
-		glsl_value(const std::string_view name, const _GLSL_STRUCT_TYPENAME17 Type::layout_type& layout, const std::vector<std::byte>* values,
-		  const size_t size) _GLSL_STRUCT_REQUIRES((utils::is_glsl_struct_v<value_type> && std::is_same_v<Type, value_type> &&
-													is_array))
+		glsl_value(
+		  const std::string_view name, const _GLSL_STRUCT_TYPENAME17 Type::layout_type& layout,
+		  const std::vector<std::byte>* values, const size_t size
+		) _GLSL_STRUCT_REQUIRES((utils::is_glsl_struct_v<value_type> && std::is_same_v<Type, value_type> && is_array))
 			: base_struct(layout, values, size), varName(name) {
 		}
 
@@ -330,9 +333,9 @@ namespace glslstruct {
 		template<class Type																						  = value_type,
 		  std::enable_if_t<(utils::is_glsl_struct_v<Type> && std::is_same_v<Type, value_type> && is_array), bool> = true>
 		#endif
-		glsl_value(
-		  const std::string_view name, const _GLSL_STRUCT_TYPENAME17 Type::layout_type& layout, const std::vector<std::byte> (&values)[Num]
-		) _GLSL_STRUCT_REQUIRES((utils::is_glsl_struct_v<value_type> && std::is_same_v<Type, value_type> && is_array))
+		glsl_value(const std::string_view name, const _GLSL_STRUCT_TYPENAME17 Type::layout_type& layout,
+		  const std::vector<std::byte> (&values)[Num]) _GLSL_STRUCT_REQUIRES((utils::is_glsl_struct_v<value_type> &&
+																			  std::is_same_v<Type, value_type> && is_array))
 			: base_struct(layout, values), varName(name) {
 		}
 

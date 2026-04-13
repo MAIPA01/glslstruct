@@ -30,13 +30,13 @@ size_t std140_layout_traits::get_vec_alignment(const ValueType valueType, const 
 
 size_t std140_layout_traits::get_array_alignment(const size_t elemBaseAlignment, context_type&) noexcept {
 	static _GLSL_STRUCT_CONSTEXPR17 size_t alignment_multiple = 16;
-	//return ceil_to_nearest_multiple(elemBaseAlignment, alignment_multiple); // this is from glsl specs
+	// return ceil_to_nearest_multiple(elemBaseAlignment, alignment_multiple); // this is from glsl specs
 	return std::max(alignment_multiple, elemBaseAlignment); // if you consider all possible values this can be optimized to this
 }
 
 size_t std140_layout_traits::get_struct_alignment(const context_type& ctx) noexcept {
 	static _GLSL_STRUCT_CONSTEXPR17 size_t alignment_multiple = 16;
-	//return ceil_to_nearest_multiple(ctx.maxAlignment, alignment_multiple); // this is from glsl specs
+	// return ceil_to_nearest_multiple(ctx.maxAlignment, alignment_multiple); // this is from glsl specs
 	return std::max(alignment_multiple, ctx.structAlignment); // if you consider all possible values this can be optimized to this
 }
 
