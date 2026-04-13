@@ -4,7 +4,7 @@
 
 **glslstruct** is a C++ library designed to easily represent GLSL's Uniform Buffer Objects (UBOs) and Shader Storage Buffer Objects (SSBOs) in C++.
 
-It allows you to define structures once and retrieve their precise size and field offsets according to GLSL packing rules, such as **`std140`**, **`std430`** or **`scalar`**, eliminating the need for manual padding and tedious calculations. [DOCS](https://maipa01.github.io/glslstruct/docs/html)
+It allows you to define structures once and retrieve their precise size and field offsets according to GLSL packing rules, such as **`std140`**, **`std430`** or **`scalar`**, eliminating the need for manual padding and tedious calculations. [DOCS](https://maipa01.github.io/glslstruct/html)
 
 ---
 
