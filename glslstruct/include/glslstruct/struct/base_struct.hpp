@@ -31,7 +31,7 @@ namespace glslstruct {
 		#else
 	template<class Layout, std::enable_if_t<utils::is_glsl_layout_v<Layout>, bool> >
 		#endif
-	class base_struct {
+	class _GLSL_STRUCT_EXPORT base_struct {
 	public:
 		/// @brief struct layout type
 		using layout_type = Layout;
@@ -1593,7 +1593,7 @@ namespace glslstruct {
  * @ingroup glslstruct
  */
 template<class Layout>
-struct std::hash<glslstruct::base_struct<Layout> > {
+struct _GLSL_STRUCT_EXPORT std::hash<glslstruct::base_struct<Layout> > {
 	size_t operator()(const glslstruct::base_struct<Layout>& glslStruct) {
 		size_t seed = 0;
 		mstd::hash_append(seed, glslStruct._layout);

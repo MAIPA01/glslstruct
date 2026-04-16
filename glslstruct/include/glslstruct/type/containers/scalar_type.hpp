@@ -26,7 +26,7 @@ namespace glslstruct {
 	 * @brief scalar type container
 	 * @ingroup glsl_types
 	 */
-	class scalar_type : public type<scalar_type> {
+	class _GLSL_STRUCT_EXPORT scalar_type : public type<scalar_type> {
 	private:
 		friend struct std::hash<scalar_type>;
 
@@ -74,12 +74,12 @@ namespace glslstruct {
 	 * @brief checks if two scalar types are equal
 	 * @ingroup glsl_types
 	 */
-	[[nodiscard]] bool operator==(const scalar_type& lhs, const scalar_type& rhs) noexcept;
+	[[nodiscard]] _GLSL_STRUCT_EXPORT bool operator==(const scalar_type& lhs, const scalar_type& rhs) noexcept;
 	/**
 	 * @brief checks if two scalar types are not equal
 	 * @ingroup glsl_types
 	 */
-	[[nodiscard]] bool operator!=(const scalar_type& lhs, const scalar_type& rhs) noexcept;
+	[[nodiscard]] _GLSL_STRUCT_EXPORT bool operator!=(const scalar_type& lhs, const scalar_type& rhs) noexcept;
 } // namespace glslstruct
 
 /**
@@ -87,7 +87,7 @@ namespace glslstruct {
  * @ingroup glsl_types
  */
 template<>
-struct std::hash<glslstruct::scalar_type> {
+struct _GLSL_STRUCT_EXPORT std::hash<glslstruct::scalar_type> {
 	[[nodiscard]] size_t operator()(const glslstruct::scalar_type& value) const noexcept;
 };
 	#endif

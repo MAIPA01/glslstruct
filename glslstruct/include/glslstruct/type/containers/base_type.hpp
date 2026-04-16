@@ -32,7 +32,7 @@ namespace glslstruct {
 	 * @brief base class for all glsl type containers
 	 * @ingroup glsl_types
 	 */
-	class base_type {
+	class _GLSL_STRUCT_EXPORT base_type {
 	private:
 		friend struct std::hash<base_type>;
 
@@ -101,7 +101,7 @@ namespace glslstruct {
 	 * @brief returns size of given type
 	 * @ingroup glsl_types
 	 */
-	[[nodiscard]] size_t sizeof_type(const base_type_handle& type) noexcept;
+	[[nodiscard]] _GLSL_STRUCT_EXPORT size_t sizeof_type(const base_type_handle& type) noexcept;
 
 		/**
 		 * @brief returns size of given type
@@ -112,7 +112,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] size_t sizeof_type(const std::shared_ptr<T>& type) noexcept {
+	[[nodiscard]] _GLSL_STRUCT_EXPORT size_t sizeof_type(const std::shared_ptr<T>& type) noexcept {
 		return type->get_size();
 	}
 
@@ -120,7 +120,7 @@ namespace glslstruct {
 	 * @brief converts type to string
 	 * @ingroup glsl_types
 	 */
-	[[nodiscard]] std::string to_string(const base_type_handle& type) noexcept;
+	[[nodiscard]] _GLSL_STRUCT_EXPORT std::string to_string(const base_type_handle& type) noexcept;
 
 		/**
 		 * @brief converts type to string
@@ -131,7 +131,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] std::string to_string(const std::shared_ptr<T>& type) noexcept {
+	[[nodiscard]] _GLSL_STRUCT_EXPORT std::string to_string(const std::shared_ptr<T>& type) noexcept {
 		return type->to_string();
 	}
 
@@ -144,7 +144,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] _GLSL_STRUCT_CONSTEXPR20 bool operator==(const base_type& lhs, const T& rhs) noexcept {
+	[[nodiscard]] _GLSL_STRUCT_EXPORT _GLSL_STRUCT_CONSTEXPR20 bool operator==(const base_type& lhs, const T& rhs) noexcept {
 		return rhs == lhs;
 	}
 
@@ -157,7 +157,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] _GLSL_STRUCT_CONSTEXPR20 bool operator!=(const base_type& lhs, const T& rhs) noexcept {
+	[[nodiscard]] _GLSL_STRUCT_EXPORT _GLSL_STRUCT_CONSTEXPR20 bool operator!=(const base_type& lhs, const T& rhs) noexcept {
 		return rhs != lhs;
 	}
 } // namespace glslstruct
@@ -167,7 +167,7 @@ namespace glslstruct {
  * @ingroup glsl_types
  */
 template<>
-struct std::hash<glslstruct::base_type> {
+struct _GLSL_STRUCT_EXPORT std::hash<glslstruct::base_type> {
 	[[nodiscard]] size_t operator()(const glslstruct::base_type& type) const noexcept;
 };
 	#endif

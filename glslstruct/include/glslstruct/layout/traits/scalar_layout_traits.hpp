@@ -25,13 +25,13 @@ namespace glslstruct {
 	 * @brief Scalar Layout additional context
 	 * @ingroup layout_traits
 	 */
-	struct scalar_layout_context : max_alignment_layout_context {};
+	struct _GLSL_STRUCT_EXPORT scalar_layout_context : max_alignment_layout_context {};
 
 	/**
 	 * @brief Scalar Layout traits
 	 * @ingroup layout_traits
 	 */
-	struct scalar_layout_traits {
+	struct _GLSL_STRUCT_EXPORT scalar_layout_traits {
 		/// @brief scalar layout context type
 		using context_type = scalar_layout_context;
 

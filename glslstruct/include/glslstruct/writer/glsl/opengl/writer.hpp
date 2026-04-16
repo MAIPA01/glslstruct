@@ -53,7 +53,7 @@ namespace glslstruct {
 	 * @ingroup opengl_writer OpenGL glsl code writer
 	 * @brief struct to opengl glsl writer
 	 */
-	class glsl_opengl_writer {
+	class _GLSL_STRUCT_EXPORT glsl_opengl_writer {
 		/// @brief glsl writer instance
 		utils::glsl_writer _writer;
 

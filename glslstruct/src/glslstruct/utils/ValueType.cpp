@@ -13,11 +13,12 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 #else
 
+	#include <glslstruct/pch.hpp>
 	#include <glslstruct/utils/ValueType.hpp>
 
 using namespace glslstruct;
 
-size_t glslstruct::get_value_type_size(const ValueType type) {
+_GLSL_STRUCT_EXPORT size_t glslstruct::get_value_type_size(const ValueType type) {
 	_GLSL_STRUCT_CONSTEXPR17 size_t int_size	= 4;
 	_GLSL_STRUCT_CONSTEXPR17 size_t double_size = 8;
 

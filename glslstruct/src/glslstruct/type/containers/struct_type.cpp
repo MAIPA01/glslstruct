@@ -11,8 +11,8 @@
 
 #if _GLSL_STRUCT_HAS_TYPES
 
+	#include <glslstruct/pch.hpp>
 	#include <glslstruct/type/containers/struct_type.hpp>
-	#include <pch.hpp>
 
 using namespace glslstruct;
 
@@ -43,12 +43,12 @@ mstd::ordered_map<std::string, var_data> struct_type::get_top_level_variables() 
 
 std::string struct_type::to_string() const noexcept { return "struct"; }
 
-bool glslstruct::operator==(const struct_type& lhs, const struct_type& rhs) noexcept { return lhs._variables == rhs._variables; }
+_GLSL_STRUCT_EXPORT bool glslstruct::operator==(const struct_type& lhs, const struct_type& rhs) noexcept { return lhs._variables == rhs._variables; }
 
 	#if _GLSL_STRUCT_HAS_CXX20
-bool glslstruct::operator!=(const struct_type& lhs, const struct_type& rhs) noexcept = default;
+_GLSL_STRUCT_EXPORT bool glslstruct::operator!=(const struct_type& lhs, const struct_type& rhs) noexcept = default;
 	#else
-bool glslstruct::operator!=(const struct_type& lhs, const struct_type& rhs) noexcept { return !(lhs == rhs); }
+_GLSL_STRUCT_EXPORT bool glslstruct::operator!=(const struct_type& lhs, const struct_type& rhs) noexcept { return !(lhs == rhs); }
 	#endif
 
 size_t std::hash<struct_type>::operator()(const struct_type& type) const noexcept {

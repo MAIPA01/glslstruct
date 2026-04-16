@@ -1,58 +1,46 @@
-# for CPM
-set(CPM_USE_LOCAL_PACKAGES OFF)
-
-if(NOT CPM_SOURCE_CACHE)
-    # Storage location
-    set(CPM_SOURCE_CACHE ${CMAKE_SOURCE_DIR}/third_party)
-endif()
-
-# Set download location
-set(CPM_DOWNLOAD_LOCATION "${CMAKE_BINARY_DIR}/cmake/CPM.cmake")
-
-# download CPM.cmake
-# Expand relative path. This is important if the provided path contains a tilde (~)
-get_filename_component(CPM_DOWNLOAD_LOCATION ${CPM_DOWNLOAD_LOCATION} ABSOLUTE)
-if(NOT EXISTS ${CPM_DOWNLOAD_LOCATION})
-    message(STATUS "Downloading CPM.cmake to ${CPM_DOWNLOAD_LOCATION}")
-	file(DOWNLOAD
-		https://github.com/cpm-cmake/CPM.cmake/releases/latest/download/CPM.cmake
-        ${CPM_DOWNLOAD_LOCATION}
-	)
-endif()
-message(STATUS "Include CPM.cmake from ${CPM_DOWNLOAD_LOCATION}")
-include(${CPM_DOWNLOAD_LOCATION})
-
-if(NOT ${GLSL_STRUCT_USE_EXTERNAL_MSTD})
-    CPMAddPackage(
-            URI "gh:maipa01/mstd#v1.5.1"
-            OPTIONS "MSTD_ENABLE_CXX20 ${GLSL_STRUCT_ENABLE_CXX20}"
-                    "MSTD_ENABLE_ENUMS_MACROS ON"
-                    "MSTD_DISABLE_ASSERT_ON_RELEASE ${GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE}"
-    )
+if(NOT GLSL_STRUCT_MSTD_EXTERNAL OR NOT TARGET mstd::mstd)
+    set(DOWNLOAD_MSTD ON)
 else()
-    set(MSTD_ENABLE_CXX20 ${GLSL_STRUCT_ENABLE_CXX20})
-    set(MSTD_ENABLE_ENUMS_MACROS ON)
+    set(DOWNLOAD_MSTD OFF)
 endif()
 
-if(NOT ${GLSL_STRUCT_DISABLE_PARSER})
-    if(NOT ${GLSL_STRUCT_USE_EXTERNAL_PCRE2CPP})
-        CPMAddPackage(
-                URI "gh:maipa01/pcre2cpp#v1.2.4"
-                OPTIONS "PCRE2CPP_ENABLE_CXX20 ${GLSL_STRUCT_ENABLE_CXX20}"
-                        "PCRE2CPP_DISABLE_ASSERT_ON_RELEASE ${GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE}"
-                        "PCRE2CPP_USE_EXTERNAL_MSTD ON"
-                        "PCRE2CPP_DISABLE_UTF16 ON"
-                        "PCRE2CPP_DISABLE_UTF32 ON"
-        )
-    endif()
+if(NOT GLSL_STRUCT_DISABLE_PARSER AND (NOT GLSL_STRUCT_PCRE2CPP_EXTERNAL OR NOT TARGET pcre2cpp::pcre2cpp))
+    set(DOWNLOAD_PCRE2CPP ON)
+else()
+    set(DOWNLOAD_PCRE2CPP OFF)
 endif()
 
-if (NOT ${GLSL_STRUCT_USE_EXTERNAL_GLM})
+if(NOT GLSL_STRUCT_GLM_EXTERNAL OR NOT TARGET glm::glm)
+    set(DOWNLOAD_GLM ON)
+else()
+    set(DOWNLOAD_GLM OFF)
+endif()
+
+if((GLSL_STRUCT_BUILD_TESTS OR GLSL_STRUCT_BUILD_COVERAGE) AND NOT TARGET gtest_main)
+    set(DOWNLOAD_GTEST ON)
+else()
+    set(DOWNLOAD_GTEST OFF)
+endif()
+
+if(DOWNLOAD_MSTD OR DOWNLOAD_PCRE2CPP OR DOWNLOAD_GLM OR DOWNLOAD_GTEST)
+    include(${CMAKE_CURRENT_LIST_DIR}/get_cpm.cmake)
+endif()
+
+if(DOWNLOAD_MSTD)
+    CPMAddPackage("gh:maipa01/mstd#v1.5.2")
+endif()
+
+if(DOWNLOAD_PCRE2CPP)
+    CPMAddPackage(
+            URI "gh:maipa01/pcre2cpp#v1.2.5"
+            OPTIONS "PCRE2CPP_USE_EXTERNAL_MSTD ON"
+    )
+endif()
+
+if (DOWNLOAD_GLM)
     CPMAddPackage("gh:g-truc/glm#1.0.3")
 endif()
 
-target_compile_definitions(glm PRIVATE GLM_ENABLE_EXPERIMENTAL)
-
-if (GLSL_STRUCT_BUILD_TESTS OR GLSL_STRUCT_BUILD_COVERAGE)
+if (DOWNLOAD_GTEST)
     CPMAddPackage("gh:google/googletest#v1.17.0")
 endif()

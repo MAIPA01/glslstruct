@@ -26,7 +26,7 @@ namespace glslstruct {
 	 * @brief visitor which calculate has of type
 	 * @ingroup type_visitors
 	 */
-	class type_hash_visitor {
+	class _GLSL_STRUCT_EXPORT type_hash_visitor {
 	private:
 		/// @brief hash result
 		size_t _result = 0;

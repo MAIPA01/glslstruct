@@ -23,7 +23,7 @@ namespace glslstruct {
 	 * @brief Major Type Enum for matrices (for now not used)
 	 * @ingroup glslstruct
 	 */
-	ENUM_CLASS_BASE(MajorType, uint8_t, (Column), (Row))
+	_GLSL_STRUCT_EXPORT ENUM_CLASS_BASE(MajorType, uint8_t, (Column), (Row))
 	// clang-format on
 } // namespace glslstruct
 

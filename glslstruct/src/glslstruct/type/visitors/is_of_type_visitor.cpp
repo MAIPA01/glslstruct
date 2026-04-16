@@ -15,6 +15,8 @@ _GLSL_STRUCT_ERROR(
 );
 #else
 
+	#include <glslstruct/pch.hpp>
+
 	#include <glslstruct/type/containers/array_type.hpp>
 	#include <glslstruct/type/containers/base_type.hpp>
 	#include <glslstruct/type/containers/mat_type.hpp>
@@ -24,11 +26,10 @@ _GLSL_STRUCT_ERROR(
 	#include <glslstruct/type/containers/vec_type.hpp>
 
 	#include <glslstruct/type/visitors/is_of_type_visitor.hpp>
-	#include <pch.hpp>
 
 using namespace glslstruct;
 
-bool glslstruct::is_of_type(const base_type_handle& type, const BaseType baseType) {
+_GLSL_STRUCT_EXPORT bool glslstruct::is_of_type(const base_type_handle& type, const BaseType baseType) {
 		switch (baseType) {
 		case BaseType::Scalar: return is_of_type<scalar_type>(type);
 		case BaseType::Vec:	   return is_of_type<vec_type>(type);

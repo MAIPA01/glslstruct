@@ -24,7 +24,7 @@ namespace glslstruct {
 	 * @brief container for all variable data
 	 * @ingroup glslstruct
 	 */
-	class var_data {
+	class _GLSL_STRUCT_EXPORT var_data {
 	private:
 		friend struct std::hash<var_data>;
 
@@ -94,7 +94,7 @@ namespace glslstruct {
  * @ingroup glsl_types
  */
 template<>
-struct std::hash<glslstruct::var_data> {
+struct _GLSL_STRUCT_EXPORT std::hash<glslstruct::var_data> {
 	[[nodiscard]] size_t operator()(const glslstruct::var_data& value) const noexcept;
 };
 	#endif

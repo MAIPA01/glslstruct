@@ -83,8 +83,8 @@ namespace glslstruct {
 		#else
 	template<class Traits, std::enable_if_t<is_layout_traits_v<Traits>, bool> >
 		#endif
-	class base_layout : public std::conditional_t<utils::has_layout_traits_context_v<Traits>, utils::layout_with_context<Traits>,
-						  utils::layout_without_context> {
+	class _GLSL_STRUCT_EXPORT base_layout : public std::conditional_t<utils::has_layout_traits_context_v<Traits>,
+											  utils::layout_with_context<Traits>, utils::layout_without_context> {
 	public:
 		/// @brief traits type
 		using traits_type								 = Traits;
@@ -1384,7 +1384,7 @@ namespace glslstruct {
  * @tparam Traits layout traits type
  */
 template<class Traits>
-struct std::hash<glslstruct::base_layout<Traits> > {
+struct _GLSL_STRUCT_EXPORT std::hash<glslstruct::base_layout<Traits> > {
 	[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 size_t operator()(const glslstruct::base_layout<Traits>& layout) const noexcept {
 		size_t seed = mstd::hash_combine(layout._currentOffset, layout._maxAlignment);
 			for (const auto& [name, data] : layout._variables) { mstd::hash_append(seed, name, data); }

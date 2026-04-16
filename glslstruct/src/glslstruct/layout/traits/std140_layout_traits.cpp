@@ -13,9 +13,9 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 #else
 
+	#include <glslstruct/pch.hpp>
 	#include <glslstruct/layout/traits/std140_layout_traits.hpp>
 	#include <glslstruct/utils/functions.hpp>
-	#include <pch.hpp>
 
 using namespace glslstruct;
 

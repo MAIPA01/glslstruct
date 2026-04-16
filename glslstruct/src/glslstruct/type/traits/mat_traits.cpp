@@ -13,12 +13,12 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 #else
 
+	#include <glslstruct/pch.hpp>
 	#include <glslstruct/type/traits/mat_traits.hpp>
-	#include <pch.hpp>
 
 using namespace glslstruct;
 
-std::string glslstruct::mat_to_string(const ValueType valueType, const size_t columns, const size_t rows) {
+_GLSL_STRUCT_EXPORT std::string glslstruct::mat_to_string(const ValueType valueType, const size_t columns, const size_t rows) {
 	std::string sizeStr = columns == rows ? std::to_string(columns) : fmt::format("{}x{}", columns, rows);
 
 		switch (valueType) {

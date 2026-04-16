@@ -13,8 +13,8 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 #else
 
+	#include <glslstruct/pch.hpp>
 	#include <glslstruct/type/traits/scalar_traits.hpp>
-	#include <pch.hpp>
 
 using namespace glslstruct;
 
@@ -83,7 +83,7 @@ double scalar_traits<double>::get_value(const scalar_data& data) {
 	return value;
 }
 
-std::string glslstruct::scalar_to_string(const ValueType valueType) {
+_GLSL_STRUCT_EXPORT std::string glslstruct::scalar_to_string(const ValueType valueType) {
 		switch (valueType) {
 		[[unlikely]] default:
 			return "UNKNOWN";

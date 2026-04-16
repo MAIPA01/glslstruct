@@ -258,14 +258,14 @@ namespace glslstruct {
 	 * @brief Compile-time constant to check if T is a valid layout trait.
 	 */
 	template<class T>
-	static _GLSL_STRUCT_CONSTEXPR17 bool is_layout_traits_v = layout_traits<T>;
+	static _GLSL_STRUCT_EXPORT _GLSL_STRUCT_CONSTEXPR17 bool is_layout_traits_v = layout_traits<T>;
 
 	/**
 	 * @ingroup layout_traits
 	 * @brief Type trait to check if T is a valid layout trait.
 	 */
 	template<class T>
-	struct is_layout_traits : std::bool_constant<is_layout_traits_v<T> > {};
+	struct _GLSL_STRUCT_EXPORT is_layout_traits : std::bool_constant<is_layout_traits_v<T> > {};
 
 	namespace utils {
 		/**

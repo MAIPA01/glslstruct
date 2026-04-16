@@ -24,7 +24,7 @@ namespace glslstruct {
 	 * @brief glsl scalar data container
 	 * @ingroup glslstruct
 	 */
-	class scalar_data {
+	class _GLSL_STRUCT_EXPORT scalar_data {
 	private:
 		/// @brief returns value of type T pure data bytes
 		template<class T>

@@ -17,8 +17,8 @@ _GLSL_STRUCT_ERROR(
 
 	#include <glslstruct/writer/glsl/writer.hpp>
 
+	#include <glslstruct/pch.hpp>
 	#include <glslstruct/writer/glsl/vulkan/writer.hpp>
-	#include <pch.hpp>
 
 using namespace glslstruct;
 

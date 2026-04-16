@@ -224,7 +224,7 @@ namespace glslstruct {
 		#else
 	template<class Layout, std::enable_if_t<utils::is_glsl_layout_v<Layout>, bool> = true>
 		#endif
-	class base_parser {
+	class _GLSL_STRUCT_EXPORT base_parser {
 	private:
 		/// @brief layout type
 		using _layout_type									  = Layout;

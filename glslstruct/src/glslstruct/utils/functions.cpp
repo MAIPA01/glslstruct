@@ -13,21 +13,21 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 #else
 
+	#include <glslstruct/pch.hpp>
 	#include <glslstruct/utils/functions.hpp>
-	#include <pch.hpp>
 
 using namespace glslstruct;
 
-size_t glslstruct::ceil_to_nearest_multiple(size_t valueToRoundUp, const size_t multipleValue) noexcept {
+_GLSL_STRUCT_EXPORT size_t glslstruct::ceil_to_nearest_multiple(size_t valueToRoundUp, const size_t multipleValue) noexcept {
 		if (const size_t modulo = valueToRoundUp % multipleValue; modulo != 0) { valueToRoundUp += multipleValue - modulo; }
 	return valueToRoundUp;
 }
 
-std::string glslstruct::get_array_elem_name(const std::string_view arrayName, const size_t elemIdx) {
+_GLSL_STRUCT_EXPORT std::string glslstruct::get_array_elem_name(const std::string_view arrayName, const size_t elemIdx) {
 	return fmt::format("{}[{}]", arrayName, elemIdx);
 }
 
-std::string glslstruct::get_struct_elem_name(const std::string_view structName, const std::string_view elemName) {
+_GLSL_STRUCT_EXPORT std::string glslstruct::get_struct_elem_name(const std::string_view structName, const std::string_view elemName) {
 	return fmt::format("{}.{}", structName, elemName);
 }
 

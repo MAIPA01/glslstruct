@@ -13,10 +13,11 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 #else
 
+	#include <glslstruct/pch.hpp>
+
 	#include <glslstruct/type/traits/scalar_traits.hpp>
 
 	#include <glslstruct/type/data/scalar_data.hpp>
-	#include <pch.hpp>
 
 using namespace glslstruct;
 

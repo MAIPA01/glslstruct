@@ -25,14 +25,14 @@ namespace glslstruct {
 	 * @brief Std140 Layout additional context
 	 * @ingroup layout_traits
 	 */
-	struct std140_layout_context : max_alignment_layout_context,
+	struct _GLSL_STRUCT_EXPORT std140_layout_context : max_alignment_layout_context,
 								   struct_added_layout_context {};
 
 	/**
 	 * @brief Std140 Layout traits
 	 * @ingroup layout_traits
 	 */
-	struct std140_layout_traits {
+	struct _GLSL_STRUCT_EXPORT std140_layout_traits {
 		/// @brief std140 layout context type
 		using context_type = std140_layout_context;
 

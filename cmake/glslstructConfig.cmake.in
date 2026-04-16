@@ -1,0 +1,62 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+find_dependency(glm REQUIRED)
+if(glm_FOUND AND NOT TARGET @PROJECT_NAMESPACE@glm_imported)
+    add_library(@PROJECT_NAMESPACE@glm_imported INTERFACE IMPORTED)
+    target_link_libraries(@PROJECT_NAMESPACE@glm_imported INTERFACE glm::glm)
+endif()
+
+find_dependency(mstd REQUIRED)
+if(mstd_FOUND AND NOT TARGET @PROJECT_NAMESPACE@mstd_imported)
+    add_library(@PROJECT_NAMESPACE@mstd_imported INTERFACE IMPORTED)
+    target_link_libraries(@PROJECT_NAMESPACE@mstd_imported INTERFACE mstd::mstd)
+endif()
+
+find_dependency(pcre2cpp REQUIRED)
+if(NOT TARGET @PROJECT_NAMESPACE@pcre2cpp_imported)
+    add_library(@PROJECT_NAMESPACE@pcre2cpp_imported INTERFACE IMPORTED)
+    target_link_libraries(@PROJECT_NAMESPACE@pcre2cpp_imported INTERFACE pcre2cpp::pcre2cpp)
+endif()
+
+if(NOT TARGET @PROJECT_NAMESPACE@@PROJECT_NAME@)
+    include(${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@Targets.cmake)
+endif()
+
+set(@PROJECT_NAME@_components CXX20 NO_ASSERT_ON_RELEASE NO_TYPES TYPE_CHECKS NO_PARSER)
+
+foreach(comp ${@PROJECT_NAME@_FIND_COMPONENTS})
+    if (NOT comp IN_LIST @PROJECT_NAME@_components)
+        set(@PROJECT_NAME@_NOT_FOUND_MESSAGE "Unsupported components: ${comp}")
+        set(@PROJECT_NAME@_FOUND FALSE)
+        break()
+    endif()
+
+    set(comp_target "@PROJECT_NAMESPACE@${comp}")
+
+    if(NOT TARGET ${comp_target})
+        add_library(${comp_target} INTERFACE IMPORTED)
+
+        if (comp STREQUAL "CXX20")
+            target_compile_definitions(${comp_target} INTERFACE GLSL_STRUCT_ENABLE_CXX20
+                                                                PCRE2CPP_ENABLE_CXX20
+                                                                MSTD_ENABLE_CXX20
+            )
+            set_target_properties(${comp_target} PROPERTIES
+                INTERFACE_COMPILE_FEATURES cxx_std_20
+            )
+        elseif(comp STREQUAL "NO_ASSERT_ON_RELEASE")
+            target_compile_definitions(${comp_target} INTERFACE GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE
+                                                                PCRE2CPP_DISABLE_ASSERT_ON_RELEASE
+                                                                MSTD_DISABLE_ASSERT_ON_RELEASE
+            )
+        elseif(comp STREQUAL "NO_TYPES")
+            target_compile_definitions(${comp_target} INTERFACE GLSL_STRUCT_DISABLE_TYPES)
+        elseif(comp STREQUAL "TYPE_CHECKS")
+            target_compile_definitions(${comp_target} INTERFACE GLSL_STRUCT_ENABLE_TYPE_CHECKS)
+        elseif(comp STREQUAL "NO_PARSER")
+            target_compile_definitions(${comp_target} INTERFACE GLSL_STRUCT_DISABLE_PARSER)
+        endif()
+    endif()
+endforeach()

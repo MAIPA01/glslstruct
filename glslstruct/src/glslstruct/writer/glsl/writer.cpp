@@ -15,8 +15,8 @@ _GLSL_STRUCT_ERROR(
 );
 #else
 
+	#include <glslstruct/pch.hpp>
 	#include <glslstruct/writer/glsl/writer.hpp>
-	#include <pch.hpp>
 
 using namespace glslstruct::utils;
 

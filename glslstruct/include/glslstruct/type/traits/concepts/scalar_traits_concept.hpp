@@ -37,7 +37,7 @@ namespace glslstruct {
 	 * @endcode
 	 */
 	template<class T>
-	struct scalar_traits {};
+	struct _GLSL_STRUCT_EXPORT scalar_traits {};
 
 	namespace utils {
 		#pragma region CHECKS

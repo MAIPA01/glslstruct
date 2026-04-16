@@ -11,8 +11,8 @@
 
 #if _GLSL_STRUCT_HAS_TYPES
 
+	#include <glslstruct/pch.hpp>
 	#include <glslstruct/type/containers/scalar_type.hpp>
-	#include <pch.hpp>
 
 using namespace glslstruct;
 
@@ -29,12 +29,12 @@ ValueType scalar_type::get_type() const noexcept { return _type; }
 
 std::string scalar_type::to_string() const noexcept { return scalar_to_string(_type); }
 
-bool glslstruct::operator==(const scalar_type& lhs, const scalar_type& rhs) noexcept { return lhs._type == rhs._type; }
+_GLSL_STRUCT_EXPORT bool glslstruct::operator==(const scalar_type& lhs, const scalar_type& rhs) noexcept { return lhs._type == rhs._type; }
 
 	#if _GLSL_STRUCT_HAS_CXX20
-bool glslstruct::operator!=(const scalar_type& lhs, const scalar_type& rhs) noexcept = default;
+_GLSL_STRUCT_EXPORT bool glslstruct::operator!=(const scalar_type& lhs, const scalar_type& rhs) noexcept = default;
 	#else
-bool glslstruct::operator!=(const scalar_type& lhs, const scalar_type& rhs) noexcept { return !(lhs == rhs); }
+_GLSL_STRUCT_EXPORT bool glslstruct::operator!=(const scalar_type& lhs, const scalar_type& rhs) noexcept { return !(lhs == rhs); }
 	#endif
 
 size_t std::hash<scalar_type>::operator()(const scalar_type& value) const noexcept { return static_cast<size_t>(value._type); }

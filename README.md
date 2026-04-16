@@ -2,9 +2,12 @@
 
 ## About
 
-**glslstruct** is a C++ library designed to easily represent GLSL's Uniform Buffer Objects (UBOs) and Shader Storage Buffer Objects (SSBOs) in C++.
+**glslstruct** is a C++ library designed to easily represent GLSL's Uniform Buffer Objects (UBOs) and Shader Storage
+Buffer Objects (SSBOs) in C++.
 
-It allows you to define structures once and retrieve their precise size and field offsets according to GLSL packing rules, such as **`std140`**, **`std430`** or **`scalar`**, eliminating the need for manual padding and tedious calculations. [DOCS](https://maipa01.github.io/glslstruct/html)
+It allows you to define structures once and retrieve their precise size and field offsets according to GLSL packing
+rules, such as **`std140`**, **`std430`** or **`scalar`**, eliminating the need for manual padding and tedious
+calculations. [DOCS](https://maipa01.github.io/glslstruct/html "Documentation")
 
 ---
 
@@ -17,7 +20,17 @@ It allows you to define structures once and retrieve their precise size and fiel
 
 ---
 
+## 🛠️ Requirements
+
+* C++17 or newer.
+* CMake (3.30+) (optional, for building examples and testing).
+
+---
+
 ## Options
+
+### Compilation defines options
+
 Options can be enabled in c++ by `#define option_name` or by enabling cmake option `set(option_name CACHE ON)`
 
 | Cmake Option/C++ Define                 | Description                                          | Default |
@@ -28,12 +41,28 @@ Options can be enabled in c++ by `#define option_name` or by enabling cmake opti
 | `GLSL_STRUCT_ENABLE_TYPE_CHECKS`        | Enables type checking only if types are not disabled |   OFF   |
 | `GLSL_STRUCT_DISABLE_PARSER`            | Disables parsers functions                           |   OFF   |
 
----
+### External libraries options
 
-## 🛠️ Requirements
+If you want to use external libraries not installed by project using CPM
 
-* C++17 compliant compiler (GCC 10+, Clang 10+, MSVC 19.29+).
-* CMake (3.30+) (optional, for building examples and testing).
+| Cmake option Name               | Description                                                         | Default |
+|:--------------------------------|:--------------------------------------------------------------------|:-------:|
+| `GLSL_STRUCT_MSTD_EXTERNAL`     | Uses users own mstd library (tested and compatible with: 1.5.2)     |   OFF   |
+| `GLSL_STRUCT_GLM_EXTERNAL`      | Uses users own glm library (tested and compatible with: 1.0.3)      |   OFF   |
+| `GLSL_STRUCT_PCRE2CPP_EXTERNAL` | Uses users own pcre2cpp library (tested and compatible with: 1.2.5) |   OFF   |
+
+### Project developing options
+
+These options are used while testing or changing code in project
+
+| Cmake option Name                 | Description                                              |          Default          |
+|:----------------------------------|:---------------------------------------------------------|:-------------------------:|
+| `GLSL_STRUCT_BUILD_TESTS`         | Build tests                                              | `${PROJECT_IS_TOP_LEVEL}` |
+| `GLSL_STRUCT_BUILD_COVERAGE`      | Enable coverage reporting                                | `${PROJECT_IS_TOP_LEVEL}` |
+| `GLSL_STRUCT_BUILD_DOCUMENTATION` | Build documentation                                      | `${PROJECT_IS_TOP_LEVEL}` |
+| `GLSL_STRUCT_ENABLE_CLANG_TIDY`   | Enables clang-tidy checks                                | `${PROJECT_IS_TOP_LEVEL}` |
+| `GLSL_STRUCT_INSTALL`             | Enables installation of this project                     | `${PROJECT_IS_TOP_LEVEL}` |
+| `GLSL_STRUCT_INSTALL_TEST`        | This is only to test if installation of glslstruct works |            OFF            |
 
 ---
 
@@ -41,23 +70,38 @@ Options can be enabled in c++ by `#define option_name` or by enabling cmake opti
 
 ### Method 1: Using CMake (Recommended)
 
-1.  Clone the repository:
-    ```bash
-    git clone https://github.com/MAIPA01/glslstruct.git
-    ```
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/MAIPA01/glslstruct.git
+   ```
 
-2.  In your project's `CMakeLists.txt`, add the library and link it:
-    ```cmake
-    add_subdirectory(glslstruct)
-    
-    target_link_libraries(YourApplicationName PRIVATE glslstruct)
-    ```
+2. In your project's `CMakeLists.txt`, add the library and link it:
+   ```cmake
+   add_subdirectory(glslstruct)
+   
+   target_link_libraries(YourApplicationName PRIVATE glslstruct::glslstruct)
+   ```
 
 ---
 
+### Components
+
+You can also include components `find_pcakage(pcre2cpp COMPONENTS comp)`. They work the same way
+as [Compilation defines options](#compilation-defines-options), but
+they provide separate components you need to include.
+
+| Component Name       | Option                                  | Target Name                      |
+|:---------------------|:----------------------------------------|:---------------------------------|
+| CXX20                | `GLSL_STRUCT_ENABLE_CXX20`              | glslstruct::CXX20                |
+| NO_ASSERT_ON_RELEASE | `GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE` | glslstruct::NO_ASSERT_ON_RELEASE |
+| NO_TYPES             | `GLSL_STRUCT_DISABLE_TYPES`             | glslstruct::NO_TYPES             |
+| TYPE_CHECKS          | `GLSL_STRUCT_ENABLE_TYPE_CHECKS`        | glslstruct::TYPE_CHECKS          |
+| NO_PARSER            | `GLSL_STRUCT_DISABLE_PARSER`            | glslstruct::NO_PARSER            |
+
 ## 💡 Example Usage
 
-The following code demonstrates defining a structure and querying its metadata according to the `std140` layout, which is essential for binding UBOs correctly.
+The following code demonstrates defining a structure and querying its metadata according to the `std140` layout, which
+is essential for binding UBOs correctly.
 
 ```cpp
 #include <glslstruct/glslstruct.hpp>
@@ -105,6 +149,7 @@ int main() {
 ```
 
 # 📝 GLSL Shader Example
+
 This is how the corresponding GLSL UBO definition would look for the SceneSettings structure above:
 
 ```glsl
@@ -118,25 +163,32 @@ layout(std140, binding = 0) uniform SceneSettingsUBO
 };
 ```
 
-You can also use `std140_parser` class to get structure layout from this glsl code or use `glsl_opengl_writer` class to generate glsl code like this from structure defined in code
+You can also use `std140_parser` class to get structure layout from this glsl code or use `glsl_opengl_writer` class to
+generate glsl code like this from structure defined in code
 
 # 📝 Operations On Types
+
 In structures there are five diffrent type handlers:
+
 - `scalar_type`
 - `vec_type`
 - `mat_type`
 - `struct_type`
 - `array_type`
 
-all of them with the same base class `base_type`. 
+all of them with the same base class `base_type`.
 
 ### Type Casting
-For easier and safer casting instead of using `dynamic_cast` there is implemented function `dynamic_type_cast` and `static_type_cast`.
+
+For easier and safer casting instead of using `dynamic_cast` there is implemented function `dynamic_type_cast` and
+`static_type_cast`.
 
 ### Visitor
+
 Each type has implemented `accept` function which as a input accepts all types which match with `type_visitor_concept`.
 
 #### Example
+
 ```cpp
 #include <glslstruct/glslstruct.hpp>
 #include <iostream>
@@ -226,7 +278,10 @@ int main() {
 ```
 
 # 📜 License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE "License") file for details.
 
 # 🤝 Contributing
-We welcome all contributions! Whether it's reporting a bug, suggesting a new feature, or submitting a pull request, your input is valued.
+
+We welcome all contributions! Whether it's reporting a bug, suggesting a new feature, or submitting a pull request, your
+input is valued.

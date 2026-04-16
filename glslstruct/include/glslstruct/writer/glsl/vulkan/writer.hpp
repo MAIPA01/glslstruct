@@ -54,7 +54,7 @@ namespace glslstruct {
 	 * @ingroup vulkan_writer Vulkan glsl code writer
 	 * @brief struct to vulkan glsl writer
 	 */
-	class glsl_vulkan_writer {
+	class _GLSL_STRUCT_EXPORT glsl_vulkan_writer {
 		/// @brief glsl writer instance
 		utils::glsl_writer _writer;
 

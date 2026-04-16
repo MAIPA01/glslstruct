@@ -27,7 +27,7 @@ namespace glslstruct {
 	 * @brief array type container
 	 * @ingroup glsl_types
 	 */
-	class array_type : public type<array_type> {
+	class _GLSL_STRUCT_EXPORT array_type : public type<array_type> {
 	private:
 		friend struct std::hash<array_type>;
 
@@ -98,12 +98,12 @@ namespace glslstruct {
 	 * @brief checks if two array types are equal
 	 * @ingroup glsl_types
 	 */
-	[[nodiscard]] bool operator==(const array_type& lhs, const array_type& rhs) noexcept;
+	[[nodiscard]] _GLSL_STRUCT_EXPORT bool operator==(const array_type& lhs, const array_type& rhs) noexcept;
 	/**
 	 * @brief checks if two array types are not equal
 	 * @ingroup glsl_types
 	 */
-	[[nodiscard]] bool operator!=(const array_type& lhs, const array_type& rhs) noexcept;
+	[[nodiscard]] _GLSL_STRUCT_EXPORT bool operator!=(const array_type& lhs, const array_type& rhs) noexcept;
 } // namespace glslstruct
 
 /**
@@ -111,7 +111,7 @@ namespace glslstruct {
  * @ingroup glsl_types
  */
 template<>
-struct std::hash<glslstruct::array_type> {
+struct _GLSL_STRUCT_EXPORT std::hash<glslstruct::array_type> {
 	[[nodiscard]] size_t operator()(const glslstruct::array_type& type) const noexcept;
 };
 	#endif

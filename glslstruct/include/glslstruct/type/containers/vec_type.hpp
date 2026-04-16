@@ -26,7 +26,7 @@ namespace glslstruct {
 	 * @brief vec type container
 	 * @ingroup glsl_types
 	 */
-	class vec_type : public type<vec_type> {
+	class _GLSL_STRUCT_EXPORT vec_type : public type<vec_type> {
 	private:
 		friend struct std::hash<vec_type>;
 
@@ -91,7 +91,7 @@ namespace glslstruct {
  * @ingroup glsl_types
  */
 template<>
-struct std::hash<glslstruct::vec_type> {
+struct _GLSL_STRUCT_EXPORT std::hash<glslstruct::vec_type> {
 	[[nodiscard]] size_t operator()(const glslstruct::vec_type& value) const noexcept;
 };
 	#endif

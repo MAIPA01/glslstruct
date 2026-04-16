@@ -17,8 +17,8 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 		#include <glslstruct/type/containers/base_type.hpp>
 	#endif
 
+	#include <glslstruct/pch.hpp>
 	#include <glslstruct/var_data/var_data.hpp>
-	#include <pch.hpp>
 
 using namespace glslstruct;
 

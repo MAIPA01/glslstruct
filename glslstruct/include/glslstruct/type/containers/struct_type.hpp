@@ -27,7 +27,7 @@ namespace glslstruct {
 	 * @brief struct type container
 	 * @ingroup glsl_types
 	 */
-	class struct_type : public type<struct_type> {
+	class _GLSL_STRUCT_EXPORT struct_type : public type<struct_type> {
 	private:
 		friend struct std::hash<struct_type>;
 
@@ -81,12 +81,12 @@ namespace glslstruct {
 	 * @brief checks if two struct types are equal
 	 * @ingroup glsl_types
 	 */
-	[[nodiscard]] bool operator==(const struct_type& lhs, const struct_type& rhs) noexcept;
+	[[nodiscard]] _GLSL_STRUCT_EXPORT bool operator==(const struct_type& lhs, const struct_type& rhs) noexcept;
 	/**
 	 * @brief checks if two struct types are not equal
 	 * @ingroup glsl_types
 	 */
-	[[nodiscard]] bool operator!=(const struct_type& lhs, const struct_type& rhs) noexcept;
+	[[nodiscard]] _GLSL_STRUCT_EXPORT bool operator!=(const struct_type& lhs, const struct_type& rhs) noexcept;
 } // namespace glslstruct
 
 /**
@@ -94,7 +94,7 @@ namespace glslstruct {
  * @ingroup glsl_types
  */
 template<>
-struct std::hash<glslstruct::struct_type> {
+struct _GLSL_STRUCT_EXPORT std::hash<glslstruct::struct_type> {
 	[[nodiscard]] size_t operator()(const glslstruct::struct_type& type) const noexcept;
 };
 	#endif

@@ -25,7 +25,7 @@ namespace glslstruct {
 	 * @brief glsl mat data container
 	 * @ingroup glslstruct
 	 */
-	class mat_data {
+	class _GLSL_STRUCT_EXPORT mat_data {
 	private:
 		/// @brief returns vector of data bytes of glm::mat
 		template<class T, glm::length_t C, glm::length_t R, glm::qualifier Q>

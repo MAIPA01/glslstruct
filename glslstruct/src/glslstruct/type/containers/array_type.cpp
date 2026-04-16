@@ -11,12 +11,12 @@
 
 #if _GLSL_STRUCT_HAS_TYPES
 
+	#include <glslstruct/pch.hpp>
 	#include <glslstruct/type/containers/array_type.hpp>
 	#include <glslstruct/type/containers/mat_type.hpp>
 	#include <glslstruct/type/containers/scalar_type.hpp>
 	#include <glslstruct/type/containers/struct_type.hpp>
 	#include <glslstruct/type/containers/vec_type.hpp>
-	#include <pch.hpp>
 
 using namespace glslstruct;
 
@@ -54,14 +54,14 @@ size_t array_type::get_count() const noexcept { return _count; }
 
 std::string array_type::to_string() const noexcept { return fmt::format("{}[{}]", _type->to_string(), _count); }
 
-bool glslstruct::operator==(const array_type& lhs, const array_type& rhs) noexcept {
+_GLSL_STRUCT_EXPORT bool glslstruct::operator==(const array_type& lhs, const array_type& rhs) noexcept {
 	return *lhs._type == *rhs._type && lhs._count == rhs._count;
 }
 
 	#if _GLSL_STRUCT_HAS_CXX20
-bool glslstruct::operator!=(const array_type& lhs, const array_type& rhs) noexcept = default;
+_GLSL_STRUCT_EXPORT bool glslstruct::operator!=(const array_type& lhs, const array_type& rhs) noexcept = default;
 	#else
-bool glslstruct::operator!=(const array_type& lhs, const array_type& rhs) noexcept { return !(lhs == rhs); }
+_GLSL_STRUCT_EXPORT bool glslstruct::operator!=(const array_type& lhs, const array_type& rhs) noexcept { return !(lhs == rhs); }
 	#endif
 
 size_t std::hash<array_type>::operator()(const array_type& type) const noexcept {

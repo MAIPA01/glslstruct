@@ -24,7 +24,7 @@ namespace glslstruct {
 	 * @brief glsl vec data container
 	 * @ingroup glslstruct
 	 */
-	class vec_data {
+	class _GLSL_STRUCT_EXPORT vec_data {
 	private:
 		/// @brief returns vector of data bytes of array of N values of type T
 		template<class T, size_t N>

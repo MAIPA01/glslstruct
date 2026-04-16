@@ -31,7 +31,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
-	class eq_type_visitor {
+	class _GLSL_STRUCT_EXPORT eq_type_visitor {
 	private:
 		/// @brief pointer to value A
 		const T* _value;

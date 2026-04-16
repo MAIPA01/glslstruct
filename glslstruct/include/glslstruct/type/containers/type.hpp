@@ -29,7 +29,7 @@ namespace glslstruct {
 	 * @tparam Derived derived type
 	 */
 	template<class Derived>
-	class type : public base_type {
+	class _GLSL_STRUCT_EXPORT type : public base_type {
 	private:
 		/// @brief standard cast from this to derived type
 		_GLSL_STRUCT_CONSTEXPR17 const Derived& _get_derived() const noexcept { return *static_cast<const Derived*>(this); }
@@ -95,7 +95,8 @@ namespace glslstruct {
 	 * @ingroup glsl_types
 	 */
 	template<class DerivedA, class DerivedB>
-	[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 bool operator==(const type<DerivedA>& lhs, const type<DerivedB>& rhs) noexcept {
+	[[nodiscard]] _GLSL_STRUCT_EXPORT _GLSL_STRUCT_CONSTEXPR17 bool operator==(const type<DerivedA>& lhs,
+	  const type<DerivedB>& rhs) noexcept {
 			if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<DerivedA, DerivedB>) { return lhs._get_derived() == rhs._get_derived(); }
 			else { return false; }
 	}
@@ -105,7 +106,8 @@ namespace glslstruct {
 	 * @ingroup glsl_types
 	 */
 	template<class DerivedA, class DerivedB>
-	[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 bool operator!=(const type<DerivedA>& lhs, const type<DerivedB>& rhs) noexcept {
+	[[nodiscard]] _GLSL_STRUCT_EXPORT _GLSL_STRUCT_CONSTEXPR17 bool operator!=(const type<DerivedA>& lhs,
+	  const type<DerivedB>& rhs) noexcept {
 		return !(lhs == rhs);
 	}
 } // namespace glslstruct

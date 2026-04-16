@@ -22,7 +22,7 @@ namespace glslstruct {
 	 * @brief layout context which contains max alignment of all variables
 	 * @ingroup glslstruct
 	 */
-	struct max_alignment_layout_context {
+	struct _GLSL_STRUCT_EXPORT max_alignment_layout_context {
 		/// @brief contains max alignment value
 		size_t maxAlignment = 0;
 
@@ -36,7 +36,7 @@ namespace glslstruct {
 	 * @brief layout context which contains alignment of last added struct
 	 * @ingroup glslstruct
 	 */
-	struct struct_added_layout_context {
+	struct _GLSL_STRUCT_EXPORT struct_added_layout_context {
 		/// @brief contains last added struct alignment
 		size_t structAlignment = 0;
 	};

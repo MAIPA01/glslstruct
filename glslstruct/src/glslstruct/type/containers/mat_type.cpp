@@ -11,8 +11,8 @@
 
 #if _GLSL_STRUCT_HAS_TYPES
 
+	#include <glslstruct/pch.hpp>
 	#include <glslstruct/type/containers/mat_type.hpp>
-	#include <pch.hpp>
 
 using namespace glslstruct;
 
@@ -38,14 +38,14 @@ size_t mat_type::get_array_count() const noexcept { return _cols; }
 
 std::string mat_type::to_string() const noexcept { return mat_to_string(_type, _cols, _rows); }
 
-bool glslstruct::operator==(const mat_type& lhs, const mat_type& rhs) noexcept {
+_GLSL_STRUCT_EXPORT bool glslstruct::operator==(const mat_type& lhs, const mat_type& rhs) noexcept {
 	return lhs._type == rhs._type && lhs._cols == rhs._cols && lhs._rows == rhs._rows;
 }
 
 	#if _GLSL_STRUCT_HAS_CXX20
-bool glslstruct::operator!=(const mat_type& lhs, const mat_type& rhs) noexcept = default;
+_GLSL_STRUCT_EXPORT bool glslstruct::operator!=(const mat_type& lhs, const mat_type& rhs) noexcept = default;
 	#else
-bool glslstruct::operator!=(const mat_type& lhs, const mat_type& rhs) noexcept { return !(lhs == rhs); }
+_GLSL_STRUCT_EXPORT bool glslstruct::operator!=(const mat_type& lhs, const mat_type& rhs) noexcept { return !(lhs == rhs); }
 	#endif
 
 size_t std::hash<mat_type>::operator()(const mat_type& value) const noexcept {

@@ -23,26 +23,27 @@ namespace glslstruct {
 	 * @brief Value Type Enum
 	 * @ingroup glslstruct
 	 */
-	ENUM_CLASS_BASE(ValueType, uint8_t, (Bool), (Int), (Uint), (Float), (Double))
+	_GLSL_STRUCT_EXPORT ENUM_CLASS_BASE(ValueType, uint8_t, (Bool), (Int), (Uint), (Float), (Double))
 		// clang-format on
 
 		#if _GLSL_STRUCT_HAS_CXX20
-	/**
-	 * @brief Converts type to ValueType Enum value
-	 * @ingroup glslstruct
-	 * @tparam T type of scalar to convert to ValueType enum (only works for { bool, int, unsigned int, float, double })
-	 */
-	template<class T>
+	  /**
+	   * @brief Converts type to ValueType Enum value
+	   * @ingroup glslstruct
+	   * @tparam T type of scalar to convert to ValueType enum (only works for { bool, int, unsigned int, float, double })
+	   */
+	  template<class T>
 		#else
-	/**
-	 * @brief Converts type to ValueType Enum value
-	 * @ingroup glslstruct
-	 * @tparam T type of scalar to convert to ValueType enum (only works for { bool, int, unsigned int, float, double })
-	 */
-	template<class T, std::enable_if_t<mstd::is_same_type_in_v<T, bool, int, unsigned int, float, double>, bool> = true>
+	  /**
+	   * @brief Converts type to ValueType Enum value
+	   * @ingroup glslstruct
+	   * @tparam T type of scalar to convert to ValueType enum (only works for { bool, int, unsigned int, float, double })
+	   */
+	  template<class T, std::enable_if_t<mstd::is_same_type_in_v<T, bool, int, unsigned int, float, double>, bool> = true>
 		#endif
-	[[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 ValueType
-	  get_value_type() noexcept _GLSL_STRUCT_REQUIRES((mstd::is_same_type_in_v<T, bool, int, unsigned int, float, double>)) {
+	  [[nodiscard]] static _GLSL_STRUCT_EXPORT _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept _GLSL_STRUCT_REQUIRES(
+		(mstd::is_same_type_in_v<T, bool, int, unsigned int, float, double>)
+	  ) {
 			if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, bool>) { return ValueType::Bool; }
 			else if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, int>) { return ValueType::Int; }
 			else if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, unsigned int>) { return ValueType::Uint; }
@@ -59,7 +60,7 @@ namespace glslstruct {
 	 * @ingroup glslstruct
 	 * @param type scalar value type
 	 */
-	[[nodiscard]] size_t get_value_type_size(ValueType type);
+	[[nodiscard]] _GLSL_STRUCT_EXPORT size_t get_value_type_size(ValueType type);
 } // namespace glslstruct
 	#endif
 #endif

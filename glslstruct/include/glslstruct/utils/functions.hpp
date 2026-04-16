@@ -22,19 +22,19 @@ namespace glslstruct {
 	 * @brief returns value rounded up to nearest multiple of given value
 	 * @ingroup glslstruct
 	 */
-	[[nodiscard]] size_t ceil_to_nearest_multiple(size_t valueToRoundUp, size_t multipleValue) noexcept;
+	[[nodiscard]] _GLSL_STRUCT_EXPORT size_t ceil_to_nearest_multiple(size_t valueToRoundUp, size_t multipleValue) noexcept;
 
 	/**
 	 * @brief returns array elem name
 	 * @ingroup glslstruct
 	 */
-	[[nodiscard]] std::string get_array_elem_name(std::string_view arrayName, size_t elemIdx);
+	[[nodiscard]] _GLSL_STRUCT_EXPORT std::string get_array_elem_name(std::string_view arrayName, size_t elemIdx);
 
 	/**
 	 * @brief returns struct elem name
 	 * @ingroup glslstruct
 	 */
-	[[nodiscard]] std::string get_struct_elem_name(std::string_view structName, std::string_view elemName);
+	[[nodiscard]] _GLSL_STRUCT_EXPORT std::string get_struct_elem_name(std::string_view structName, std::string_view elemName);
 } // namespace glslstruct
 
 	#endif

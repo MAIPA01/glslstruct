@@ -26,7 +26,7 @@ namespace glslstruct {
 	 * @brief mat type container
 	 * @ingroup glsl_types
 	 */
-	class mat_type : public type<mat_type> {
+	class _GLSL_STRUCT_EXPORT mat_type : public type<mat_type> {
 	private:
 		friend struct std::hash<mat_type>;
 
@@ -86,12 +86,12 @@ namespace glslstruct {
 	 * @brief checks if two mats types are equal
 	 * @ingroup glsl_types
 	 */
-	[[nodiscard]] bool operator==(const mat_type& lhs, const mat_type& rhs) noexcept;
+	[[nodiscard]] _GLSL_STRUCT_EXPORT bool operator==(const mat_type& lhs, const mat_type& rhs) noexcept;
 	/**
 	 * @brief checks if two mats types are not equal
 	 * @ingroup glsl_types
 	 */
-	[[nodiscard]] bool operator!=(const mat_type& lhs, const mat_type& rhs) noexcept;
+	[[nodiscard]] _GLSL_STRUCT_EXPORT bool operator!=(const mat_type& lhs, const mat_type& rhs) noexcept;
 } // namespace glslstruct
 
 /**
@@ -99,7 +99,7 @@ namespace glslstruct {
  * @ingroup glsl_types
  */
 template<>
-struct std::hash<glslstruct::mat_type> {
+struct _GLSL_STRUCT_EXPORT std::hash<glslstruct::mat_type> {
 	[[nodiscard]] size_t operator()(const glslstruct::mat_type& value) const noexcept;
 };
 	#endif

@@ -11,9 +11,9 @@
 
 #if _GLSL_STRUCT_HAS_TYPES
 
+	#include <glslstruct/pch.hpp>
 	#include <glslstruct/type/containers/base_type.hpp>
 	#include <glslstruct/type/visitors/type_hash_visitor.hpp>
-	#include <pch.hpp>
 
 using namespace glslstruct;
 
@@ -35,9 +35,9 @@ bool base_type::operator!=(const base_type& other) const noexcept { return !(*th
 
 size_t base_type::get_size() const noexcept { return _size; }
 
-size_t glslstruct::sizeof_type(const base_type_handle& type) noexcept { return type->get_size(); }
+_GLSL_STRUCT_EXPORT size_t glslstruct::sizeof_type(const base_type_handle& type) noexcept { return type->get_size(); }
 
-std::string glslstruct::to_string(const base_type_handle& type) noexcept { return type->to_string(); }
+_GLSL_STRUCT_EXPORT std::string glslstruct::to_string(const base_type_handle& type) noexcept { return type->to_string(); }
 
 size_t std::hash<base_type>::operator()(const base_type& type) const noexcept {
 	type_hash_visitor visitor;
