@@ -40,7 +40,7 @@ namespace glslstruct::utils {
 
 		/// @brief type visitor
 		template<class Type>
-		void visit(Type&& varType) {
+		void operator()(Type&& varType) {
 			using T = std::decay_t<Type>;
 				if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, array_type>) { varType.get_type()->accept(*this); }
 				else if _GLSL_STRUCT_CONSTEXPR17 (!std::is_same_v<T, struct_type>) { _result = varType.to_string(); }
@@ -79,7 +79,7 @@ namespace glslstruct::utils {
 
 		/// @brief visitor function
 		template<class Type>
-		void visit(Type&& varType) {
+		void operator()(Type&& varType) {
 			using T = std::decay_t<Type>;
 				if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, array_type>) {
 						if (_canBeVariableSize) {
@@ -159,7 +159,7 @@ namespace glslstruct::utils {
 
 		/// @brief type visitor
 		template<class Type>
-		void visit(Type&& varType) {
+		void operator()(Type&& varType) {
 			using T = std::decay_t<Type>;
 				if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, struct_type>) {
 						if (_uniqueStructs.contains(varType)) { return; }

@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.0</span>
+   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.2</span>
    </div>
    <div id="projectbrief">glslstruct</div>
   </td>
@@ -127,7 +127,7 @@ $(function(){initNavTree('d3/d79/eq__type__visitor_8hpp_source.html','../../',''
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T, std::enable_if_t&lt;utils::is_glsl_type_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt; = <span class="keyword">true</span>&gt;</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 <div class="foldopen" id="foldopen00034" data-start="{" data-end="};">
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="../../de/d45/classglslstruct_1_1eq__type__visitor.html">   34</a></span>    <span class="keyword">class</span> eq_type_visitor {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="../../de/d45/classglslstruct_1_1eq__type__visitor.html">   34</a></span>    <span class="keyword">class</span> _GLSL_STRUCT_EXPORT eq_type_visitor {</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="comment">/// @brief pointer to value A</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="../../de/d45/classglslstruct_1_1eq__type__visitor.html#a3effd93b5c0ddc0d83e2394d9cafe35e">   37</a></span>        <span class="keyword">const</span> T* _value;</div>
@@ -137,57 +137,31 @@ $(function(){initNavTree('d3/d79/eq__type__visitor_8hpp_source.html','../../',''
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="comment">/// @brief constructor with pointer to value A</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="../../de/d45/classglslstruct_1_1eq__type__visitor.html#afd00c1626f5eac02abbd33b3fabfb09d">   43</a></span>        <span class="keyword">explicit</span> <a class="code hl_define" href="../../db/d81/group__utils.html#ga1cbd893296b8b11f6174f8274c41e89d">_GLSL_STRUCT_CONSTEXPR20</a> eq_type_visitor(<span class="keyword">const</span> T* value) <span class="keyword">noexcept</span> : _value(value) {}</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="comment">/// @brief default destructor</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="../../de/d45/classglslstruct_1_1eq__type__visitor.html#a398436148c5913b680f007f47ab1e5c8">   46</a></span>        <a class="code hl_define" href="../../db/d81/group__utils.html#ga1cbd893296b8b11f6174f8274c41e89d">_GLSL_STRUCT_CONSTEXPR20</a> ~eq_type_visitor() <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="comment">/// @brief scalar_type visitor</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="comment">/// @brief default destructor</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="../../de/d45/classglslstruct_1_1eq__type__visitor.html#a398436148c5913b680f007f47ab1e5c8">   45</a></span>        <a class="code hl_define" href="../../db/d81/group__utils.html#ga1cbd893296b8b11f6174f8274c41e89d">_GLSL_STRUCT_CONSTEXPR20</a> ~eq_type_visitor() <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="comment">/// @brief type visitor</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> Type&gt;</div>
 <div class="foldopen" id="foldopen00049" data-start="{" data-end="}">
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="../../de/d45/classglslstruct_1_1eq__type__visitor.html#ae063be1ba60d4116fdcd356602789dc2">   49</a></span>        <span class="keywordtype">void</span> visit(<span class="keyword">const</span> scalar_type&amp; value) {</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                <span class="keywordflow">if</span> <a class="code hl_define" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> (std::is_same_v&lt;T, scalar_type&gt;) { _result = *_value == value; }</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                <span class="keywordflow">else</span> { _result = <span class="keyword">false</span>; }</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        }</div>
-</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="comment">/// @brief vec_type visitor</span></div>
-<div class="foldopen" id="foldopen00055" data-start="{" data-end="}">
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="../../de/d45/classglslstruct_1_1eq__type__visitor.html#af5eb700cf487bac9438563423c4e6736">   55</a></span>        <span class="keywordtype">void</span> visit(<span class="keyword">const</span> vec_type&amp; value) {</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                <span class="keywordflow">if</span> <a class="code hl_define" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> (std::is_same_v&lt;T, vec_type&gt;) { _result = *_value == value; }</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                <span class="keywordflow">else</span> { _result = <span class="keyword">false</span>; }</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="../../de/d45/classglslstruct_1_1eq__type__visitor.html#a1edcd0b838ab7151563e98c523af4998">   49</a></span>        <span class="keywordtype">void</span> operator()(Type&amp;&amp; typeContainer) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <span class="keyword">using</span> type = std::decay_t&lt;Type&gt;;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <span class="keywordflow">if</span> <a class="code hl_define" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> (std::is_same_v&lt;T, type&gt;) {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                _result = *_value == typeContainer;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            }</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                _result = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            }</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        }</div>
 </div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="comment">/// @brief mat_type visitor</span></div>
-<div class="foldopen" id="foldopen00061" data-start="{" data-end="}">
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="../../de/d45/classglslstruct_1_1eq__type__visitor.html#ae2eb4b0685801c63011f77701255b4f8">   61</a></span>        <span class="keywordtype">void</span> visit(<span class="keyword">const</span> mat_type&amp; value) {</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                <span class="keywordflow">if</span> <a class="code hl_define" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> (std::is_same_v&lt;T, mat_type&gt;) { _result = *_value == value; }</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                <span class="keywordflow">else</span> { _result = <span class="keyword">false</span>; }</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        }</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="comment">/// @brief returns result value</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="../../de/d45/classglslstruct_1_1eq__type__visitor.html#a7bad774ea1425b135cc58cbeecdd8194">   61</a></span>        [[nodiscard]] <span class="keywordtype">bool</span> result() <span class="keyword">const</span> <span class="keyword">noexcept</span> { <span class="keywordflow">return</span> _result; }</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    };</div>
 </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="comment">/// @brief struct_type visitor</span></div>
-<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="../../de/d45/classglslstruct_1_1eq__type__visitor.html#ad2d35925fc3a8466e9a9b2de8ff6fadf">   67</a></span>        <span class="keywordtype">void</span> visit(<span class="keyword">const</span> struct_type&amp; value) {</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                <span class="keywordflow">if</span> <a class="code hl_define" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> (std::is_same_v&lt;T, struct_type&gt;) { _result = *_value == value; }</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                <span class="keywordflow">else</span> { _result = <span class="keyword">false</span>; }</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        }</div>
-</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="comment">/// @brief array_type visitor</span></div>
-<div class="foldopen" id="foldopen00073" data-start="{" data-end="}">
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="../../de/d45/classglslstruct_1_1eq__type__visitor.html#aef2d50592e824212f2893d6e2ee30d0b">   73</a></span>        <span class="keywordtype">void</span> visit(<span class="keyword">const</span> array_type&amp; value) {</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                <span class="keywordflow">if</span> <a class="code hl_define" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> (std::is_same_v&lt;T, array_type&gt;) { _result = *_value == value; }</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                <span class="keywordflow">else</span> { _result = <span class="keyword">false</span>; }</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        }</div>
-</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="comment">/// @brief returns result value</span></div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="../../de/d45/classglslstruct_1_1eq__type__visitor.html#a7bad774ea1425b135cc58cbeecdd8194">   79</a></span>        [[nodiscard]] <span class="keywordtype">bool</span> result() <span class="keyword">const</span> <span class="keyword">noexcept</span> { <span class="keywordflow">return</span> _result; }</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    };</div>
-</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>} <span class="comment">// namespace glslstruct</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>} <span class="comment">// namespace glslstruct</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 <div class="ttc" id="agroup__utils_html_ga1cbd893296b8b11f6174f8274c41e89d"><div class="ttname"><a href="../../db/d81/group__utils.html#ga1cbd893296b8b11f6174f8274c41e89d">_GLSL_STRUCT_CONSTEXPR20</a></div><div class="ttdeci">#define _GLSL_STRUCT_CONSTEXPR20</div><div class="ttdoc">constexpr keyword for c++20 and higher</div><div class="ttdef"><b>Definition</b> config.hpp:213</div></div>
 <div class="ttc" id="agroup__utils_html_ga4096a3b64d500cf3a960cc82b077452e"><div class="ttname"><a href="../../db/d81/group__utils.html#ga4096a3b64d500cf3a960cc82b077452e">_GLSL_STRUCT_HAS_CXX20</a></div><div class="ttdeci">#define _GLSL_STRUCT_HAS_CXX20</div><div class="ttdoc">check if compiler has c++ version greater or equal to c++20 and if user enabled c++20 features using ...</div><div class="ttdef"><b>Definition</b> config.hpp:142</div></div>
 <div class="ttc" id="agroup__utils_html_gac67930ddbdd08f5c11560ce0ecb4bc0f"><div class="ttname"><a href="../../db/d81/group__utils.html#gac67930ddbdd08f5c11560ce0ecb4bc0f">_GLSL_STRUCT_HAS_TYPES</a></div><div class="ttdeci">#define _GLSL_STRUCT_HAS_TYPES</div><div class="ttdoc">check if user not disabled type containers using GLSL_STRUCT_DISABLE_TYPES</div><div class="ttdef"><b>Definition</b> config.hpp:162</div></div>

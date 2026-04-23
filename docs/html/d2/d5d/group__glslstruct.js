@@ -6,6 +6,28 @@ var group__glslstruct =
     [ "Opengl Writer", "d0/daf/group__opengl__writer.html", "d0/daf/group__opengl__writer" ],
     [ "Utilities", "db/d81/group__utils.html", "db/d81/group__utils" ],
     [ "Vulkan Writer", "d8/def/group__vulkan__writer.html", "d8/def/group__vulkan__writer" ],
+    [ "glslstruct::max_alignment_layout_context", "d9/de7/structglslstruct_1_1max__alignment__layout__context.html", [
+      [ "update_max_alignment", "d9/de7/structglslstruct_1_1max__alignment__layout__context.html#a35ef62bb4937fc8c1ff5999e9f1fd0a5", null ],
+      [ "maxAlignment", "d9/de7/structglslstruct_1_1max__alignment__layout__context.html#a498f9d9c5a885e4e0c92f0fb4df80d95", null ]
+    ] ],
+    [ "glslstruct::struct_added_layout_context", "d3/d2a/structglslstruct_1_1struct__added__layout__context.html", [
+      [ "structAlignment", "d3/d2a/structglslstruct_1_1struct__added__layout__context.html#a27c7f1b46b0bdd9f291e20c4fc5c8087", null ]
+    ] ],
+    [ "std::hash&lt; glslstruct::max_alignment_layout_context &gt;", "dd/d81/structstd_1_1hash_3_01glslstruct_1_1max__alignment__layout__context_01_4.html", [
+      [ "operator()", "dd/d81/structstd_1_1hash_3_01glslstruct_1_1max__alignment__layout__context_01_4.html#aceb1e3e3269016d8eafb5c609ff8b3c0", null ]
+    ] ],
+    [ "std::hash&lt; glslstruct::struct_added_layout_context &gt;", "da/d9d/structstd_1_1hash_3_01glslstruct_1_1struct__added__layout__context_01_4.html", [
+      [ "operator()", "da/d9d/structstd_1_1hash_3_01glslstruct_1_1struct__added__layout__context_01_4.html#a2db81f1b35f67b6e5af64d0bb4b1bef9", null ]
+    ] ],
+    [ "std::hash&lt; glslstruct::scalar_layout_context &gt;", "d2/d1d/structstd_1_1hash_3_01glslstruct_1_1scalar__layout__context_01_4.html", [
+      [ "operator()", "d2/d1d/structstd_1_1hash_3_01glslstruct_1_1scalar__layout__context_01_4.html#a0c984a60af513b35c83537c874e8ecc4", null ]
+    ] ],
+    [ "std::hash&lt; glslstruct::std140_layout_context &gt;", "d5/d81/structstd_1_1hash_3_01glslstruct_1_1std140__layout__context_01_4.html", [
+      [ "operator()", "d5/d81/structstd_1_1hash_3_01glslstruct_1_1std140__layout__context_01_4.html#a3b14460d42c7ef35b64990952853bf81", null ]
+    ] ],
+    [ "std::hash&lt; glslstruct::std430_layout_context &gt;", "db/db8/structstd_1_1hash_3_01glslstruct_1_1std430__layout__context_01_4.html", [
+      [ "operator()", "db/db8/structstd_1_1hash_3_01glslstruct_1_1std430__layout__context_01_4.html#af54f96a6db732955e00f9fe2e745e6bd", null ]
+    ] ],
     [ "glslstruct::mat_data", "d4/d83/classglslstruct_1_1mat__data.html", [
       [ "mat_data", "d4/d83/classglslstruct_1_1mat__data.html#ad1dfca53badbfcfc2e01ffaa0cbeaf7d", null ],
       [ "mat_data", "d4/d83/classglslstruct_1_1mat__data.html#ae78d1dd487d5ea647cbcc9545777d7e3", null ],
@@ -20,31 +42,6 @@ var group__glslstruct =
       [ "operator=", "d4/d83/classglslstruct_1_1mat__data.html#a4f2f4de372d9de92f3ed19d6b1953732", null ],
       [ "operator=", "d4/d83/classglslstruct_1_1mat__data.html#a84711a5d5a35c79f2ca7a7ec0bfb3ebe", null ],
       [ "_data", "d4/d83/classglslstruct_1_1mat__data.html#a95a7c2850bb3ba872194abfa5bd13d95", null ]
-    ] ],
-    [ "glslstruct::scalar_traits&lt; bool &gt;", "d5/ded/structglslstruct_1_1scalar__traits_3_01bool_01_4.html", [
-      [ "get_data", "d5/ded/structglslstruct_1_1scalar__traits_3_01bool_01_4.html#ab1872689a37c3adace3a9637db4a39b1", null ],
-      [ "get_value", "d5/ded/structglslstruct_1_1scalar__traits_3_01bool_01_4.html#a77188d90e3c425c1d681f6abc42e0bb1", null ],
-      [ "get_value_type", "d5/ded/structglslstruct_1_1scalar__traits_3_01bool_01_4.html#a20c11cd600d91fb72432d5f8f916fb3f", null ]
-    ] ],
-    [ "glslstruct::scalar_traits&lt; int &gt;", "d2/d33/structglslstruct_1_1scalar__traits_3_01int_01_4.html", [
-      [ "get_data", "d2/d33/structglslstruct_1_1scalar__traits_3_01int_01_4.html#a286303c472a6d562e08c182d9d97b7b0", null ],
-      [ "get_value", "d2/d33/structglslstruct_1_1scalar__traits_3_01int_01_4.html#a7165eab5c899d4840f3d8f53f0325702", null ],
-      [ "get_value_type", "d2/d33/structglslstruct_1_1scalar__traits_3_01int_01_4.html#a64d82945699f5133b2ea4d797d068a84", null ]
-    ] ],
-    [ "glslstruct::scalar_traits&lt; unsigned int &gt;", "d1/d53/structglslstruct_1_1scalar__traits_3_01unsigned_01int_01_4.html", [
-      [ "get_data", "d1/d53/structglslstruct_1_1scalar__traits_3_01unsigned_01int_01_4.html#a736383d39bd3e7eedbbc9f1679b4af92", null ],
-      [ "get_value", "d1/d53/structglslstruct_1_1scalar__traits_3_01unsigned_01int_01_4.html#a218e73cc01ea5ef22404e722fc43c017", null ],
-      [ "get_value_type", "d1/d53/structglslstruct_1_1scalar__traits_3_01unsigned_01int_01_4.html#a5b66bcd85e699d890d7e6965e1920c72", null ]
-    ] ],
-    [ "glslstruct::scalar_traits&lt; float &gt;", "d5/db9/structglslstruct_1_1scalar__traits_3_01float_01_4.html", [
-      [ "get_data", "d5/db9/structglslstruct_1_1scalar__traits_3_01float_01_4.html#a46e46fafefffc4bf833b395ec17ab041", null ],
-      [ "get_value", "d5/db9/structglslstruct_1_1scalar__traits_3_01float_01_4.html#a275ed5f928c8d0f29ce0eebf8b2b516e", null ],
-      [ "get_value_type", "d5/db9/structglslstruct_1_1scalar__traits_3_01float_01_4.html#a2b878c19d16653f764ff90b6a41fb00c", null ]
-    ] ],
-    [ "glslstruct::scalar_traits&lt; double &gt;", "de/d1a/structglslstruct_1_1scalar__traits_3_01double_01_4.html", [
-      [ "get_data", "de/d1a/structglslstruct_1_1scalar__traits_3_01double_01_4.html#a98a3fb670da6ed56d006e993137dca57", null ],
-      [ "get_value", "de/d1a/structglslstruct_1_1scalar__traits_3_01double_01_4.html#af676f1be056c6afe7ba8144cdf073280", null ],
-      [ "get_value_type", "de/d1a/structglslstruct_1_1scalar__traits_3_01double_01_4.html#a07d8cc6e741eaf528230013ddc8c6755", null ]
     ] ],
     [ "glslstruct::scalar_data", "d0/de5/classglslstruct_1_1scalar__data.html", [
       [ "scalar_data", "d0/de5/classglslstruct_1_1scalar__data.html#afdbf40d63bb1238af9b6acb73a7d5bd1", null ],
@@ -92,6 +89,31 @@ var group__glslstruct =
       [ "get_rows", "d6/d8a/structglslstruct_1_1mat__traits_3_01mstd_1_1mat_3_01_c_00_01_r_00_01_t_01_4_01_4.html#ad10f077879052c6dc5716d242a6d7e02", null ],
       [ "get_value", "d6/d8a/structglslstruct_1_1mat__traits_3_01mstd_1_1mat_3_01_c_00_01_r_00_01_t_01_4_01_4.html#ad71e1a2e41d6f4913fce0f329809e1ad", null ],
       [ "get_value_type", "d6/d8a/structglslstruct_1_1mat__traits_3_01mstd_1_1mat_3_01_c_00_01_r_00_01_t_01_4_01_4.html#a5735ed9e0dac8bda70870cd0703bcf8e", null ]
+    ] ],
+    [ "glslstruct::scalar_traits&lt; bool &gt;", "d5/ded/structglslstruct_1_1scalar__traits_3_01bool_01_4.html", [
+      [ "get_data", "d5/ded/structglslstruct_1_1scalar__traits_3_01bool_01_4.html#ab1872689a37c3adace3a9637db4a39b1", null ],
+      [ "get_value", "d5/ded/structglslstruct_1_1scalar__traits_3_01bool_01_4.html#a77188d90e3c425c1d681f6abc42e0bb1", null ],
+      [ "get_value_type", "d5/ded/structglslstruct_1_1scalar__traits_3_01bool_01_4.html#a20c11cd600d91fb72432d5f8f916fb3f", null ]
+    ] ],
+    [ "glslstruct::scalar_traits&lt; int &gt;", "d2/d33/structglslstruct_1_1scalar__traits_3_01int_01_4.html", [
+      [ "get_data", "d2/d33/structglslstruct_1_1scalar__traits_3_01int_01_4.html#a286303c472a6d562e08c182d9d97b7b0", null ],
+      [ "get_value", "d2/d33/structglslstruct_1_1scalar__traits_3_01int_01_4.html#a7165eab5c899d4840f3d8f53f0325702", null ],
+      [ "get_value_type", "d2/d33/structglslstruct_1_1scalar__traits_3_01int_01_4.html#a64d82945699f5133b2ea4d797d068a84", null ]
+    ] ],
+    [ "glslstruct::scalar_traits&lt; unsigned int &gt;", "d1/d53/structglslstruct_1_1scalar__traits_3_01unsigned_01int_01_4.html", [
+      [ "get_data", "d1/d53/structglslstruct_1_1scalar__traits_3_01unsigned_01int_01_4.html#a736383d39bd3e7eedbbc9f1679b4af92", null ],
+      [ "get_value", "d1/d53/structglslstruct_1_1scalar__traits_3_01unsigned_01int_01_4.html#a218e73cc01ea5ef22404e722fc43c017", null ],
+      [ "get_value_type", "d1/d53/structglslstruct_1_1scalar__traits_3_01unsigned_01int_01_4.html#a5b66bcd85e699d890d7e6965e1920c72", null ]
+    ] ],
+    [ "glslstruct::scalar_traits&lt; float &gt;", "d5/db9/structglslstruct_1_1scalar__traits_3_01float_01_4.html", [
+      [ "get_data", "d5/db9/structglslstruct_1_1scalar__traits_3_01float_01_4.html#a46e46fafefffc4bf833b395ec17ab041", null ],
+      [ "get_value", "d5/db9/structglslstruct_1_1scalar__traits_3_01float_01_4.html#a275ed5f928c8d0f29ce0eebf8b2b516e", null ],
+      [ "get_value_type", "d5/db9/structglslstruct_1_1scalar__traits_3_01float_01_4.html#a2b878c19d16653f764ff90b6a41fb00c", null ]
+    ] ],
+    [ "glslstruct::scalar_traits&lt; double &gt;", "de/d1a/structglslstruct_1_1scalar__traits_3_01double_01_4.html", [
+      [ "get_data", "de/d1a/structglslstruct_1_1scalar__traits_3_01double_01_4.html#a98a3fb670da6ed56d006e993137dca57", null ],
+      [ "get_value", "de/d1a/structglslstruct_1_1scalar__traits_3_01double_01_4.html#af676f1be056c6afe7ba8144cdf073280", null ],
+      [ "get_value_type", "de/d1a/structglslstruct_1_1scalar__traits_3_01double_01_4.html#a07d8cc6e741eaf528230013ddc8c6755", null ]
     ] ],
     [ "glslstruct::vec_traits&lt; glm::vec&lt; L, T, Q &gt; &gt;", "d4/dd0/structglslstruct_1_1vec__traits_3_01glm_1_1vec_3_01_l_00_01_t_00_01_q_01_4_01_4.html", [
       [ "get_data", "d4/dd0/structglslstruct_1_1vec__traits_3_01glm_1_1vec_3_01_l_00_01_t_00_01_q_01_4_01_4.html#a5626aea15bb29a90a6d8b03bbe5bbbc6", null ],
@@ -222,13 +244,6 @@ var group__glslstruct =
     ] ],
     [ "std::hash&lt; glslstruct::base_layout&lt; Traits &gt; &gt;", "d3/dc9/structstd_1_1hash_3_01glslstruct_1_1base__layout_3_01_traits_01_4_01_4.html", [
       [ "operator()", "d3/dc9/structstd_1_1hash_3_01glslstruct_1_1base__layout_3_01_traits_01_4_01_4.html#a400a63c3aec993aaa5a96c8daae15a35", null ]
-    ] ],
-    [ "glslstruct::max_alignment_layout_context", "d9/de7/structglslstruct_1_1max__alignment__layout__context.html", [
-      [ "update_max_alignment", "d9/de7/structglslstruct_1_1max__alignment__layout__context.html#a99c955012592bc98174218627ab8695e", null ],
-      [ "maxAlignment", "d9/de7/structglslstruct_1_1max__alignment__layout__context.html#a498f9d9c5a885e4e0c92f0fb4df80d95", null ]
-    ] ],
-    [ "glslstruct::struct_added_layout_context", "d3/d2a/structglslstruct_1_1struct__added__layout__context.html", [
-      [ "structAlignment", "d3/d2a/structglslstruct_1_1struct__added__layout__context.html#a27c7f1b46b0bdd9f291e20c4fc5c8087", null ]
     ] ],
     [ "glslstruct::base_parser&lt; Layout &gt;", "de/dd1/classglslstruct_1_1base__parser.html", [
       [ "_base_patterns", "de/dd1/classglslstruct_1_1base__parser.html#afda5982d17b1bfd431af79b93b7e07d0", null ],
@@ -493,9 +508,9 @@ var group__glslstruct =
     [ "glslstruct::struct_type_handle", "d2/d5d/group__glslstruct.html#gaabf01e576011139ae13b2b70b47e7d15", null ],
     [ "glslstruct::type_handle", "d2/d5d/group__glslstruct.html#ga0f818e8f0ce213461601978ab2483e66", null ],
     [ "glslstruct::vec_type_handle", "d2/d5d/group__glslstruct.html#gabbd09c9dfbf10f0f00be86c91278c918", null ],
-    [ "glslstruct::ceil_to_nearest_multiple", "d2/d5d/group__glslstruct.html#gaf61b9f6cd88066c8823128398b31e161", null ],
-    [ "glslstruct::ENUM_CLASS_BASE", "d2/d5d/group__glslstruct.html#gab0c8004e65314ed65adc5813a59db436", null ],
-    [ "glslstruct::get_array_elem_name", "d2/d5d/group__glslstruct.html#ga4276bf680bc81b9f3f6940d03ef61329", null ],
-    [ "glslstruct::get_struct_elem_name", "d2/d5d/group__glslstruct.html#gaa6256f8fc911b588e04e1e4a4b355307", null ],
-    [ "glslstruct::get_value_type_size", "d2/d5d/group__glslstruct.html#gad8af65a2610bfadf7f608f92949eb0e0", null ]
+    [ "glslstruct::ceil_to_nearest_multiple", "d2/d5d/group__glslstruct.html#ga4084419b47b7ae4f2ad6a9b650fbd932", null ],
+    [ "glslstruct::ENUM_CLASS_BASE", "d2/d5d/group__glslstruct.html#gaa95a466b711afd15a920337f79d28d6e", null ],
+    [ "glslstruct::get_array_elem_name", "d2/d5d/group__glslstruct.html#ga56eef0e16f95456420e257ae0339ed60", null ],
+    [ "glslstruct::get_struct_elem_name", "d2/d5d/group__glslstruct.html#ga68f6233f5ece1aadf23113fbc2b5ad31", null ],
+    [ "glslstruct::get_value_type_size", "d2/d5d/group__glslstruct.html#ga3e8bcd0ec1c04d06d755aba64f31fec2", null ]
 ];

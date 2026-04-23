@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.0</span>
+   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.2</span>
    </div>
    <div id="projectbrief">glslstruct</div>
   </td>
@@ -108,9 +108,9 @@ Collaboration diagram for glslstruct::utils::glsl_writer:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a8ab16fb52350a7256a69e3d8e7651eb9" id="r_a8ab16fb52350a7256a69e3d8e7651eb9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8ab16fb52350a7256a69e3d8e7651eb9">glsl_writer</a> ()</td></tr>
 <tr class="memdesc:a8ab16fb52350a7256a69e3d8e7651eb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor  <br /></td></tr>
-<tr class="memitem:a47c2964c3ab3edff9633f1e7aa54967e" id="r_a47c2964c3ab3edff9633f1e7aa54967e"><td class="memTemplParams" colspan="2">template&lt;class Type&gt; </td></tr>
-<tr class="memitem:a47c2964c3ab3edff9633f1e7aa54967e template"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a47c2964c3ab3edff9633f1e7aa54967e">visit</a> (Type &amp;&amp;varType)</td></tr>
-<tr class="memdesc:a47c2964c3ab3edff9633f1e7aa54967e"><td class="mdescLeft">&#160;</td><td class="mdescRight">type visitor  <br /></td></tr>
+<tr class="memitem:a1dbf59379c8870ab866516ee2590bdae" id="r_a1dbf59379c8870ab866516ee2590bdae"><td class="memTemplParams" colspan="2">template&lt;class Type&gt; </td></tr>
+<tr class="memitem:a1dbf59379c8870ab866516ee2590bdae template"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1dbf59379c8870ab866516ee2590bdae">operator()</a> (Type &amp;&amp;varType)</td></tr>
+<tr class="memdesc:a1dbf59379c8870ab866516ee2590bdae"><td class="mdescLeft">&#160;</td><td class="mdescRight">type visitor  <br /></td></tr>
 <tr class="memitem:a783cd2e61d2aa5cf5a49349b384bdba8" id="r_a783cd2e61d2aa5cf5a49349b384bdba8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a783cd2e61d2aa5cf5a49349b384bdba8">append_struct</a> (std::string_view name, const <a class="el" href="../../df/dfe/classglslstruct_1_1struct__type.html">struct_type</a> &amp;structType)</td></tr>
 <tr class="memdesc:a783cd2e61d2aa5cf5a49349b384bdba8"><td class="mdescLeft">&#160;</td><td class="mdescRight">appends struct with given name  <br /></td></tr>
 <tr class="memitem:aa6a0084f668ee2022908da1925e96830" id="r_aa6a0084f668ee2022908da1925e96830"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa6a0084f668ee2022908da1925e96830">append_struct</a> (const <a class="el" href="../../df/dfe/classglslstruct_1_1struct__type.html">struct_type</a> &amp;structType)</td></tr>
@@ -514,6 +514,35 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a1dbf59379c8870ab866516ee2590bdae" name="a1dbf59379c8870ab866516ee2590bdae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dbf59379c8870ab866516ee2590bdae">&#9670;&#160;</a></span>operator()()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Type&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void glslstruct::utils::glsl_writer::operator() </td>
+          <td>(</td>
+          <td class="paramtype">Type &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>varType</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>type visitor </p>
+
+</div>
+</div>
 <a id="a97f12cc790bbeeb24e317060d2d30989" name="a97f12cc790bbeeb24e317060d2d30989"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a97f12cc790bbeeb24e317060d2d30989">&#9670;&#160;</a></span>to_string()</h2>
 
@@ -538,35 +567,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>returns result string </p>
-
-</div>
-</div>
-<a id="a47c2964c3ab3edff9633f1e7aa54967e" name="a47c2964c3ab3edff9633f1e7aa54967e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47c2964c3ab3edff9633f1e7aa54967e">&#9670;&#160;</a></span>visit()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class Type&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void glslstruct::utils::glsl_writer::visit </td>
-          <td>(</td>
-          <td class="paramtype">Type &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>varType</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>type visitor </p>
 
 </div>
 </div>

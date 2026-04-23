@@ -33,5 +33,5 @@ var group__layout__traits =
       [ "get_vec_alignment", "d5/dfd/structglslstruct_1_1std430__layout__traits.html#a41c0470090f5fe56b377af675bad23be", null ]
     ] ],
     [ "glslstruct::is_layout_traits&lt; T &gt;", "d4/d54/structglslstruct_1_1is__layout__traits.html", null ],
-    [ "glslstruct::is_layout_traits_v", "d6/d7d/group__layout__traits.html#ga9a5cbdc6ea25be716de6a00b7481aa25", null ]
+    [ "glslstruct::is_layout_traits_v", "d6/d7d/group__layout__traits.html#ga13fe1a8c7ec6408abaa8390d51aa6d2f", null ]
 ];

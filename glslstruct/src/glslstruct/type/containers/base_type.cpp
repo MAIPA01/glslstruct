@@ -27,10 +27,14 @@ base_type& base_type::operator=(const base_type& other) noexcept = default;
 base_type& base_type::operator=(base_type&& other) noexcept		 = default;
 
 bool base_type::operator==(const base_type& other) const noexcept { return _size == other._size; }
+
+bool base_type::operator!=(const base_type& other) const noexcept
 	#if _GLSL_STRUCT_HAS_CXX20
-bool base_type::operator!=(const base_type& other) const noexcept = default;
+  = default;
 	#else
-bool base_type::operator!=(const base_type& other) const noexcept { return !(*this == other); }
+{
+	return !(*this == other);
+}
 	#endif
 
 size_t base_type::get_size() const noexcept { return _size; }
@@ -41,7 +45,8 @@ _GLSL_STRUCT_EXPORT std::string glslstruct::to_string(const base_type_handle& ty
 
 size_t std::hash<base_type>::operator()(const base_type& type) const noexcept {
 	type_hash_visitor visitor;
-	type.accept(visitor);
+	glslstruct::visit(visitor, type);
+
 	size_t result = visitor.result();
 	mstd::hash_append(result, type._size);
 	return result;

@@ -8,11 +8,8 @@
  */
 
 #pragma once
-#ifndef _GLSL_STRUCT_IS_VECTOR_OF_HPP_
-	#define _GLSL_STRUCT_IS_VECTOR_OF_HPP_
-
-	#include "array_traits.hpp"
-
+#ifndef _GLSL_STRUCT_ARRAY_TRAITS_HPP_
+	#define _GLSL_STRUCT_ARRAY_TRAITS_HPP_
 
 	#include <glslstruct/config.hpp>
 

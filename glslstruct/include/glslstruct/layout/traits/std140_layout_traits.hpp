@@ -17,7 +17,7 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 	#else
 
-		#include <glslstruct/layout/traits/contexts/layout_traits_contexts.hpp>
+		#include <glslstruct/layout/traits/contexts/contexts.hpp>
 		#include <glslstruct/utils/ValueType.hpp>
 
 namespace glslstruct {
@@ -58,6 +58,15 @@ namespace glslstruct {
 		static void after_add_struct(size_t& currentOffset, size_t size, size_t alignment, context_type& ctx) noexcept;
 	};
 } // namespace glslstruct
+
+/**
+ * @brief std::hash specialization for glslstruct::std140_layout_context
+ * @ingroup glslstruct
+ */
+template<>
+struct std::hash<glslstruct::std140_layout_context> {
+	[[nodiscard]] size_t operator()(const glslstruct::std140_layout_context& ctx) const noexcept;
+};
 
 	#endif
 #endif

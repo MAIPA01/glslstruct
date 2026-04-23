@@ -216,7 +216,7 @@ public:
         _varName = name;
     }
 
-    void visit(const scalar_type& type) {
+    void operator()(const scalar_type& type) {
         switch(type.get_type()) {
         case ValueType::Int:
             // Some simple GUI draw function
@@ -228,14 +228,14 @@ public:
             break;
         }
     }
-    void visit(const vec_type& type) {
+    void operator()(const vec_type& type) {
         if (type.get_type() == ValueType::Float && 
             type.get_length() == 3) {
             // Some simple GUI draw function
             draw_vec3(_valueName, SceneSettings.get<glm::vec3>(_varName));
         }
     }
-    void visit(const mat_type& type) {
+    void operator()(const mat_type& type) {
         if (type.get_type() == ValueType::Float && 
             type.get_cols() == 4 && 
             type.get_rows() == 4) {
@@ -243,7 +243,7 @@ public:
             draw_mat4(_valueName, SceneSettings.get<glm::mat4>(_varName));
         }
     }
-    void visit(const struct_type& type) {
+    void operator()(const struct_type& type) {
         const std::string structName = _valueName;
     
         draw_begin_sub_menu(structName);
@@ -253,7 +253,7 @@ public:
         }
         draw_end_sub_menu();
     }
-    void visit(const array_type& type) {
+    void operator()(const array_type& type) {
         const std::string arrayName = _valueName;
     
         draw_begin_list(arrayName);
@@ -270,7 +270,7 @@ int main() {
     draw_visitor visitor{};
     for (const auto& [name, varData] : SceneSettings.get_top_level_variables()) {
         visitor.setValueName(name);
-        varData.get_type()->accept(visitor);
+        glslstruct::visit(visitor, varData.get_type());
     }
 
     return 0;

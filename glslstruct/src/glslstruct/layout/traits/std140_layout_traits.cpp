@@ -13,8 +13,8 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 #else
 
-	#include <glslstruct/pch.hpp>
 	#include <glslstruct/layout/traits/std140_layout_traits.hpp>
+	#include <glslstruct/pch.hpp>
 	#include <glslstruct/utils/functions.hpp>
 
 using namespace glslstruct;
@@ -55,6 +55,10 @@ void std140_layout_traits::after_add_struct(size_t& currentOffset, const size_t 
   context_type& ctx) noexcept {
 	ctx.structAlignment = alignment;
 	after_add(currentOffset, size, alignment, ctx);
+}
+
+size_t std::hash<std140_layout_context>::operator()(const std140_layout_context& ctx) const noexcept {
+	return mstd::hash_combine(static_cast<max_alignment_layout_context>(ctx), static_cast<struct_added_layout_context>(ctx));
 }
 
 #endif

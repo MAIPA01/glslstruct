@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.0</span>
+   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.2</span>
    </div>
    <div id="projectbrief">glslstruct</div>
   </td>
@@ -122,7 +122,7 @@ $(function(){initNavTree('da/d60/type__hash__visitor_8hpp_source.html','../../',
 <div class="line"><span class="lineno">   27</span><span class="comment">     * @ingroup type_visitors</span></div>
 <div class="line"><span class="lineno">   28</span><span class="comment">     */</span></div>
 <div class="foldopen" id="foldopen00029" data-start="{" data-end="};">
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="../../de/d88/classglslstruct_1_1type__hash__visitor.html">   29</a></span>    <span class="keyword">class</span> type_hash_visitor {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="../../de/d88/classglslstruct_1_1type__hash__visitor.html">   29</a></span>    <span class="keyword">class</span> _GLSL_STRUCT_EXPORT type_hash_visitor {</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="comment">/// @brief hash result</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="../../de/d88/classglslstruct_1_1type__hash__visitor.html#a3d6325a68a73ac98e73aa3e4be9cda07">   32</a></span>        size_t _result = 0;</div>
@@ -134,15 +134,15 @@ $(function(){initNavTree('da/d60/type__hash__visitor_8hpp_source.html','../../',
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="../../de/d88/classglslstruct_1_1type__hash__visitor.html#af7e93318bd556e3b2e0a6a62ab9e877d">   38</a></span>        ~type_hash_visitor() <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="comment">/// @brief scalar_type visitor</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordtype">void</span> visit(<span class="keyword">const</span> scalar_type&amp; value);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> scalar_type&amp; value) <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="comment">/// @brief vec_type visitor</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordtype">void</span> visit(<span class="keyword">const</span> vec_type&amp; value);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> vec_type&amp; value) <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="comment">/// @brief mat_type visitor</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordtype">void</span> visit(<span class="keyword">const</span> mat_type&amp; value);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> mat_type&amp; value) <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="comment">/// @brief struct_type visitor</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordtype">void</span> visit(<span class="keyword">const</span> struct_type&amp; value);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> struct_type&amp; value) <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="comment">/// @brief array_type visitor</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordtype">void</span> visit(<span class="keyword">const</span> array_type&amp; value);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordtype">void</span> operator()(<span class="keyword">const</span> array_type&amp; value) <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="comment">/// @brief returns hash result</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        [[nodiscard]] size_t result() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>

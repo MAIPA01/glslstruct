@@ -47,7 +47,7 @@
 	 * @brief glslstruct version patch number
 	 * @ingroup glslstruct
 	 */
-	#define GLSL_STRUCT_VERSION_PATCH 1
+	#define GLSL_STRUCT_VERSION_PATCH 2
 
 	/**
 	 * @brief stringify helper
@@ -91,7 +91,7 @@
 	 * @brief glslstruct last update day
 	 * @ingroup glslstruct
 	 */
-	#define GLSL_STRUCT_LAST_UPDATE_DAY 16
+	#define GLSL_STRUCT_LAST_UPDATE_DAY 23
 	/**
 	 * @brief glslstruct last update month
 	 * @ingroup glslstruct

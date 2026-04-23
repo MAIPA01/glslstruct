@@ -28,11 +28,11 @@ _GLSL_STRUCT_ERROR(
  * @details sample type visitor:
  * @code{.cpp}
  * class sample_type_visitor {
- *     void visit(const scalar_type&);
- *     void visit(const vec_type&);
- *     void visit(const mat_type&);
- *     void visit(const struct_type&);
- *     void visit(const array_type&);
+ *     void operator()(const scalar_type&);
+ *     void operator()(const vec_type&);
+ *     void operator()(const mat_type&);
+ *     void operator()(const struct_type&);
+ *     void operator()(const array_type&);
  * };
  * @endcode
  */
@@ -59,11 +59,11 @@ namespace glslstruct {
 	 */
 	template<class T>
 	concept type_visitor = requires (T& visitor) {
-		{ visitor.visit(std::declval<const scalar_type&>()) } -> std::same_as<void>;
-		{ visitor.visit(std::declval<const vec_type&>()) } -> std::same_as<void>;
-		{ visitor.visit(std::declval<const mat_type&>()) } -> std::same_as<void>;
-		{ visitor.visit(std::declval<const struct_type&>()) } -> std::same_as<void>;
-		{ visitor.visit(std::declval<const array_type&>()) } -> std::same_as<void>;
+		{ visitor(std::declval<const scalar_type&>()) } -> std::same_as<void>;
+		{ visitor(std::declval<const vec_type&>()) } -> std::same_as<void>;
+		{ visitor(std::declval<const mat_type&>()) } -> std::same_as<void>;
+		{ visitor(std::declval<const struct_type&>()) } -> std::same_as<void>;
+		{ visitor(std::declval<const array_type&>()) } -> std::same_as<void>;
 	};
 
 	template<class T>
@@ -77,11 +77,11 @@ namespace glslstruct {
 
 	template<class T>
 	struct _GLSL_STRUCT_EXPORT is_type_visitor<T,
-	  std::void_t<std::enable_if_t<std::is_same_v<void, decltype(std::declval<T&>().visit(std::declval<const scalar_type&>()))> >,
-		std::enable_if_t<std::is_same_v<void, decltype(std::declval<T&>().visit(std::declval<const vec_type&>()))> >,
-		std::enable_if_t<std::is_same_v<void, decltype(std::declval<T&>().visit(std::declval<const mat_type&>()))> >,
-		std::enable_if_t<std::is_same_v<void, decltype(std::declval<T&>().visit(std::declval<const struct_type&>()))> >,
-		std::enable_if_t<std::is_same_v<void, decltype(std::declval<T&>().visit(std::declval<const array_type&>()))> > > >
+	  std::void_t<std::enable_if_t<std::is_same_v<void, decltype(std::declval<T&>()(std::declval<const scalar_type&>()))> >,
+		std::enable_if_t<std::is_same_v<void, decltype(std::declval<T&>()(std::declval<const vec_type&>()))> >,
+		std::enable_if_t<std::is_same_v<void, decltype(std::declval<T&>()(std::declval<const mat_type&>()))> >,
+		std::enable_if_t<std::is_same_v<void, decltype(std::declval<T&>()(std::declval<const struct_type&>()))> >,
+		std::enable_if_t<std::is_same_v<void, decltype(std::declval<T&>()(std::declval<const array_type&>()))> > > >
 		: std::true_type {};
 
 	template<class T>

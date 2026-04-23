@@ -17,7 +17,7 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 	#else
 
-		#include <glslstruct/layout/traits/layout_traits_concept.hpp>
+		#include <glslstruct/layout/traits/concept.hpp>
 		#include <glslstruct/layout/traits/scalar_layout_traits.hpp>
 		#include <glslstruct/layout/traits/std140_layout_traits.hpp>
 		#include <glslstruct/layout/traits/std430_layout_traits.hpp>

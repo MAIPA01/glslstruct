@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.0</span>
+   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.2</span>
    </div>
    <div id="projectbrief">glslstruct</div>
   </td>
@@ -164,6 +164,8 @@ Concepts</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array concept. <br /></td></tr>
 <tr class="memitem:glslstruct_3A_3Autils_3A_3Astatic_5Fsize_5Farray" id="r_glslstruct_3A_3Autils_3A_3Astatic_5Fsize_5Farray"><td class="memItemLeft">concept &#160;</td><td class="memItemRight"><a class="el" href="../../d7/d93/conceptglslstruct_1_1utils_1_1static__size__array.html">glslstruct::utils::static_size_array</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static size array concept. <br /></td></tr>
+<tr class="memitem:glslstruct_3A_3Autils_3A_3Ahashable" id="r_glslstruct_3A_3Autils_3A_3Ahashable"><td class="memItemLeft">concept &#160;</td><td class="memItemRight"><a class="el" href="../../d4/de0/conceptglslstruct_1_1utils_1_1hashable.html">glslstruct::utils::hashable</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if type has defined std::hash. <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -213,6 +215,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">helper struct for is_static_size_array_of_v check  <a href="../../de/d5d/structglslstruct_1_1utils_1_1is__static__size__array__of__impl.html#details">More...</a><br /></td></tr>
 <tr class="memitem:glslstruct_3A_3Autils_3A_3Ais_5Fstatic_5Fsize_5Farray_5Fof_3C_20Test_2C_20T_2C_20Args_20_3E" id="r_glslstruct_3A_3Autils_3A_3Ais_5Fstatic_5Fsize_5Farray_5Fof_3C_20Test_2C_20T_2C_20Args_20_3E"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d0/d9f/structglslstruct_1_1utils_1_1is__static__size__array__of.html">glslstruct::utils::is_static_size_array_of&lt; Test, T, Args &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">checks if value type is array of type and if type passes given test template struct  <a href="../../d0/d9f/structglslstruct_1_1utils_1_1is__static__size__array__of.html#details">More...</a><br /></td></tr>
+<tr class="memitem:glslstruct_3A_3Autils_3A_3Ais_5Fhashable_3C_20T_20_3E" id="r_glslstruct_3A_3Autils_3A_3Ais_5Fhashable_3C_20T_20_3E"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../da/d5e/structglslstruct_1_1utils_1_1is__hashable.html">glslstruct::utils::is_hashable&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if type has defined std::hash.  <a href="../../da/d5e/structglslstruct_1_1utils_1_1is__hashable.html#details">More...</a><br /></td></tr>
 <tr class="memitem:glslstruct_3A_3Autils_3A_3Asingle_5Fvalue_3C_20T_20_3E" id="r_glslstruct_3A_3Autils_3A_3Asingle_5Fvalue_3C_20T_20_3E"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d5/dc9/structglslstruct_1_1utils_1_1single__value.html">glslstruct::utils::single_value&lt; T &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">container for single values  <a href="../../d5/dc9/structglslstruct_1_1utils_1_1single__value.html#details">More...</a><br /></td></tr>
 <tr class="memitem:glslstruct_3A_3Autils_3A_3Aarray_5Fvalue_3C_20T_2C_20Num_20_3E" id="r_glslstruct_3A_3Autils_3A_3Aarray_5Fvalue_3C_20T_2C_20Num_20_3E"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../dd/db7/structglslstruct_1_1utils_1_1array__value.html">glslstruct::utils::array_value&lt; T, Num &gt;</a></td></tr>
@@ -360,6 +364,9 @@ Variables</h2></td></tr>
 <tr class="memitem:ga800be9c21eb98fc7239e02d1bb7f8210" id="r_ga800be9c21eb98fc7239e02d1bb7f8210"><td class="memTemplParams" colspan="2">template&lt;template&lt; class, class... &gt; class Test, class T, class... Args&gt; </td></tr>
 <tr class="memitem:ga800be9c21eb98fc7239e02d1bb7f8210 template"><td class="memItemLeft">static <a class="el" href="#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> bool&#160;</td><td class="memItemRight"><a class="el" href="#ga800be9c21eb98fc7239e02d1bb7f8210">glslstruct::utils::is_static_size_array_of_v</a> = <a class="el" href="../../d0/d9f/structglslstruct_1_1utils_1_1is__static__size__array__of.html">is_static_size_array_of</a>&lt;<a class="el" href="../../d1/d9b/class_test.html">Test</a>, T, Args...&gt;::value</td></tr>
 <tr class="memdesc:ga800be9c21eb98fc7239e02d1bb7f8210"><td class="mdescLeft">&#160;</td><td class="mdescRight">checks if value type is array of type  <br /></td></tr>
+<tr class="memitem:ga8a8c4e5ac63113aae81685cdf19a14f3" id="r_ga8a8c4e5ac63113aae81685cdf19a14f3"><td class="memTemplParams" colspan="2">template&lt;class T&gt; </td></tr>
+<tr class="memitem:ga8a8c4e5ac63113aae81685cdf19a14f3 template"><td class="memItemLeft">static <a class="el" href="#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> bool&#160;</td><td class="memItemRight"><a class="el" href="#ga8a8c4e5ac63113aae81685cdf19a14f3">glslstruct::utils::is_hashable_v</a> = hashable&lt;T&gt;</td></tr>
+<tr class="memdesc:ga8a8c4e5ac63113aae81685cdf19a14f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if type has defined std::hash.  <br /></td></tr>
 <tr class="memitem:gaf804423ff706d29efa13f59dc33047bd" id="r_gaf804423ff706d29efa13f59dc33047bd"><td class="memTemplParams" colspan="2">template&lt;class T&gt; </td></tr>
 <tr class="memitem:gaf804423ff706d29efa13f59dc33047bd template"><td class="memItemLeft">static <a class="el" href="#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> bool&#160;</td><td class="memItemRight"><a class="el" href="#gaf804423ff706d29efa13f59dc33047bd">glslstruct::utils::is_glsl_mat_v</a> = glsl_mat&lt;T&gt;</td></tr>
 <tr class="memdesc:gaf804423ff706d29efa13f59dc33047bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bool value which is true if type can be converted to glsl mat type.  <br /></td></tr>
@@ -1735,6 +1742,38 @@ template&lt;class V&gt; </div>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">V</td><td>type that is checked </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga8a8c4e5ac63113aae81685cdf19a14f3" name="ga8a8c4e5ac63113aae81685cdf19a14f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8a8c4e5ac63113aae81685cdf19a14f3">&#9670;&#160;</a></span>is_hashable_v</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> bool glslstruct::utils::is_hashable_v = hashable&lt;T&gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if type has defined std::hash. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type </td></tr>
   </table>
   </dd>
 </dl>

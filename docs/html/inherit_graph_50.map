@@ -1,47 +1,49 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" title=" " alt="" coords="5,221,134,248"/>
-<area shape="rect" id="Node000001" href="$d1/d2f/structglslstruct_1_1base__struct_1_1is__glsl__simple__or__layout__struct.html" title="check if type is simple glsl type or struct with given layout" alt="" coords="182,205,356,264"/>
-<area shape="poly" id="edge18_Node000000_Node000001" title=" " alt="" coords="147,233,183,233,179,236,151,237"/>
-<area shape="rect" id="Node000002" href="$d4/d54/structglslstruct_1_1is__layout__traits.html" title="Type trait to check if T is a valid layout trait." alt="" coords="202,288,336,331"/>
-<area shape="poly" id="edge19_Node000000_Node000002" title=" " alt="" coords="120,252,212,286,208,289,123,256"/>
-<area shape="rect" id="Node000003" href="$dc/def/structglslstruct_1_1is__type__visitor.html" title="struct with bool_constant which is true if type T is type visitor" alt="" coords="207,355,331,397"/>
-<area shape="poly" id="edge20_Node000000_Node000003" title=" " alt="" coords="90,257,133,300,183,340,209,355,204,357,180,345,129,304,92,262"/>
-<area shape="rect" id="Node000004" href="$d2/dfc/structglslstruct_1_1utils_1_1is__glsl__layout__struct_3_01base__struct_3_01_layout_01_4_00_01_l_01_4.html" title=" " alt="" coords="193,421,345,496"/>
-<area shape="poly" id="edge21_Node000000_Node000004" title=" " alt="" coords="83,259,124,332,151,371,184,407,198,420,193,422,180,411,147,375,119,334,83,265"/>
-<area shape="rect" id="Node000019" href="$d5/d60/structglslstruct_1_1utils_1_1is__glsl__mat.html" title="struct with bool_constant which is true if type can be converted to glsl mat type" alt="" coords="210,5,328,48"/>
-<area shape="poly" id="edge22_Node000000_Node000019" title=" " alt="" coords="79,206,117,133,146,93,180,58,211,41,208,46,183,62,150,96,122,136,84,208"/>
-<area shape="rect" id="Node000020" href="$d5/d76/structglslstruct_1_1utils_1_1is__glsl__scalar.html" title="struct with bool_constant which is true if type can be converted to glsl scalar type" alt="" coords="203,72,334,115"/>
-<area shape="poly" id="edge23_Node000000_Node000020" title=" " alt="" coords="89,208,129,166,180,124,204,113,201,117,183,129,133,170,94,211"/>
-<area shape="rect" id="Node000021" href="$d4/d61/structglslstruct_1_1utils_1_1is__glsl__vec.html" title="struct with bool_constant which is true if type can be converted to glsl vec type" alt="" coords="210,139,328,181"/>
-<area shape="poly" id="edge24_Node000000_Node000021" title=" " alt="" coords="120,214,211,180,208,184,124,217"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="16,883,123,909"/>
-<area shape="poly" id="edge27_Node000005_Node000004" title=" " alt="" coords="89,869,112,835,131,796,143,754,148,716,145,647,143,614,147,581,158,545,179,506,193,493,191,498,184,510,163,547,152,582,149,615,150,647,153,716,149,755,136,798,116,838,94,872"/>
-<area shape="rect" id="Node000006" href="$d5/dc6/structglslstruct_1_1utils_1_1is__array__of_3_01_test_00_01_t_00_01true_00_01_args_8_8_8_01_4.html" title=" " alt="" coords="199,619,338,677"/>
-<area shape="poly" id="edge25_Node000005_Node000006" title=" " alt="" coords="87,869,131,796,144,765,151,739,160,714,180,687,200,673,197,678,184,691,165,717,156,741,149,767,136,799,92,871"/>
-<area shape="rect" id="Node000009" href="$d9/da9/structglslstruct_1_1utils_1_1is__glsl__layout_3_01base__layout_3_01_t_01_4_01_4.html" title=" " alt="" coords="199,784,339,843"/>
-<area shape="poly" id="edge26_Node000005_Node000009" title=" " alt="" coords="116,874,200,840,197,845,120,878"/>
-<area shape="rect" id="Node000011" href="$d7/d04/structglslstruct_1_1utils_1_1is__glsl__struct_3_01base__struct_3_01_l_01_4_01_4.html" title=" " alt="" coords="200,701,338,760"/>
-<area shape="poly" id="edge28_Node000005_Node000011" title=" " alt="" coords="87,869,127,819,180,770,201,758,197,763,183,774,131,823,92,871"/>
-<area shape="rect" id="Node000012" href="$de/d5d/structglslstruct_1_1utils_1_1is__static__size__array__of__impl.html" title=" " alt="" coords="189,1115,349,1189"/>
-<area shape="poly" id="edge29_Node000005_Node000012" title=" " alt="" coords="80,921,120,1008,148,1057,184,1101,197,1114,192,1115,180,1105,144,1060,115,1011,80,927"/>
-<area shape="rect" id="Node000008" href="$dc/d00/structglslstruct_1_1utils_1_1is__static__size__array__of__impl_3_01_test_00_01_t_00_01true_00_01_args_8_8_8_01_4.html" title=" " alt="" coords="192,520,346,595"/>
-<area shape="poly" id="edge31_Node000005_Node000008" title=" " alt="" coords="88,869,111,835,131,796,141,768,146,743,148,698,154,654,164,630,180,605,193,593,191,598,184,608,168,633,159,655,154,698,151,744,146,770,136,798,115,838,93,871"/>
-<area shape="rect" id="Node000014" href="$d6/da6/structglslstruct_1_1utils_1_1is__array__of.html" title="helper struct for is_array_of_v check" alt="" coords="199,1213,338,1272"/>
-<area shape="poly" id="edge32_Node000005_Node000014" title=" " alt="" coords="74,922,86,980,105,1053,137,1130,158,1167,184,1199,202,1216,196,1216,180,1203,154,1170,132,1133,100,1055,81,981,74,927"/>
-<area shape="rect" id="Node000015" href="$db/d32/structglslstruct_1_1utils_1_1is__glsl__layout.html" title="helper struct to check if type is glsl layout" alt="" coords="203,1296,334,1339"/>
-<area shape="poly" id="edge33_Node000005_Node000015" title=" " alt="" coords="71,922,78,996,93,1091,107,1142,126,1192,152,1240,184,1282,205,1300,200,1300,180,1286,147,1243,122,1194,102,1143,88,1092,73,996,71,927"/>
-<area shape="rect" id="Node000016" href="$d6/dc6/structglslstruct_1_1utils_1_1is__glsl__layout__struct.html" title="helper struct to check if type is glsl struct with required layout" alt="" coords="199,867,339,925"/>
-<area shape="poly" id="edge34_Node000005_Node000016" title=" " alt="" coords="137,894,200,894,196,898,140,898"/>
-<area shape="rect" id="Node000017" href="$d1/df2/structglslstruct_1_1utils_1_1is__glsl__struct.html" title="helper struct to check if type is glsl struct" alt="" coords="203,949,334,992"/>
-<area shape="poly" id="edge35_Node000005_Node000017" title=" " alt="" coords="121,913,212,947,208,950,122,918"/>
-<area shape="rect" id="Node000018" href="$de/d5d/structglslstruct_1_1utils_1_1is__static__size__array__of__impl.html" title="helper struct for is_static_size_array_of_v check" alt="" coords="182,1016,356,1091"/>
-<area shape="poly" id="edge36_Node000005_Node000018" title=" " alt="" coords="92,918,134,960,183,1002,201,1015,196,1016,180,1006,131,963,93,923"/>
-<area shape="rect" id="Node000013" href="$d0/d9f/structglslstruct_1_1utils_1_1is__static__size__array__of.html" title="checks if value type is array of type and if type passes given test template struct" alt="" coords="404,1123,541,1181"/>
-<area shape="poly" id="edge30_Node000012_Node000013" title=" " alt="" coords="364,1149,406,1151,401,1153,365,1155"/>
-<area shape="rect" id="Node000007" href="$d1/d9b/class_test.html" title=" " alt="" coords="46,589,93,616"/>
-<area shape="poly" id="edge37_Node000007_Node000006" title=" " alt="" coords="106,609,201,630,197,634,109,614"/>
-<area shape="poly" id="edge38_Node000007_Node000008" title=" " alt="" coords="106,592,193,573,189,577,110,596"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="19,759,120,785"/>
-<area shape="poly" id="edge39_Node000010_Node000009" title=" " alt="" coords="134,783,200,797,196,800,137,788"/>
-<area shape="poly" id="edge40_Node000010_Node000011" title=" " alt="" coords="133,756,201,743,198,747,137,761"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,247,134,273"/>
+<area shape="rect" id="Node000001" href="$d1/d2f/structglslstruct_1_1base__struct_1_1is__glsl__simple__or__layout__struct.html" title="check if type is simple glsl type or struct with given layout" alt="" coords="182,339,356,397"/>
+<area shape="poly" id="edge18_Node000000_Node000001" title=" " alt="" coords="104,279,183,324,206,337,202,339,180,329,106,284"/>
+<area shape="rect" id="Node000002" href="$d4/d54/structglslstruct_1_1is__layout__traits.html" title="Type trait to check if T is a valid layout trait." alt="" coords="202,421,336,464"/>
+<area shape="poly" id="edge19_Node000000_Node000002" title=" " alt="" coords="84,285,126,347,153,379,183,407,204,420,199,423,180,411,149,383,122,350,85,290"/>
+<area shape="rect" id="Node000003" href="$dc/def/structglslstruct_1_1is__type__visitor.html" title="struct with bool_constant which is true if type T is type visitor" alt="" coords="207,5,331,48"/>
+<area shape="poly" id="edge20_Node000000_Node000003" title=" " alt="" coords="77,231,91,193,113,147,143,99,180,58,208,42,205,47,183,62,147,103,118,149,96,195,82,232"/>
+<area shape="rect" id="Node000004" href="$d2/dfc/structglslstruct_1_1utils_1_1is__glsl__layout__struct_3_01base__struct_3_01_layout_01_4_00_01_l_01_4.html" title=" " alt="" coords="193,488,345,563"/>
+<area shape="poly" id="edge21_Node000000_Node000004" title=" " alt="" coords="79,285,97,327,118,376,147,428,184,474,197,487,192,488,180,478,143,431,114,379,92,329,80,291"/>
+<area shape="rect" id="Node000019" href="$d5/d60/structglslstruct_1_1utils_1_1is__glsl__mat.html" title="struct with bool_constant which is true if type can be converted to glsl mat type" alt="" coords="210,72,328,115"/>
+<area shape="poly" id="edge22_Node000000_Node000019" title=" " alt="" coords="85,232,124,178,151,150,180,124,211,109,208,114,183,129,154,153,128,182,89,234"/>
+<area shape="rect" id="Node000020" href="$d5/d76/structglslstruct_1_1utils_1_1is__glsl__scalar.html" title="struct with bool_constant which is true if type can be converted to glsl scalar type" alt="" coords="203,139,334,181"/>
+<area shape="poly" id="edge23_Node000000_Node000020" title=" " alt="" coords="102,237,180,191,209,180,206,184,183,196,106,240"/>
+<area shape="rect" id="Node000021" href="$d4/d61/structglslstruct_1_1utils_1_1is__glsl__vec.html" title="struct with bool_constant which is true if type can be converted to glsl vec type" alt="" coords="210,205,328,248"/>
+<area shape="poly" id="edge24_Node000000_Node000021" title=" " alt="" coords="147,245,211,235,208,238,151,249"/>
+<area shape="rect" id="Node000022" href="$da/d5e/structglslstruct_1_1utils_1_1is__hashable.html" title="Checks if type has defined std::hash." alt="" coords="208,272,330,315"/>
+<area shape="poly" id="edge25_Node000000_Node000022" title=" " alt="" coords="147,271,210,282,206,285,150,275"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="16,957,123,984"/>
+<area shape="poly" id="edge28_Node000005_Node000004" title=" " alt="" coords="87,944,111,906,131,863,143,820,147,782,144,714,143,681,146,647,158,612,179,573,193,560,191,565,184,576,163,614,152,648,148,681,149,713,152,782,148,821,136,865,115,909,92,946"/>
+<area shape="rect" id="Node000006" href="$d5/dc6/structglslstruct_1_1utils_1_1is__array__of_3_01_test_00_01_t_00_01true_00_01_args_8_8_8_01_4.html" title=" " alt="" coords="199,587,338,645"/>
+<area shape="poly" id="edge26_Node000005_Node000006" title=" " alt="" coords="87,944,110,906,131,863,141,832,145,805,146,755,152,708,162,683,180,656,200,640,197,644,184,659,166,685,157,709,151,756,150,805,146,834,136,865,115,909,92,946"/>
+<area shape="rect" id="Node000009" href="$d9/da9/structglslstruct_1_1utils_1_1is__glsl__layout_3_01base__layout_3_01_t_01_4_01_4.html" title=" " alt="" coords="199,768,339,827"/>
+<area shape="poly" id="edge27_Node000005_Node000009" title=" " alt="" coords="85,943,125,890,151,862,180,837,200,825,197,829,183,841,155,866,129,894,90,946"/>
+<area shape="rect" id="Node000011" href="$d7/d04/structglslstruct_1_1utils_1_1is__glsl__struct_3_01base__struct_3_01_l_01_4_01_4.html" title=" " alt="" coords="200,851,338,909"/>
+<area shape="poly" id="edge29_Node000005_Node000011" title=" " alt="" coords="113,948,204,908,201,912,117,952"/>
+<area shape="rect" id="Node000012" href="$de/d5d/structglslstruct_1_1utils_1_1is__static__size__array__of__impl.html" title=" " alt="" coords="189,933,349,1008"/>
+<area shape="poly" id="edge30_Node000005_Node000012" title=" " alt="" coords="137,968,190,969,186,972,140,973"/>
+<area shape="rect" id="Node000008" href="$dc/d00/structglslstruct_1_1utils_1_1is__static__size__array__of__impl_3_01_test_00_01_t_00_01true_00_01_args_8_8_8_01_4.html" title=" " alt="" coords="192,669,346,744"/>
+<area shape="poly" id="edge32_Node000005_Node000008" title=" " alt="" coords="85,943,131,863,144,832,151,806,160,782,180,754,195,742,192,747,184,758,165,784,156,808,149,834,136,865,90,945"/>
+<area shape="rect" id="Node000014" href="$d6/da6/structglslstruct_1_1utils_1_1is__array__of.html" title="helper struct for is_array_of_v check" alt="" coords="199,1032,338,1091"/>
+<area shape="poly" id="edge33_Node000005_Node000014" title=" " alt="" coords="114,988,205,1030,200,1033,116,994"/>
+<area shape="rect" id="Node000015" href="$db/d32/structglslstruct_1_1utils_1_1is__glsl__layout.html" title="helper struct to check if type is glsl layout" alt="" coords="203,1115,334,1157"/>
+<area shape="poly" id="edge34_Node000005_Node000015" title=" " alt="" coords="87,995,129,1049,154,1076,183,1100,205,1114,200,1116,180,1105,151,1080,125,1052,88,1000"/>
+<area shape="rect" id="Node000016" href="$d6/dc6/structglslstruct_1_1utils_1_1is__glsl__layout__struct.html" title="helper struct to check if type is glsl struct with required layout" alt="" coords="199,1181,339,1240"/>
+<area shape="poly" id="edge35_Node000005_Node000016" title=" " alt="" coords="80,996,98,1035,119,1080,148,1126,184,1167,201,1182,195,1182,180,1171,144,1129,115,1083,93,1037,80,1001"/>
+<area shape="rect" id="Node000017" href="$d1/df2/structglslstruct_1_1utils_1_1is__glsl__struct.html" title="helper struct to check if type is glsl struct" alt="" coords="203,1264,334,1307"/>
+<area shape="poly" id="edge36_Node000005_Node000017" title=" " alt="" coords="75,997,87,1052,107,1119,138,1189,159,1221,183,1250,205,1267,200,1267,180,1254,155,1224,133,1191,102,1121,82,1053,74,1002"/>
+<area shape="rect" id="Node000018" href="$de/d5d/structglslstruct_1_1utils_1_1is__static__size__array__of__impl.html" title="helper struct for is_static_size_array_of_v check" alt="" coords="182,1331,356,1405"/>
+<area shape="poly" id="edge37_Node000005_Node000018" title=" " alt="" coords="73,997,84,1063,103,1146,117,1191,135,1235,157,1278,184,1317,196,1331,190,1330,180,1320,152,1281,130,1238,112,1192,97,1147,79,1064,73,1003"/>
+<area shape="rect" id="Node000013" href="$d0/d9f/structglslstruct_1_1utils_1_1is__static__size__array__of.html" title="checks if value type is array of type and if type passes given test template struct" alt="" coords="404,941,541,1000"/>
+<area shape="poly" id="edge31_Node000012_Node000013" title=" " alt="" coords="363,968,406,969,401,972,365,973"/>
+<area shape="rect" id="Node000007" href="$d1/d9b/class_test.html" title=" " alt="" coords="46,648,93,675"/>
+<area shape="poly" id="edge38_Node000007_Node000006" title=" " alt="" coords="106,651,200,630,197,634,109,655"/>
+<area shape="poly" id="edge39_Node000007_Node000008" title=" " alt="" coords="107,668,193,687,189,691,109,672"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="19,825,120,852"/>
+<area shape="poly" id="edge40_Node000010_Node000009" title=" " alt="" coords="134,823,200,810,196,814,137,827"/>
+<area shape="poly" id="edge41_Node000010_Node000011" title=" " alt="" coords="134,850,201,864,197,867,136,855"/>
 </map>

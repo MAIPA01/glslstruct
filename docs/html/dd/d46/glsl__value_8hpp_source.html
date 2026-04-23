@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.0</span>
+   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.2</span>
    </div>
    <div id="projectbrief">glslstruct</div>
   </td>
@@ -291,7 +291,7 @@ $(function(){initNavTree('dd/d46/glsl__value_8hpp_source.html','../../',''); });
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T, size_t Num, std::enable_if_t&lt;utils::is_glsl_simple_or_struct_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt; &gt;</div>
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 <div class="foldopen" id="foldopen00172" data-start="{" data-end="};">
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="../../d3/d10/structglslstruct_1_1glsl__value.html">  172</a></span>    <span class="keyword">struct</span> glsl_value</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="../../d3/d10/structglslstruct_1_1glsl__value.html">  172</a></span>    <span class="keyword">struct</span> _GLSL_STRUCT_EXPORT glsl_value</div>
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        : <span class="keyword">public</span> std::conditional_t&lt;mstd::is_eq_v&lt;Num, 0&gt;, utils::single_value&lt;T&gt;,</div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>            std::conditional_t&lt;utils::is_glsl_simple_v&lt;T&gt;, utils::array_value&lt;T, Num&gt;, utils::struct_array_value&lt;T, Num&gt; &gt; &gt; {</div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="keyword">private</span>:</div>

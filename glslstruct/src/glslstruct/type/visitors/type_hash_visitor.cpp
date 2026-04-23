@@ -24,15 +24,15 @@ using namespace glslstruct;
 type_hash_visitor::type_hash_visitor() noexcept	 = default;
 type_hash_visitor::~type_hash_visitor() noexcept = default;
 
-void type_hash_visitor::visit(const scalar_type& value) { _result = std::hash<scalar_type>()(value); }
+void type_hash_visitor::operator()(const scalar_type& value) noexcept { _result = std::hash<scalar_type>()(value); }
 
-void type_hash_visitor::visit(const vec_type& value) { _result = std::hash<vec_type>()(value); }
+void type_hash_visitor::operator()(const vec_type& value) noexcept { _result = std::hash<vec_type>()(value); }
 
-void type_hash_visitor::visit(const mat_type& value) { _result = std::hash<mat_type>()(value); }
+void type_hash_visitor::operator()(const mat_type& value) noexcept { _result = std::hash<mat_type>()(value); }
 
-void type_hash_visitor::visit(const struct_type& value) { _result = std::hash<struct_type>()(value); }
+void type_hash_visitor::operator()(const struct_type& value) noexcept { _result = std::hash<struct_type>()(value); }
 
-void type_hash_visitor::visit(const array_type& value) { _result = std::hash<array_type>()(value); }
+void type_hash_visitor::operator()(const array_type& value) noexcept { _result = std::hash<array_type>()(value); }
 
 size_t type_hash_visitor::result() const noexcept { return _result; }
 

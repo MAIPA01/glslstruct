@@ -13,8 +13,8 @@
 _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 #else
 
-	#include <glslstruct/pch.hpp>
 	#include <glslstruct/layout/traits/scalar_layout_traits.hpp>
+	#include <glslstruct/pch.hpp>
 
 using namespace glslstruct;
 
@@ -34,6 +34,10 @@ size_t scalar_layout_traits::get_struct_alignment(const context_type& ctx) noexc
 
 void scalar_layout_traits::after_add(size_t&, const size_t, const size_t alignment, context_type& ctx) noexcept {
 	ctx.update_max_alignment(alignment);
+}
+
+size_t std::hash<scalar_layout_context>::operator()(const scalar_layout_context& ctx) const noexcept {
+	return std::hash<max_alignment_layout_context> {}(ctx);
 }
 
 #endif

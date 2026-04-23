@@ -28,7 +28,7 @@ const std::string& glsl_var_type_getter::get_result() const noexcept { return _r
 std::string glslstruct::utils::get_glsl_var_type_string(const base_type_handle& varType,
   const mstd::ordered_map<struct_type, std::string>& structsNames) {
 	glsl_var_type_getter varTypeGetter(structsNames);
-	varType->accept(varTypeGetter);
+	glslstruct::visit(varTypeGetter, varType);
 	return varTypeGetter.get_result();
 }
 
@@ -38,7 +38,7 @@ const std::string& glsl_array_count_getter::get_result() const noexcept { return
 
 std::string glslstruct::utils::get_glsl_array_count_string(const base_type_handle& varType, const bool canBeVariableSize) {
 	glsl_array_count_getter arrayCountGetter(canBeVariableSize);
-	varType->accept(arrayCountGetter);
+	glslstruct::visit(arrayCountGetter, varType);
 	return arrayCountGetter.get_result();
 }
 
@@ -61,7 +61,7 @@ std::string glsl_writer::_get_struct_body(const std::string_view type, const std
 	size_t i			   = 0;
 		for (const auto& [varName, varData] : variables) {
 			// Check substruct
-			varData.get_type()->accept(*this);
+			glslstruct::visit(*this, varData.get_type());
 			// Add variable
 			structBody = fmt::format("{}    {};\n", structBody,
 			  get_glsl_variable_string(varName, varData.get_type(), canHaveVariableSizeArray && i == variables.size() - 1,

@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.0</span>
+   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.2</span>
    </div>
    <div id="projectbrief">glslstruct</div>
   </td>
@@ -155,6 +155,8 @@ Classes</h2></td></tr>
 <tr class="memitem:is_5Fstatic_5Fsize_5Farray_5Fof_5Fimpl_3C_20Test_2C_20T_2C_20true_2C_20Args_2E_2E_2E_20_3E" id="r_is_5Fstatic_5Fsize_5Farray_5Fof_5Fimpl_3C_20Test_2C_20T_2C_20true_2C_20Args_2E_2E_2E_20_3E"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../dc/d00/structglslstruct_1_1utils_1_1is__static__size__array__of__impl_3_01_test_00_01_t_00_01true_00_01_args_8_8_8_01_4.html">is_static_size_array_of_impl&lt; Test, T, true, Args... &gt;</a></td></tr>
 <tr class="memitem:is_5Fstatic_5Fsize_5Farray_5Fof" id="r_is_5Fstatic_5Fsize_5Farray_5Fof"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d0/d9f/structglslstruct_1_1utils_1_1is__static__size__array__of.html">is_static_size_array_of</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">checks if value type is array of type and if type passes given test template struct  <a href="../../d0/d9f/structglslstruct_1_1utils_1_1is__static__size__array__of.html#details">More...</a><br /></td></tr>
+<tr class="memitem:is_5Fhashable" id="r_is_5Fhashable"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../da/d5e/structglslstruct_1_1utils_1_1is__hashable.html">is_hashable</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if type has defined std::hash.  <a href="../../da/d5e/structglslstruct_1_1utils_1_1is__hashable.html#details">More...</a><br /></td></tr>
 <tr class="memitem:single_5Fvalue" id="r_single_5Fvalue"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d5/dc9/structglslstruct_1_1utils_1_1single__value.html">single_value</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">container for single values  <a href="../../d5/dc9/structglslstruct_1_1utils_1_1single__value.html#details">More...</a><br /></td></tr>
 <tr class="memitem:array_5Fvalue" id="r_array_5Fvalue"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../dd/db7/structglslstruct_1_1utils_1_1array__value.html">array_value</a></td></tr>
@@ -254,6 +256,8 @@ Concepts</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array concept. <br /></td></tr>
 <tr class="memitem:static_5Fsize_5Farray" id="r_static_5Fsize_5Farray"><td class="memItemLeft">concept &#160;</td><td class="memItemRight"><a class="el" href="../../d7/d93/conceptglslstruct_1_1utils_1_1static__size__array.html">static_size_array</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static size array concept. <br /></td></tr>
+<tr class="memitem:hashable" id="r_hashable"><td class="memItemLeft">concept &#160;</td><td class="memItemRight"><a class="el" href="../../d4/de0/conceptglslstruct_1_1utils_1_1hashable.html">hashable</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if type has defined std::hash. <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -365,6 +369,9 @@ Variables</h2></td></tr>
 <tr class="memitem:ga800be9c21eb98fc7239e02d1bb7f8210" id="r_ga800be9c21eb98fc7239e02d1bb7f8210"><td class="memTemplParams" colspan="2">template&lt;template&lt; class, class... &gt; class Test, class T, class... Args&gt; </td></tr>
 <tr class="memitem:ga800be9c21eb98fc7239e02d1bb7f8210 template"><td class="memItemLeft">static <a class="el" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> bool&#160;</td><td class="memItemRight"><a class="el" href="../../db/d81/group__utils.html#ga800be9c21eb98fc7239e02d1bb7f8210">is_static_size_array_of_v</a> = <a class="el" href="../../d0/d9f/structglslstruct_1_1utils_1_1is__static__size__array__of.html">is_static_size_array_of</a>&lt;<a class="el" href="../../d1/d9b/class_test.html">Test</a>, T, Args...&gt;::value</td></tr>
 <tr class="memdesc:ga800be9c21eb98fc7239e02d1bb7f8210"><td class="mdescLeft">&#160;</td><td class="mdescRight">checks if value type is array of type  <br /></td></tr>
+<tr class="memitem:ga8a8c4e5ac63113aae81685cdf19a14f3" id="r_ga8a8c4e5ac63113aae81685cdf19a14f3"><td class="memTemplParams" colspan="2">template&lt;class T&gt; </td></tr>
+<tr class="memitem:ga8a8c4e5ac63113aae81685cdf19a14f3 template"><td class="memItemLeft">static <a class="el" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> bool&#160;</td><td class="memItemRight"><a class="el" href="../../db/d81/group__utils.html#ga8a8c4e5ac63113aae81685cdf19a14f3">is_hashable_v</a> = hashable&lt;T&gt;</td></tr>
+<tr class="memdesc:ga8a8c4e5ac63113aae81685cdf19a14f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if type has defined std::hash.  <br /></td></tr>
 <tr id="var-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">Feature Detection Constants</div></td></tr>
 <tr><td colspan="2" class="ititle"><div class="groupText"><p>Boolean constants to detect specific optional methods within a layout trait. </p>
 </div></td></tr>
@@ -419,8 +426,8 @@ template&lt;class T&gt; </div>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">                                                               =</div>
 <div class="line"><a class="code hl_concept" href="../../d3/d34/conceptglslstruct_1_1layout__traits.html">layout_traits&lt;T&gt;</a> &amp;&amp; <a class="code hl_concept" href="../../d5/d4d/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__array.html">has_layout_traits_opt_after_add_array&lt;T&gt;</a></div>
-<div class="ttc" id="aconceptglslstruct_1_1layout__traits_html"><div class="ttname"><a href="../../d3/d34/conceptglslstruct_1_1layout__traits.html">glslstruct::layout_traits</a></div><div class="ttdoc">The primary concept for GLSL layout trait definitions.</div><div class="ttdef"><b>Definition</b> layout_traits_concept.hpp:254</div></div>
-<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__array_html"><div class="ttname"><a href="../../d5/d4d/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__array.html">glslstruct::utils::has_layout_traits_opt_after_add_array</a></div><div class="ttdef"><b>Definition</b> layout_traits_concept.hpp:201</div></div>
+<div class="ttc" id="aconceptglslstruct_1_1layout__traits_html"><div class="ttname"><a href="../../d3/d34/conceptglslstruct_1_1layout__traits.html">glslstruct::layout_traits</a></div><div class="ttdoc">The primary concept for GLSL layout trait definitions.</div><div class="ttdef"><b>Definition</b> concept.hpp:254</div></div>
+<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__array_html"><div class="ttname"><a href="../../d5/d4d/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__array.html">glslstruct::utils::has_layout_traits_opt_after_add_array</a></div><div class="ttdef"><b>Definition</b> concept.hpp:201</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -447,7 +454,7 @@ template&lt;class T&gt; </div>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">                                                             =</div>
 <div class="line"><a class="code hl_concept" href="../../d3/d34/conceptglslstruct_1_1layout__traits.html">layout_traits&lt;T&gt;</a> &amp;&amp; <a class="code hl_concept" href="../../df/d6d/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__mat.html">has_layout_traits_opt_after_add_mat&lt;T&gt;</a></div>
-<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__mat_html"><div class="ttname"><a href="../../df/d6d/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__mat.html">glslstruct::utils::has_layout_traits_opt_after_add_mat</a></div><div class="ttdef"><b>Definition</b> layout_traits_concept.hpp:191</div></div>
+<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__mat_html"><div class="ttname"><a href="../../df/d6d/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__mat.html">glslstruct::utils::has_layout_traits_opt_after_add_mat</a></div><div class="ttdef"><b>Definition</b> concept.hpp:191</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -474,7 +481,7 @@ template&lt;class T&gt; </div>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">                                                                =</div>
 <div class="line"><a class="code hl_concept" href="../../d3/d34/conceptglslstruct_1_1layout__traits.html">layout_traits&lt;T&gt;</a> &amp;&amp; <a class="code hl_concept" href="../../d8/d29/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__scalar.html">has_layout_traits_opt_after_add_scalar&lt;T&gt;</a></div>
-<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__scalar_html"><div class="ttname"><a href="../../d8/d29/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__scalar.html">glslstruct::utils::has_layout_traits_opt_after_add_scalar</a></div><div class="ttdef"><b>Definition</b> layout_traits_concept.hpp:171</div></div>
+<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__scalar_html"><div class="ttname"><a href="../../d8/d29/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__scalar.html">glslstruct::utils::has_layout_traits_opt_after_add_scalar</a></div><div class="ttdef"><b>Definition</b> concept.hpp:171</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -501,7 +508,7 @@ template&lt;class T&gt; </div>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">                                                                =</div>
 <div class="line"><a class="code hl_concept" href="../../d3/d34/conceptglslstruct_1_1layout__traits.html">layout_traits&lt;T&gt;</a> &amp;&amp; <a class="code hl_concept" href="../../d9/dcd/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__struct.html">has_layout_traits_opt_after_add_struct&lt;T&gt;</a></div>
-<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__struct_html"><div class="ttname"><a href="../../d9/dcd/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__struct.html">glslstruct::utils::has_layout_traits_opt_after_add_struct</a></div><div class="ttdef"><b>Definition</b> layout_traits_concept.hpp:211</div></div>
+<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__struct_html"><div class="ttname"><a href="../../d9/dcd/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__struct.html">glslstruct::utils::has_layout_traits_opt_after_add_struct</a></div><div class="ttdef"><b>Definition</b> concept.hpp:211</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -528,7 +535,7 @@ template&lt;class T&gt; </div>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">                                                         =</div>
 <div class="line"><a class="code hl_concept" href="../../d3/d34/conceptglslstruct_1_1layout__traits.html">layout_traits&lt;T&gt;</a> &amp;&amp; <a class="code hl_concept" href="../../de/db6/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add.html">has_layout_traits_opt_after_add&lt;T&gt;</a></div>
-<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add_html"><div class="ttname"><a href="../../de/db6/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add.html">glslstruct::utils::has_layout_traits_opt_after_add</a></div><div class="ttdef"><b>Definition</b> layout_traits_concept.hpp:161</div></div>
+<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add_html"><div class="ttname"><a href="../../de/db6/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add.html">glslstruct::utils::has_layout_traits_opt_after_add</a></div><div class="ttdef"><b>Definition</b> concept.hpp:161</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -555,7 +562,7 @@ template&lt;class T&gt; </div>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">                                                             =</div>
 <div class="line"><a class="code hl_concept" href="../../d3/d34/conceptglslstruct_1_1layout__traits.html">layout_traits&lt;T&gt;</a> &amp;&amp; <a class="code hl_concept" href="../../d6/dd8/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__vec.html">has_layout_traits_opt_after_add_vec&lt;T&gt;</a></div>
-<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__vec_html"><div class="ttname"><a href="../../d6/dd8/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__vec.html">glslstruct::utils::has_layout_traits_opt_after_add_vec</a></div><div class="ttdef"><b>Definition</b> layout_traits_concept.hpp:181</div></div>
+<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__vec_html"><div class="ttname"><a href="../../d6/dd8/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__after__add__vec.html">glslstruct::utils::has_layout_traits_opt_after_add_vec</a></div><div class="ttdef"><b>Definition</b> concept.hpp:181</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -582,7 +589,7 @@ template&lt;class T&gt; </div>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">                                                                =</div>
 <div class="line"><a class="code hl_concept" href="../../d3/d34/conceptglslstruct_1_1layout__traits.html">layout_traits&lt;T&gt;</a> &amp;&amp; <a class="code hl_concept" href="../../dc/d4f/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__array.html">has_layout_traits_opt_before_add_array&lt;T&gt;</a></div>
-<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__array_html"><div class="ttname"><a href="../../dc/d4f/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__array.html">glslstruct::utils::has_layout_traits_opt_before_add_array</a></div><div class="ttdef"><b>Definition</b> layout_traits_concept.hpp:130</div></div>
+<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__array_html"><div class="ttname"><a href="../../dc/d4f/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__array.html">glslstruct::utils::has_layout_traits_opt_before_add_array</a></div><div class="ttdef"><b>Definition</b> concept.hpp:130</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -609,7 +616,7 @@ template&lt;class T&gt; </div>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">                                                              =</div>
 <div class="line"><a class="code hl_concept" href="../../d3/d34/conceptglslstruct_1_1layout__traits.html">layout_traits&lt;T&gt;</a> &amp;&amp; <a class="code hl_concept" href="../../d0/dee/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__mat.html">has_layout_traits_opt_before_add_mat&lt;T&gt;</a></div>
-<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__mat_html"><div class="ttname"><a href="../../d0/dee/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__mat.html">glslstruct::utils::has_layout_traits_opt_before_add_mat</a></div><div class="ttdef"><b>Definition</b> layout_traits_concept.hpp:123</div></div>
+<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__mat_html"><div class="ttname"><a href="../../d0/dee/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__mat.html">glslstruct::utils::has_layout_traits_opt_before_add_mat</a></div><div class="ttdef"><b>Definition</b> concept.hpp:123</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -636,7 +643,7 @@ template&lt;class T&gt; </div>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">                                                                 =</div>
 <div class="line"><a class="code hl_concept" href="../../d3/d34/conceptglslstruct_1_1layout__traits.html">layout_traits&lt;T&gt;</a> &amp;&amp; <a class="code hl_concept" href="../../db/dd4/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__scalar.html">has_layout_traits_opt_before_add_scalar&lt;T&gt;</a></div>
-<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__scalar_html"><div class="ttname"><a href="../../db/dd4/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__scalar.html">glslstruct::utils::has_layout_traits_opt_before_add_scalar</a></div><div class="ttdef"><b>Definition</b> layout_traits_concept.hpp:109</div></div>
+<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__scalar_html"><div class="ttname"><a href="../../db/dd4/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__scalar.html">glslstruct::utils::has_layout_traits_opt_before_add_scalar</a></div><div class="ttdef"><b>Definition</b> concept.hpp:109</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -663,7 +670,7 @@ template&lt;class T&gt; </div>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">                                                                 =</div>
 <div class="line"><a class="code hl_concept" href="../../d3/d34/conceptglslstruct_1_1layout__traits.html">layout_traits&lt;T&gt;</a> &amp;&amp; <a class="code hl_concept" href="../../d7/da3/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__struct.html">has_layout_traits_opt_before_add_struct&lt;T&gt;</a></div>
-<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__struct_html"><div class="ttname"><a href="../../d7/da3/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__struct.html">glslstruct::utils::has_layout_traits_opt_before_add_struct</a></div><div class="ttdef"><b>Definition</b> layout_traits_concept.hpp:137</div></div>
+<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__struct_html"><div class="ttname"><a href="../../d7/da3/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__struct.html">glslstruct::utils::has_layout_traits_opt_before_add_struct</a></div><div class="ttdef"><b>Definition</b> concept.hpp:137</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -690,7 +697,7 @@ template&lt;class T&gt; </div>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">                                                          =</div>
 <div class="line"><a class="code hl_concept" href="../../d3/d34/conceptglslstruct_1_1layout__traits.html">layout_traits&lt;T&gt;</a> &amp;&amp; <a class="code hl_concept" href="../../d5/ddb/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add.html">has_layout_traits_opt_before_add&lt;T&gt;</a></div>
-<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add_html"><div class="ttname"><a href="../../d5/ddb/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add.html">glslstruct::utils::has_layout_traits_opt_before_add</a></div><div class="ttdef"><b>Definition</b> layout_traits_concept.hpp:102</div></div>
+<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add_html"><div class="ttname"><a href="../../d5/ddb/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add.html">glslstruct::utils::has_layout_traits_opt_before_add</a></div><div class="ttdef"><b>Definition</b> concept.hpp:102</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -717,7 +724,7 @@ template&lt;class T&gt; </div>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">                                                              =</div>
 <div class="line"><a class="code hl_concept" href="../../d3/d34/conceptglslstruct_1_1layout__traits.html">layout_traits&lt;T&gt;</a> &amp;&amp; <a class="code hl_concept" href="../../dd/ddd/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__vec.html">has_layout_traits_opt_before_add_vec&lt;T&gt;</a></div>
-<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__vec_html"><div class="ttname"><a href="../../dd/ddd/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__vec.html">glslstruct::utils::has_layout_traits_opt_before_add_vec</a></div><div class="ttdef"><b>Definition</b> layout_traits_concept.hpp:116</div></div>
+<div class="ttc" id="aconceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__vec_html"><div class="ttname"><a href="../../dd/ddd/conceptglslstruct_1_1utils_1_1has__layout__traits__opt__before__add__vec.html">glslstruct::utils::has_layout_traits_opt_before_add_vec</a></div><div class="ttdef"><b>Definition</b> concept.hpp:116</div></div>
 </div><!-- fragment -->
 </div>
 </div>

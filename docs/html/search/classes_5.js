@@ -12,10 +12,11 @@ var searchData=
   ['is_5fglsl_5fstruct_9',['is_glsl_struct',['../d1/df2/structglslstruct_1_1utils_1_1is__glsl__struct.html',1,'glslstruct::utils']]],
   ['is_5fglsl_5fstruct_3c_20base_5fstruct_3c_20l_20_3e_20_3e_10',['is_glsl_struct&lt; base_struct&lt; L &gt; &gt;',['../d7/d04/structglslstruct_1_1utils_1_1is__glsl__struct_3_01base__struct_3_01_l_01_4_01_4.html',1,'glslstruct::utils']]],
   ['is_5fglsl_5fvec_11',['is_glsl_vec',['../d4/d61/structglslstruct_1_1utils_1_1is__glsl__vec.html',1,'glslstruct::utils']]],
-  ['is_5flayout_5ftraits_12',['is_layout_traits',['../d4/d54/structglslstruct_1_1is__layout__traits.html',1,'glslstruct']]],
-  ['is_5fstatic_5fsize_5farray_5fof_13',['is_static_size_array_of',['../d0/d9f/structglslstruct_1_1utils_1_1is__static__size__array__of.html',1,'glslstruct::utils']]],
-  ['is_5fstatic_5fsize_5farray_5fof_5fimpl_14',['is_static_size_array_of_impl',['../de/d5d/structglslstruct_1_1utils_1_1is__static__size__array__of__impl.html',1,'glslstruct::utils']]],
-  ['is_5fstatic_5fsize_5farray_5fof_5fimpl_3c_20test_2c_20t_2c_20is_5farray_5fv_3c_20t_20_3e_2c_20args_2e_2e_2e_20_3e_15',['is_static_size_array_of_impl&lt; Test, T, is_array_v&lt; T &gt;, Args... &gt;',['../de/d5d/structglslstruct_1_1utils_1_1is__static__size__array__of__impl.html',1,'glslstruct::utils']]],
-  ['is_5fstatic_5fsize_5farray_5fof_5fimpl_3c_20test_2c_20t_2c_20true_2c_20args_2e_2e_2e_20_3e_16',['is_static_size_array_of_impl&lt; Test, T, true, Args... &gt;',['../dc/d00/structglslstruct_1_1utils_1_1is__static__size__array__of__impl_3_01_test_00_01_t_00_01true_00_01_args_8_8_8_01_4.html',1,'glslstruct::utils']]],
-  ['is_5ftype_5fvisitor_17',['is_type_visitor',['../dc/def/structglslstruct_1_1is__type__visitor.html',1,'glslstruct']]]
+  ['is_5fhashable_12',['is_hashable',['../da/d5e/structglslstruct_1_1utils_1_1is__hashable.html',1,'glslstruct::utils']]],
+  ['is_5flayout_5ftraits_13',['is_layout_traits',['../d4/d54/structglslstruct_1_1is__layout__traits.html',1,'glslstruct']]],
+  ['is_5fstatic_5fsize_5farray_5fof_14',['is_static_size_array_of',['../d0/d9f/structglslstruct_1_1utils_1_1is__static__size__array__of.html',1,'glslstruct::utils']]],
+  ['is_5fstatic_5fsize_5farray_5fof_5fimpl_15',['is_static_size_array_of_impl',['../de/d5d/structglslstruct_1_1utils_1_1is__static__size__array__of__impl.html',1,'glslstruct::utils']]],
+  ['is_5fstatic_5fsize_5farray_5fof_5fimpl_3c_20test_2c_20t_2c_20is_5farray_5fv_3c_20t_20_3e_2c_20args_2e_2e_2e_20_3e_16',['is_static_size_array_of_impl&lt; Test, T, is_array_v&lt; T &gt;, Args... &gt;',['../de/d5d/structglslstruct_1_1utils_1_1is__static__size__array__of__impl.html',1,'glslstruct::utils']]],
+  ['is_5fstatic_5fsize_5farray_5fof_5fimpl_3c_20test_2c_20t_2c_20true_2c_20args_2e_2e_2e_20_3e_17',['is_static_size_array_of_impl&lt; Test, T, true, Args... &gt;',['../dc/d00/structglslstruct_1_1utils_1_1is__static__size__array__of__impl_3_01_test_00_01_t_00_01true_00_01_args_8_8_8_01_4.html',1,'glslstruct::utils']]],
+  ['is_5ftype_5fvisitor_18',['is_type_visitor',['../dc/def/structglslstruct_1_1is__type__visitor.html',1,'glslstruct']]]
 ];

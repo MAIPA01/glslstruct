@@ -11,10 +11,10 @@
 <!-- Node0 -->
 <g id="Node000000" class="node">
 <title>Node0</title>
-<g id="a_Node000000"><a xlink:href="d0/d6e/structstd_1_1hash_3_01glslstruct_1_1var__data_01_4.html" target="_top" xlink:title="std::hash overload for var_data">
+<g id="a_Node000000"><a xlink:href="d8/db3/structstd_1_1hash_3_01glslstruct_1_1scalar__type_01_4.html" target="_top" xlink:title="std::hash overload for scalar_type">
 <polygon fill="white" stroke="#666666" points="105.25,-32 0,-32 0,0 105.25,0 105.25,-32"/>
 <text xml:space="preserve" text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::hash&lt; glslstruct</text>
-<text xml:space="preserve" text-anchor="middle" x="52.62" y="-6.5" font-family="Helvetica,sans-Serif" font-size="10.00">::var_data &gt;</text>
+<text xml:space="preserve" text-anchor="middle" x="52.62" y="-6.5" font-family="Helvetica,sans-Serif" font-size="10.00">::scalar_type &gt;</text>
 </a>
 </g>
 </g>

@@ -57,7 +57,8 @@ var concepts =
         [ "glsl_vecs_array", "d7/d48/conceptglslstruct_1_1utils_1_1glsl__vecs__array.html", null ],
         [ "glsl_vecs_static_size_array", "db/d2e/conceptglslstruct_1_1utils_1_1glsl__vecs__static__size__array.html", null ],
         [ "array", "d7/db7/conceptglslstruct_1_1utils_1_1array.html", null ],
-        [ "static_size_array", "d7/d93/conceptglslstruct_1_1utils_1_1static__size__array.html", null ]
+        [ "static_size_array", "d7/d93/conceptglslstruct_1_1utils_1_1static__size__array.html", null ],
+        [ "hashable", "d4/de0/conceptglslstruct_1_1utils_1_1hashable.html", null ]
       ] ],
       [ "type_visitor", "de/d3f/conceptglslstruct_1_1type__visitor.html", null ],
       [ "layout_traits", "d3/d34/conceptglslstruct_1_1layout__traits.html", null ]

@@ -27,9 +27,7 @@ namespace glslstruct {
 		size_t maxAlignment = 0;
 
 		/// @brief updates max alignment value
-		_GLSL_STRUCT_CONSTEXPR17 void update_max_alignment(const size_t currentAlignment) noexcept {
-			maxAlignment = std::max(maxAlignment, currentAlignment);
-		}
+		void update_max_alignment(size_t currentAlignment) noexcept;
 	};
 
 	/**
@@ -41,6 +39,24 @@ namespace glslstruct {
 		size_t structAlignment = 0;
 	};
 } // namespace glslstruct
+
+/**
+ * @brief std::hash specialization for glslstruct::max_alignment_layout_context
+ * @ingroup glslstruct
+ */
+template<>
+struct std::hash<glslstruct::max_alignment_layout_context> {
+	[[nodiscard]] size_t operator()(const glslstruct::max_alignment_layout_context& ctx) const noexcept;
+};
+
+/**
+ * @brief std::hash specialization for glslstruct::struct_added_layout_context
+ * @ingroup glslstruct
+ */
+template<>
+struct std::hash<glslstruct::struct_added_layout_context> {
+	[[nodiscard]] size_t operator()(const glslstruct::struct_added_layout_context& ctx) const noexcept;
+};
 
 	#endif
 #endif

@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.0</span>
+   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.2</span>
    </div>
    <div id="projectbrief">glslstruct</div>
   </td>
@@ -97,13 +97,13 @@ $(function(){initNavTree('d3/d34/conceptglslstruct_1_1layout__traits.html','../.
 <p>The primary concept for GLSL layout trait definitions.  
 <a href="#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="../../d2/dce/layout__traits__concept_8hpp_source.html">layout_traits_concept.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="../../dc/df1/concept_8hpp_source.html">concept.hpp</a>&gt;</code></p>
 <h2 id="header-conceptdef" class="groupheader">Concept definition</h2>
 <div class="fragment"><div class="line">          <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
 <div class="line">          <span class="keyword">concept </span><a class="code hl_concept" href="../../d3/d34/conceptglslstruct_1_1layout__traits.html">layout_traits</a> = <a class="code hl_concept" href="../../d5/d4c/conceptglslstruct_1_1utils_1_1layout__traits__with__context.html">utils::layout_traits_with_context&lt;T&gt;</a> || <a class="code hl_concept" href="../../d3/dd7/conceptglslstruct_1_1utils_1_1layout__traits__without__context.html">utils::layout_traits_without_context&lt;T&gt;</a></div>
-<div class="ttc" id="aconceptglslstruct_1_1layout__traits_html"><div class="ttname"><a href="../../d3/d34/conceptglslstruct_1_1layout__traits.html">glslstruct::layout_traits</a></div><div class="ttdoc">The primary concept for GLSL layout trait definitions.</div><div class="ttdef"><b>Definition</b> layout_traits_concept.hpp:254</div></div>
-<div class="ttc" id="aconceptglslstruct_1_1utils_1_1layout__traits__with__context_html"><div class="ttname"><a href="../../d5/d4c/conceptglslstruct_1_1utils_1_1layout__traits__with__context.html">glslstruct::utils::layout_traits_with_context</a></div><div class="ttdef"><b>Definition</b> layout_traits_concept.hpp:237</div></div>
-<div class="ttc" id="aconceptglslstruct_1_1utils_1_1layout__traits__without__context_html"><div class="ttname"><a href="../../d3/dd7/conceptglslstruct_1_1utils_1_1layout__traits__without__context.html">glslstruct::utils::layout_traits_without_context</a></div><div class="ttdef"><b>Definition</b> layout_traits_concept.hpp:242</div></div>
+<div class="ttc" id="aconceptglslstruct_1_1layout__traits_html"><div class="ttname"><a href="../../d3/d34/conceptglslstruct_1_1layout__traits.html">glslstruct::layout_traits</a></div><div class="ttdoc">The primary concept for GLSL layout trait definitions.</div><div class="ttdef"><b>Definition</b> concept.hpp:254</div></div>
+<div class="ttc" id="aconceptglslstruct_1_1utils_1_1layout__traits__with__context_html"><div class="ttname"><a href="../../d5/d4c/conceptglslstruct_1_1utils_1_1layout__traits__with__context.html">glslstruct::utils::layout_traits_with_context</a></div><div class="ttdef"><b>Definition</b> concept.hpp:237</div></div>
+<div class="ttc" id="aconceptglslstruct_1_1utils_1_1layout__traits__without__context_html"><div class="ttname"><a href="../../d3/dd7/conceptglslstruct_1_1utils_1_1layout__traits__without__context.html">glslstruct::utils::layout_traits_without_context</a></div><div class="ttdef"><b>Definition</b> concept.hpp:242</div></div>
 </div><!-- fragment --><a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The primary concept for GLSL layout trait definitions. </p>
 <p>A type satisfies <span class="tt"><a class="el" href="../../d6/d7d/group__layout__traits.html" title="Traits for different layouts.">Layout Traits</a></span> if it provides the necessary alignment logic and follows the optional hook patterns, either with or without a nested context_type. </p>

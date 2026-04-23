@@ -63,14 +63,14 @@ namespace glslstruct {
 
 		/// @brief accept function for type_visitors
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<type_visitor T>
+		template<type_visitor V>
 		#else
-		template<class T, std::enable_if_t<is_type_visitor_v<T>, bool> = true>
+		template<class V, std::enable_if_t<is_type_visitor_v<V>, bool> = true>
 		#endif
-		void accept(T& visitor) const {
-			_accept([&visitor](const scalar_type& s) { visitor.visit(s); }, [&visitor](const vec_type& v) { visitor.visit(v); },
-			  [&visitor](const mat_type& m) { visitor.visit(m); }, [&visitor](const struct_type& s) { visitor.visit(s); },
-			  [&visitor](const array_type& a) { visitor.visit(a); });
+		void accept(V&& visitor) const {
+			_accept([&visitor](const scalar_type& s) { visitor(s); }, [&visitor](const vec_type& v) { visitor(v); },
+			  [&visitor](const mat_type& m) { visitor(m); }, [&visitor](const struct_type& s) { visitor(s); },
+			  [&visitor](const array_type& a) { visitor(a); });
 		}
 
 		/// @brief virtual equality operator
@@ -134,6 +134,61 @@ namespace glslstruct {
 	[[nodiscard]] _GLSL_STRUCT_EXPORT std::string to_string(const std::shared_ptr<T>& type) noexcept {
 		return type->to_string();
 	}
+
+		#pragma region VISIT
+		/**
+		 * @brief visits type
+		 * @ingroup glsl_types
+		 */
+		#if _GLSL_STRUCT_HAS_CXX20
+	template<type_visitor V>
+		#else
+	template<class V, std::enable_if_t<is_type_visitor_v<V>, bool> = true>
+		#endif
+	_GLSL_STRUCT_EXPORT void visit(V&& visitor, const base_type_handle& type) {
+		type->accept(visitor);
+	}
+
+		/**
+		 * @brief visits type
+		 * @ingroup glsl_types
+		 */
+		#if _GLSL_STRUCT_HAS_CXX20
+	template<utils::glsl_type T, type_visitor V>
+		#else
+	template<class T, class V, std::enable_if_t<utils::is_glsl_type_v<T> && is_type_visitor_v<V>, bool> = true>
+		#endif
+	_GLSL_STRUCT_EXPORT void visit(V&& visitor, const std::shared_ptr<T>& type) {
+		type->accept(visitor);
+	}
+
+		/**
+		 * @brief visits type
+		 * @ingroup glsl_types
+		 */
+		#if _GLSL_STRUCT_HAS_CXX20
+	template<type_visitor V>
+		#else
+	template<class V, std::enable_if_t<is_type_visitor_v<V>, bool> = true>
+		#endif
+	_GLSL_STRUCT_EXPORT void visit(V&& visitor, const base_type& type) {
+		type.accept(visitor);
+	}
+
+		/**
+		 * @brief visits type
+		 * @ingroup glsl_types
+		 */
+		#if _GLSL_STRUCT_HAS_CXX20
+	template<utils::glsl_type T, type_visitor V>
+		#else
+	template<class T, class V, std::enable_if_t<utils::is_glsl_type_v<T> && is_type_visitor_v<V>, bool> = true>
+		#endif
+	_GLSL_STRUCT_EXPORT void visit(V&& visitor, const T& type) {
+		type.accept(visitor);
+	}
+
+		#pragma endregion
 
 		/**
 		 * @brief checks if types are equal

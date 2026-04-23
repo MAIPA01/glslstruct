@@ -41,38 +41,20 @@ namespace glslstruct {
 	public:
 		/// @brief constructor with pointer to value A
 		explicit _GLSL_STRUCT_CONSTEXPR20 eq_type_visitor(const T* value) noexcept : _value(value) {}
-
 		/// @brief default destructor
 		_GLSL_STRUCT_CONSTEXPR20 ~eq_type_visitor() noexcept = default;
 
-		/// @brief scalar_type visitor
-		void visit(const scalar_type& value) {
-				if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, scalar_type>) { _result = *_value == value; }
-				else { _result = false; }
-		}
+		/// @brief type visitor
+		template<class Type>
+		void operator()(Type&& typeContainer) noexcept {
+			using type = std::decay_t<Type>;
 
-		/// @brief vec_type visitor
-		void visit(const vec_type& value) {
-				if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, vec_type>) { _result = *_value == value; }
-				else { _result = false; }
-		}
-
-		/// @brief mat_type visitor
-		void visit(const mat_type& value) {
-				if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, mat_type>) { _result = *_value == value; }
-				else { _result = false; }
-		}
-
-		/// @brief struct_type visitor
-		void visit(const struct_type& value) {
-				if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, struct_type>) { _result = *_value == value; }
-				else { _result = false; }
-		}
-
-		/// @brief array_type visitor
-		void visit(const array_type& value) {
-				if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, array_type>) { _result = *_value == value; }
-				else { _result = false; }
+			if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, type>) {
+				_result = *_value == typeContainer;
+			}
+			else {
+				_result = false;
+			}
 		}
 
 		/// @brief returns result value

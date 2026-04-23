@@ -30,17 +30,18 @@ var group__utils =
     [ "glslstruct::utils::glsl_vecs_static_size_array", "db/d2e/conceptglslstruct_1_1utils_1_1glsl__vecs__static__size__array.html", null ],
     [ "glslstruct::utils::array", "d7/db7/conceptglslstruct_1_1utils_1_1array.html", null ],
     [ "glslstruct::utils::static_size_array", "d7/d93/conceptglslstruct_1_1utils_1_1static__size__array.html", null ],
+    [ "glslstruct::utils::hashable", "d4/de0/conceptglslstruct_1_1utils_1_1hashable.html", null ],
     [ "glslstruct::utils::glsl_var_type_getter", "d9/d84/classglslstruct_1_1utils_1_1glsl__var__type__getter.html", [
       [ "glsl_var_type_getter", "d9/d84/classglslstruct_1_1utils_1_1glsl__var__type__getter.html#a4ab3844dfcbde24f50ef53bdc1162fc9", null ],
       [ "get_result", "d9/d84/classglslstruct_1_1utils_1_1glsl__var__type__getter.html#ae7d6586f548baed9a6b79064edbfbdff", null ],
-      [ "visit", "d9/d84/classglslstruct_1_1utils_1_1glsl__var__type__getter.html#a304c533fc4cd11514920ad01b864c85e", null ],
+      [ "operator()", "d9/d84/classglslstruct_1_1utils_1_1glsl__var__type__getter.html#ac00163ef4e8def90f07360f01d2af94d", null ],
       [ "_result", "d9/d84/classglslstruct_1_1utils_1_1glsl__var__type__getter.html#ab670db5a7b47a603242b92edbeb3e127", null ],
       [ "_structsNames", "d9/d84/classglslstruct_1_1utils_1_1glsl__var__type__getter.html#af6a29e8eb6ab0036a6a728cdcdf0fd3e", null ]
     ] ],
     [ "glslstruct::utils::glsl_array_count_getter", "d3/dce/classglslstruct_1_1utils_1_1glsl__array__count__getter.html", [
       [ "glsl_array_count_getter", "d3/dce/classglslstruct_1_1utils_1_1glsl__array__count__getter.html#a459465f340f95934e3adcb6ddfd228e5", null ],
       [ "get_result", "d3/dce/classglslstruct_1_1utils_1_1glsl__array__count__getter.html#a894f36aa7c68dd8f48de0b25ed7ea56e", null ],
-      [ "visit", "d3/dce/classglslstruct_1_1utils_1_1glsl__array__count__getter.html#abf189b74c68a834b6f29c66018fe6b4d", null ],
+      [ "operator()", "d3/dce/classglslstruct_1_1utils_1_1glsl__array__count__getter.html#aac68dd2b118dedcae9df62bf4a9fc96f", null ],
       [ "_canBeVariableSize", "d3/dce/classglslstruct_1_1utils_1_1glsl__array__count__getter.html#a0c9855fe1d23c2991f6c7ee081ab9085", null ],
       [ "_result", "d3/dce/classglslstruct_1_1utils_1_1glsl__array__count__getter.html#a922e47832dd5d28bf26cc96136290fda", null ]
     ] ],
@@ -56,8 +57,8 @@ var group__utils =
       [ "append_struct", "d8/de9/classglslstruct_1_1utils_1_1glsl__writer.html#aa6a0084f668ee2022908da1925e96830", null ],
       [ "append_struct", "d8/de9/classglslstruct_1_1utils_1_1glsl__writer.html#a783cd2e61d2aa5cf5a49349b384bdba8", null ],
       [ "append_uniform_buffer", "d8/de9/classglslstruct_1_1utils_1_1glsl__writer.html#af7e299705ce806b4568946c9028d0b75", null ],
+      [ "operator()", "d8/de9/classglslstruct_1_1utils_1_1glsl__writer.html#a1dbf59379c8870ab866516ee2590bdae", null ],
       [ "to_string", "d8/de9/classglslstruct_1_1utils_1_1glsl__writer.html#a97f12cc790bbeeb24e317060d2d30989", null ],
-      [ "visit", "d8/de9/classglslstruct_1_1utils_1_1glsl__writer.html#a47c2964c3ab3edff9633f1e7aa54967e", null ],
       [ "_result", "d8/de9/classglslstruct_1_1utils_1_1glsl__writer.html#acc7c06e5502c34d3a3311e5e15d7da38", null ],
       [ "_structIdx", "d8/de9/classglslstruct_1_1utils_1_1glsl__writer.html#a8eaaf3571ac03b49d5403ed6f3dfd917", null ],
       [ "_uniqueNames", "d8/de9/classglslstruct_1_1utils_1_1glsl__writer.html#a05d34bb2c14a779f57a5f4cde66402fa", null ],
@@ -127,6 +128,7 @@ var group__utils =
     ] ],
     [ "glslstruct::utils::is_static_size_array_of_impl&lt; Test, T, IsArray, Args &gt;", "de/d5d/structglslstruct_1_1utils_1_1is__static__size__array__of__impl.html", null ],
     [ "glslstruct::utils::is_static_size_array_of&lt; Test, T, Args &gt;", "d0/d9f/structglslstruct_1_1utils_1_1is__static__size__array__of.html", null ],
+    [ "glslstruct::utils::is_hashable&lt; T &gt;", "da/d5e/structglslstruct_1_1utils_1_1is__hashable.html", null ],
     [ "glslstruct::utils::single_value&lt; T &gt;", "d5/dc9/structglslstruct_1_1utils_1_1single__value.html", [
       [ "single_value", "d5/dc9/structglslstruct_1_1utils_1_1single__value.html#aba7a72ff51bd75b326a4d3863e441464", null ],
       [ "single_value", "d5/dc9/structglslstruct_1_1utils_1_1single__value.html#ac4cd176f8c3ec1f3907a8ad9094e3512", null ],
@@ -214,6 +216,7 @@ var group__utils =
     [ "glslstruct::utils::is_glsl_vec_v", "db/d81/group__utils.html#ga40708f3c66b8c61fc602791877cafe57", null ],
     [ "glslstruct::utils::is_glsl_vecs_array_v", "db/d81/group__utils.html#ga53555a946038fbd9fcfd7b796281832a", null ],
     [ "glslstruct::utils::is_glsl_vecs_static_size_array_v", "db/d81/group__utils.html#gac594c8b525ae0e75f497db4d7de9c334", null ],
+    [ "glslstruct::utils::is_hashable_v", "db/d81/group__utils.html#ga8a8c4e5ac63113aae81685cdf19a14f3", null ],
     [ "glslstruct::utils::is_static_size_array_of_v", "db/d81/group__utils.html#ga800be9c21eb98fc7239e02d1bb7f8210", null ],
     [ "glslstruct::utils::is_static_size_array_v", "db/d81/group__utils.html#ga8099909d58f1616378c052a716a14cba", null ]
 ];

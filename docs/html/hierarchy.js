@@ -38,7 +38,8 @@ var hierarchy =
       [ "glslstruct::utils::is_glsl_layout_struct< base_struct< Layout >, L >", "d2/dfc/structglslstruct_1_1utils_1_1is__glsl__layout__struct_3_01base__struct_3_01_layout_01_4_00_01_l_01_4.html", null ],
       [ "glslstruct::utils::is_glsl_mat< T >", "d5/d60/structglslstruct_1_1utils_1_1is__glsl__mat.html", null ],
       [ "glslstruct::utils::is_glsl_scalar< T >", "d5/d76/structglslstruct_1_1utils_1_1is__glsl__scalar.html", null ],
-      [ "glslstruct::utils::is_glsl_vec< T >", "d4/d61/structglslstruct_1_1utils_1_1is__glsl__vec.html", null ]
+      [ "glslstruct::utils::is_glsl_vec< T >", "d4/d61/structglslstruct_1_1utils_1_1is__glsl__vec.html", null ],
+      [ "glslstruct::utils::is_hashable< T >", "da/d5e/structglslstruct_1_1utils_1_1is__hashable.html", null ]
     ] ],
     [ "std::conditional_t", null, [
       [ "glslstruct::base_layout< std140_layout_traits >", "da/d71/classglslstruct_1_1base__layout.html", null ],
@@ -74,7 +75,12 @@ var hierarchy =
     [ "std::hash&lt; glslstruct::base_struct&lt; Layout &gt; &gt;", "d8/dbb/structstd_1_1hash_3_01glslstruct_1_1base__struct_3_01_layout_01_4_01_4.html", null ],
     [ "std::hash&lt; glslstruct::base_type &gt;", "d8/d1e/structstd_1_1hash_3_01glslstruct_1_1base__type_01_4.html", null ],
     [ "std::hash&lt; glslstruct::mat_type &gt;", "d8/d4e/structstd_1_1hash_3_01glslstruct_1_1mat__type_01_4.html", null ],
+    [ "std::hash&lt; glslstruct::max_alignment_layout_context &gt;", "dd/d81/structstd_1_1hash_3_01glslstruct_1_1max__alignment__layout__context_01_4.html", null ],
+    [ "std::hash&lt; glslstruct::scalar_layout_context &gt;", "d2/d1d/structstd_1_1hash_3_01glslstruct_1_1scalar__layout__context_01_4.html", null ],
     [ "std::hash&lt; glslstruct::scalar_type &gt;", "d8/db3/structstd_1_1hash_3_01glslstruct_1_1scalar__type_01_4.html", null ],
+    [ "std::hash&lt; glslstruct::std140_layout_context &gt;", "d5/d81/structstd_1_1hash_3_01glslstruct_1_1std140__layout__context_01_4.html", null ],
+    [ "std::hash&lt; glslstruct::std430_layout_context &gt;", "db/db8/structstd_1_1hash_3_01glslstruct_1_1std430__layout__context_01_4.html", null ],
+    [ "std::hash&lt; glslstruct::struct_added_layout_context &gt;", "da/d9d/structstd_1_1hash_3_01glslstruct_1_1struct__added__layout__context_01_4.html", null ],
     [ "std::hash&lt; glslstruct::struct_type &gt;", "d2/d26/structstd_1_1hash_3_01glslstruct_1_1struct__type_01_4.html", null ],
     [ "std::hash&lt; glslstruct::var_data &gt;", "d0/d6e/structstd_1_1hash_3_01glslstruct_1_1var__data_01_4.html", null ],
     [ "std::hash&lt; glslstruct::vec_type &gt;", "db/d13/structstd_1_1hash_3_01glslstruct_1_1vec__type_01_4.html", null ],

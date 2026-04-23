@@ -38,15 +38,15 @@ namespace glslstruct {
 		~type_hash_visitor() noexcept;
 
 		/// @brief scalar_type visitor
-		void visit(const scalar_type& value);
+		void operator()(const scalar_type& value) noexcept;
 		/// @brief vec_type visitor
-		void visit(const vec_type& value);
+		void operator()(const vec_type& value) noexcept;
 		/// @brief mat_type visitor
-		void visit(const mat_type& value);
+		void operator()(const mat_type& value) noexcept;
 		/// @brief struct_type visitor
-		void visit(const struct_type& value);
+		void operator()(const struct_type& value) noexcept;
 		/// @brief array_type visitor
-		void visit(const array_type& value);
+		void operator()(const array_type& value) noexcept;
 
 		/// @brief returns hash result
 		[[nodiscard]] size_t result() const noexcept;

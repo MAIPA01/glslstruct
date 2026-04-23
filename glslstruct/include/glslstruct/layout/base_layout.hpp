@@ -19,7 +19,7 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 
 		#include <glslstruct/types.hpp>
 
-		#include <glslstruct/layout/traits/layout_traits_concept.hpp>
+		#include <glslstruct/layout/traits/concept.hpp>
 		#if _GLSL_STRUCT_HAS_TYPES
 			#include <glslstruct/type/containers/array_type.hpp>
 			#include <glslstruct/type/containers/mat_type.hpp>
@@ -30,6 +30,7 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 		#endif
 		#include <glslstruct/utils/assert.hpp>
 		#include <glslstruct/utils/functions.hpp>
+		#include <glslstruct/utils/hash.hpp>
 		#include <glslstruct/utils/ValueType.hpp>
 		#include <glslstruct/var_data/var_data.hpp>
 		#include <glslstruct/variable/glsl_variable.hpp>
@@ -1386,7 +1387,11 @@ namespace glslstruct {
 template<class Traits>
 struct _GLSL_STRUCT_EXPORT std::hash<glslstruct::base_layout<Traits> > {
 	[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 size_t operator()(const glslstruct::base_layout<Traits>& layout) const noexcept {
-		size_t seed = mstd::hash_combine(layout._currentOffset, layout._maxAlignment);
+		size_t seed = std::hash<size_t> {}(layout._currentOffset);
+			if _GLSL_STRUCT_CONSTEXPR17 (layout.has_context &&
+										 glslstruct::utils::is_hashable_v<typename glslstruct::base_layout<Traits>::context_type>) {
+				mstd::hash_append(seed, layout._context);
+			}
 			for (const auto& [name, data] : layout._variables) { mstd::hash_append(seed, name, data); }
 		return seed;
 	}

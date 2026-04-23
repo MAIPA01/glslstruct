@@ -37,11 +37,11 @@ namespace glslstruct {
 		 * @tparam T requested type
 		 */
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_type T>
+	  template<utils::glsl_type T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
+	  template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
-	class _GLSL_STRUCT_EXPORT is_of_type_visitor {
+	  class _GLSL_STRUCT_EXPORT is_of_type_visitor {
 	private:
 		/// @brief result
 		bool _result = false;
@@ -52,20 +52,12 @@ namespace glslstruct {
 		/// @brief default destructor
 		_GLSL_STRUCT_CONSTEXPR20 ~is_of_type_visitor() noexcept = default;
 
-		/// @brief scalar_type visitor
-		void visit(const scalar_type&) { _result = std::is_same_v<T, scalar_type>; }
-
-		/// @brief vec_type visitor
-		void visit(const vec_type&) { _result = std::is_same_v<T, vec_type>; }
-
-		/// @brief mat_type visitor
-		void visit(const mat_type&) { _result = std::is_same_v<T, mat_type>; }
-
-		/// @brief struct_type visitor
-		void visit(const struct_type&) { _result = std::is_same_v<T, struct_type>; }
-
-		/// @brief array_type visitor
-		void visit(const array_type&) { _result = std::is_same_v<T, array_type>; }
+		/// @brief type visitor
+		template<class Type>
+		void operator()(Type&&) noexcept {
+			using type = std::decay_t<Type>;
+			_result	   = std::is_same_v<T, type>;
+		}
 
 		/// @brief returns result
 		[[nodiscard]] bool result() const noexcept { return _result; }
@@ -87,9 +79,11 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] _GLSL_STRUCT_EXPORT _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const base_type_handle& type) {
+	[[nodiscard]] _GLSL_STRUCT_EXPORT _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(
+	  const base_type_handle& type
+	) {
 		is_of_type_visitor<T> visitor;
-		type->accept(visitor);
+		glslstruct::visit(visitor, type);
 		return visitor.result();
 	}
 
