@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.30)
-project(glslstruct VERSION 1.4.2 LANGUAGES CXX)
+project(glslstruct VERSION 1.4.3 LANGUAGES CXX)
 
 # variable for building shared library
 option(GLSL_STRUCT_BUILD_TESTS 				"Build glsl struct tests" 		${PROJECT_IS_TOP_LEVEL})
@@ -26,12 +26,6 @@ message(STATUS "GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE: ${GLSL_STRUCT_DISABLE_ASS
 message(STATUS "GLSL_STRUCT_DISABLE_TYPES: ${GLSL_STRUCT_DISABLE_TYPES}")
 message(STATUS "GLSL_STRUCT_ENABLE_TYPE_CHECKS: ${GLSL_STRUCT_ENABLE_TYPE_CHECKS}")
 message(STATUS "GLSL_STRUCT_DISABLE_PARSER: ${GLSL_STRUCT_DISABLE_PARSER}")
-
-if(BUILD_SHARED_LIBS)
-	set(BUILD_STATIC_LIBS OFF)
-else()
-	set(BUILD_STATIC_LIBS ON)
-endif()
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/third_party.cmake)
 
