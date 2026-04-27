@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.30)
-project(glslstruct VERSION 1.4.3 LANGUAGES CXX)
+project(glslstruct VERSION 1.4.4 LANGUAGES CXX)
 
 # variable for building shared library
 option(GLSL_STRUCT_BUILD_TESTS 				"Build glsl struct tests" 		${PROJECT_IS_TOP_LEVEL})

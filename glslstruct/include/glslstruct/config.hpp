@@ -47,7 +47,7 @@
 	 * @brief glslstruct version patch number
 	 * @ingroup glslstruct
 	 */
-	#define GLSL_STRUCT_VERSION_PATCH 3
+	#define GLSL_STRUCT_VERSION_PATCH 4
 
 	/**
 	 * @brief stringify helper

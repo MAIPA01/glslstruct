@@ -123,19 +123,11 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE  MSTD_ENABLE_ENUMS_MACROS
                                                     >
 )
 target_compile_definitions(${PROJECT_NAME} INTERFACE    MSTD_ENABLE_ENUMS_MACROS
-                                                        PCRE2CPP_DISABLE_UTF16
-                                                        PCRE2CPP_DISABLE_UTF32
                                                         GLM_ENABLE_EXPERIMENTAL
-                                                        GLM_FORCE_INTRINSICS
-                                                        GLM_FORCE_DEFAULT_ALIGNED_GENTYPES
                                                         $<BUILD_INTERFACE:
                                                             $<$<BOOL:${GLSL_STRUCT_ENABLE_CXX20}>:  GLSL_STRUCT_ENABLE_CXX20
                                                                 MSTD_ENABLE_CXX20
                                                                 PCRE2CPP_ENABLE_CXX20
-                                                            >
-                                                            $<$<BOOL:${GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE}>: GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE
-                                                                MSTD_DISABLE_ASSERT_ON_RELEASE
-                                                                PCRE2CPP_DISABLE_ASSERT_ON_RELEASE
                                                             >
                                                             $<$<BOOL:${GLSL_STRUCT_DISABLE_TYPES}>:GLSL_STRUCT_DISABLE_TYPES>
                                                             $<$<BOOL:${GLSL_STRUCT_ENABLE_TYPE_CHECKS}>:GLSL_STRUCT_ENABLE_TYPE_CHECKS>
