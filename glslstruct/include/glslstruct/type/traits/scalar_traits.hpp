@@ -112,7 +112,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_scalar_v<T>, bool> = true>
 		#endif
-	static _GLSL_STRUCT_EXPORT inline ValueType get_scalar_value_type() noexcept {
+	static inline ValueType get_scalar_value_type() noexcept {
 		return scalar_traits<T>::get_value_type();
 	}
 
@@ -122,7 +122,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_scalar_v<T>, bool> = true>
 		#endif
-	static _GLSL_STRUCT_EXPORT inline scalar_data get_scalar_data(const T& value) {
+	static inline scalar_data get_scalar_data(const T& value) {
 		return scalar_traits<T>::get_data(value);
 	}
 
@@ -132,7 +132,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_scalar_v<T>, bool> = true>
 		#endif
-	static _GLSL_STRUCT_EXPORT inline T get_scalar_value(const scalar_data& data) {
+	static inline T get_scalar_value(const scalar_data& data) {
 		return scalar_traits<T>::get_value(data);
 	}
 
@@ -145,7 +145,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_scalar_v<T>, bool> = true>
 		#endif
-	static _GLSL_STRUCT_EXPORT inline std::string scalar_to_string() {
+	static inline std::string scalar_to_string() {
 		return scalar_to_string(get_scalar_value_type<T>());
 	}
 

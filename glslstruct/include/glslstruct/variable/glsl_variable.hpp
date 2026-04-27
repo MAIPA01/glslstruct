@@ -25,7 +25,7 @@ namespace glslstruct {
 		 * @brief container for standard variables
 		 * @ingroup utils
 		 */
-		struct standard_variable {};
+		struct _GLSL_STRUCT_EXPORT standard_variable {};
 
 		/**
 		 * @brief container for layout variables
@@ -53,7 +53,7 @@ namespace glslstruct {
 		#else
 	template<class T, size_t Num, std::enable_if_t<utils::is_glsl_simple_or_layout_v<T>, bool> >
 		#endif
-	struct _GLSL_STRUCT_EXPORT glsl_variable
+	struct glsl_variable
 		: public std::conditional_t<utils::is_glsl_layout_v<T>, utils::layout_variable<T>, utils::standard_variable> {
 	public:
 		/// @brief var type

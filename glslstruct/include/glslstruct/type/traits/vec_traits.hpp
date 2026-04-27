@@ -27,7 +27,7 @@ namespace glslstruct {
 	 * @ingroup glslstruct
 	 */
 	template<class T, glm::length_t L, glm::qualifier Q>
-	struct _GLSL_STRUCT_EXPORT vec_traits<glm::vec<L, T, Q> > {
+	struct vec_traits<glm::vec<L, T, Q> > {
 		/// @brief returns length of glm::vec
 		static _GLSL_STRUCT_CONSTEXPR17 size_t get_length() noexcept { return L; }
 
@@ -63,7 +63,7 @@ namespace glslstruct {
 	 * @ingroup glslstruct
 	 */
 	template<class T, size_t N>
-	struct _GLSL_STRUCT_EXPORT vec_traits<mstd::vec<N, T> > {
+	struct vec_traits<mstd::vec<N, T> > {
 		/// @brief returns length of mstd::vec
 		static _GLSL_STRUCT_CONSTEXPR17 size_t get_length() noexcept { return N; }
 
@@ -106,7 +106,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_vec_v<T>, bool> = true>
 		#endif
-	static _GLSL_STRUCT_EXPORT inline size_t get_vec_length() noexcept {
+	static size_t get_vec_length() noexcept {
 		return vec_traits<T>::get_length();
 	}
 
@@ -116,7 +116,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_vec_v<T>, bool> = true>
 		#endif
-	static _GLSL_STRUCT_EXPORT inline ValueType get_vec_value_type() noexcept {
+	static ValueType get_vec_value_type() noexcept {
 		return vec_traits<T>::get_value_type();
 	}
 
@@ -126,7 +126,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_vec_v<T>, bool> = true>
 		#endif
-	static _GLSL_STRUCT_EXPORT inline vec_data get_vec_data(const T& value) {
+	static vec_data get_vec_data(const T& value) {
 		return vec_traits<T>::get_data(value);
 	}
 
@@ -136,7 +136,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_vec_v<T>, bool> = true>
 		#endif
-	static _GLSL_STRUCT_EXPORT inline T get_vec_value(const vec_data& data) {
+	static T get_vec_value(const vec_data& data) {
 		return vec_traits<T>::get_value(data);
 	}
 
@@ -149,7 +149,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_vec_v<T>, bool> = true>
 		#endif
-	static _GLSL_STRUCT_EXPORT inline std::string vec_to_string() {
+	static std::string vec_to_string() {
 		return vec_to_string(get_vec_value_type<T>(), get_vec_length<T>());
 	}
 

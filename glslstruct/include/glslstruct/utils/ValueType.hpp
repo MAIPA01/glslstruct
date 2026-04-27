@@ -23,7 +23,7 @@ namespace glslstruct {
 	 * @brief Value Type Enum
 	 * @ingroup glslstruct
 	 */
-	_GLSL_STRUCT_EXPORT ENUM_CLASS_BASE(ValueType, uint8_t, (Bool), (Int), (Uint), (Float), (Double))
+	ENUM_CLASS_BASE(ValueType, uint8_t, (Bool), (Int), (Uint), (Float), (Double))
 		// clang-format on
 
 		#if _GLSL_STRUCT_HAS_CXX20
@@ -41,7 +41,7 @@ namespace glslstruct {
 	   */
 	  template<class T, std::enable_if_t<mstd::is_same_type_in_v<T, bool, int, unsigned int, float, double>, bool> = true>
 		#endif
-	  [[nodiscard]] static _GLSL_STRUCT_EXPORT _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept _GLSL_STRUCT_REQUIRES(
+	  [[nodiscard]] static _GLSL_STRUCT_CONSTEXPR17 ValueType get_value_type() noexcept _GLSL_STRUCT_REQUIRES(
 		(mstd::is_same_type_in_v<T, bool, int, unsigned int, float, double>)
 	  ) {
 			if _GLSL_STRUCT_CONSTEXPR17 (std::is_same_v<T, bool>) { return ValueType::Bool; }

@@ -64,7 +64,7 @@ namespace glslstruct {
  * @ingroup glslstruct
  */
 template<>
-struct std::hash<glslstruct::std430_layout_context> {
+struct _GLSL_STRUCT_EXPORT std::hash<glslstruct::std430_layout_context> {
 	[[nodiscard]] size_t operator()(const glslstruct::std430_layout_context& ctx) const noexcept;
 };
 
