@@ -34,7 +34,7 @@ endif()
 # endregion
 
 # region LIBRARY_SETUP
-add_library(${PROJECT_NAME} STATIC ${${PROJECT_HEADERS}} ${${PROJECT_SOURCES}})
+add_library(${PROJECT_NAME} ${${PROJECT_HEADERS}} ${${PROJECT_SOURCES}})
 
 # set library alias
 set(PROJECT_NAMESPACE ${PROJECT_NAME}::)
@@ -100,18 +100,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC   $<BUILD_INTERFACE:${BUILD_PU
 )
 
 # region COMPILE_DEFINITIONS
-set(PROJECT_EXPORT _GLSL_STRUCT_EXPORT)
-if(WIN32 AND BUILD_SHARED_LIBS)
-    target_compile_definitions(${PROJECT_NAME} PRIVATE ${PROJECT_EXPORT}=__declspec(dllexport))
-    target_compile_definitions(${PROJECT_NAME} INTERFACE ${PROJECT_EXPORT}=__declspec(dllimport))
-elseif(BUILD_SHARED_LIBS)
-    target_compile_definitions(${PROJECT_NAME} PRIVATE ${PROJECT_EXPORT}=__attribute__((visibility("default"))))
-    target_compile_definitions(${PROJECT_NAME} INTERFACE ${PROJECT_EXPORT}=)
-else()
-    target_compile_definitions(${PROJECT_NAME} PRIVATE ${PROJECT_EXPORT}=)
-    target_compile_definitions(${PROJECT_NAME} INTERFACE ${PROJECT_EXPORT}=)
-endif()
-
 target_compile_definitions(${PROJECT_NAME} PRIVATE  MSTD_ENABLE_ENUMS_MACROS
                                                     PCRE2CPP_DISABLE_UTF16
                                                     PCRE2CPP_DISABLE_UTF32
@@ -130,6 +118,8 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE  MSTD_ENABLE_ENUMS_MACROS
                                                         $<$<BOOL:${GLSL_STRUCT_DISABLE_TYPES}>:GLSL_STRUCT_DISABLE_TYPES>
                                                         $<$<BOOL:${GLSL_STRUCT_ENABLE_TYPE_CHECKS}>:GLSL_STRUCT_ENABLE_TYPE_CHECKS>
                                                         $<$<BOOL:${GLSL_STRUCT_DISABLE_PARSER}>:GLSL_STRUCT_DISABLE_PARSER>
+                                                        $<$<BOOL:${BUILD_SHARED_LIBS}>:GLSL_STRUCT_SHARED_LIBS>
+                                                        GLSL_STRUCT_EXPORT
                                                     >
 )
 target_compile_definitions(${PROJECT_NAME} INTERFACE    MSTD_ENABLE_ENUMS_MACROS
@@ -150,6 +140,7 @@ target_compile_definitions(${PROJECT_NAME} INTERFACE    MSTD_ENABLE_ENUMS_MACROS
                                                             $<$<BOOL:${GLSL_STRUCT_DISABLE_TYPES}>:GLSL_STRUCT_DISABLE_TYPES>
                                                             $<$<BOOL:${GLSL_STRUCT_ENABLE_TYPE_CHECKS}>:GLSL_STRUCT_ENABLE_TYPE_CHECKS>
                                                             $<$<BOOL:${GLSL_STRUCT_DISABLE_PARSER}>:GLSL_STRUCT_DISABLE_PARSER>
+                                                            $<$<BOOL:${BUILD_SHARED_LIBS}>:GLSL_STRUCT_SHARED_LIBS>
                                                         >
 )
 # endregion

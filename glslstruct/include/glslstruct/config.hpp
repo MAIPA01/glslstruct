@@ -47,7 +47,7 @@
 	 * @brief glslstruct version patch number
 	 * @ingroup glslstruct
 	 */
-	#define GLSL_STRUCT_VERSION_PATCH 2
+	#define GLSL_STRUCT_VERSION_PATCH 3
 
 	/**
 	 * @brief stringify helper
@@ -91,7 +91,7 @@
 	 * @brief glslstruct last update day
 	 * @ingroup glslstruct
 	 */
-	#define GLSL_STRUCT_LAST_UPDATE_DAY 23
+	#define GLSL_STRUCT_LAST_UPDATE_DAY 27
 	/**
 	 * @brief glslstruct last update month
 	 * @ingroup glslstruct
@@ -226,6 +226,30 @@
 		#endif
 	#endif
 	#pragma endregion
+
+/**
+ * @def _GLSL_STRUCT_EXPORT
+ * @brief This is for exporting symbols in shared library setup
+ * @ingroup utils
+ */
+
+	#ifdef GLSL_STRUCT_SHARED_LIBS
+		#ifdef GLSL_STRUCT_EXPORT
+			#ifdef _WIN32
+				#define _GLSL_STRUCT_EXPORT __declspec(dllexport)
+			#else
+				#define _GLSL_STRUCT_EXPORT __attribute__((visibility("default")))
+			#endif
+		#else
+			#ifdef _WIN32
+				#define _GLSL_STRUCT_EXPORT __declspec(dllimport)
+			#else
+				#define _GLSL_STRUCT_EXPORT
+			#endif
+		#endif
+	#else
+		#define _GLSL_STRUCT_EXPORT
+	#endif
 
 	#include <mstd/mstd.hpp>
 

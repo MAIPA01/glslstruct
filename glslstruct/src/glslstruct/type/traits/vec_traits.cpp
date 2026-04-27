@@ -18,7 +18,7 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 
 using namespace glslstruct;
 
-_GLSL_STRUCT_EXPORT std::string glslstruct::vec_to_string(const ValueType valueType, const size_t length) {
+std::string glslstruct::vec_to_string(const ValueType valueType, const size_t length) {
 		switch (valueType) {
 		[[unlikely]] default:
 			return "UNKNOWN";

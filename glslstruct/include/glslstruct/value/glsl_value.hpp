@@ -169,7 +169,7 @@ namespace glslstruct {
 		#else
 	template<class T, size_t Num, std::enable_if_t<utils::is_glsl_simple_or_struct_v<T>, bool> >
 		#endif
-	struct _GLSL_STRUCT_EXPORT glsl_value
+	struct glsl_value
 		: public std::conditional_t<mstd::is_eq_v<Num, 0>, utils::single_value<T>,
 			std::conditional_t<utils::is_glsl_simple_v<T>, utils::array_value<T, Num>, utils::struct_array_value<T, Num> > > {
 	private:

@@ -54,14 +54,14 @@ size_t array_type::get_count() const noexcept { return _count; }
 
 std::string array_type::to_string() const noexcept { return fmt::format("{}[{}]", _type->to_string(), _count); }
 
-_GLSL_STRUCT_EXPORT bool glslstruct::operator==(const array_type& lhs, const array_type& rhs) noexcept {
+bool glslstruct::operator==(const array_type& lhs, const array_type& rhs) noexcept {
 	return *lhs._type == *rhs._type && lhs._count == rhs._count;
 }
 
 	#if _GLSL_STRUCT_HAS_CXX20
-_GLSL_STRUCT_EXPORT bool glslstruct::operator!=(const array_type& lhs, const array_type& rhs) noexcept = default;
+bool glslstruct::operator!=(const array_type& lhs, const array_type& rhs) noexcept = default;
 	#else
-_GLSL_STRUCT_EXPORT bool glslstruct::operator!=(const array_type& lhs, const array_type& rhs) noexcept { return !(lhs == rhs); }
+bool glslstruct::operator!=(const array_type& lhs, const array_type& rhs) noexcept { return !(lhs == rhs); }
 	#endif
 
 size_t std::hash<array_type>::operator()(const array_type& type) const noexcept {

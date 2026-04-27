@@ -81,12 +81,12 @@ namespace glslstruct {
 	 * @brief checks if two struct types are equal
 	 * @ingroup glsl_types
 	 */
-	[[nodiscard]] _GLSL_STRUCT_EXPORT bool operator==(const struct_type& lhs, const struct_type& rhs) noexcept;
+	[[nodiscard]] bool operator==(const struct_type& lhs, const struct_type& rhs) noexcept;
 	/**
 	 * @brief checks if two struct types are not equal
 	 * @ingroup glsl_types
 	 */
-	[[nodiscard]] _GLSL_STRUCT_EXPORT bool operator!=(const struct_type& lhs, const struct_type& rhs) noexcept;
+	[[nodiscard]] bool operator!=(const struct_type& lhs, const struct_type& rhs) noexcept;
 } // namespace glslstruct
 
 /**

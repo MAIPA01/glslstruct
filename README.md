@@ -41,15 +41,18 @@ Options can be enabled in c++ by `#define option_name` or by enabling cmake opti
 | `GLSL_STRUCT_ENABLE_TYPE_CHECKS`        | Enables type checking only if types are not disabled |   OFF   |
 | `GLSL_STRUCT_DISABLE_PARSER`            | Disables parsers functions                           |   OFF   |
 
+There is additional define if you want to build shared lib `GLSL_STRUCT_SHARED_LIBS`. In cmake project this define is
+set based on `BUILD_SHARED_LIBS` option.
+
 ### External libraries options
 
 If you want to use external libraries not installed by project using CPM
 
 | Cmake option Name               | Description                                                         | Default |
 |:--------------------------------|:--------------------------------------------------------------------|:-------:|
-| `GLSL_STRUCT_MSTD_EXTERNAL`     | Uses users own mstd library (tested and compatible with: 1.5.2)     |   OFF   |
+| `GLSL_STRUCT_MSTD_EXTERNAL`     | Uses users own mstd library (tested and compatible with: 1.5.3)     |   OFF   |
 | `GLSL_STRUCT_GLM_EXTERNAL`      | Uses users own glm library (tested and compatible with: 1.0.3)      |   OFF   |
-| `GLSL_STRUCT_PCRE2CPP_EXTERNAL` | Uses users own pcre2cpp library (tested and compatible with: 1.2.5) |   OFF   |
+| `GLSL_STRUCT_PCRE2CPP_EXTERNAL` | Uses users own pcre2cpp library (tested and compatible with: 1.2.6) |   OFF   |
 
 ### Project developing options
 

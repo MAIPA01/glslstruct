@@ -74,12 +74,12 @@ namespace glslstruct {
 	 * @brief checks if two scalar types are equal
 	 * @ingroup glsl_types
 	 */
-	[[nodiscard]] _GLSL_STRUCT_EXPORT bool operator==(const scalar_type& lhs, const scalar_type& rhs) noexcept;
+	[[nodiscard]] bool operator==(const scalar_type& lhs, const scalar_type& rhs) noexcept;
 	/**
 	 * @brief checks if two scalar types are not equal
 	 * @ingroup glsl_types
 	 */
-	[[nodiscard]] _GLSL_STRUCT_EXPORT bool operator!=(const scalar_type& lhs, const scalar_type& rhs) noexcept;
+	[[nodiscard]] bool operator!=(const scalar_type& lhs, const scalar_type& rhs) noexcept;
 } // namespace glslstruct
 
 /**

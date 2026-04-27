@@ -21,13 +21,13 @@ var group__type__visitors =
       [ "_value", "de/d45/classglslstruct_1_1eq__type__visitor.html#a3effd93b5c0ddc0d83e2394d9cafe35e", null ]
     ] ],
     [ "glslstruct::is_type_visitor&lt; T &gt;", "dc/def/structglslstruct_1_1is__type__visitor.html", null ],
-    [ "glslstruct::dynamic_type_cast", "d3/d4e/group__type__visitors.html#ga5a54ac6bea8eefe8f067dd6427194508", null ],
-    [ "glslstruct::dynamic_type_cast", "d3/d4e/group__type__visitors.html#ga2a617bfff406d155c4295f9b2cb42fa7", null ],
-    [ "glslstruct::is_of_type", "d3/d4e/group__type__visitors.html#ga0d3154ef541eb480e35ce23891b0b71c", null ],
+    [ "glslstruct::dynamic_type_cast", "d3/d4e/group__type__visitors.html#ga4d527038f3b16cd0757fad0e0c82911e", null ],
+    [ "glslstruct::dynamic_type_cast", "d3/d4e/group__type__visitors.html#gaddf88d33f4df4d620f15373d35d73327", null ],
+    [ "glslstruct::is_of_type", "d3/d4e/group__type__visitors.html#ga14d3997ccc861f4d4188f3d40fe77490", null ],
     [ "glslstruct::is_of_type", "d3/d4e/group__type__visitors.html#gab78d781047c474d94665ed8979decced", null ],
-    [ "glslstruct::is_of_type", "d3/d4e/group__type__visitors.html#gaa395b6d5f3bcc8ad2189c314bd6bc46b", null ],
-    [ "glslstruct::is_of_type", "d3/d4e/group__type__visitors.html#ga41c93b8d68f95479cef7443f57deecc2", null ],
-    [ "glslstruct::static_type_cast", "d3/d4e/group__type__visitors.html#gaf24d3060e46a2c417c0d12e5a65eb8cd", null ],
-    [ "glslstruct::static_type_cast", "d3/d4e/group__type__visitors.html#gaeb0cd3cf6043e3d1e7aab19431343d0f", null ],
-    [ "glslstruct::is_type_visitor_v", "d3/d4e/group__type__visitors.html#ga5d5343a691c61721c33072e0b58f011a", null ]
+    [ "glslstruct::is_of_type", "d3/d4e/group__type__visitors.html#ga06c6e2682e8588fa3db97083c33658c0", null ],
+    [ "glslstruct::is_of_type", "d3/d4e/group__type__visitors.html#gaef6697b8639995765e8615feb73d02ab", null ],
+    [ "glslstruct::static_type_cast", "d3/d4e/group__type__visitors.html#gaa89fa99c6ae9701f24611c078e439f76", null ],
+    [ "glslstruct::static_type_cast", "d3/d4e/group__type__visitors.html#ga3e3e5b976765564845446b9b5eac7f12", null ],
+    [ "glslstruct::is_type_visitor_v", "d3/d4e/group__type__visitors.html#gad20a6a403c4668afa97445376deacd21", null ]
 ];

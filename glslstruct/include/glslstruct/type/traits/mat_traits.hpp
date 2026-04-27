@@ -27,7 +27,7 @@ namespace glslstruct {
 	 * @ingroup glslstruct
 	 */
 	template<class T, glm::length_t C, glm::length_t R, glm::qualifier Q>
-	struct _GLSL_STRUCT_EXPORT mat_traits<glm::mat<C, R, T, Q> > {
+	struct mat_traits<glm::mat<C, R, T, Q> > {
 		/// @brief returns number of columns of glm::mat
 		static _GLSL_STRUCT_CONSTEXPR17 size_t get_columns() noexcept { return C; }
 
@@ -57,7 +57,7 @@ namespace glslstruct {
 	 * @ingroup glslstruct
 	 */
 	template<class T, size_t C, size_t R>
-	struct _GLSL_STRUCT_EXPORT mat_traits<mstd::mat<C, R, T> > {
+	struct mat_traits<mstd::mat<C, R, T> > {
 		/// @brief returns number of columns of mstd::mat
 		static _GLSL_STRUCT_CONSTEXPR17 size_t get_columns() noexcept { return C; }
 
@@ -91,7 +91,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
 		#endif
-	static _GLSL_STRUCT_EXPORT _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR17 size_t get_mat_columns() noexcept {
+	static _GLSL_STRUCT_CONSTEXPR17 size_t get_mat_columns() noexcept {
 		return mat_traits<T>::get_columns();
 	}
 
@@ -101,7 +101,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
 		#endif
-	static _GLSL_STRUCT_EXPORT _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR17 size_t get_mat_rows() noexcept {
+	static _GLSL_STRUCT_CONSTEXPR17 size_t get_mat_rows() noexcept {
 		return mat_traits<T>::get_rows();
 	}
 
@@ -111,7 +111,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
 		#endif
-	static _GLSL_STRUCT_EXPORT _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR17 ValueType get_mat_value_type() noexcept {
+	static _GLSL_STRUCT_CONSTEXPR17 ValueType get_mat_value_type() noexcept {
 		return mat_traits<T>::get_value_type();
 	}
 
@@ -121,7 +121,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
 		#endif
-	static _GLSL_STRUCT_EXPORT inline mat_data get_mat_data(const T& value) {
+	static mat_data get_mat_data(const T& value) {
 		return mat_traits<T>::get_data(value);
 	}
 
@@ -131,7 +131,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
 		#endif
-	static _GLSL_STRUCT_EXPORT inline T get_mat_value(const mat_data& data) {
+	static T get_mat_value(const mat_data& data) {
 		return mat_traits<T>::get_value(data);
 	}
 
@@ -144,7 +144,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
 		#endif
-	static _GLSL_STRUCT_EXPORT inline std::string mat_to_string() {
+	static std::string mat_to_string() {
 		return mat_to_string(get_mat_value_type<T>(), get_mat_columns<T>(), get_mat_rows<T>());
 	}
 

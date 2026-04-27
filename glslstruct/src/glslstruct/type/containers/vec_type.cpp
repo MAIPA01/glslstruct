@@ -32,14 +32,14 @@ size_t vec_type::get_length() const noexcept { return _length; }
 
 std::string vec_type::to_string() const noexcept { return vec_to_string(_type, _length); }
 
-_GLSL_STRUCT_EXPORT bool glslstruct::operator==(const vec_type& lhs, const vec_type& rhs) noexcept {
+bool glslstruct::operator==(const vec_type& lhs, const vec_type& rhs) noexcept {
 	return lhs._type == rhs._type && lhs._length == rhs._length;
 }
 
 	#if _GLSL_STRUCT_HAS_CXX20
-_GLSL_STRUCT_EXPORT bool glslstruct::operator!=(const vec_type& lhs, const vec_type& rhs) noexcept = default;
+bool glslstruct::operator!=(const vec_type& lhs, const vec_type& rhs) noexcept = default;
 	#else
-_GLSL_STRUCT_EXPORT bool glslstruct::operator!=(const vec_type& lhs, const vec_type& rhs) noexcept { return !(lhs == rhs); }
+bool glslstruct::operator!=(const vec_type& lhs, const vec_type& rhs) noexcept { return !(lhs == rhs); }
 	#endif
 
 size_t std::hash<vec_type>::operator()(const vec_type& value) const noexcept {

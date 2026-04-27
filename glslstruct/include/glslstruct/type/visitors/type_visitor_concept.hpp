@@ -67,16 +67,16 @@ namespace glslstruct {
 	};
 
 	template<class T>
-	static _GLSL_STRUCT_EXPORT _GLSL_STRUCT_CONSTEXPR17 bool is_type_visitor_v = type_visitor<T>;
+	static _GLSL_STRUCT_CONSTEXPR17 bool is_type_visitor_v = type_visitor<T>;
 
 	template<class T>
-	struct _GLSL_STRUCT_EXPORT is_type_visitor : std::bool_constant<is_type_visitor_v<T> > {};
+	struct is_type_visitor : std::bool_constant<is_type_visitor_v<T> > {};
 		#else
 	template<class T, class = void>
-	struct _GLSL_STRUCT_EXPORT is_type_visitor : std::false_type {};
+	struct is_type_visitor : std::false_type {};
 
 	template<class T>
-	struct _GLSL_STRUCT_EXPORT is_type_visitor<T,
+	struct is_type_visitor<T,
 	  std::void_t<std::enable_if_t<std::is_same_v<void, decltype(std::declval<T&>()(std::declval<const scalar_type&>()))> >,
 		std::enable_if_t<std::is_same_v<void, decltype(std::declval<T&>()(std::declval<const vec_type&>()))> >,
 		std::enable_if_t<std::is_same_v<void, decltype(std::declval<T&>()(std::declval<const mat_type&>()))> >,
@@ -85,7 +85,7 @@ namespace glslstruct {
 		: std::true_type {};
 
 	template<class T>
-	static _GLSL_STRUCT_EXPORT _GLSL_STRUCT_CONSTEXPR17 bool is_type_visitor_v = is_type_visitor<T>::value;
+	static _GLSL_STRUCT_CONSTEXPR17 bool is_type_visitor_v = is_type_visitor<T>::value;
 		#endif
 } // namespace glslstruct
 	#endif

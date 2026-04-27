@@ -43,12 +43,12 @@ mstd::ordered_map<std::string, var_data> struct_type::get_top_level_variables() 
 
 std::string struct_type::to_string() const noexcept { return "struct"; }
 
-_GLSL_STRUCT_EXPORT bool glslstruct::operator==(const struct_type& lhs, const struct_type& rhs) noexcept { return lhs._variables == rhs._variables; }
+bool glslstruct::operator==(const struct_type& lhs, const struct_type& rhs) noexcept { return lhs._variables == rhs._variables; }
 
 	#if _GLSL_STRUCT_HAS_CXX20
-_GLSL_STRUCT_EXPORT bool glslstruct::operator!=(const struct_type& lhs, const struct_type& rhs) noexcept = default;
+bool glslstruct::operator!=(const struct_type& lhs, const struct_type& rhs) noexcept = default;
 	#else
-_GLSL_STRUCT_EXPORT bool glslstruct::operator!=(const struct_type& lhs, const struct_type& rhs) noexcept { return !(lhs == rhs); }
+bool glslstruct::operator!=(const struct_type& lhs, const struct_type& rhs) noexcept { return !(lhs == rhs); }
 	#endif
 
 size_t std::hash<struct_type>::operator()(const struct_type& type) const noexcept {

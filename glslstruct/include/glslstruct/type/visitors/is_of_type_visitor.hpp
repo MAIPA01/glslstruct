@@ -28,7 +28,7 @@ namespace glslstruct {
 	 * @brief base_type types in enum values
 	 * @ingroup type_visitors
 	 */
-	_GLSL_STRUCT_EXPORT ENUM_CLASS_BASE(BaseType, uint8_t, (Scalar), (Vec), (Mat), (Struct), (Array))
+	ENUM_CLASS_BASE(BaseType, uint8_t, (Scalar), (Vec), (Mat), (Struct), (Array))
 		// clang-format on
 
 		/**
@@ -41,7 +41,7 @@ namespace glslstruct {
 		#else
 	  template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
-	  class _GLSL_STRUCT_EXPORT is_of_type_visitor {
+	  class is_of_type_visitor {
 	private:
 		/// @brief result
 		bool _result = false;
@@ -79,7 +79,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] _GLSL_STRUCT_EXPORT _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(
+	[[nodiscard]] _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(
 	  const base_type_handle& type
 	) {
 		is_of_type_visitor<T> visitor;
@@ -96,7 +96,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] _GLSL_STRUCT_EXPORT _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const std::shared_ptr<T>&) {
+	[[nodiscard]] _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const std::shared_ptr<T>&) {
 		return true;
 	}
 
@@ -118,7 +118,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] _GLSL_STRUCT_EXPORT _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const std::shared_ptr<T>&,
+	[[nodiscard]] _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const std::shared_ptr<T>&,
 	  const BaseType baseType) {
 			switch (baseType) {
 			case BaseType::Scalar: return std::is_same_v<T, scalar_type>;
@@ -143,7 +143,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] _GLSL_STRUCT_EXPORT inline std::shared_ptr<T> dynamic_type_cast(const base_type_handle& type) {
+	[[nodiscard]] inline std::shared_ptr<T> dynamic_type_cast(const base_type_handle& type) {
 			if (is_of_type<T>(type)) { return std::dynamic_pointer_cast<T>(type); }
 		return nullptr;
 	}
@@ -157,7 +157,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] _GLSL_STRUCT_EXPORT inline base_type_handle dynamic_type_cast(const std::shared_ptr<T>& type) {
+	[[nodiscard]] inline base_type_handle dynamic_type_cast(const std::shared_ptr<T>& type) {
 		return std::dynamic_pointer_cast<base_type>(type);
 	}
 
@@ -174,7 +174,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] _GLSL_STRUCT_EXPORT _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 std::shared_ptr<T> static_type_cast(
+	[[nodiscard]] _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 std::shared_ptr<T> static_type_cast(
 	  const base_type_handle& type
 	) {
 		std::shared_ptr<T> result = dynamic_type_cast<T>(type);
@@ -191,7 +191,7 @@ namespace glslstruct {
 		#else
 	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] _GLSL_STRUCT_EXPORT inline base_type_handle static_type_cast(const std::shared_ptr<T>& type) {
+	[[nodiscard]] inline base_type_handle static_type_cast(const std::shared_ptr<T>& type) {
 		return dynamic_type_cast(type);
 	}
 

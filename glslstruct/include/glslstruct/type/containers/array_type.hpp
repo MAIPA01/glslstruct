@@ -98,12 +98,12 @@ namespace glslstruct {
 	 * @brief checks if two array types are equal
 	 * @ingroup glsl_types
 	 */
-	[[nodiscard]] _GLSL_STRUCT_EXPORT bool operator==(const array_type& lhs, const array_type& rhs) noexcept;
+	[[nodiscard]] bool operator==(const array_type& lhs, const array_type& rhs) noexcept;
 	/**
 	 * @brief checks if two array types are not equal
 	 * @ingroup glsl_types
 	 */
-	[[nodiscard]] _GLSL_STRUCT_EXPORT bool operator!=(const array_type& lhs, const array_type& rhs) noexcept;
+	[[nodiscard]] bool operator!=(const array_type& lhs, const array_type& rhs) noexcept;
 } // namespace glslstruct
 
 /**
