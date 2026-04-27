@@ -170,6 +170,7 @@ var group__utils =
     [ "_GLSL_STRUCT_CONSTEXPR17", "db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11", null ],
     [ "_GLSL_STRUCT_CONSTEXPR20", "db/d81/group__utils.html#ga1cbd893296b8b11f6174f8274c41e89d", null ],
     [ "_GLSL_STRUCT_ERROR", "db/d81/group__utils.html#ga88375ac928085b68a087f7435ef1f1a5", null ],
+    [ "_GLSL_STRUCT_EXPORT", "db/d81/group__utils.html#ga115ee7432a3bf277af039410ab629ae4", null ],
     [ "_GLSL_STRUCT_HAS_CXX17", "db/d81/group__utils.html#ga71def23842e22dd24f970e88ad7cbcb9", null ],
     [ "_GLSL_STRUCT_HAS_CXX20", "db/d81/group__utils.html#ga4096a3b64d500cf3a960cc82b077452e", null ],
     [ "_GLSL_STRUCT_HAS_PARSER", "db/d81/group__utils.html#ga0a4136b1b1757b92ce555e74540b8046", null ],

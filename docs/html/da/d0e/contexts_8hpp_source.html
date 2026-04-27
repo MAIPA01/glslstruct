@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.2</span>
+   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.3</span>
    </div>
    <div id="projectbrief">glslstruct</div>
   </td>
@@ -119,9 +119,9 @@ $(function(){initNavTree('da/d0e/contexts_8hpp_source.html','../../',''); });
 <div class="line"><span class="lineno">   23</span><span class="comment">     * @ingroup glslstruct</span></div>
 <div class="line"><span class="lineno">   24</span><span class="comment">     */</span></div>
 <div class="foldopen" id="foldopen00025" data-start="{" data-end="};">
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="../../d9/de7/structglslstruct_1_1max__alignment__layout__context.html">   25</a></span>    <span class="keyword">struct</span> _GLSL_STRUCT_EXPORT <a class="code hl_struct" href="../../d9/de7/structglslstruct_1_1max__alignment__layout__context.html">max_alignment_layout_context</a> {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="../../d9/de7/structglslstruct_1_1max__alignment__layout__context.html">   25</a></span>    <span class="keyword">struct</span> <a class="code hl_struct" href="../../d9/de7/structglslstruct_1_1max__alignment__layout__context.html">max_alignment_layout_context</a> {</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="comment">/// @brief contains max alignment value</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="../../d9/de7/structglslstruct_1_1max__alignment__layout__context.html#a498f9d9c5a885e4e0c92f0fb4df80d95">   27</a></span>        <a class="code hl_namespace" href="../../db/de6/namespaceglslstruct.html">size_t</a> <a class="code hl_namespace" href="../../db/de6/namespaceglslstruct.html">maxAlignment</a> = 0;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="../../d9/de7/structglslstruct_1_1max__alignment__layout__context.html#a498f9d9c5a885e4e0c92f0fb4df80d95">   27</a></span>        size_t <a class="code hl_variable" href="../../d9/de7/structglslstruct_1_1max__alignment__layout__context.html#a498f9d9c5a885e4e0c92f0fb4df80d95">maxAlignment</a> = 0;</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="comment">/// @brief updates max alignment value</span></div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="../../d9/de7/structglslstruct_1_1max__alignment__layout__context.html#a35ef62bb4937fc8c1ff5999e9f1fd0a5">update_max_alignment</a>(size_t currentAlignment) <span class="keyword">noexcept</span>;</div>
@@ -133,9 +133,9 @@ $(function(){initNavTree('da/d0e/contexts_8hpp_source.html','../../',''); });
 <div class="line"><span class="lineno">   35</span><span class="comment">     * @ingroup glslstruct</span></div>
 <div class="line"><span class="lineno">   36</span><span class="comment">     */</span></div>
 <div class="foldopen" id="foldopen00037" data-start="{" data-end="};">
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="../../d3/d2a/structglslstruct_1_1struct__added__layout__context.html">   37</a></span>    <span class="keyword">struct</span> _GLSL_STRUCT_EXPORT <a class="code hl_struct" href="../../d3/d2a/structglslstruct_1_1struct__added__layout__context.html">struct_added_layout_context</a> {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="../../d3/d2a/structglslstruct_1_1struct__added__layout__context.html">   37</a></span>    <span class="keyword">struct</span> <a class="code hl_struct" href="../../d3/d2a/structglslstruct_1_1struct__added__layout__context.html">struct_added_layout_context</a> {</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="comment">/// @brief contains last added struct alignment</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="../../d3/d2a/structglslstruct_1_1struct__added__layout__context.html#a27c7f1b46b0bdd9f291e20c4fc5c8087">   39</a></span>        size_t structAlignment = 0;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="../../d3/d2a/structglslstruct_1_1struct__added__layout__context.html#a27c7f1b46b0bdd9f291e20c4fc5c8087">   39</a></span>        size_t <a class="code hl_variable" href="../../d3/d2a/structglslstruct_1_1struct__added__layout__context.html#a27c7f1b46b0bdd9f291e20c4fc5c8087">structAlignment</a> = 0;</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    };</div>
 </div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>} <span class="comment">// namespace glslstruct</span></div>
@@ -169,7 +169,9 @@ $(function(){initNavTree('da/d0e/contexts_8hpp_source.html','../../',''); });
 <div class="ttc" id="anamespaceglslstruct_html"><div class="ttname"><a href="../../db/de6/namespaceglslstruct.html">glslstruct</a></div><div class="ttdoc">Main namespace of glslstruct library.</div><div class="ttdef"><b>Definition</b> contexts.hpp:20</div></div>
 <div class="ttc" id="astructglslstruct_1_1max__alignment__layout__context_html"><div class="ttname"><a href="../../d9/de7/structglslstruct_1_1max__alignment__layout__context.html">glslstruct::max_alignment_layout_context</a></div><div class="ttdoc">layout context which contains max alignment of all variables</div><div class="ttdef"><b>Definition</b> contexts.hpp:25</div></div>
 <div class="ttc" id="astructglslstruct_1_1max__alignment__layout__context_html_a35ef62bb4937fc8c1ff5999e9f1fd0a5"><div class="ttname"><a href="../../d9/de7/structglslstruct_1_1max__alignment__layout__context.html#a35ef62bb4937fc8c1ff5999e9f1fd0a5">glslstruct::max_alignment_layout_context::update_max_alignment</a></div><div class="ttdeci">void update_max_alignment(size_t currentAlignment) noexcept</div><div class="ttdoc">updates max alignment value</div><div class="ttdef"><b>Definition</b> contexts.cpp:21</div></div>
+<div class="ttc" id="astructglslstruct_1_1max__alignment__layout__context_html_a498f9d9c5a885e4e0c92f0fb4df80d95"><div class="ttname"><a href="../../d9/de7/structglslstruct_1_1max__alignment__layout__context.html#a498f9d9c5a885e4e0c92f0fb4df80d95">glslstruct::max_alignment_layout_context::maxAlignment</a></div><div class="ttdeci">size_t maxAlignment</div><div class="ttdoc">contains max alignment value</div><div class="ttdef"><b>Definition</b> contexts.hpp:27</div></div>
 <div class="ttc" id="astructglslstruct_1_1struct__added__layout__context_html"><div class="ttname"><a href="../../d3/d2a/structglslstruct_1_1struct__added__layout__context.html">glslstruct::struct_added_layout_context</a></div><div class="ttdoc">layout context which contains alignment of last added struct</div><div class="ttdef"><b>Definition</b> contexts.hpp:37</div></div>
+<div class="ttc" id="astructglslstruct_1_1struct__added__layout__context_html_a27c7f1b46b0bdd9f291e20c4fc5c8087"><div class="ttname"><a href="../../d3/d2a/structglslstruct_1_1struct__added__layout__context.html#a27c7f1b46b0bdd9f291e20c4fc5c8087">glslstruct::struct_added_layout_context::structAlignment</a></div><div class="ttdeci">size_t structAlignment</div><div class="ttdoc">contains last added struct alignment</div><div class="ttdef"><b>Definition</b> contexts.hpp:39</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.2</span>
+   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.3</span>
    </div>
    <div id="projectbrief">glslstruct</div>
   </td>
@@ -142,7 +142,7 @@ $(function(){initNavTree('d8/dfd/config_8hpp_source.html','../../',''); });
 <div class="line"><span class="lineno">   47</span><span class="comment">     * @brief glslstruct version patch number</span></div>
 <div class="line"><span class="lineno">   48</span><span class="comment">     * @ingroup glslstruct</span></div>
 <div class="line"><span class="lineno">   49</span><span class="comment">     */</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="../../d2/d5d/group__glslstruct.html#gada91fe5c8abe25183307219ccdd553db">   50</a></span>    <span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">GLSL_STRUCT_VERSION_PATCH</span> 2</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="../../d2/d5d/group__glslstruct.html#gada91fe5c8abe25183307219ccdd553db">   50</a></span>    <span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">GLSL_STRUCT_VERSION_PATCH</span> 3</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="comment">/**</span></div>
 <div class="line"><span class="lineno">   53</span><span class="comment">     * @brief stringify helper</span></div>
@@ -192,7 +192,7 @@ $(function(){initNavTree('d8/dfd/config_8hpp_source.html','../../',''); });
 <div class="line"><span class="lineno">   91</span><span class="comment">     * @brief glslstruct last update day</span></div>
 <div class="line"><span class="lineno">   92</span><span class="comment">     * @ingroup glslstruct</span></div>
 <div class="line"><span class="lineno">   93</span><span class="comment">     */</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="../../d2/d5d/group__glslstruct.html#ga591bdc53f4e1a859ed691df437c89167">   94</a></span>    <span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">GLSL_STRUCT_LAST_UPDATE_DAY</span> 23</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="../../d2/d5d/group__glslstruct.html#ga591bdc53f4e1a859ed691df437c89167">   94</a></span>    <span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">GLSL_STRUCT_LAST_UPDATE_DAY</span> 27</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="comment">/**</span></div>
 <div class="line"><span class="lineno">   96</span><span class="comment">     * @brief glslstruct last update month</span></div>
 <div class="line"><span class="lineno">   97</span><span class="comment">     * @ingroup glslstruct</span></div>
@@ -332,24 +332,48 @@ $(function(){initNavTree('d8/dfd/config_8hpp_source.html','../../',''); });
 <div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 <div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">endregion</span></div>
 <div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    <span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">mstd</span><span class="preprocessor">/</span><span class="preprocessor">mstd</span><span class="preprocessor">.</span><span class="preprocessor">hpp</span><span class="preprocessor">&gt;</span></div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="comment">/**</span></div>
-<div class="line"><span class="lineno">  233</span><span class="comment">     * @brief compiler message</span></div>
-<div class="line"><span class="lineno">  234</span><span class="comment">     * @ingroup utils</span></div>
-<div class="line"><span class="lineno">  235</span><span class="comment">     */</span></div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno"><a class="line" href="../../db/d81/group__utils.html#ga417f9e988ade39688e575a8bf2869a58">  236</a></span>    <span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">_GLSL_STRUCT_MESSAGE</span><span class="preprocessor">(</span><span class="preprocessor">MESSAGE</span><span class="preprocessor">)</span> <span class="preprocessor">_MSTD_MESSAGE</span><span class="preprocessor">(</span><span class="preprocessor">MESSAGE</span><span class="preprocessor">)</span></div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <span class="comment">/**</span></div>
-<div class="line"><span class="lineno">  238</span><span class="comment">     * @brief compiler warning</span></div>
-<div class="line"><span class="lineno">  239</span><span class="comment">     * @ingroup utils</span></div>
-<div class="line"><span class="lineno">  240</span><span class="comment">     */</span></div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno"><a class="line" href="../../db/d81/group__utils.html#ga696fe442d1ec20d958a4a49e37196ac3">  241</a></span>    <span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">_GLSL_STRUCT_WARNING</span><span class="preprocessor">(</span><span class="preprocessor">MESSAGE</span><span class="preprocessor">)</span> <span class="preprocessor">_MSTD_WARNING</span><span class="preprocessor">(</span><span class="preprocessor">MESSAGE</span><span class="preprocessor">)</span></div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="comment">/**</span></div>
-<div class="line"><span class="lineno">  243</span><span class="comment">     * @brief compiler error</span></div>
-<div class="line"><span class="lineno">  244</span><span class="comment">     * @ingroup utils</span></div>
-<div class="line"><span class="lineno">  245</span><span class="comment">     */</span></div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno"><a class="line" href="../../db/d81/group__utils.html#ga88375ac928085b68a087f7435ef1f1a5">  246</a></span>    <span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">_GLSL_STRUCT_ERROR</span><span class="preprocessor">(</span><span class="preprocessor">MESSAGE</span><span class="preprocessor">)</span> <span class="preprocessor">_MSTD_ERROR</span><span class="preprocessor">(</span><span class="preprocessor">MESSAGE</span><span class="preprocessor">)</span></div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="comment">/**</span></div>
+<div class="line"><span class="lineno">  231</span><span class="comment"> * @def _GLSL_STRUCT_EXPORT</span></div>
+<div class="line"><span class="lineno">  232</span><span class="comment"> * @brief This is for exporting symbols in shared library setup</span></div>
+<div class="line"><span class="lineno">  233</span><span class="comment"> * @ingroup utils</span></div>
+<div class="line"><span class="lineno">  234</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <span class="preprocessor">#</span><span class="preprocessor">ifdef</span> <span class="preprocessor">GLSL_STRUCT_SHARED_LIBS</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        <span class="preprocessor">#</span><span class="preprocessor">ifdef</span> <span class="preprocessor">GLSL_STRUCT_EXPORT</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>            <span class="preprocessor">#</span><span class="preprocessor">ifdef</span> <span class="preprocessor">_WIN32</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>                <span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">_GLSL_STRUCT_EXPORT</span> <span class="preprocessor">__declspec</span><span class="preprocessor">(</span><span class="preprocessor">dllexport</span><span class="preprocessor">)</span></div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>            <span class="preprocessor">#</span><span class="preprocessor">else</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>                <span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">_GLSL_STRUCT_EXPORT</span> <span class="preprocessor">__attribute__</span><span class="preprocessor">(</span><span class="preprocessor">(</span><span class="preprocessor">visibility</span><span class="preprocessor">(</span><span class="stringliteral">&quot;default&quot;</span><span class="preprocessor">)</span><span class="preprocessor">)</span><span class="preprocessor">)</span></div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>            <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        <span class="preprocessor">#</span><span class="preprocessor">else</span></div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>            <span class="preprocessor">#</span><span class="preprocessor">ifdef</span> <span class="preprocessor">_WIN32</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>                <span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">_GLSL_STRUCT_EXPORT</span> <span class="preprocessor">__declspec</span><span class="preprocessor">(</span><span class="preprocessor">dllimport</span><span class="preprocessor">)</span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>            <span class="preprocessor">#</span><span class="preprocessor">else</span></div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>                <span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">_GLSL_STRUCT_EXPORT</span></div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>            <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    <span class="preprocessor">#</span><span class="preprocessor">else</span></div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno"><a class="line" href="../../db/d81/group__utils.html#ga115ee7432a3bf277af039410ab629ae4">  251</a></span>        <span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">_GLSL_STRUCT_EXPORT</span></div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    <span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">mstd</span><span class="preprocessor">/</span><span class="preprocessor">mstd</span><span class="preprocessor">.</span><span class="preprocessor">hpp</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">  257</span><span class="comment">     * @brief compiler message</span></div>
+<div class="line"><span class="lineno">  258</span><span class="comment">     * @ingroup utils</span></div>
+<div class="line"><span class="lineno">  259</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno"><a class="line" href="../../db/d81/group__utils.html#ga417f9e988ade39688e575a8bf2869a58">  260</a></span>    <span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">_GLSL_STRUCT_MESSAGE</span><span class="preprocessor">(</span><span class="preprocessor">MESSAGE</span><span class="preprocessor">)</span> <span class="preprocessor">_MSTD_MESSAGE</span><span class="preprocessor">(</span><span class="preprocessor">MESSAGE</span><span class="preprocessor">)</span></div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">  262</span><span class="comment">     * @brief compiler warning</span></div>
+<div class="line"><span class="lineno">  263</span><span class="comment">     * @ingroup utils</span></div>
+<div class="line"><span class="lineno">  264</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno"><a class="line" href="../../db/d81/group__utils.html#ga696fe442d1ec20d958a4a49e37196ac3">  265</a></span>    <span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">_GLSL_STRUCT_WARNING</span><span class="preprocessor">(</span><span class="preprocessor">MESSAGE</span><span class="preprocessor">)</span> <span class="preprocessor">_MSTD_WARNING</span><span class="preprocessor">(</span><span class="preprocessor">MESSAGE</span><span class="preprocessor">)</span></div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">  267</span><span class="comment">     * @brief compiler error</span></div>
+<div class="line"><span class="lineno">  268</span><span class="comment">     * @ingroup utils</span></div>
+<div class="line"><span class="lineno">  269</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno"><a class="line" href="../../db/d81/group__utils.html#ga88375ac928085b68a087f7435ef1f1a5">  270</a></span>    <span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">_GLSL_STRUCT_ERROR</span><span class="preprocessor">(</span><span class="preprocessor">MESSAGE</span><span class="preprocessor">)</span> <span class="preprocessor">_MSTD_ERROR</span><span class="preprocessor">(</span><span class="preprocessor">MESSAGE</span><span class="preprocessor">)</span></div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span><span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 <div class="ttc" id="agroup__glslstruct_html_ga2ed88dc67e57aa510eaaf55581405194"><div class="ttname"><a href="../../d2/d5d/group__glslstruct.html#ga2ed88dc67e57aa510eaaf55581405194">GLSL_STRUCT_VERSION_STRING</a></div><div class="ttdeci">#define GLSL_STRUCT_VERSION_STRING</div><div class="ttdoc">glslstruct version string</div><div class="ttdef"><b>Definition</b> config.hpp:74</div></div>
 <div class="ttc" id="agroup__glslstruct_html_ga35ad70935e180a5f9fcb0f0e19314711"><div class="ttname"><a href="../../d2/d5d/group__glslstruct.html#ga35ad70935e180a5f9fcb0f0e19314711">GLSL_STRUCT_VERSION_MINOR</a></div><div class="ttdeci">#define GLSL_STRUCT_VERSION_MINOR</div><div class="ttdoc">glslstruct version minor number</div><div class="ttdef"><b>Definition</b> config.hpp:45</div></div>
 <div class="ttc" id="agroup__glslstruct_html_ga591bdc53f4e1a859ed691df437c89167"><div class="ttname"><a href="../../d2/d5d/group__glslstruct.html#ga591bdc53f4e1a859ed691df437c89167">GLSL_STRUCT_LAST_UPDATE_DAY</a></div><div class="ttdeci">#define GLSL_STRUCT_LAST_UPDATE_DAY</div><div class="ttdoc">glslstruct last update day</div><div class="ttdef"><b>Definition</b> config.hpp:94</div></div>
