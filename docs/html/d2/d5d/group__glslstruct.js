@@ -43,31 +43,6 @@ var group__glslstruct =
       [ "operator=", "d4/d83/classglslstruct_1_1mat__data.html#a84711a5d5a35c79f2ca7a7ec0bfb3ebe", null ],
       [ "_data", "d4/d83/classglslstruct_1_1mat__data.html#a95a7c2850bb3ba872194abfa5bd13d95", null ]
     ] ],
-    [ "glslstruct::scalar_traits&lt; bool &gt;", "d5/ded/structglslstruct_1_1scalar__traits_3_01bool_01_4.html", [
-      [ "get_data", "d5/ded/structglslstruct_1_1scalar__traits_3_01bool_01_4.html#ab1872689a37c3adace3a9637db4a39b1", null ],
-      [ "get_value", "d5/ded/structglslstruct_1_1scalar__traits_3_01bool_01_4.html#a77188d90e3c425c1d681f6abc42e0bb1", null ],
-      [ "get_value_type", "d5/ded/structglslstruct_1_1scalar__traits_3_01bool_01_4.html#a20c11cd600d91fb72432d5f8f916fb3f", null ]
-    ] ],
-    [ "glslstruct::scalar_traits&lt; int &gt;", "d2/d33/structglslstruct_1_1scalar__traits_3_01int_01_4.html", [
-      [ "get_data", "d2/d33/structglslstruct_1_1scalar__traits_3_01int_01_4.html#a286303c472a6d562e08c182d9d97b7b0", null ],
-      [ "get_value", "d2/d33/structglslstruct_1_1scalar__traits_3_01int_01_4.html#a7165eab5c899d4840f3d8f53f0325702", null ],
-      [ "get_value_type", "d2/d33/structglslstruct_1_1scalar__traits_3_01int_01_4.html#a64d82945699f5133b2ea4d797d068a84", null ]
-    ] ],
-    [ "glslstruct::scalar_traits&lt; unsigned int &gt;", "d1/d53/structglslstruct_1_1scalar__traits_3_01unsigned_01int_01_4.html", [
-      [ "get_data", "d1/d53/structglslstruct_1_1scalar__traits_3_01unsigned_01int_01_4.html#a736383d39bd3e7eedbbc9f1679b4af92", null ],
-      [ "get_value", "d1/d53/structglslstruct_1_1scalar__traits_3_01unsigned_01int_01_4.html#a218e73cc01ea5ef22404e722fc43c017", null ],
-      [ "get_value_type", "d1/d53/structglslstruct_1_1scalar__traits_3_01unsigned_01int_01_4.html#a5b66bcd85e699d890d7e6965e1920c72", null ]
-    ] ],
-    [ "glslstruct::scalar_traits&lt; float &gt;", "d5/db9/structglslstruct_1_1scalar__traits_3_01float_01_4.html", [
-      [ "get_data", "d5/db9/structglslstruct_1_1scalar__traits_3_01float_01_4.html#a46e46fafefffc4bf833b395ec17ab041", null ],
-      [ "get_value", "d5/db9/structglslstruct_1_1scalar__traits_3_01float_01_4.html#a275ed5f928c8d0f29ce0eebf8b2b516e", null ],
-      [ "get_value_type", "d5/db9/structglslstruct_1_1scalar__traits_3_01float_01_4.html#a2b878c19d16653f764ff90b6a41fb00c", null ]
-    ] ],
-    [ "glslstruct::scalar_traits&lt; double &gt;", "de/d1a/structglslstruct_1_1scalar__traits_3_01double_01_4.html", [
-      [ "get_data", "de/d1a/structglslstruct_1_1scalar__traits_3_01double_01_4.html#a98a3fb670da6ed56d006e993137dca57", null ],
-      [ "get_value", "de/d1a/structglslstruct_1_1scalar__traits_3_01double_01_4.html#af676f1be056c6afe7ba8144cdf073280", null ],
-      [ "get_value_type", "de/d1a/structglslstruct_1_1scalar__traits_3_01double_01_4.html#a07d8cc6e741eaf528230013ddc8c6755", null ]
-    ] ],
     [ "glslstruct::scalar_data", "d0/de5/classglslstruct_1_1scalar__data.html", [
       [ "scalar_data", "d0/de5/classglslstruct_1_1scalar__data.html#afdbf40d63bb1238af9b6acb73a7d5bd1", null ],
       [ "scalar_data", "d0/de5/classglslstruct_1_1scalar__data.html#ad1f4d177bd55ebc46fa4c69497d8f63c", null ],
@@ -114,6 +89,31 @@ var group__glslstruct =
       [ "get_rows", "d6/d8a/structglslstruct_1_1mat__traits_3_01mstd_1_1mat_3_01_c_00_01_r_00_01_t_01_4_01_4.html#ad10f077879052c6dc5716d242a6d7e02", null ],
       [ "get_value", "d6/d8a/structglslstruct_1_1mat__traits_3_01mstd_1_1mat_3_01_c_00_01_r_00_01_t_01_4_01_4.html#ad71e1a2e41d6f4913fce0f329809e1ad", null ],
       [ "get_value_type", "d6/d8a/structglslstruct_1_1mat__traits_3_01mstd_1_1mat_3_01_c_00_01_r_00_01_t_01_4_01_4.html#a5735ed9e0dac8bda70870cd0703bcf8e", null ]
+    ] ],
+    [ "glslstruct::scalar_traits&lt; bool &gt;", "d5/ded/structglslstruct_1_1scalar__traits_3_01bool_01_4.html", [
+      [ "get_data", "d5/ded/structglslstruct_1_1scalar__traits_3_01bool_01_4.html#ab1872689a37c3adace3a9637db4a39b1", null ],
+      [ "get_value", "d5/ded/structglslstruct_1_1scalar__traits_3_01bool_01_4.html#a77188d90e3c425c1d681f6abc42e0bb1", null ],
+      [ "get_value_type", "d5/ded/structglslstruct_1_1scalar__traits_3_01bool_01_4.html#a20c11cd600d91fb72432d5f8f916fb3f", null ]
+    ] ],
+    [ "glslstruct::scalar_traits&lt; int &gt;", "d2/d33/structglslstruct_1_1scalar__traits_3_01int_01_4.html", [
+      [ "get_data", "d2/d33/structglslstruct_1_1scalar__traits_3_01int_01_4.html#a286303c472a6d562e08c182d9d97b7b0", null ],
+      [ "get_value", "d2/d33/structglslstruct_1_1scalar__traits_3_01int_01_4.html#a7165eab5c899d4840f3d8f53f0325702", null ],
+      [ "get_value_type", "d2/d33/structglslstruct_1_1scalar__traits_3_01int_01_4.html#a64d82945699f5133b2ea4d797d068a84", null ]
+    ] ],
+    [ "glslstruct::scalar_traits&lt; unsigned int &gt;", "d1/d53/structglslstruct_1_1scalar__traits_3_01unsigned_01int_01_4.html", [
+      [ "get_data", "d1/d53/structglslstruct_1_1scalar__traits_3_01unsigned_01int_01_4.html#a736383d39bd3e7eedbbc9f1679b4af92", null ],
+      [ "get_value", "d1/d53/structglslstruct_1_1scalar__traits_3_01unsigned_01int_01_4.html#a218e73cc01ea5ef22404e722fc43c017", null ],
+      [ "get_value_type", "d1/d53/structglslstruct_1_1scalar__traits_3_01unsigned_01int_01_4.html#a5b66bcd85e699d890d7e6965e1920c72", null ]
+    ] ],
+    [ "glslstruct::scalar_traits&lt; float &gt;", "d5/db9/structglslstruct_1_1scalar__traits_3_01float_01_4.html", [
+      [ "get_data", "d5/db9/structglslstruct_1_1scalar__traits_3_01float_01_4.html#a46e46fafefffc4bf833b395ec17ab041", null ],
+      [ "get_value", "d5/db9/structglslstruct_1_1scalar__traits_3_01float_01_4.html#a275ed5f928c8d0f29ce0eebf8b2b516e", null ],
+      [ "get_value_type", "d5/db9/structglslstruct_1_1scalar__traits_3_01float_01_4.html#a2b878c19d16653f764ff90b6a41fb00c", null ]
+    ] ],
+    [ "glslstruct::scalar_traits&lt; double &gt;", "de/d1a/structglslstruct_1_1scalar__traits_3_01double_01_4.html", [
+      [ "get_data", "de/d1a/structglslstruct_1_1scalar__traits_3_01double_01_4.html#a98a3fb670da6ed56d006e993137dca57", null ],
+      [ "get_value", "de/d1a/structglslstruct_1_1scalar__traits_3_01double_01_4.html#af676f1be056c6afe7ba8144cdf073280", null ],
+      [ "get_value_type", "de/d1a/structglslstruct_1_1scalar__traits_3_01double_01_4.html#a07d8cc6e741eaf528230013ddc8c6755", null ]
     ] ],
     [ "glslstruct::vec_traits&lt; glm::vec&lt; L, T, Q &gt; &gt;", "d4/dd0/structglslstruct_1_1vec__traits_3_01glm_1_1vec_3_01_l_00_01_t_00_01_q_01_4_01_4.html", [
       [ "get_data", "d4/dd0/structglslstruct_1_1vec__traits_3_01glm_1_1vec_3_01_l_00_01_t_00_01_q_01_4_01_4.html#a5626aea15bb29a90a6d8b03bbe5bbbc6", null ],

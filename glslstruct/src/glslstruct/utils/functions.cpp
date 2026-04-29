@@ -18,7 +18,7 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 
 using namespace glslstruct;
 
-_GLSL_STRUCT_EXPORT size_t glslstruct::ceil_to_nearest_multiple(const size_t valueToRoundUp, const size_t multipleValue) noexcept {
+_GLSL_STRUCT_EXPORT size_t glslstruct::ceil_to_nearest_multiple(size_t valueToRoundUp, const size_t multipleValue) noexcept {
 		if (const size_t modulo = valueToRoundUp % multipleValue; modulo != 0) { valueToRoundUp += multipleValue - modulo; }
 	return valueToRoundUp; // general for all
 	// return (valueToRoundUp + multipleValue - 1) & ~(multipleValue - 1); // only for multiples of 2

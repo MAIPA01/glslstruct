@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.30)
-project(glslstruct VERSION 1.4.4 LANGUAGES CXX)
+project(glslstruct VERSION 1.4.5 LANGUAGES CXX)
 
 # variable for building shared library
 option(GLSL_STRUCT_BUILD_TESTS 				"Build glsl struct tests" 		${PROJECT_IS_TOP_LEVEL})
@@ -11,9 +11,9 @@ option(GLSL_STRUCT_ENABLE_CLANG_TIDY 		"Enables clang-tidy checks" 	${PROJECT_IS
 option(GLSL_STRUCT_INSTALL 					"Enables installation of this project"						${PROJECT_IS_TOP_LEVEL})
 option(GLSL_STRUCT_INSTALL_TEST				"This is only to test if installation of glslstruct works" 	OFF)
 
-option(GLSL_STRUCT_MSTD_EXTERNAL 			"Uses users own mstd library (tested and compatible with: 1.5.2)"		OFF)
+option(GLSL_STRUCT_MSTD_EXTERNAL 			"Uses users own mstd library (tested and compatible with: 1.5.3)"		OFF)
 option(GLSL_STRUCT_GLM_EXTERNAL 			"Uses users own glm library (tested and compatible with: 1.0.3)"		OFF)
-option(GLSL_STRUCT_PCRE2CPP_EXTERNAL        "Uses users own pcre2cpp library (tested and compatible with: 1.2.5)" 	OFF)
+option(GLSL_STRUCT_PCRE2CPP_EXTERNAL        "Uses users own pcre2cpp library (tested and compatible with: 1.2.7)" 	OFF)
 
 option(GLSL_STRUCT_ENABLE_CXX20 				"Enables C++20 features" 											OFF)
 option(GLSL_STRUCT_DISABLE_ASSERT_ON_RELEASE 	"Disables assert on release builds" 								OFF)
