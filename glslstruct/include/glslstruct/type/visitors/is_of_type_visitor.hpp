@@ -37,9 +37,9 @@ namespace glslstruct {
 		 * @tparam T requested type
 		 */
 		#if _GLSL_STRUCT_HAS_CXX20
-	  template<utils::glsl_type T>
+	  template<glsl_type T>
 		#else
-	  template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
+	  template<class T, std::enable_if_t<is_glsl_type_v<T>, bool> = true>
 		#endif
 	  class is_of_type_visitor {
 	private:
@@ -75,9 +75,9 @@ namespace glslstruct {
 		 * @ingroup type_visitors
 		 */
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_type T>
+	template<glsl_type T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_type_v<T>, bool> = true>
 		#endif
 	[[nodiscard]] _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(
 	  const base_type_handle& type
@@ -92,9 +92,9 @@ namespace glslstruct {
 		 * @ingroup type_visitors
 		 */
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_type T>
+	template<glsl_type T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_type_v<T>, bool> = true>
 		#endif
 	[[nodiscard]] _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const std::shared_ptr<T>&) {
 		return true;
@@ -114,9 +114,9 @@ namespace glslstruct {
 		 * @param baseType type which is required
 		 */
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_type T>
+	template<glsl_type T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_type_v<T>, bool> = true>
 		#endif
 	[[nodiscard]] _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 bool is_of_type(const std::shared_ptr<T>&,
 	  const BaseType baseType) {
@@ -139,9 +139,9 @@ namespace glslstruct {
 		 * @ingroup type_visitors
 		 */
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_type T>
+	template<glsl_type T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_type_v<T>, bool> = true>
 		#endif
 	[[nodiscard]] inline std::shared_ptr<T> dynamic_type_cast(const base_type_handle& type) {
 			if (is_of_type<T>(type)) { return std::dynamic_pointer_cast<T>(type); }
@@ -153,9 +153,9 @@ namespace glslstruct {
 		 * @ingroup type_visitors
 		 */
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_type T>
+	template<glsl_type T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_type_v<T>, bool> = true>
 		#endif
 	[[nodiscard]] inline base_type_handle dynamic_type_cast(const std::shared_ptr<T>& type) {
 		return std::dynamic_pointer_cast<base_type>(type);
@@ -170,9 +170,9 @@ namespace glslstruct {
 		 * @ingroup type_visitors
 		 */
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_type T>
+	template<glsl_type T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_type_v<T>, bool> = true>
 		#endif
 	[[nodiscard]] _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 std::shared_ptr<T> static_type_cast(
 	  const base_type_handle& type
@@ -187,9 +187,9 @@ namespace glslstruct {
 		 * @ingroup type_visitors
 		 */
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_type T>
+	template<glsl_type T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_type_v<T>, bool> = true>
 		#endif
 	[[nodiscard]] inline base_type_handle static_type_cast(const std::shared_ptr<T>& type) {
 		return dynamic_type_cast(type);

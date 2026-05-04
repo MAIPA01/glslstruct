@@ -115,9 +115,9 @@ namespace glslstruct {
 
 		/// @brief returns value from this vec_data container using vec_traits conversion
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_vec T>
+		template<glsl_vec T>
 		#else
-		template<class T, std::enable_if_t<utils::is_glsl_vec_v<T>, bool> = true>
+		template<class T, std::enable_if_t<is_glsl_vec_v<T>, bool> = true>
 		#endif
 		T get() const {
 			return vec_traits<T>::get_value(*this);

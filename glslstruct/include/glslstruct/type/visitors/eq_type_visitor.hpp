@@ -27,9 +27,9 @@ namespace glslstruct {
 		 * @ingroup type_visitors
 		 */
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_type T>
+	template<glsl_type T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_type_v<T>, bool> = true>
 		#endif
 	class _GLSL_STRUCT_EXPORT eq_type_visitor {
 	private:
