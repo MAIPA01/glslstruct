@@ -39,57 +39,57 @@ namespace glslstruct {
 	template<class T>
 	struct _GLSL_STRUCT_EXPORT scalar_traits {};
 
-	namespace utils {
 		#pragma region CHECKS
 		#pragma region IS_SCALAR
-			/**
-			 * @var is_glsl_scalar_v
-			 * @brief Bool value which is true if type can be converted to glsl scalar type
-			 * @ingroup utils
-			 * @tparam T type for which converter to glsl scalar type should be defined
-			 */
-
-			/**
-			 * @struct is_glsl_scalar
-			 * @brief struct with bool_constant which is true if type can be converted to glsl scalar type
-			 * @ingroup utils
-			 * @tparam T type for which converter to glsl scalar type should be defined
-			 */
-
-		#if _GLSL_STRUCT_HAS_CXX20
 		/**
-		 * @brief Concept defining which type can be converted to glsl scalar type
-		 * @ingroup utils
+		 * @var is_glsl_scalar_v
+		 * @brief Bool value which is true if type can be converted to glsl scalar type
+		 * @ingroup glslstruct
 		 * @tparam T type for which converter to glsl scalar type should be defined
 		 */
-		template<class T>
-		concept glsl_scalar = requires {
-			{ scalar_traits<T>::get_value_type() } -> std::same_as<ValueType>;
-			{ scalar_traits<T>::get_data(std::declval<const T&>()) } -> std::same_as<scalar_data>;
-			{ scalar_traits<T>::get_value(std::declval<const scalar_data&>()) } -> std::same_as<T>;
-		};
 
-		template<class T>
-		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_scalar_v = glsl_scalar<T>;
+		/**
+		 * @struct is_glsl_scalar
+		 * @brief struct with bool_constant which is true if type can be converted to glsl scalar type
+		 * @ingroup glslstruct
+		 * @tparam T type for which converter to glsl scalar type should be defined
+		 */
 
-		template<class T>
-		struct is_glsl_scalar : std::bool_constant<is_glsl_scalar_v<T> > {};
+		#if _GLSL_STRUCT_HAS_CXX20
+	/**
+	 * @brief Concept defining which type can be converted to glsl scalar type
+	 * @ingroup glslstruct
+	 * @tparam T type for which converter to glsl scalar type should be defined
+	 */
+	template<class T>
+	concept glsl_scalar = requires {
+		{ scalar_traits<T>::get_value_type() } -> std::convertible_to<ValueType>;
+		{ scalar_traits<T>::get_data(std::declval<const T&>()) } -> std::convertible_to<scalar_data>;
+		{ scalar_traits<T>::get_value(std::declval<const scalar_data&>()) } -> std::convertible_to<T>;
+	};
+
+	template<class T>
+	static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_scalar_v = glsl_scalar<T>;
+
+	template<class T>
+	struct is_glsl_scalar : std::bool_constant<is_glsl_scalar_v<T> > {};
 		#else
-		template<class T, class = void>
-		struct is_glsl_scalar : std::false_type {};
+	template<class T, class = void>
+	struct is_glsl_scalar : std::false_type {};
 
-		template<class T>
-		struct is_glsl_scalar<T,
-		  std::void_t<std::enable_if_t<std::is_same_v<ValueType, decltype(scalar_traits<T>::get_value_type())> >,
-			std::enable_if_t<std::is_same_v<scalar_data, decltype(scalar_traits<T>::get_data(std::declval<const T&>()))> >,
-			std::enable_if_t<std::is_same_v<T, decltype(scalar_traits<T>::get_value(std::declval<const scalar_data&>()))> > > >
-			: std::true_type {};
+	template<class T>
+	struct is_glsl_scalar<T,
+	  std::void_t<std::enable_if_t<std::is_convertible_v<decltype(scalar_traits<T>::get_value_type()), ValueType> >,
+		std::enable_if_t<std::is_convertible_v<decltype(scalar_traits<T>::get_data(std::declval<const T&>())), scalar_data> >,
+		std::enable_if_t<std::is_convertible_v<decltype(scalar_traits<T>::get_value(std::declval<const scalar_data&>())), T> > > >
+		: std::true_type {};
 
-		template<class T>
-		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_scalar_v = is_glsl_scalar<T>::value;
+	template<class T>
+	static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_scalar_v = is_glsl_scalar<T>::value;
 		#endif
 		#pragma endregion
 
+	namespace utils {
 		#pragma region IS_SCALARS_ARRAY
 		/**
 		 * @brief Bool value which is true if type V is array of types that passes is_glsl_scalar test
@@ -123,8 +123,9 @@ namespace glslstruct {
 		template<class V> concept glsl_scalars_static_size_array = is_glsl_scalars_static_size_array_v<V>;
 		#endif
 		#pragma endregion
-		#pragma endregion
 	} // namespace utils
+
+		#pragma endregion
 } // namespace glslstruct
 
 	#endif

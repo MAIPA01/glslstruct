@@ -104,9 +104,9 @@ namespace glslstruct {
 
 		/// @brief returns value from this mat_data container using mat_traits conversion
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_mat T>
+		template<glsl_mat T>
 		#else
-		template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
+		template<class T, std::enable_if_t<is_glsl_mat_v<T>, bool> = true>
 		#endif
 		T get() const {
 			return mat_traits<T>::get_value(*this);

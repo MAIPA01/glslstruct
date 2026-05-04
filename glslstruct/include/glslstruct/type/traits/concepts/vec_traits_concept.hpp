@@ -40,60 +40,61 @@ namespace glslstruct {
 	template<class T>
 	struct vec_traits {};
 
-	namespace utils {
 		#pragma region CHECKS
+
 		#pragma region IS_VEC
-			/**
-			 * @var is_glsl_vec_v
-			 * @brief Bool value which is true if type can be converted to glsl vec type
-			 * @ingroup utils
-			 * @tparam T type for which converter to glsl vec type should be defined
-			 */
-
-			/**
-			 * @struct is_glsl_vec
-			 * @brief struct with bool_constant which is true if type can be converted to glsl vec type
-			 * @ingroup utils
-			 * @tparam T type for which converter to glsl vec type should be defined
-			 */
-
-		#if _GLSL_STRUCT_HAS_CXX20
 		/**
-		 * @brief Concept defining which type can be converted to glsl vec type
-		 * @ingroup utils
+		 * @var is_glsl_vec_v
+		 * @brief Bool value which is true if type can be converted to glsl vec type
+		 * @ingroup glslstruct
 		 * @tparam T type for which converter to glsl vec type should be defined
 		 */
-		template<class T>
-		concept glsl_vec = requires {
-			{ vec_traits<T>::get_length() } -> std::same_as<size_t>;
-			{ vec_traits<T>::get_value_type() } -> std::same_as<ValueType>;
-			{ vec_traits<T>::get_data(std::declval<const T&>()) } -> std::same_as<vec_data>;
-			{ vec_traits<T>::get_value(std::declval<const vec_data&>()) } -> std::same_as<T>;
-		};
 
-		template<class T>
-		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_vec_v = glsl_vec<T>;
+		/**
+		 * @struct is_glsl_vec
+		 * @brief struct with bool_constant which is true if type can be converted to glsl vec type
+		 * @ingroup glslstruct
+		 * @tparam T type for which converter to glsl vec type should be defined
+		 */
 
-		template<class T>
-		struct is_glsl_vec : std::bool_constant<is_glsl_vec_v<T> > {};
+		#if _GLSL_STRUCT_HAS_CXX20
+	/**
+	 * @brief Concept defining which type can be converted to glsl vec type
+	 * @ingroup glslstruct
+	 * @tparam T type for which converter to glsl vec type should be defined
+	 */
+	template<class T>
+	concept glsl_vec = requires {
+		{ vec_traits<T>::get_length() } -> std::convertible_to<size_t>;
+		{ vec_traits<T>::get_value_type() } -> std::convertible_to<ValueType>;
+		{ vec_traits<T>::get_data(std::declval<const T&>()) } -> std::convertible_to<vec_data>;
+		{ vec_traits<T>::get_value(std::declval<const vec_data&>()) } -> std::convertible_to<T>;
+	};
+
+	template<class T>
+	static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_vec_v = glsl_vec<T>;
+
+	template<class T>
+	struct is_glsl_vec : std::bool_constant<is_glsl_vec_v<T> > {};
 
 		#else
-		template<typename T, typename = void>
-		struct is_glsl_vec : std::false_type {};
+	template<typename T, typename = void>
+	struct is_glsl_vec : std::false_type {};
 
-		template<class T>
-		struct is_glsl_vec<T,
-		  std::void_t<std::enable_if_t<std::is_same_v<size_t, decltype(vec_traits<T>::get_length())> >,
-			std::enable_if_t<std::is_same_v<ValueType, decltype(vec_traits<T>::get_value_type())> >,
-			std::enable_if_t<std::is_same_v<vec_data, decltype(vec_traits<T>::get_data(std::declval<const T&>()))> >,
-			std::enable_if_t<std::is_same_v<T, decltype(vec_traits<T>::get_value(std::declval<const vec_data&>()))> > > >
-			: std::true_type {};
+	template<class T>
+	struct is_glsl_vec<T,
+	  std::void_t<std::enable_if_t<std::is_convertible_v<decltype(vec_traits<T>::get_length()), size_t> >,
+		std::enable_if_t<std::is_convertible_v<decltype(vec_traits<T>::get_value_type()), ValueType> >,
+		std::enable_if_t<std::is_convertible_v<decltype(vec_traits<T>::get_data(std::declval<const T&>())), vec_data> >,
+		std::enable_if_t<std::is_convertible_v<decltype(vec_traits<T>::get_value(std::declval<const vec_data&>())), T> > > >
+		: std::true_type {};
 
-		template<class T>
-		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_vec_v = is_glsl_vec<T>::value;
+	template<class T>
+	static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_vec_v = is_glsl_vec<T>::value;
 		#endif
 		#pragma endregion
 
+	namespace utils {
 		#pragma region IS_VECS_ARRAY
 		/**
 		 * @brief Bool value which is true if type V is array of types that passes is_glsl_vec test
@@ -127,8 +128,9 @@ namespace glslstruct {
 		template<class V> concept glsl_vecs_static_size_array = is_glsl_vecs_static_size_array_v<V>;
 		#endif
 		#pragma endregion
-		#pragma endregion
 	} // namespace utils
+
+		#pragma endregion
 } // namespace glslstruct
 
 	#endif

@@ -28,14 +28,14 @@ endif()
 
 if(DOWNLOAD_MSTD)
     CPMAddPackage(
-            URI "gh:maipa01/mstd#v1.5.3"
+            URI "gh:maipa01/mstd#v1.5.4"
             OPTIONS "MSTD_ENABLE_ENUMS_MACROS ON"
     )
 endif()
 
 if(DOWNLOAD_PCRE2CPP)
     CPMAddPackage(
-            URI "gh:maipa01/pcre2cpp#v1.2.7"
+            URI "gh:maipa01/pcre2cpp#v1.2.8"
             OPTIONS "PCRE2CPP_USE_EXTERNAL_MSTD ON"
                     "PCRE2CPP_DISABLE_UTF16 ON"
                     "PCRE2CPP_DISABLE_UTF32 ON"

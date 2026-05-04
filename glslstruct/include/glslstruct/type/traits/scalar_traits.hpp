@@ -108,31 +108,31 @@ namespace glslstruct {
 		#pragma region FUNCTIONS
 		/// @brief returns ValueType of T based on scalar_traits
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_scalar T>
+	template<glsl_scalar T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_scalar_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_scalar_v<T>, bool> = true>
 		#endif
-	static inline ValueType get_scalar_value_type() noexcept {
+	inline ValueType get_scalar_value_type() noexcept {
 		return scalar_traits<T>::get_value_type();
 	}
 
 		/// @brief returns scalar_data of T based on scalar_traits
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_scalar T>
+	template<glsl_scalar T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_scalar_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_scalar_v<T>, bool> = true>
 		#endif
-	static inline scalar_data get_scalar_data(const T& value) {
+	inline scalar_data get_scalar_data(const T& value) {
 		return scalar_traits<T>::get_data(value);
 	}
 
 		/// @brief returns value of type T from scalar_data based on scalar_traits
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_scalar T>
+	template<glsl_scalar T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_scalar_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_scalar_v<T>, bool> = true>
 		#endif
-	static inline T get_scalar_value(const scalar_data& data) {
+	inline T get_scalar_value(const scalar_data& data) {
 		return scalar_traits<T>::get_value(data);
 	}
 
@@ -141,11 +141,11 @@ namespace glslstruct {
 
 		/// @brief returns glsl scalar type string from type T based on scalar_traits
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_scalar T>
+	template<glsl_scalar T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_scalar_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_scalar_v<T>, bool> = true>
 		#endif
-	static inline std::string scalar_to_string() {
+	inline std::string scalar_to_string() {
 		return scalar_to_string(get_scalar_value_type<T>());
 	}
 

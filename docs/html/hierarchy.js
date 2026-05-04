@@ -33,12 +33,15 @@ var hierarchy =
     ] ],
     [ "std::bool_constant", null, [
       [ "glslstruct::base_struct< Layout >::is_glsl_simple_or_layout_struct< T >", "d1/d2f/structglslstruct_1_1base__struct_1_1is__glsl__simple__or__layout__struct.html", null ],
+      [ "glslstruct::is_glsl_base_type< T >", "d3/d07/structglslstruct_1_1is__glsl__base__type.html", null ],
+      [ "glslstruct::is_glsl_mat< T >", "d4/d14/structglslstruct_1_1is__glsl__mat.html", null ],
+      [ "glslstruct::is_glsl_scalar< T >", "d7/db3/structglslstruct_1_1is__glsl__scalar.html", null ],
+      [ "glslstruct::is_glsl_simple< T >", "d6/d7e/structglslstruct_1_1is__glsl__simple.html", null ],
+      [ "glslstruct::is_glsl_type< T >", "d9/d07/structglslstruct_1_1is__glsl__type.html", null ],
+      [ "glslstruct::is_glsl_vec< T >", "d3/d49/structglslstruct_1_1is__glsl__vec.html", null ],
       [ "glslstruct::is_layout_traits< T >", "d4/d54/structglslstruct_1_1is__layout__traits.html", null ],
       [ "glslstruct::is_type_visitor< T >", "dc/def/structglslstruct_1_1is__type__visitor.html", null ],
       [ "glslstruct::utils::is_glsl_layout_struct< base_struct< Layout >, L >", "d2/dfc/structglslstruct_1_1utils_1_1is__glsl__layout__struct_3_01base__struct_3_01_layout_01_4_00_01_l_01_4.html", null ],
-      [ "glslstruct::utils::is_glsl_mat< T >", "d5/d60/structglslstruct_1_1utils_1_1is__glsl__mat.html", null ],
-      [ "glslstruct::utils::is_glsl_scalar< T >", "d5/d76/structglslstruct_1_1utils_1_1is__glsl__scalar.html", null ],
-      [ "glslstruct::utils::is_glsl_vec< T >", "d4/d61/structglslstruct_1_1utils_1_1is__glsl__vec.html", null ],
       [ "glslstruct::utils::is_hashable< T >", "da/d5e/structglslstruct_1_1utils_1_1is__hashable.html", null ]
     ] ],
     [ "std::conditional_t", null, [
@@ -51,18 +54,18 @@ var hierarchy =
     ] ],
     [ "glslstruct::eq_type_visitor&lt; T &gt;", "de/d45/classglslstruct_1_1eq__type__visitor.html", null ],
     [ "std::false_type", null, [
+      [ "glslstruct::is_glsl_layout< base_layout< T > >", "d5/d36/structglslstruct_1_1is__glsl__layout_3_01base__layout_3_01_t_01_4_01_4.html", null ],
+      [ "glslstruct::is_glsl_struct< base_struct< L > >", "d6/d82/structglslstruct_1_1is__glsl__struct_3_01base__struct_3_01_l_01_4_01_4.html", null ],
       [ "glslstruct::utils::is_array_of< Test, T, true, Args... >", "d5/dc6/structglslstruct_1_1utils_1_1is__array__of_3_01_test_00_01_t_00_01true_00_01_args_8_8_8_01_4.html", null ],
-      [ "glslstruct::utils::is_glsl_layout< base_layout< T > >", "d9/da9/structglslstruct_1_1utils_1_1is__glsl__layout_3_01base__layout_3_01_t_01_4_01_4.html", null ],
       [ "glslstruct::utils::is_glsl_layout_struct< base_struct< Layout >, L >", "d2/dfc/structglslstruct_1_1utils_1_1is__glsl__layout__struct_3_01base__struct_3_01_layout_01_4_00_01_l_01_4.html", null ],
-      [ "glslstruct::utils::is_glsl_struct< base_struct< L > >", "d7/d04/structglslstruct_1_1utils_1_1is__glsl__struct_3_01base__struct_3_01_l_01_4_01_4.html", null ],
       [ "glslstruct::utils::is_static_size_array_of_impl< Test, T, is_array_v< T >, Args... >", "de/d5d/structglslstruct_1_1utils_1_1is__static__size__array__of__impl.html", [
         [ "glslstruct::utils::is_static_size_array_of< Test, T, Args >", "d0/d9f/structglslstruct_1_1utils_1_1is__static__size__array__of.html", null ]
       ] ],
       [ "glslstruct::utils::is_static_size_array_of_impl< Test, T, true, Args... >", "dc/d00/structglslstruct_1_1utils_1_1is__static__size__array__of__impl_3_01_test_00_01_t_00_01true_00_01_args_8_8_8_01_4.html", null ],
+      [ "glslstruct::is_glsl_layout< T >", "df/db0/structglslstruct_1_1is__glsl__layout.html", null ],
+      [ "glslstruct::is_glsl_struct< S >", "de/d38/structglslstruct_1_1is__glsl__struct.html", null ],
       [ "glslstruct::utils::is_array_of< Test, T, IsArray, Args >", "d6/da6/structglslstruct_1_1utils_1_1is__array__of.html", null ],
-      [ "glslstruct::utils::is_glsl_layout< T >", "db/d32/structglslstruct_1_1utils_1_1is__glsl__layout.html", null ],
       [ "glslstruct::utils::is_glsl_layout_struct< S, Layout >", "d6/dc6/structglslstruct_1_1utils_1_1is__glsl__layout__struct.html", null ],
-      [ "glslstruct::utils::is_glsl_struct< S >", "d1/df2/structglslstruct_1_1utils_1_1is__glsl__struct.html", null ],
       [ "glslstruct::utils::is_static_size_array_of_impl< Test, T, IsArray, Args >", "de/d5d/structglslstruct_1_1utils_1_1is__static__size__array__of__impl.html", null ]
     ] ],
     [ "glslstruct::utils::glsl_array_count_getter", "d3/dce/classglslstruct_1_1utils_1_1glsl__array__count__getter.html", null ],
@@ -121,8 +124,8 @@ var hierarchy =
       [ "glslstruct::utils::is_static_size_array_of_impl< Test, T, true, Args... >", "dc/d00/structglslstruct_1_1utils_1_1is__static__size__array__of__impl_3_01_test_00_01_t_00_01true_00_01_args_8_8_8_01_4.html", null ]
     ] ],
     [ "std::true_type", null, [
-      [ "glslstruct::utils::is_glsl_layout< base_layout< T > >", "d9/da9/structglslstruct_1_1utils_1_1is__glsl__layout_3_01base__layout_3_01_t_01_4_01_4.html", null ],
-      [ "glslstruct::utils::is_glsl_struct< base_struct< L > >", "d7/d04/structglslstruct_1_1utils_1_1is__glsl__struct_3_01base__struct_3_01_l_01_4_01_4.html", null ]
+      [ "glslstruct::is_glsl_layout< base_layout< T > >", "d5/d36/structglslstruct_1_1is__glsl__layout_3_01base__layout_3_01_t_01_4_01_4.html", null ],
+      [ "glslstruct::is_glsl_struct< base_struct< L > >", "d6/d82/structglslstruct_1_1is__glsl__struct_3_01base__struct_3_01_l_01_4_01_4.html", null ]
     ] ],
     [ "glslstruct::type_hash_visitor", "de/d88/classglslstruct_1_1type__hash__visitor.html", null ],
     [ "glslstruct::utils::ubo_parser_pattern&lt; Layout &gt;", "d3/dd8/structglslstruct_1_1utils_1_1ubo__parser__pattern.html", null ],

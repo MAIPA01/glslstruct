@@ -23,6 +23,7 @@ var group__type__visitors =
     [ "glslstruct::is_type_visitor&lt; T &gt;", "dc/def/structglslstruct_1_1is__type__visitor.html", null ],
     [ "glslstruct::dynamic_type_cast", "d3/d4e/group__type__visitors.html#ga4d527038f3b16cd0757fad0e0c82911e", null ],
     [ "glslstruct::dynamic_type_cast", "d3/d4e/group__type__visitors.html#gaddf88d33f4df4d620f15373d35d73327", null ],
+    [ "glslstruct::ENUM_CLASS_BASE", "d3/d4e/group__type__visitors.html#gaa392cb43d0989ca506db8e3258d5de85", null ],
     [ "glslstruct::is_of_type", "d3/d4e/group__type__visitors.html#ga14d3997ccc861f4d4188f3d40fe77490", null ],
     [ "glslstruct::is_of_type", "d3/d4e/group__type__visitors.html#gab78d781047c474d94665ed8979decced", null ],
     [ "glslstruct::is_of_type", "d3/d4e/group__type__visitors.html#ga06c6e2682e8588fa3db97083c33658c0", null ],

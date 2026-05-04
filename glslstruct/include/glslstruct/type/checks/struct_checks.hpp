@@ -21,9 +21,9 @@ _GLSL_STRUCT_ERROR("This is only available for c++17 and greater!");
 
 namespace glslstruct {
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_layout Layout>
+	template<glsl_layout Layout>
 		#else
-	template<class Layout, std::enable_if_t<utils::is_glsl_layout_v<Layout>, bool> = true>
+	template<class Layout, std::enable_if_t<is_glsl_layout_v<Layout>, bool> = true>
 		#endif
 	class base_struct;
 
@@ -43,39 +43,39 @@ namespace glslstruct {
 	 */
 	using scalar_struct = base_struct<scalar_layout>;
 
-	namespace utils {
 		#pragma region IS_STRUCT
 
-		/**
-		 * @brief helper struct to check if type is glsl struct
-		 * @ingroup utils
-		 * @tparam S type which is glsl struct type
-		 */
-		template<class S>
-		struct is_glsl_struct : std::false_type {};
+	/**
+	 * @brief helper struct to check if type is glsl struct
+	 * @ingroup glslstruct
+	 * @tparam S type which is glsl struct type
+	 */
+	template<class S>
+	struct is_glsl_struct : std::false_type {};
 
-		template<class L>
-		struct is_glsl_struct<base_struct<L> > : std::true_type {};
+	template<class L>
+	struct is_glsl_struct<base_struct<L> > : std::true_type {};
 
-		/**
-		 * @brief check if type is glsl struct
-		 * @ingroup utils
-		 * @tparam S type which is glsl struct type
-		 */
-		template<class S>
-		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_struct_v = is_glsl_struct<S>::value;
+	/**
+	 * @brief check if type is glsl struct
+	 * @ingroup glslstruct
+	 * @tparam S type which is glsl struct type
+	 */
+	template<class S>
+	static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_struct_v = is_glsl_struct<S>::value;
 
 		#if _GLSL_STRUCT_HAS_CXX20
-		/**
-		 * @brief check if type is glsl struct
-		 * @ingroup utils
-		 * @tparam S type which is glsl struct type
-		 */
-		template<class S> concept glsl_struct = is_glsl_struct_v<S>;
+	/**
+	 * @brief check if type is glsl struct
+	 * @ingroup glslstruct
+	 * @tparam S type which is glsl struct type
+	 */
+	template<class S> concept glsl_struct = is_glsl_struct_v<S>;
 		#endif
 		#pragma endregion
 
-		#pragma region IS_STRUCTS_VECTOR
+	namespace utils {
+		#pragma region IS_STRUCTS_ARRAY
 		/**
 		 * @brief check if type is array of glsl structs
 		 * @ingroup utils
@@ -126,7 +126,7 @@ namespace glslstruct {
 		#endif
 		#pragma endregion
 
-		#pragma region IS_LAYOUT_STRUCTS_VECTOR
+		#pragma region IS_LAYOUT_STRUCTS_ARRAY
 		/**
 		 * @brief check if type is array of glsl structs with required layout
 		 * @ingroup utils

@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.5</span>
+   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.6</span>
    </div>
    <div id="projectbrief">glslstruct</div>
   </td>
@@ -147,9 +147,9 @@ $(function(){initNavTree('d2/dd7/array__type_8hpp_source.html','../../',''); });
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        array_type(<span class="keyword">const</span> base_type_handle&amp; type, size_t count, size_t size) <span class="keyword">noexcept</span>;</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="comment">/// @brief constructs array with given elem type</span></div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="preprocessor">#</span><span class="preprocessor">if</span> <a class="code hl_define" href="../../db/d81/group__utils.html#ga4096a3b64d500cf3a960cc82b077452e">_GLSL_STRUCT_HAS_CXX20</a></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keyword">template</span>&lt;utils::glsl_type T&gt;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keyword">template</span>&lt;glsl_type T&gt;</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="preprocessor">#</span><span class="preprocessor">else</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T, std::enable_if_t&lt;utils::is_glsl_type_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt; = <span class="keyword">true</span>&gt;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T, std::enable_if_t&lt;is_glsl_type_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt; = <span class="keyword">true</span>&gt;</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 <div class="foldopen" id="foldopen00058" data-start="{" data-end="}">
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="../../db/d57/classglslstruct_1_1array__type.html#af96077ddb6362a951ea0f0e7711917a0">   58</a></span>        <a class="code hl_define" href="../../db/d81/group__utils.html#ga1cbd893296b8b11f6174f8274c41e89d">_GLSL_STRUCT_CONSTEXPR20</a> array_type(<span class="keyword">const</span> std::shared_ptr&lt;T&gt;&amp; type, <span class="keyword">const</span> size_t count, <span class="keyword">const</span> size_t size) <span class="keyword">noexcept</span></div>

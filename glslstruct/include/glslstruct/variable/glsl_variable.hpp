@@ -54,7 +54,7 @@ namespace glslstruct {
 	template<class T, size_t Num, std::enable_if_t<utils::is_glsl_simple_or_layout_v<T>, bool> >
 		#endif
 	struct glsl_variable
-		: public std::conditional_t<utils::is_glsl_layout_v<T>, utils::layout_variable<T>, utils::standard_variable> {
+		: public std::conditional_t<is_glsl_layout_v<T>, utils::layout_variable<T>, utils::standard_variable> {
 	public:
 		/// @brief var type
 		using var_type									  = T;
@@ -63,7 +63,7 @@ namespace glslstruct {
 		/// @brief value indicating if it is array or not
 		static _GLSL_STRUCT_CONSTEXPR17 bool is_array	  = array_size > 0;
 		/// @brief value indicating if it is layout variable or not
-		static _GLSL_STRUCT_CONSTEXPR17 bool is_layout	  = utils::is_glsl_layout_v<T>;
+		static _GLSL_STRUCT_CONSTEXPR17 bool is_layout	  = is_glsl_layout_v<T>;
 
 		#pragma region VARIABLES
 		/// @brief variable name
@@ -74,11 +74,11 @@ namespace glslstruct {
 		/// @brief standard constructor with variable name
 		#if !_GLSL_STRUCT_HAS_CXX20
 		template<class Type																		  = var_type,
-		  std::enable_if_t<utils::is_glsl_simple_v<Type> && std::is_same_v<Type, var_type>, bool> = true>
+		  std::enable_if_t<is_glsl_simple_v<Type> && std::is_same_v<Type, var_type>, bool> = true>
 		#endif
 		explicit _GLSL_STRUCT_CONSTEXPR20 glsl_variable(
 		  const std::string_view name
-		) noexcept _GLSL_STRUCT_REQUIRES(utils::is_glsl_simple_v<T>)
+		) noexcept _GLSL_STRUCT_REQUIRES(is_glsl_simple_v<T>)
 			: varName(name) {
 		}
 
@@ -88,10 +88,10 @@ namespace glslstruct {
 		/// @brief standard constructor with variable name and layout
 		#if !_GLSL_STRUCT_HAS_CXX20
 		template<class Type																		  = var_type,
-		  std::enable_if_t<utils::is_glsl_layout_v<Type> && std::is_same_v<Type, var_type>, bool> = true>
+		  std::enable_if_t<is_glsl_layout_v<Type> && std::is_same_v<Type, var_type>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 glsl_variable(const std::string_view name,
-		  const T& layout) noexcept _GLSL_STRUCT_REQUIRES(utils::is_glsl_layout_v<T>)
+		  const T& layout) noexcept _GLSL_STRUCT_REQUIRES(is_glsl_layout_v<T>)
 			: utils::layout_variable<T>(layout), varName(name) {
 		}
 

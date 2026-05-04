@@ -41,62 +41,62 @@ namespace glslstruct {
 	template<class T>
 	struct mat_traits {};
 
-	namespace utils {
 		#pragma region CHECKS
 		#pragma region IS_MAT
-			/**
-			 * @var is_glsl_mat_v
-			 * @brief Bool value which is true if type can be converted to glsl mat type
-			 * @ingroup utils
-			 * @tparam T type for which converter to glsl mat type should be defined
-			 */
-
-			/**
-			 * @struct is_glsl_mat
-			 * @brief struct with bool_constant which is true if type can be converted to glsl mat type
-			 * @ingroup utils
-			 * @tparam T type for which converter to glsl mat type should be defined
-			 */
-
-		#if _GLSL_STRUCT_HAS_CXX20
 		/**
-		 * @brief Concept defining which type can be converted to glsl mat type
-		 * @ingroup utils
+		 * @var is_glsl_mat_v
+		 * @brief Bool value which is true if type can be converted to glsl mat type
+		 * @ingroup glslstruct
 		 * @tparam T type for which converter to glsl mat type should be defined
 		 */
-		template<class T>
-		concept glsl_mat = requires {
-			{ mat_traits<T>::get_columns() } -> std::same_as<size_t>;
-			{ mat_traits<T>::get_rows() } -> std::same_as<size_t>;
-			{ mat_traits<T>::get_value_type() } -> std::same_as<ValueType>;
-			{ mat_traits<T>::get_data(std::declval<const T&>()) } -> std::same_as<mat_data>;
-			{ mat_traits<T>::get_value(std::declval<const mat_data&>()) } -> std::same_as<T>;
-		};
 
-		template<class T>
-		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_mat_v = glsl_mat<T>;
+		/**
+		 * @struct is_glsl_mat
+		 * @brief struct with bool_constant which is true if type can be converted to glsl mat type
+		 * @ingroup glslstruct
+		 * @tparam T type for which converter to glsl mat type should be defined
+		 */
 
-		template<typename T>
-		struct is_glsl_mat : std::bool_constant<is_glsl_mat_v<T> > {};
+		#if _GLSL_STRUCT_HAS_CXX20
+	/**
+	 * @brief Concept defining which type can be converted to glsl mat type
+	 * @ingroup glslstruct
+	 * @tparam T type for which converter to glsl mat type should be defined
+	 */
+	template<class T>
+	concept glsl_mat = requires {
+		{ mat_traits<T>::get_columns() } -> std::convertible_to<size_t>;
+		{ mat_traits<T>::get_rows() } -> std::convertible_to<size_t>;
+		{ mat_traits<T>::get_value_type() } -> std::convertible_to<ValueType>;
+		{ mat_traits<T>::get_data(std::declval<const T&>()) } -> std::convertible_to<mat_data>;
+		{ mat_traits<T>::get_value(std::declval<const mat_data&>()) } -> std::convertible_to<T>;
+	};
+
+	template<class T>
+	static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_mat_v = glsl_mat<T>;
+
+	template<typename T>
+	struct is_glsl_mat : std::bool_constant<is_glsl_mat_v<T> > {};
 
 		#else
-		template<typename T, typename = void>
-		struct is_glsl_mat : std::false_type {};
+	template<typename T, typename = void>
+	struct is_glsl_mat : std::false_type {};
 
-		template<typename T>
-		struct is_glsl_mat<T,
-		  std::void_t<std::enable_if_t<std::is_same_v<size_t, decltype(mat_traits<T>::get_columns())> >,
-			std::enable_if_t<std::is_same_v<size_t, decltype(mat_traits<T>::get_rows())> >,
-			std::enable_if_t<std::is_same_v<ValueType, decltype(mat_traits<T>::get_value_type())> >,
-			std::enable_if_t<std::is_same_v<mat_data, decltype(mat_traits<T>::get_data(std::declval<const T&>()))> >,
-			std::enable_if_t<std::is_same_v<T, decltype(mat_traits<T>::get_value(std::declval<const mat_data&>()))> > > >
-			: std::true_type {};
+	template<typename T>
+	struct is_glsl_mat<T,
+	  std::void_t<std::enable_if_t<std::is_convertible_v<decltype(mat_traits<T>::get_columns()), size_t> >,
+		std::enable_if_t<std::is_convertible_v<decltype(mat_traits<T>::get_rows()), size_t> >,
+		std::enable_if_t<std::is_convertible_v<decltype(mat_traits<T>::get_value_type()), ValueType> >,
+		std::enable_if_t<std::is_convertible_v<decltype(mat_traits<T>::get_data(std::declval<const T&>())), mat_data> >,
+		std::enable_if_t<std::is_convertible_v<decltype(mat_traits<T>::get_value(std::declval<const mat_data&>())), T> > > >
+		: std::true_type {};
 
-		template<class T>
-		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_mat_v = is_glsl_mat<T>::value;
+	template<class T>
+	static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_mat_v = is_glsl_mat<T>::value;
 		#endif
 		#pragma endregion
 
+	namespace utils {
 		#pragma region IS_MATS_ARRAY
 		/**
 		 * @brief Bool value which is true if type V is array of types that passes is_glsl_mat test
@@ -130,8 +130,9 @@ namespace glslstruct {
 		template<class V> concept glsl_mats_static_size_array = is_glsl_mats_static_size_array_v<V>;
 		#endif
 		#pragma endregion
-		#pragma endregion
 	} // namespace utils
+
+		#pragma endregion
 } // namespace glslstruct
 
 	#endif

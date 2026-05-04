@@ -102,41 +102,41 @@ namespace glslstruct {
 		#pragma region FUNCTIONS
 		/// @brief returns length of T based on vec_traits
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_vec T>
+	template<glsl_vec T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_vec_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_vec_v<T>, bool> = true>
 		#endif
-	static size_t get_vec_length() noexcept {
+	_GLSL_STRUCT_CONSTEXPR17 size_t get_vec_length() noexcept {
 		return vec_traits<T>::get_length();
 	}
 
 		/// @brief returns ValueType of T based on vec_traits
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_vec T>
+	template<glsl_vec T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_vec_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_vec_v<T>, bool> = true>
 		#endif
-	static ValueType get_vec_value_type() noexcept {
+	_GLSL_STRUCT_CONSTEXPR17 ValueType get_vec_value_type() noexcept {
 		return vec_traits<T>::get_value_type();
 	}
 
 		/// @brief returns vec_data of T based on vec_traits
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_vec T>
+	template<glsl_vec T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_vec_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_vec_v<T>, bool> = true>
 		#endif
-	static vec_data get_vec_data(const T& value) {
+	inline vec_data get_vec_data(const T& value) {
 		return vec_traits<T>::get_data(value);
 	}
 
 		/// @brief returns vec value of type T from vec_data based on vec_traits
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_vec T>
+	template<glsl_vec T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_vec_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_vec_v<T>, bool> = true>
 		#endif
-	static T get_vec_value(const vec_data& data) {
+	inline T get_vec_value(const vec_data& data) {
 		return vec_traits<T>::get_value(data);
 	}
 
@@ -145,11 +145,11 @@ namespace glslstruct {
 
 		/// @brief returns glsl vec type string from type T based on vec_traits
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_vec T>
+	template<glsl_vec T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_vec_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_vec_v<T>, bool> = true>
 		#endif
-	static std::string vec_to_string() {
+	inline std::string vec_to_string() {
 		return vec_to_string(get_vec_value_type<T>(), get_vec_length<T>());
 	}
 

@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.5</span>
+   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.6</span>
    </div>
    <div id="projectbrief">glslstruct</div>
   </td>
@@ -213,36 +213,36 @@ $(function(){initNavTree('d9/d20/scalar__traits_8hpp_source.html','../../',''); 
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">region</span> <span class="preprocessor">FUNCTIONS</span></div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="comment">/// @brief returns ValueType of T based on scalar_traits</span></div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="preprocessor">#</span><span class="preprocessor">if</span> <a class="code hl_define" href="../../db/d81/group__utils.html#ga4096a3b64d500cf3a960cc82b077452e">_GLSL_STRUCT_HAS_CXX20</a></div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keyword">template</span>&lt;utils::glsl_scalar T&gt;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keyword">template</span>&lt;glsl_scalar T&gt;</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="preprocessor">#</span><span class="preprocessor">else</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T, std::enable_if_t&lt;utils::is_glsl_scalar_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt; = <span class="keyword">true</span>&gt;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T, std::enable_if_t&lt;is_glsl_scalar_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt; = <span class="keyword">true</span>&gt;</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 <div class="foldopen" id="foldopen00115" data-start="{" data-end="}">
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="../../db/de6/namespaceglslstruct.html#a00111d373d5bbffd3ed0a36a8b8196a9">  115</a></span>    <span class="keyword">static</span> <span class="keyword">inline</span> ValueType get_scalar_value_type() <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="../../db/de6/namespaceglslstruct.html#a1b89668ec654934bfaf549ec87ef3901">  115</a></span>    <span class="keyword">inline</span> ValueType get_scalar_value_type() <span class="keyword">noexcept</span> {</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordflow">return</span> scalar_traits&lt;T&gt;::get_value_type();</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    }</div>
 </div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="comment">/// @brief returns scalar_data of T based on scalar_traits</span></div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="preprocessor">#</span><span class="preprocessor">if</span> <a class="code hl_define" href="../../db/d81/group__utils.html#ga4096a3b64d500cf3a960cc82b077452e">_GLSL_STRUCT_HAS_CXX20</a></div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keyword">template</span>&lt;utils::glsl_scalar T&gt;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keyword">template</span>&lt;glsl_scalar T&gt;</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <span class="preprocessor">#</span><span class="preprocessor">else</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T, std::enable_if_t&lt;utils::is_glsl_scalar_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt; = <span class="keyword">true</span>&gt;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T, std::enable_if_t&lt;is_glsl_scalar_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt; = <span class="keyword">true</span>&gt;</div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 <div class="foldopen" id="foldopen00125" data-start="{" data-end="}">
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="../../db/de6/namespaceglslstruct.html#a91a2818dbfbfce9974c749d743eb711c">  125</a></span>    <span class="keyword">static</span> <span class="keyword">inline</span> scalar_data get_scalar_data(<span class="keyword">const</span> T&amp; value) {</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="../../db/de6/namespaceglslstruct.html#a400e88be9f9de9a87021c4242c1d60bd">  125</a></span>    <span class="keyword">inline</span> scalar_data get_scalar_data(<span class="keyword">const</span> T&amp; value) {</div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="keywordflow">return</span> scalar_traits&lt;T&gt;::get_data(value);</div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    }</div>
 </div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="comment">/// @brief returns value of type T from scalar_data based on scalar_traits</span></div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="preprocessor">#</span><span class="preprocessor">if</span> <a class="code hl_define" href="../../db/d81/group__utils.html#ga4096a3b64d500cf3a960cc82b077452e">_GLSL_STRUCT_HAS_CXX20</a></div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="keyword">template</span>&lt;utils::glsl_scalar T&gt;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="keyword">template</span>&lt;glsl_scalar T&gt;</div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <span class="preprocessor">#</span><span class="preprocessor">else</span></div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T, std::enable_if_t&lt;utils::is_glsl_scalar_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt; = <span class="keyword">true</span>&gt;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T, std::enable_if_t&lt;is_glsl_scalar_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt; = <span class="keyword">true</span>&gt;</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 <div class="foldopen" id="foldopen00135" data-start="{" data-end="}">
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="../../db/de6/namespaceglslstruct.html#ac601c84bd1d00eefc305fbd4926fa1f3">  135</a></span>    <span class="keyword">static</span> <span class="keyword">inline</span> T get_scalar_value(<span class="keyword">const</span> scalar_data&amp; data) {</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="../../db/de6/namespaceglslstruct.html#ac12d41b99515a799f936a0d6298073b0">  135</a></span>    <span class="keyword">inline</span> T get_scalar_value(<span class="keyword">const</span> scalar_data&amp; data) {</div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <span class="keywordflow">return</span> scalar_traits&lt;T&gt;::get_value(data);</div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    }</div>
 </div>
@@ -252,12 +252,12 @@ $(function(){initNavTree('d9/d20/scalar__traits_8hpp_source.html','../../',''); 
 <div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        <span class="comment">/// @brief returns glsl scalar type string from type T based on scalar_traits</span></div>
 <div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="preprocessor">#</span><span class="preprocessor">if</span> <a class="code hl_define" href="../../db/d81/group__utils.html#ga4096a3b64d500cf3a960cc82b077452e">_GLSL_STRUCT_HAS_CXX20</a></div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keyword">template</span>&lt;utils::glsl_scalar T&gt;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keyword">template</span>&lt;glsl_scalar T&gt;</div>
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="preprocessor">#</span><span class="preprocessor">else</span></div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T, std::enable_if_t&lt;utils::is_glsl_scalar_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt; = <span class="keyword">true</span>&gt;</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T, std::enable_if_t&lt;is_glsl_scalar_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt; = <span class="keyword">true</span>&gt;</div>
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 <div class="foldopen" id="foldopen00148" data-start="{" data-end="}">
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno"><a class="line" href="../../db/de6/namespaceglslstruct.html#a2f4b6a8ff8882485b8c89fe57e964ff5">  148</a></span>    <span class="keyword">static</span> <span class="keyword">inline</span> std::string scalar_to_string() {</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno"><a class="line" href="../../db/de6/namespaceglslstruct.html#a004a35849f9bf565ac74d474eab0c7c1">  148</a></span>    <span class="keyword">inline</span> std::string scalar_to_string() {</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="keywordflow">return</span> scalar_to_string(get_scalar_value_type&lt;T&gt;());</div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    }</div>
 </div>

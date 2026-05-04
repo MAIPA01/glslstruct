@@ -47,38 +47,38 @@ namespace glslstruct {
 	 */
 	using scalar_layout = base_layout<scalar_layout_traits>;
 
-	namespace utils {
 		#pragma region IS_LAYOUT
 
-		/**
-		 * @brief helper struct to check if type is glsl layout
-		 * @ingroup utils
-		 * @tparam T type which is glsl layout type
-		 */
-		template<class T>
-		struct is_glsl_layout : std::false_type {};
+	/**
+	 * @brief helper struct to check if type is glsl layout
+	 * @ingroup glslstruct
+	 * @tparam T type which is glsl layout type
+	 */
+	template<class T>
+	struct is_glsl_layout : std::false_type {};
 
-		template<class T>
-		struct is_glsl_layout<base_layout<T> > : std::true_type {};
+	template<class T>
+	struct is_glsl_layout<base_layout<T> > : std::true_type {};
 
-		/**
-		 * @brief check if type is glsl layout
-		 * @ingroup utils
-		 * @tparam T type which is glsl layout type
-		 */
-		template<class T>
-		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_layout_v = is_glsl_layout<T>::value;
+	/**
+	 * @brief check if type is glsl layout
+	 * @ingroup glslstruct
+	 * @tparam T type which is glsl layout type
+	 */
+	template<class T>
+	static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_layout_v = is_glsl_layout<T>::value;
 
 		#if _GLSL_STRUCT_HAS_CXX20
-		/**
-		 * @brief check if type is glsl layout
-		 * @ingroup utils
-		 * @tparam T type which is glsl layout type
-		 */
-		template<class T> concept glsl_layout = is_glsl_layout_v<T>;
+	/**
+	 * @brief check if type is glsl layout
+	 * @ingroup glslstruct
+	 * @tparam T type which is glsl layout type
+	 */
+	template<class T> concept glsl_layout = is_glsl_layout_v<T>;
 		#endif
 		#pragma endregion
 
+	namespace utils {
 		#pragma region IS_SIMPLE_OR_LAYOUT
 		/**
 		 * @brief check if type is glsl layout or glsl simple

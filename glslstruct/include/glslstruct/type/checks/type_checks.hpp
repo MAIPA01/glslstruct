@@ -71,39 +71,54 @@ namespace glslstruct {
 	using struct_type_handle = std::shared_ptr<struct_type>;
 		#pragma endregion
 
-	namespace utils {
-		/**
-		 * @brief check if T is glsl type (not base_type container but derived from base_type container)
-		 * @ingroup utils
-		 * @tparam T type which should be a derived from base_type but not base_type
-		 */
-		template<class T>
-		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_type_v = std::is_base_of_v<base_type, T> && !std::is_same_v<base_type, T>;
+	/**
+	 * @brief check if T is glsl type (not base_type container but derived from base_type container)
+	 * @ingroup glslstruct
+	 * @tparam T type which should be a derived from base_type but not base_type
+	 */
+	template<class T>
+	static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_type_v =
+	  std::is_base_of_v<base_type, mstd::remove_cvref_t<T> > && !std::is_same_v<base_type, mstd::remove_cvref_t<T> >;
 
-		/**
-		 * @brief check if T is base_type container
-		 * @ingroup utils
-		 * @tparam T type which should be a base_type
-		 */
-		template<class T>
-		static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_base_type_v = std::is_same_v<base_type, T>;
+	/**
+	 * @brief check if T is base_type container
+	 * @ingroup glslstruct
+	 * @tparam T type which should be a base_type
+	 */
+	template<class T>
+	static _GLSL_STRUCT_CONSTEXPR17 bool is_glsl_base_type_v = std::is_same_v<base_type, mstd::remove_cvref_t<T> >;
+
+	/**
+	 * @brief check if T is glsl type (not base_type container but derived from base_type container)
+	 * @ingroup glslstruct
+	 * @tparam T type which should be a derived from base_type but not base_type
+	 */
+	template<class T>
+	struct is_glsl_type : std::bool_constant<is_glsl_type_v<T> > {};
+
+	/**
+	 * @brief check if T is base_type container
+	 * @ingroup glslstruct
+	 * @tparam T type which should be a base_type
+	 */
+	template<class T>
+	struct is_glsl_base_type : std::bool_constant<is_glsl_base_type_v<T> > {};
 
 		#if _GLSL_STRUCT_HAS_CXX20
-		/**
-		 * @brief check if T is glsl type (not base_type container but derived from base_type container)
-		 * @ingroup utils
-		 * @tparam T type which should be a derived from base_type but not base_type
-		 */
-		template<class T> concept glsl_type		 = is_glsl_type_v<T>;
+	/**
+	 * @brief check if T is glsl type (not base_type container but derived from base_type container)
+	 * @ingroup glslstruct
+	 * @tparam T type which should be a derived from base_type but not base_type
+	 */
+	template<class T> concept glsl_type		 = is_glsl_type_v<T>;
 
-		/**
-		 * @brief check if T is base_type container
-		 * @ingroup utils
-		 * @tparam T type which should be a base_type
-		 */
-		template<class T> concept glsl_base_type = is_glsl_base_type_v<T>;
+	/**
+	 * @brief check if T is base_type container
+	 * @ingroup glslstruct
+	 * @tparam T type which should be a base_type
+	 */
+	template<class T> concept glsl_base_type = is_glsl_base_type_v<T>;
 		#endif
-	} // namespace utils
 } // namespace glslstruct
 
 	#endif

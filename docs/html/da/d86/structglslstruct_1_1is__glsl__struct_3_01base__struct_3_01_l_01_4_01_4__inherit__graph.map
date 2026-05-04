@@ -1,0 +1,10 @@
+<map id="glslstruct::is_glsl_struct&lt; base_struct&lt; L &gt; &gt;" name="glslstruct::is_glsl_struct&lt; base_struct&lt; L &gt; &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="62,196,203,255"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,113,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="58,45,63,84,71,123,89,161,112,196,106,196,84,164,66,125,57,85,57,50"/>
+<area shape="rect" id="Node000004" href="$de/d38/structglslstruct_1_1is__glsl__struct.html" title="helper struct to check if type is glsl struct" alt="" coords="81,81,200,124"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="82,40,123,80,118,82,82,46"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="232,89,334,116"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="283,130,278,154,266,174,238,197,204,212,202,207,235,192,262,170,273,152,279,134"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="136,137,136,148,134,196,129,194,131,148,133,142"/>
+</map>

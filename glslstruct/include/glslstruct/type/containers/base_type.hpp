@@ -78,15 +78,15 @@ namespace glslstruct {
 		/// @brief default not equal operator
 		[[nodiscard]] bool operator!=(const base_type& other) const noexcept;
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_type T>
+		template<glsl_type T>
 		#else
-		template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> >
+		template<class T, std::enable_if_t<is_glsl_type_v<T>, bool> >
 		#endif
 		friend _GLSL_STRUCT_CONSTEXPR20 bool operator==(const base_type& lhs, const T& rhs) noexcept;
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_type T>
+		template<glsl_type T>
 		#else
-		template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> >
+		template<class T, std::enable_if_t<is_glsl_type_v<T>, bool> >
 		#endif
 		friend _GLSL_STRUCT_CONSTEXPR20 bool operator!=(const base_type& lhs, const T& rhs) noexcept;
 
@@ -108,11 +108,11 @@ namespace glslstruct {
 		 * @ingroup glsl_types
 		 */
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_type T>
+	template<glsl_type T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] size_t sizeof_type(const std::shared_ptr<T>& type) noexcept {
+	[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 size_t sizeof_type(const std::shared_ptr<T>& type) noexcept {
 		return type->get_size();
 	}
 
@@ -127,11 +127,11 @@ namespace glslstruct {
 		 * @ingroup glsl_types
 		 */
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_type T>
+	template<glsl_type T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] std::string to_string(const std::shared_ptr<T>& type) noexcept {
+	[[nodiscard]] inline std::string to_string(const std::shared_ptr<T>& type) noexcept {
 		return type->to_string();
 	}
 
@@ -145,7 +145,7 @@ namespace glslstruct {
 		#else
 	template<class V, std::enable_if_t<is_type_visitor_v<V>, bool> = true>
 		#endif
-	void visit(V&& visitor, const base_type_handle& type) {
+	inline void visit(V&& visitor, const base_type_handle& type) {
 		type->accept(visitor);
 	}
 
@@ -154,11 +154,11 @@ namespace glslstruct {
 		 * @ingroup glsl_types
 		 */
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_type T, type_visitor V>
+	template<glsl_type T, type_visitor V>
 		#else
-	template<class T, class V, std::enable_if_t<utils::is_glsl_type_v<T> && is_type_visitor_v<V>, bool> = true>
+	template<class T, class V, std::enable_if_t<is_glsl_type_v<T> && is_type_visitor_v<V>, bool> = true>
 		#endif
-	void visit(V&& visitor, const std::shared_ptr<T>& type) {
+	inline void visit(V&& visitor, const std::shared_ptr<T>& type) {
 		type->accept(visitor);
 	}
 
@@ -171,7 +171,7 @@ namespace glslstruct {
 		#else
 	template<class V, std::enable_if_t<is_type_visitor_v<V>, bool> = true>
 		#endif
-	void visit(V&& visitor, const base_type& type) {
+	inline void visit(V&& visitor, const base_type& type) {
 		type.accept(visitor);
 	}
 
@@ -180,11 +180,11 @@ namespace glslstruct {
 		 * @ingroup glsl_types
 		 */
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_type T, type_visitor V>
+	template<glsl_type T, type_visitor V>
 		#else
-	template<class T, class V, std::enable_if_t<utils::is_glsl_type_v<T> && is_type_visitor_v<V>, bool> = true>
+	template<class T, class V, std::enable_if_t<is_glsl_type_v<T> && is_type_visitor_v<V>, bool> = true>
 		#endif
-	void visit(V&& visitor, const T& type) {
+	inline void visit(V&& visitor, const T& type) {
 		type.accept(visitor);
 	}
 
@@ -195,11 +195,11 @@ namespace glslstruct {
 		 * @ingroup glsl_types
 		 */
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_type T>
+	template<glsl_type T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] _GLSL_STRUCT_CONSTEXPR20 bool operator==(const base_type& lhs, const T& rhs) noexcept {
+	[[nodiscard]] _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 bool operator==(const base_type& lhs, const T& rhs) noexcept {
 		return rhs == lhs;
 	}
 
@@ -208,11 +208,11 @@ namespace glslstruct {
 		 * @ingroup glsl_types
 		 */
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_type T>
+	template<glsl_type T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_type_v<T>, bool> = true>
 		#endif
-	[[nodiscard]] _GLSL_STRUCT_CONSTEXPR20 bool operator!=(const base_type& lhs, const T& rhs) noexcept {
+	[[nodiscard]] _GLSL_STRUCT_INLINE17 _GLSL_STRUCT_CONSTEXPR20 bool operator!=(const base_type& lhs, const T& rhs) noexcept {
 		return rhs != lhs;
 	}
 } // namespace glslstruct

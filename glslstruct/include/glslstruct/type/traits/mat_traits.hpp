@@ -87,51 +87,51 @@ namespace glslstruct {
 		#pragma region FUNCTIONS
 		/// @brief returns number of columns of T based on mat_traits
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_mat T>
+	template<glsl_mat T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_mat_v<T>, bool> = true>
 		#endif
-	static _GLSL_STRUCT_CONSTEXPR17 size_t get_mat_columns() noexcept {
+	_GLSL_STRUCT_CONSTEXPR17 size_t get_mat_columns() noexcept {
 		return mat_traits<T>::get_columns();
 	}
 
 		/// @brief returns number of rows of T based on mat_traits
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_mat T>
+	template<glsl_mat T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_mat_v<T>, bool> = true>
 		#endif
-	static _GLSL_STRUCT_CONSTEXPR17 size_t get_mat_rows() noexcept {
+	_GLSL_STRUCT_CONSTEXPR17 size_t get_mat_rows() noexcept {
 		return mat_traits<T>::get_rows();
 	}
 
 		/// @brief returns ValueType of T based on mat_traits
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_mat T>
+	template<glsl_mat T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_mat_v<T>, bool> = true>
 		#endif
-	static _GLSL_STRUCT_CONSTEXPR17 ValueType get_mat_value_type() noexcept {
+	_GLSL_STRUCT_CONSTEXPR17 ValueType get_mat_value_type() noexcept {
 		return mat_traits<T>::get_value_type();
 	}
 
 		/// @brief returns mat_data of T based on mat_traits
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_mat T>
+	template<glsl_mat T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_mat_v<T>, bool> = true>
 		#endif
-	static mat_data get_mat_data(const T& value) {
+	inline mat_data get_mat_data(const T& value) {
 		return mat_traits<T>::get_data(value);
 	}
 
 		/// @brief returns mat value of type T from mat_data based on mat_traits
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_mat T>
+	template<glsl_mat T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_mat_v<T>, bool> = true>
 		#endif
-	static T get_mat_value(const mat_data& data) {
+	inline T get_mat_value(const mat_data& data) {
 		return mat_traits<T>::get_value(data);
 	}
 
@@ -140,11 +140,11 @@ namespace glslstruct {
 
 		/// @brief returns glsl mat type string from type T based on mat_traits
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_mat T>
+	template<glsl_mat T>
 		#else
-	template<class T, std::enable_if_t<utils::is_glsl_mat_v<T>, bool> = true>
+	template<class T, std::enable_if_t<is_glsl_mat_v<T>, bool> = true>
 		#endif
-	static std::string mat_to_string() {
+	inline std::string mat_to_string() {
 		return mat_to_string(get_mat_value_type<T>(), get_mat_columns<T>(), get_mat_rows<T>());
 	}
 

@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.5</span>
+   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.6</span>
    </div>
    <div id="projectbrief">glslstruct</div>
   </td>
@@ -221,9 +221,9 @@ $(function(){initNavTree('d7/dfb/vec__data_8hpp_source.html','../../',''); });
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="comment">/// @brief returns value from this vec_data container using vec_traits conversion</span></div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="preprocessor">#</span><span class="preprocessor">if</span> <a class="code hl_define" href="../../db/d81/group__utils.html#ga4096a3b64d500cf3a960cc82b077452e">_GLSL_STRUCT_HAS_CXX20</a></div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="keyword">template</span>&lt;utils::glsl_vec T&gt;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="keyword">template</span>&lt;glsl_vec T&gt;</div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="preprocessor">#</span><span class="preprocessor">else</span></div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T, std::enable_if_t&lt;utils::is_glsl_vec_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt; = <span class="keyword">true</span>&gt;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T, std::enable_if_t&lt;is_glsl_vec_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt; = <span class="keyword">true</span>&gt;</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 <div class="foldopen" id="foldopen00122" data-start="{" data-end="}">
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="../../d6/ddd/classglslstruct_1_1vec__data.html#a4ef6c08f7d543304c13fcf96b0830a75">  122</a></span>        T get() <span class="keyword">const</span> {</div>
