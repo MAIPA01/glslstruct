@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.5</span>
+   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.6</span>
    </div>
    <div id="projectbrief">glslstruct</div>
   </td>
@@ -152,7 +152,7 @@ $(function(){initNavTree('da/dd8/glsl__variable_8hpp_source.html','../../',''); 
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 <div class="foldopen" id="foldopen00056" data-start="{" data-end="};">
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="../../de/dce/structglslstruct_1_1glsl__variable.html">   56</a></span>    <span class="keyword">struct</span> glsl_variable</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        : <span class="keyword">public</span> std::conditional_t&lt;utils::is_glsl_layout_v&lt;T&gt;, utils::layout_variable&lt;T&gt;, utils::standard_variable&gt; {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        : <span class="keyword">public</span> std::conditional_t&lt;is_glsl_layout_v&lt;T&gt;, utils::layout_variable&lt;T&gt;, utils::standard_variable&gt; {</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="comment">/// @brief var type</span></div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="../../de/dce/structglslstruct_1_1glsl__variable.html#aec436dd65b40688ab255da93da5b4c0e">   60</a></span>        <span class="keyword">using</span> var_type                                    = T;</div>
@@ -161,7 +161,7 @@ $(function(){initNavTree('da/dd8/glsl__variable_8hpp_source.html','../../',''); 
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="comment">/// @brief value indicating if it is array or not</span></div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="../../de/dce/structglslstruct_1_1glsl__variable.html#abc27c887a49196fb939b866090632e67">   64</a></span>        <span class="keyword">static</span> <a class="code hl_define" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> <span class="keywordtype">bool</span> is_array     = array_size &gt; 0;</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="comment">/// @brief value indicating if it is layout variable or not</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="../../de/dce/structglslstruct_1_1glsl__variable.html#a7d148cdabaebc161b42dae2229bb7fb8">   66</a></span>        <span class="keyword">static</span> <a class="code hl_define" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> <span class="keywordtype">bool</span> is_layout    = utils::is_glsl_layout_v&lt;T&gt;;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="../../de/dce/structglslstruct_1_1glsl__variable.html#a7d148cdabaebc161b42dae2229bb7fb8">   66</a></span>        <span class="keyword">static</span> <a class="code hl_define" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> <span class="keywordtype">bool</span> is_layout    = is_glsl_layout_v&lt;T&gt;;</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">region</span> <span class="preprocessor">VARIABLES</span></div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="comment">/// @brief variable name</span></div>
@@ -172,12 +172,12 @@ $(function(){initNavTree('da/dd8/glsl__variable_8hpp_source.html','../../',''); 
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="comment">/// @brief standard constructor with variable name</span></div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="preprocessor">#</span><span class="preprocessor">if</span> <span class="preprocessor">!</span><a class="code hl_define" href="../../db/d81/group__utils.html#ga4096a3b64d500cf3a960cc82b077452e">_GLSL_STRUCT_HAS_CXX20</a></div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> Type                                                                       = var_type,</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>          std::enable_if_t&lt;utils::is_glsl_simple_v&lt;Type&gt; &amp;&amp; std::is_same_v&lt;Type, var_type&gt;, <span class="keywordtype">bool</span>&gt; = <span class="keyword">true</span>&gt;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>          std::enable_if_t&lt;is_glsl_simple_v&lt;Type&gt; &amp;&amp; std::is_same_v&lt;Type, var_type&gt;, <span class="keywordtype">bool</span>&gt; = <span class="keyword">true</span>&gt;</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 <div class="foldopen" id="foldopen00079" data-start="{" data-end="}">
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="../../de/dce/structglslstruct_1_1glsl__variable.html#a786859887f392f8d6dda775ba1ce0962">   79</a></span>        <span class="keyword">explicit</span> <a class="code hl_define" href="../../db/d81/group__utils.html#ga1cbd893296b8b11f6174f8274c41e89d">_GLSL_STRUCT_CONSTEXPR20</a> glsl_variable(</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="../../de/dce/structglslstruct_1_1glsl__variable.html#a671dedd6ad60bd219974763dc2410af4">   79</a></span>        <span class="keyword">explicit</span> <a class="code hl_define" href="../../db/d81/group__utils.html#ga1cbd893296b8b11f6174f8274c41e89d">_GLSL_STRUCT_CONSTEXPR20</a> glsl_variable(</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>          <span class="keyword">const</span> std::string_view name</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        ) <span class="keyword">noexcept</span> <a class="code hl_define" href="../../db/d81/group__utils.html#ga8eb0963c29da11901dbae45eae2043d6">_GLSL_STRUCT_REQUIRES</a>(utils::is_glsl_simple_v&lt;T&gt;)</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        ) <span class="keyword">noexcept</span> <a class="code hl_define" href="../../db/d81/group__utils.html#ga8eb0963c29da11901dbae45eae2043d6">_GLSL_STRUCT_REQUIRES</a>(is_glsl_simple_v&lt;T&gt;)</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            : varName(name) {</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        }</div>
 </div>
@@ -188,11 +188,11 @@ $(function(){initNavTree('da/dd8/glsl__variable_8hpp_source.html','../../',''); 
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="comment">/// @brief standard constructor with variable name and layout</span></div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="preprocessor">#</span><span class="preprocessor">if</span> <span class="preprocessor">!</span><a class="code hl_define" href="../../db/d81/group__utils.html#ga4096a3b64d500cf3a960cc82b077452e">_GLSL_STRUCT_HAS_CXX20</a></div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> Type                                                                       = var_type,</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>          std::enable_if_t&lt;utils::is_glsl_layout_v&lt;Type&gt; &amp;&amp; std::is_same_v&lt;Type, var_type&gt;, <span class="keywordtype">bool</span>&gt; = <span class="keyword">true</span>&gt;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>          std::enable_if_t&lt;is_glsl_layout_v&lt;Type&gt; &amp;&amp; std::is_same_v&lt;Type, var_type&gt;, <span class="keywordtype">bool</span>&gt; = <span class="keyword">true</span>&gt;</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 <div class="foldopen" id="foldopen00093" data-start="{" data-end="}">
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="../../de/dce/structglslstruct_1_1glsl__variable.html#a5def71aeb716ae5075074baa32756c14">   93</a></span>        <a class="code hl_define" href="../../db/d81/group__utils.html#ga1cbd893296b8b11f6174f8274c41e89d">_GLSL_STRUCT_CONSTEXPR20</a> glsl_variable(<span class="keyword">const</span> std::string_view name,</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>          <span class="keyword">const</span> T&amp; layout) <span class="keyword">noexcept</span> <a class="code hl_define" href="../../db/d81/group__utils.html#ga8eb0963c29da11901dbae45eae2043d6">_GLSL_STRUCT_REQUIRES</a>(utils::is_glsl_layout_v&lt;T&gt;)</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="../../de/dce/structglslstruct_1_1glsl__variable.html#a7b7ebae18e821feef311aa6d0c6cc952">   93</a></span>        <a class="code hl_define" href="../../db/d81/group__utils.html#ga1cbd893296b8b11f6174f8274c41e89d">_GLSL_STRUCT_CONSTEXPR20</a> glsl_variable(<span class="keyword">const</span> std::string_view name,</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>          <span class="keyword">const</span> T&amp; layout) <span class="keyword">noexcept</span> <a class="code hl_define" href="../../db/d81/group__utils.html#ga8eb0963c29da11901dbae45eae2043d6">_GLSL_STRUCT_REQUIRES</a>(is_glsl_layout_v&lt;T&gt;)</div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            : utils::layout_variable&lt;T&gt;(layout), varName(name) {</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        }</div>
 </div>

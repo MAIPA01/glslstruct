@@ -1,0 +1,10 @@
+<map id="glslstruct::is_glsl_layout&lt; base_layout&lt; T &gt; &gt;" name="glslstruct::is_glsl_layout&lt; base_layout&lt; T &gt; &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="58,196,204,255"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,113,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="58,45,63,84,71,123,89,161,111,195,105,196,84,164,66,125,57,85,58,50"/>
+<area shape="rect" id="Node000004" href="$df/db0/structglslstruct_1_1is__glsl__layout.html" title="helper struct to check if type is glsl layout" alt="" coords="81,81,200,124"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="82,40,123,80,118,82,82,46"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="234,89,335,116"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="284,130,279,154,268,174,239,197,205,212,203,207,236,192,264,170,275,152,281,134"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="135,137,135,148,133,196,128,194,130,148,132,142"/>
+</map>

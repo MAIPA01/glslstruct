@@ -1,0 +1,5 @@
+<map id="glslstruct::is_glsl_type&lt; T &gt;" name="glslstruct::is_glsl_type&lt; T &gt;">
+<area shape="rect" id="Node000001" title="check if T is glsl type (not base_type container but derived from base_type container)" alt="" coords="25,96,145,139"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,165,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,62,88,97,82,95,83,66"/>
+</map>

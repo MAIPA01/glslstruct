@@ -26,26 +26,24 @@ var group__glsl__types =
     [ "std::hash&lt; glslstruct::array_type &gt;", "d0/d6f/structstd_1_1hash_3_01glslstruct_1_1array__type_01_4.html", [
       [ "operator()", "d0/d6f/structstd_1_1hash_3_01glslstruct_1_1array__type_01_4.html#a932de89979a9b42d6d3a4f18eb5cdf90", null ]
     ] ],
-    [ "glslstruct::struct_type", "df/dfe/classglslstruct_1_1struct__type.html", [
-      [ "base_type", "df/dfe/classglslstruct_1_1struct__type.html#abc7d3409c92e1b85927d505ba48994fc", null ],
-      [ "struct_type", "df/dfe/classglslstruct_1_1struct__type.html#aa1bc41ad626228b0245c3b60d2f490a2", null ],
-      [ "struct_type", "df/dfe/classglslstruct_1_1struct__type.html#a19c4cbf57ad72619b32d396874599159", null ],
-      [ "struct_type", "df/dfe/classglslstruct_1_1struct__type.html#a9a6044e7d6629c1e24c2b7e7cc2fa72d", null ],
-      [ "~struct_type", "df/dfe/classglslstruct_1_1struct__type.html#a295bba776be25846a8661d472640e36c", null ],
-      [ "accept", "df/dfe/classglslstruct_1_1struct__type.html#acaf01b55efd911ba693ac046ae196fc0", null ],
-      [ "contains", "df/dfe/classglslstruct_1_1struct__type.html#a8b5c73ce04f4324a8a06ebbbebc9e650", null ],
-      [ "get_top_level_variables", "df/dfe/classglslstruct_1_1struct__type.html#a7d00807e2e92b4437dd7e66b8544996f", null ],
-      [ "get_variables", "df/dfe/classglslstruct_1_1struct__type.html#a7888de6a7b53b9ca78056922af7f29b7", null ],
-      [ "operator=", "df/dfe/classglslstruct_1_1struct__type.html#ae09b3f845acdef7fb19fa3c455625e74", null ],
-      [ "operator=", "df/dfe/classglslstruct_1_1struct__type.html#a07e0e799be7ed3c4c611820a1c7ee2f6", null ],
-      [ "to_string", "df/dfe/classglslstruct_1_1struct__type.html#a0c46b1ddab4cce11c3af730bbd230fad", null ],
-      [ "operator!=", "df/dfe/classglslstruct_1_1struct__type.html#a454ac0127da910d64e3db4eb014f2163", null ],
-      [ "operator==", "df/dfe/classglslstruct_1_1struct__type.html#aae8514b96e4ef2a3b01d0c7fdecde5ec", null ],
-      [ "std::hash< struct_type >", "df/dfe/classglslstruct_1_1struct__type.html#a869b2df6d86bfa3009111012e556fe52", null ],
-      [ "_variables", "df/dfe/classglslstruct_1_1struct__type.html#a9a0ddb75bb5ad785e0acfa3f0cb237bc", null ]
+    [ "glslstruct::scalar_type", "d1/d86/classglslstruct_1_1scalar__type.html", [
+      [ "base_type", "d1/d86/classglslstruct_1_1scalar__type.html#a5eaae0f2bb89d800c10e764c1794fe85", null ],
+      [ "scalar_type", "d1/d86/classglslstruct_1_1scalar__type.html#ad7a7bd5ca24660b6e0f258b35ff45309", null ],
+      [ "scalar_type", "d1/d86/classglslstruct_1_1scalar__type.html#a3de4c4a042b34ac132c8272c277a1a20", null ],
+      [ "scalar_type", "d1/d86/classglslstruct_1_1scalar__type.html#a71662ad16574c39e2fd2815a3fa166d3", null ],
+      [ "~scalar_type", "d1/d86/classglslstruct_1_1scalar__type.html#a4dfedc1e945abe1a5efac95d431b102d", null ],
+      [ "accept", "d1/d86/classglslstruct_1_1scalar__type.html#ac1b67d94bbd7ce54d6d22118ed44aa90", null ],
+      [ "get_type", "d1/d86/classglslstruct_1_1scalar__type.html#a0894131ff34b799e96b5a301858db38a", null ],
+      [ "operator=", "d1/d86/classglslstruct_1_1scalar__type.html#ad6eb6f82a301e8808d4f5c5e6fe3c011", null ],
+      [ "operator=", "d1/d86/classglslstruct_1_1scalar__type.html#a9a9cc260caba3a33f0d4b280f3711632", null ],
+      [ "to_string", "d1/d86/classglslstruct_1_1scalar__type.html#ae0b919291f72b5e70efa62077ca7e1e7", null ],
+      [ "operator!=", "d1/d86/classglslstruct_1_1scalar__type.html#a14f521694f0b508415c2cbdeed45defc", null ],
+      [ "operator==", "d1/d86/classglslstruct_1_1scalar__type.html#a086af0739bcf3332a8029ad103c5868c", null ],
+      [ "std::hash< scalar_type >", "d1/d86/classglslstruct_1_1scalar__type.html#aa69dbe58feb3b9a685b7015ed4f6f949", null ],
+      [ "_type", "d1/d86/classglslstruct_1_1scalar__type.html#af62f734fb2eabf11cd6b2850852ed48d", null ]
     ] ],
-    [ "std::hash&lt; glslstruct::struct_type &gt;", "d2/d26/structstd_1_1hash_3_01glslstruct_1_1struct__type_01_4.html", [
-      [ "operator()", "d2/d26/structstd_1_1hash_3_01glslstruct_1_1struct__type_01_4.html#ae8e3f92b67a32fcd73e516f6fd9f8f0c", null ]
+    [ "std::hash&lt; glslstruct::scalar_type &gt;", "d8/db3/structstd_1_1hash_3_01glslstruct_1_1scalar__type_01_4.html", [
+      [ "operator()", "d8/db3/structstd_1_1hash_3_01glslstruct_1_1scalar__type_01_4.html#ac17be55734232f4e125db07ba4161005", null ]
     ] ],
     [ "glslstruct::base_type", "d6/df9/classglslstruct_1_1base__type.html", [
       [ "base_type", "d6/df9/classglslstruct_1_1base__type.html#af9f5d269d2de885eecf84b5e2f92008c", null ],
@@ -93,24 +91,26 @@ var group__glsl__types =
     [ "std::hash&lt; glslstruct::mat_type &gt;", "d8/d4e/structstd_1_1hash_3_01glslstruct_1_1mat__type_01_4.html", [
       [ "operator()", "d8/d4e/structstd_1_1hash_3_01glslstruct_1_1mat__type_01_4.html#ab8db29c8c10f076e22e5f70db845cf94", null ]
     ] ],
-    [ "glslstruct::scalar_type", "d1/d86/classglslstruct_1_1scalar__type.html", [
-      [ "base_type", "d1/d86/classglslstruct_1_1scalar__type.html#a5eaae0f2bb89d800c10e764c1794fe85", null ],
-      [ "scalar_type", "d1/d86/classglslstruct_1_1scalar__type.html#ad7a7bd5ca24660b6e0f258b35ff45309", null ],
-      [ "scalar_type", "d1/d86/classglslstruct_1_1scalar__type.html#a3de4c4a042b34ac132c8272c277a1a20", null ],
-      [ "scalar_type", "d1/d86/classglslstruct_1_1scalar__type.html#a71662ad16574c39e2fd2815a3fa166d3", null ],
-      [ "~scalar_type", "d1/d86/classglslstruct_1_1scalar__type.html#a4dfedc1e945abe1a5efac95d431b102d", null ],
-      [ "accept", "d1/d86/classglslstruct_1_1scalar__type.html#ac1b67d94bbd7ce54d6d22118ed44aa90", null ],
-      [ "get_type", "d1/d86/classglslstruct_1_1scalar__type.html#a0894131ff34b799e96b5a301858db38a", null ],
-      [ "operator=", "d1/d86/classglslstruct_1_1scalar__type.html#ad6eb6f82a301e8808d4f5c5e6fe3c011", null ],
-      [ "operator=", "d1/d86/classglslstruct_1_1scalar__type.html#a9a9cc260caba3a33f0d4b280f3711632", null ],
-      [ "to_string", "d1/d86/classglslstruct_1_1scalar__type.html#ae0b919291f72b5e70efa62077ca7e1e7", null ],
-      [ "operator!=", "d1/d86/classglslstruct_1_1scalar__type.html#a14f521694f0b508415c2cbdeed45defc", null ],
-      [ "operator==", "d1/d86/classglslstruct_1_1scalar__type.html#a086af0739bcf3332a8029ad103c5868c", null ],
-      [ "std::hash< scalar_type >", "d1/d86/classglslstruct_1_1scalar__type.html#aa69dbe58feb3b9a685b7015ed4f6f949", null ],
-      [ "_type", "d1/d86/classglslstruct_1_1scalar__type.html#af62f734fb2eabf11cd6b2850852ed48d", null ]
+    [ "glslstruct::struct_type", "df/dfe/classglslstruct_1_1struct__type.html", [
+      [ "base_type", "df/dfe/classglslstruct_1_1struct__type.html#abc7d3409c92e1b85927d505ba48994fc", null ],
+      [ "struct_type", "df/dfe/classglslstruct_1_1struct__type.html#aa1bc41ad626228b0245c3b60d2f490a2", null ],
+      [ "struct_type", "df/dfe/classglslstruct_1_1struct__type.html#a19c4cbf57ad72619b32d396874599159", null ],
+      [ "struct_type", "df/dfe/classglslstruct_1_1struct__type.html#a9a6044e7d6629c1e24c2b7e7cc2fa72d", null ],
+      [ "~struct_type", "df/dfe/classglslstruct_1_1struct__type.html#a295bba776be25846a8661d472640e36c", null ],
+      [ "accept", "df/dfe/classglslstruct_1_1struct__type.html#acaf01b55efd911ba693ac046ae196fc0", null ],
+      [ "contains", "df/dfe/classglslstruct_1_1struct__type.html#a8b5c73ce04f4324a8a06ebbbebc9e650", null ],
+      [ "get_top_level_variables", "df/dfe/classglslstruct_1_1struct__type.html#a7d00807e2e92b4437dd7e66b8544996f", null ],
+      [ "get_variables", "df/dfe/classglslstruct_1_1struct__type.html#a7888de6a7b53b9ca78056922af7f29b7", null ],
+      [ "operator=", "df/dfe/classglslstruct_1_1struct__type.html#ae09b3f845acdef7fb19fa3c455625e74", null ],
+      [ "operator=", "df/dfe/classglslstruct_1_1struct__type.html#a07e0e799be7ed3c4c611820a1c7ee2f6", null ],
+      [ "to_string", "df/dfe/classglslstruct_1_1struct__type.html#a0c46b1ddab4cce11c3af730bbd230fad", null ],
+      [ "operator!=", "df/dfe/classglslstruct_1_1struct__type.html#a454ac0127da910d64e3db4eb014f2163", null ],
+      [ "operator==", "df/dfe/classglslstruct_1_1struct__type.html#aae8514b96e4ef2a3b01d0c7fdecde5ec", null ],
+      [ "std::hash< struct_type >", "df/dfe/classglslstruct_1_1struct__type.html#a869b2df6d86bfa3009111012e556fe52", null ],
+      [ "_variables", "df/dfe/classglslstruct_1_1struct__type.html#a9a0ddb75bb5ad785e0acfa3f0cb237bc", null ]
     ] ],
-    [ "std::hash&lt; glslstruct::scalar_type &gt;", "d8/db3/structstd_1_1hash_3_01glslstruct_1_1scalar__type_01_4.html", [
-      [ "operator()", "d8/db3/structstd_1_1hash_3_01glslstruct_1_1scalar__type_01_4.html#ac17be55734232f4e125db07ba4161005", null ]
+    [ "std::hash&lt; glslstruct::struct_type &gt;", "d2/d26/structstd_1_1hash_3_01glslstruct_1_1struct__type_01_4.html", [
+      [ "operator()", "d2/d26/structstd_1_1hash_3_01glslstruct_1_1struct__type_01_4.html#ae8e3f92b67a32fcd73e516f6fd9f8f0c", null ]
     ] ],
     [ "glslstruct::vec_type", "d7/d86/classglslstruct_1_1vec__type.html", [
       [ "base_type", "d7/d86/classglslstruct_1_1vec__type.html#a9703d3ce6f139a9080993b001d2c1410", null ],
@@ -133,9 +133,6 @@ var group__glsl__types =
     [ "std::hash&lt; glslstruct::vec_type &gt;", "db/d13/structstd_1_1hash_3_01glslstruct_1_1vec__type_01_4.html", [
       [ "operator()", "db/d13/structstd_1_1hash_3_01glslstruct_1_1vec__type_01_4.html#ab760bb259d54a199a4977c491c230e20", null ]
     ] ],
-    [ "std::hash&lt; glslstruct::var_data &gt;", "d0/d6e/structstd_1_1hash_3_01glslstruct_1_1var__data_01_4.html", [
-      [ "operator()", "d0/d6e/structstd_1_1hash_3_01glslstruct_1_1var__data_01_4.html#a500b9ee6d817899c6ed619163305e600", null ]
-    ] ],
     [ "glslstruct::type&lt; Derived &gt;", "d4/db0/classglslstruct_1_1type.html", [
       [ "type", "d4/db0/classglslstruct_1_1type.html#affe826820cd3198ba98c39de7cd2bcf1", null ],
       [ "type", "d4/db0/classglslstruct_1_1type.html#a25cd5cc63470249066874edcc58d6ded", null ],
@@ -152,22 +149,25 @@ var group__glsl__types =
       [ "operator!=", "d4/db0/classglslstruct_1_1type.html#aaa86e89007b691088aff834c0ab9598e", null ],
       [ "operator==", "d4/db0/classglslstruct_1_1type.html#adec2b1c7178067b22b7f0200dd6abe1b", null ]
     ] ],
+    [ "std::hash&lt; glslstruct::var_data &gt;", "d0/d6e/structstd_1_1hash_3_01glslstruct_1_1var__data_01_4.html", [
+      [ "operator()", "d0/d6e/structstd_1_1hash_3_01glslstruct_1_1var__data_01_4.html#a500b9ee6d817899c6ed619163305e600", null ]
+    ] ],
     [ "glslstruct::operator!=", "db/d98/group__glsl__types.html#gaf6a9ef1d1235335304707156e5499610", null ],
-    [ "glslstruct::operator!=", "db/d98/group__glsl__types.html#ga8c710a781f06aafd7f00472d5632ef3f", null ],
+    [ "glslstruct::operator!=", "db/d98/group__glsl__types.html#gae34bdc4c58455eccc7ae2ed5319a8097", null ],
     [ "glslstruct::operator!=", "db/d98/group__glsl__types.html#ga87f49c73e95ed398049e616bc840e83c", null ],
     [ "glslstruct::operator!=", "db/d98/group__glsl__types.html#ga0d243d65e550227de14440cabbd10e9a", null ],
     [ "glslstruct::operator!=", "db/d98/group__glsl__types.html#ga3498b26e2189c90c09c8b473b71b48bc", null ],
     [ "glslstruct::operator!=", "db/d98/group__glsl__types.html#gadf7d8f9444260bda4472600695cfa4c7", null ],
     [ "glslstruct::operator!=", "db/d98/group__glsl__types.html#ga13697cfd319387046173dbaf65e06f09", null ],
     [ "glslstruct::operator==", "db/d98/group__glsl__types.html#gab4316a6cf858e5e168dc72cdf44dc5b5", null ],
-    [ "glslstruct::operator==", "db/d98/group__glsl__types.html#ga452c65fe5d3be030968feb3c41d0c84f", null ],
+    [ "glslstruct::operator==", "db/d98/group__glsl__types.html#ga1291d9e07bd5a1670d24a0174c2ec1b4", null ],
     [ "glslstruct::operator==", "db/d98/group__glsl__types.html#ga10afc1f8e87384f03579b0a7f866e70b", null ],
     [ "glslstruct::operator==", "db/d98/group__glsl__types.html#ga2964c4485f15212f3a8e54bbafe7b0ec", null ],
     [ "glslstruct::operator==", "db/d98/group__glsl__types.html#ga39eeeff4b184b1046a99e1c0df16eb2f", null ],
     [ "glslstruct::operator==", "db/d98/group__glsl__types.html#gab06ccac3436d5f593502338069949312", null ],
     [ "glslstruct::operator==", "db/d98/group__glsl__types.html#gad69c94aa9f0bb894605f3b747cf0868b", null ],
     [ "glslstruct::sizeof_type", "db/d98/group__glsl__types.html#ga0eee8bee83853a69c9b21ad416796f43", null ],
-    [ "glslstruct::sizeof_type", "db/d98/group__glsl__types.html#gabb516046e05bc7243120416a5769a83b", null ],
+    [ "glslstruct::sizeof_type", "db/d98/group__glsl__types.html#ga10863f1a4d14c1eab6fc7df47ad6a6bf", null ],
     [ "glslstruct::to_string", "db/d98/group__glsl__types.html#ga42348a35ae971ee95acb3d03acce2c06", null ],
     [ "glslstruct::to_string", "db/d98/group__glsl__types.html#ga2afd3b88ccec9faa7e044ffec413edc2", null ],
     [ "glslstruct::visit", "db/d98/group__glsl__types.html#gad4bfe8d290dd96d39c25ad83de0060d2", null ],

@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.5</span>
+   <div id="projectname">GLSL Struct<span id="projectnumber">&#160;1.4.6</span>
    </div>
    <div id="projectbrief">glslstruct</div>
   </td>
@@ -142,38 +142,38 @@ $(function(){initNavTree('dd/d89/layouts__checks_8hpp_source.html','../../','');
 <div class="line"><span class="lineno">   47</span><span class="comment">     */</span></div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="../../d2/d5d/group__glslstruct.html#ga8ac4d2ec293265db3594bee4f215a243">   48</a></span>    <span class="keyword">using</span> scalar_layout = base_layout&lt;scalar_layout_traits&gt;;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">namespace</span> utils {</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">region</span> <span class="preprocessor">IS_LAYOUT</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="comment">/**</span></div>
-<div class="line"><span class="lineno">   54</span><span class="comment">         * @brief helper struct to check if type is glsl layout</span></div>
-<div class="line"><span class="lineno">   55</span><span class="comment">         * @ingroup utils</span></div>
-<div class="line"><span class="lineno">   56</span><span class="comment">         * @tparam T type which is glsl layout type</span></div>
-<div class="line"><span class="lineno">   57</span><span class="comment">         */</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="../../db/d32/structglslstruct_1_1utils_1_1is__glsl__layout.html">   59</a></span>        <span class="keyword">struct</span> is_glsl_layout : std::false_type {};</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="../../d9/da9/structglslstruct_1_1utils_1_1is__glsl__layout_3_01base__layout_3_01_t_01_4_01_4.html">   62</a></span>        <span class="keyword">struct</span> is_glsl_layout&lt;base_layout&lt;T&gt; &gt; : std::true_type {};</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="comment">/**</span></div>
-<div class="line"><span class="lineno">   65</span><span class="comment">         * @brief check if type is glsl layout</span></div>
-<div class="line"><span class="lineno">   66</span><span class="comment">         * @ingroup utils</span></div>
-<div class="line"><span class="lineno">   67</span><span class="comment">         * @tparam T type which is glsl layout type</span></div>
-<div class="line"><span class="lineno">   68</span><span class="comment">         */</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="../../db/d81/group__utils.html#gabdd6ee674d2e91d9ec1bbc500da931bd">   70</a></span>        <span class="keyword">static</span> <a class="code hl_define" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> <span class="keywordtype">bool</span> is_glsl_layout_v = is_glsl_layout&lt;T&gt;::value;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="preprocessor">#</span><span class="preprocessor">if</span> <a class="code hl_define" href="../../db/d81/group__utils.html#ga4096a3b64d500cf3a960cc82b077452e">_GLSL_STRUCT_HAS_CXX20</a></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="comment">/**</span></div>
-<div class="line"><span class="lineno">   74</span><span class="comment">         * @brief check if type is glsl layout</span></div>
-<div class="line"><span class="lineno">   75</span><span class="comment">         * @ingroup utils</span></div>
-<div class="line"><span class="lineno">   76</span><span class="comment">         * @tparam T type which is glsl layout type</span></div>
-<div class="line"><span class="lineno">   77</span><span class="comment">         */</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="../../dd/d91/conceptglslstruct_1_1utils_1_1glsl__layout.html">   78</a></span>        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt; concept glsl_layout = is_glsl_layout_v&lt;T&gt;;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">endregion</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">region</span> <span class="preprocessor">IS_LAYOUT</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">   53</span><span class="comment">     * @brief helper struct to check if type is glsl layout</span></div>
+<div class="line"><span class="lineno">   54</span><span class="comment">     * @ingroup glslstruct</span></div>
+<div class="line"><span class="lineno">   55</span><span class="comment">     * @tparam T type which is glsl layout type</span></div>
+<div class="line"><span class="lineno">   56</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="../../df/db0/structglslstruct_1_1is__glsl__layout.html">   58</a></span>    <span class="keyword">struct</span> is_glsl_layout : std::false_type {};</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="../../d5/d36/structglslstruct_1_1is__glsl__layout_3_01base__layout_3_01_t_01_4_01_4.html">   61</a></span>    <span class="keyword">struct</span> is_glsl_layout&lt;base_layout&lt;T&gt; &gt; : std::true_type {};</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">   64</span><span class="comment">     * @brief check if type is glsl layout</span></div>
+<div class="line"><span class="lineno">   65</span><span class="comment">     * @ingroup glslstruct</span></div>
+<div class="line"><span class="lineno">   66</span><span class="comment">     * @tparam T type which is glsl layout type</span></div>
+<div class="line"><span class="lineno">   67</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="../../d2/d5d/group__glslstruct.html#gaaee0710ea200e591e220677e05e51190">   69</a></span>    <span class="keyword">static</span> <a class="code hl_define" href="../../db/d81/group__utils.html#gaf59f43ea5d6f10a9c887c5e90a74dc11">_GLSL_STRUCT_CONSTEXPR17</a> <span class="keywordtype">bool</span> is_glsl_layout_v = is_glsl_layout&lt;T&gt;::value;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="preprocessor">#</span><span class="preprocessor">if</span> <a class="code hl_define" href="../../db/d81/group__utils.html#ga4096a3b64d500cf3a960cc82b077452e">_GLSL_STRUCT_HAS_CXX20</a></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="comment">/**</span></div>
+<div class="line"><span class="lineno">   73</span><span class="comment">     * @brief check if type is glsl layout</span></div>
+<div class="line"><span class="lineno">   74</span><span class="comment">     * @ingroup glslstruct</span></div>
+<div class="line"><span class="lineno">   75</span><span class="comment">     * @tparam T type which is glsl layout type</span></div>
+<div class="line"><span class="lineno">   76</span><span class="comment">     */</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="../../de/deb/conceptglslstruct_1_1glsl__layout.html">   77</a></span>    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt; concept glsl_layout = is_glsl_layout_v&lt;T&gt;;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">endregion</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keyword">namespace</span> utils {</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">region</span> <span class="preprocessor">IS_SIMPLE_OR_LAYOUT</span></div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="comment">/**</span></div>
 <div class="line"><span class="lineno">   84</span><span class="comment">         * @brief check if type is glsl layout or glsl simple</span></div>
