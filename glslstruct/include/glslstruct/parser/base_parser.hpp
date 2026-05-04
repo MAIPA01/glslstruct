@@ -220,9 +220,9 @@ namespace glslstruct {
 		 * @tparam Layout layout type for parser
 		 */
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_layout Layout>
+	template<glsl_layout Layout>
 		#else
-	template<class Layout, std::enable_if_t<utils::is_glsl_layout_v<Layout>, bool> = true>
+	template<class Layout, std::enable_if_t<is_glsl_layout_v<Layout>, bool> = true>
 		#endif
 	class base_parser {
 	private:

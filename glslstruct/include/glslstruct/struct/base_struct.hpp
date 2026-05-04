@@ -27,9 +27,9 @@ namespace glslstruct {
 		 * @tparam Layout struct layout
 		 */
 		#if _GLSL_STRUCT_HAS_CXX20
-	template<utils::glsl_layout Layout>
+	template<glsl_layout Layout>
 		#else
-	template<class Layout, std::enable_if_t<utils::is_glsl_layout_v<Layout>, bool> >
+	template<class Layout, std::enable_if_t<is_glsl_layout_v<Layout>, bool> >
 		#endif
 	class base_struct {
 	public:
@@ -768,9 +768,9 @@ namespace glslstruct {
 		#pragma region ADD_SCALAR
 		/// @brief adds scalar with default value and returns offset
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_scalar S>
+		template<glsl_scalar S>
 		#else
-		template<class S, std::enable_if_t<utils::is_glsl_scalar_v<S> && std::is_default_constructible_v<S>, bool> = true>
+		template<class S, std::enable_if_t<is_glsl_scalar_v<S> && std::is_default_constructible_v<S>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 size_t add(
 		  const std::string_view name
@@ -780,9 +780,9 @@ namespace glslstruct {
 
 		/// @brief adds scalar and returns offset
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_scalar S>
+		template<glsl_scalar S>
 		#else
-		template<class S, std::enable_if_t<utils::is_glsl_scalar_v<S>, bool> = true>
+		template<class S, std::enable_if_t<is_glsl_scalar_v<S>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 size_t add(const std::string_view name, const S& value) {
 			return _add_scalar(name, value);
@@ -793,9 +793,9 @@ namespace glslstruct {
 		#pragma region ADD_SCALARS_ARRAYS
 		/// @brief adds array of scalars with pointer to values and size
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_scalar S>
+		template<glsl_scalar S>
 		#else
-		template<class S, std::enable_if_t<utils::is_glsl_scalar_v<S>, bool> = true>
+		template<class S, std::enable_if_t<is_glsl_scalar_v<S>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 std::vector<size_t> add(const std::string_view name, const S* values, const size_t valuesCount) {
 			return _add_scalar_array(name, values, valuesCount);
@@ -851,9 +851,9 @@ namespace glslstruct {
 		#pragma region ADD_VEC
 		/// @brief adds default vec and returns offset
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_vec V>
+		template<glsl_vec V>
 		#else
-		template<class V, std::enable_if_t<utils::is_glsl_vec_v<V> && std::is_default_constructible_v<V>, bool> = true>
+		template<class V, std::enable_if_t<is_glsl_vec_v<V> && std::is_default_constructible_v<V>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR17 size_t add(
 		  const std::string_view name
@@ -863,9 +863,9 @@ namespace glslstruct {
 
 		/// @brief adds vec and returns offset
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_vec V>
+		template<glsl_vec V>
 		#else
-		template<class V, std::enable_if_t<utils::is_glsl_vec_v<V>, bool> = true>
+		template<class V, std::enable_if_t<is_glsl_vec_v<V>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR17 size_t add(const std::string_view name, const V& value) {
 			return _add_vec(name, value);
@@ -876,9 +876,9 @@ namespace glslstruct {
 		#pragma region ADD_VEC_ARRAYS
 		/// @brief adds array of vecs using pointer to values and size
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_vec V>
+		template<glsl_vec V>
 		#else
-		template<class V, std::enable_if_t<utils::is_glsl_vec_v<V>, bool> = true>
+		template<class V, std::enable_if_t<is_glsl_vec_v<V>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 std::vector<size_t> add(const std::string_view name, const V* values, const size_t valuesCount) {
 			return _add_vec_array(name, values, valuesCount);
@@ -928,9 +928,9 @@ namespace glslstruct {
 		#pragma region ADD_MAT
 		/// @brief adds default mat and returns offset
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_mat M>
+		template<glsl_mat M>
 		#else
-		template<class M, std::enable_if_t<utils::is_glsl_mat_v<M> && std::is_default_constructible_v<M>, bool> = true>
+		template<class M, std::enable_if_t<is_glsl_mat_v<M> && std::is_default_constructible_v<M>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 size_t add(
 		  const std::string_view name
@@ -940,9 +940,9 @@ namespace glslstruct {
 
 		/// @brief adds mat and returns offset
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_mat M>
+		template<glsl_mat M>
 		#else
-		template<class M, std::enable_if_t<utils::is_glsl_mat_v<M>, bool> = true>
+		template<class M, std::enable_if_t<is_glsl_mat_v<M>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 size_t add(const std::string_view name, const M& value) {
 			return _add_mat(name, value);
@@ -953,9 +953,9 @@ namespace glslstruct {
 		#pragma region ADD_MAT_ARRAYS
 		/// @brief adds array of mats with pointer to values and size
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_mat M>
+		template<glsl_mat M>
 		#else
-		template<class M, std::enable_if_t<utils::is_glsl_mat_v<M>, bool> = true>
+		template<class M, std::enable_if_t<is_glsl_mat_v<M>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 std::vector<size_t> add(const std::string_view name, const M* values, const size_t valuesCount) {
 			return _add_mat_array(name, values, valuesCount);
@@ -1058,9 +1058,9 @@ namespace glslstruct {
 		#pragma region SET_SCALAR
 		/// @brief sets default scalar value
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_scalar S>
+		template<glsl_scalar S>
 		#else
-		template<class S, std::enable_if_t<utils::is_glsl_scalar_v<S> && std::is_default_constructible_v<S>, bool> = true>
+		template<class S, std::enable_if_t<is_glsl_scalar_v<S> && std::is_default_constructible_v<S>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 bool set(const std::string_view name) _GLSL_STRUCT_REQUIRES(std::is_default_constructible_v<S>) {
 			return _set_scalar(name, S());
@@ -1068,9 +1068,9 @@ namespace glslstruct {
 
 		/// @brief sets scalar value
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_scalar S>
+		template<glsl_scalar S>
 		#else
-		template<class S, std::enable_if_t<utils::is_glsl_scalar_v<S>, bool> = true>
+		template<class S, std::enable_if_t<is_glsl_scalar_v<S>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 bool set(const std::string_view name, const S& value) {
 			return _set_scalar(name, value);
@@ -1081,9 +1081,9 @@ namespace glslstruct {
 		#pragma region SET_SCALARS_ARRAYS
 		/// @brief sets scalar array value using pointer to values
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_scalar S>
+		template<glsl_scalar S>
 		#else
-		template<class S, std::enable_if_t<utils::is_glsl_scalar_v<S>, bool> = true>
+		template<class S, std::enable_if_t<is_glsl_scalar_v<S>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 bool set(const std::string_view name, const S* values, const size_t valuesCount) {
 			return _set_scalar_array(name, values, valuesCount);
@@ -1133,9 +1133,9 @@ namespace glslstruct {
 		#pragma region SET_VEC
 		/// @brief sets vec default value
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_vec V>
+		template<glsl_vec V>
 		#else
-		template<class V, std::enable_if_t<utils::is_glsl_vec_v<V> && std::is_default_constructible_v<V>, bool> = true>
+		template<class V, std::enable_if_t<is_glsl_vec_v<V> && std::is_default_constructible_v<V>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR17 bool set(const std::string_view name) _GLSL_STRUCT_REQUIRES(std::is_default_constructible_v<V>) {
 			return _set_vec(name, V());
@@ -1143,9 +1143,9 @@ namespace glslstruct {
 
 		/// @brief sets vec value
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_vec V>
+		template<glsl_vec V>
 		#else
-		template<class V, std::enable_if_t<utils::is_glsl_vec_v<V>, bool> = true>
+		template<class V, std::enable_if_t<is_glsl_vec_v<V>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR17 bool set(const std::string_view name, const V& value) {
 			return _set_vec(name, value);
@@ -1156,9 +1156,9 @@ namespace glslstruct {
 		#pragma region SET_VEC_ARRAYS
 		/// @brief sets vec array value using pointer to values
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_vec V>
+		template<glsl_vec V>
 		#else
-		template<class V, std::enable_if_t<utils::is_glsl_vec_v<V>, bool> = true>
+		template<class V, std::enable_if_t<is_glsl_vec_v<V>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 bool set(const std::string_view name, const V* values, const size_t size) {
 			return _set_vec_array(name, values, size);
@@ -1208,9 +1208,9 @@ namespace glslstruct {
 		#pragma region SET_MAT
 		/// @brief sets default mat value
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_mat M>
+		template<glsl_mat M>
 		#else
-		template<class M, std::enable_if_t<utils::is_glsl_mat_v<M> && std::is_default_constructible_v<M>, bool> = true>
+		template<class M, std::enable_if_t<is_glsl_mat_v<M> && std::is_default_constructible_v<M>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 bool set(const std::string_view name) _GLSL_STRUCT_REQUIRES(std::is_default_constructible_v<M>) {
 			return _set_mat(name, M());
@@ -1218,9 +1218,9 @@ namespace glslstruct {
 
 		/// @brief sets mat value
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_mat M>
+		template<glsl_mat M>
 		#else
-		template<class M, std::enable_if_t<utils::is_glsl_mat_v<M>, bool> = true>
+		template<class M, std::enable_if_t<is_glsl_mat_v<M>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 bool set(const std::string_view name, const M& value) {
 			return _set_mat(name, value);
@@ -1231,9 +1231,9 @@ namespace glslstruct {
 		#pragma region SET_MAT_ARRAYS
 		/// @brief sets mat array value using pointer to values
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_mat M>
+		template<glsl_mat M>
 		#else
-		template<class M, std::enable_if_t<utils::is_glsl_mat_v<M>, bool> = true>
+		template<class M, std::enable_if_t<is_glsl_mat_v<M>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 bool set(const std::string_view name, const M* values, const size_t valuesCount) {
 			return _set_mat_array(name, values, valuesCount);
@@ -1335,9 +1335,9 @@ namespace glslstruct {
 		#pragma region GET_SCALARS
 		/// @brief gets scalar value
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_scalar T>
+		template<glsl_scalar T>
 		#else
-		template<class T, std::enable_if_t<utils::is_glsl_scalar_v<T>, bool> = true>
+		template<class T, std::enable_if_t<is_glsl_scalar_v<T>, bool> = true>
 		#endif
 		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 T get(const std::string_view name) const {
 			return _get_scalar<T>(name);
@@ -1348,9 +1348,9 @@ namespace glslstruct {
 		#pragma region GET_SCALARS_ARRAYS
 		/// @brief copies scalars array value to provided pointer
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_scalar T>
+		template<glsl_scalar T>
 		#else
-		template<class T, std::enable_if_t<utils::is_glsl_scalar_v<T>, bool> = true>
+		template<class T, std::enable_if_t<is_glsl_scalar_v<T>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 void get(const std::string_view name, const T* valuesDest, const size_t valuesDestCount) const {
 			const std::vector<T> values = _get_scalar_array<T>(name);
@@ -1374,9 +1374,9 @@ namespace glslstruct {
 		#pragma region GET_VEC
 		/// @brief gets vec value
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_vec V>
+		template<glsl_vec V>
 		#else
-		template<class V, std::enable_if_t<utils::is_glsl_vec_v<V>, bool> = true>
+		template<class V, std::enable_if_t<is_glsl_vec_v<V>, bool> = true>
 		#endif
 		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 V get(const std::string_view name) const {
 			return _get_vec<V>(name);
@@ -1387,9 +1387,9 @@ namespace glslstruct {
 		#pragma region GET_VEC_ARRAYS
 		/// @brief copies vecs array value to provided pointer
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_vec V>
+		template<glsl_vec V>
 		#else
-		template<class V, std::enable_if_t<utils::is_glsl_vec_v<V>, bool> = true>
+		template<class V, std::enable_if_t<is_glsl_vec_v<V>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 void get(const std::string_view name, const V* valuesDest, const size_t valuesDestCount) const {
 			const std::vector<V> values = _get_vec_array<V>(name);
@@ -1413,9 +1413,9 @@ namespace glslstruct {
 		#pragma region GET_MAT
 		/// @brief gets mat value
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_mat M>
+		template<glsl_mat M>
 		#else
-		template<class M, std::enable_if_t<utils::is_glsl_mat_v<M>, bool> = true>
+		template<class M, std::enable_if_t<is_glsl_mat_v<M>, bool> = true>
 		#endif
 		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR20 M get(const std::string_view name) const {
 			return _get_mat<M>(name);
@@ -1426,9 +1426,9 @@ namespace glslstruct {
 		#pragma region GET_MAT_ARRAYS
 		/// @brief copies mats array value to provided pointer
 		#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_mat M>
+		template<glsl_mat M>
 		#else
-		template<class M, std::enable_if_t<utils::is_glsl_mat_v<M>, bool> = true>
+		template<class M, std::enable_if_t<is_glsl_mat_v<M>, bool> = true>
 		#endif
 		_GLSL_STRUCT_CONSTEXPR20 void get(const std::string_view name, const M* valuesDest, const size_t valuesDestCount) const {
 			const std::vector<M> values = _get_mat_array<M>(name);
@@ -1507,11 +1507,11 @@ namespace glslstruct {
 			return _layout.get_type(name);
 		}
 
-				/// @brief returns type of variable casted to desired type (using dynamic_type_cast)
+				/// @brief returns type of variable cast to desired type (using dynamic_type_cast)
 			#if _GLSL_STRUCT_HAS_CXX20
-		template<utils::glsl_type T>
+		template<glsl_type T>
 			#else
-		template<class T, std::enable_if_t<utils::is_glsl_type_v<T>, bool> = true>
+		template<class T, std::enable_if_t<is_glsl_type_v<T>, bool> = true>
 			#endif
 		[[nodiscard]] _GLSL_STRUCT_CONSTEXPR17 std::shared_ptr<T> get_type(const std::string_view name) const {
 			return _layout.template get_type<T>(name);
