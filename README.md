@@ -50,9 +50,9 @@ If you want to use external libraries not installed by project using CPM
 
 | Cmake option Name               | Description                                                         | Default |
 |:--------------------------------|:--------------------------------------------------------------------|:-------:|
-| `GLSL_STRUCT_MSTD_EXTERNAL`     | Uses users own mstd library (tested and compatible with: 1.5.4)     |   OFF   |
+| `GLSL_STRUCT_MSTD_EXTERNAL`     | Uses users own mstd library (tested and compatible with: 1.5.5)     |   OFF   |
 | `GLSL_STRUCT_GLM_EXTERNAL`      | Uses users own glm library (tested and compatible with: 1.0.3)      |   OFF   |
-| `GLSL_STRUCT_PCRE2CPP_EXTERNAL` | Uses users own pcre2cpp library (tested and compatible with: 1.2.8) |   OFF   |
+| `GLSL_STRUCT_PCRE2CPP_EXTERNAL` | Uses users own pcre2cpp library (tested and compatible with: 1.2.9) |   OFF   |
 
 ### Project developing options
 
